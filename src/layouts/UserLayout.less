@@ -1,0 +1,80 @@
+@import '~antd/lib/style/themes/default.less';
+
+.container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.content {
+  width: 100%;
+  max-width: 500px;
+  padding: 15px;
+  margin: auto;
+}
+
+.contentCenter {
+  height: 450px;
+  background: #ffffffb8;
+  border-radius: 10px;
+  -webkit-box-shadow: 1px 5px 13px 0 #c7c7c7;
+  box-shadow: 1px 5px 13px 0 #4a4a4a;
+}
+
+
+.autos {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@media (min-width: @screen-md-min) {
+  .container {
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(185, 184, 184, 0.34) 100%), url('../../public/images/login.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: 0;
+  }
+
+  .content {
+    padding: 50px 40px 24px 40px;
+  }
+}
+
+.top {
+  text-align: center;
+}
+
+.header {
+  height: 44px;
+  line-height: 44px;
+  a {
+    text-decoration: none;
+  }
+}
+
+.logo {
+  height: 44px;
+  vertical-align: top;
+  margin-right: 16px;
+}
+
+.title {
+  font-size: 33px;
+  color: @heading-color;
+  font-family: 'Myriad Pro', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  position: relative;
+  top: 2px;
+}
+
+.desc {
+  font-size: @font-size-base;
+  color: @text-color-secondary;
+  margin-top: 12px;
+  margin-bottom: 40px;
+}

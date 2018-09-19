@@ -167,8 +167,9 @@ export default class Application extends PureComponent {
             record: null,
             visible: true
         });
-
+            console.log("------------")
     };
+
     delete =()=> {
         const {rows,record} = this.state;
         const dataSource = [...this.state.dataSource];

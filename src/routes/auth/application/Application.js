@@ -13,96 +13,6 @@ const confirm = Modal.confirm;
 
 
 
-const data = [
-    {
-    key: '1',
-        applicationName: '地铁运维',
-    code: 'station',
-    createUser: '超级管理员',
-    createDate: '2018-09-04 22:30:01',
-    updateUser: '超级管理员'
-}, {
-    key: '2',
-        applicationName: '管廊运维',
-    code: 'gallery',
-    createUser: '超级管理员',
-    createDate: '2018-09-04 22:30:01',
-    updateUser: '超级管理员'
-},
-    {
-    key: '3',
-    applicationName: '隧道运维',
-    code: 'tunnel',
-    createUser: '超级管理员',
-    createDate: '2018-09-04 22:30:01',
-    updateUser: '超级管理员'
-},
-// {
-//     key: '4',
-//     name: 'Jim Red',
-//     code: 'tunnel1',
-//     createUser: '超级管理员',
-//     createDate: '2018-09-04 22:30:01',
-//     updateUser: '超级管理员'
-// }, {
-//     key: '5',
-//     name: 'Jim Red',
-//     code: 'tunnel2',
-//     createUser: '超级管理员',
-//     createDate: '2018-09-04 22:30:01',
-//     updateUser: '超级管理员'
-// }, {
-//     key: '6',
-//     name: 'Jim Red',
-//     code: 'tunnel3',
-//     createUser: '超级管理员',
-//     createDate: '2018-09-04 22:30:01',
-//     updateUser: '超级管理员'
-// }, {
-//     key: '7',
-//     name: 'Jim Red',
-//     code: 'tunnel4',
-//     createUser: '超级管理员',
-//     createDate: '2018-09-04 22:30:01',
-//     updateUser: '超级管理员'
-// }, {
-//     key: '8',
-//     name: 'Jim Red',
-//     code: 'tunnel5',
-//     createUser: '超级管理员',
-//     createDate: '2018-09-04 22:30:01',
-//     updateUser: '超级管理员'
-// }, {
-//     key: '9',
-//     name: 'Jim Red',
-//     code: 'tunnel6',
-//     createUser: '超级管理员',
-//     createDate: '2018-09-04 22:30:01',
-//     updateUser: '超级管理员'
-// }, {
-//     key: '10',
-//     name: 'Jim Red',
-//     code: 'tunnel7',
-//     createUser: '超级管理员',
-//     createDate: '2018-09-04 22:30:01',
-//     updateUser: '超级管理员'
-// }, {
-//     key: '11',
-//     name: 'Jim Red',
-//     code: 'tunnel8',
-//     createUser: '超级管理员',
-//     createDate: '2018-09-04 22:30:01',
-//     updateUser: '超级管理员'
-// }, {
-//     key: '12',
-//     name: 'Jim Red',
-//     code: 'tunnel9',
-//     createUser: '超级管理员',
-//     createDate: '2018-09-04 22:30:01',
-//     updateUser: '超级管理员'
-// }
-];
-
 const Paging = ({dataItems, onChange, ...otherProps}) => {
     const { total, pageSize, pageNum } = dataItems;
     const paging = {
@@ -121,8 +31,6 @@ const Paging = ({dataItems, onChange, ...otherProps}) => {
 
 export default class Application extends PureComponent {
     state = {
-        filteredInfo: null,
-        sortedInfo: null,
         columns:[],
         dataSource:[],
         record: null,
@@ -135,50 +43,56 @@ export default class Application extends PureComponent {
 
     }
     componentDidMount(){
+        this.initColums();
         this.init();
     }
 
-    init= () =>{
-        let { sortedInfo, filteredInfo } = this.state;
-        sortedInfo = sortedInfo || {};
-        filteredInfo = filteredInfo || {};
-
+    initColums =() =>{
         const columns = [{
             title: '应用名称',
             dataIndex: 'applicationName',
             id: 'name',
-            filters: [
-                { text: 'Joe', value: 'Joe' },
-                { text: 'Jim', value: 'Jim' },
-            ],
-            filteredValue: filteredInfo.name || null,
-            onFilter: (value, record) => record.name.includes(value),
-            sorter: (a, b) => a.name.length - b.name.length,
-            sortOrder: sortedInfo.columnKey === 'name' && sortedInfo.order,
+            align: 'center'
         }, {
             title: '应用标识',
             dataIndex: 'code',
             id: 'code',
-            sorter: (a, b) => a.age - b.age,
-            sortOrder: sortedInfo.columnKey === 'age' && sortedInfo.order,
+            align: 'center'
+        },{
+            title: '描述',
+            dataIndex: 'describe',
+            id: 'describe',
+            align: 'center'
         }, {
             title: '创建人',
             dataIndex: 'sysUserId',
             id: 'createUser',
-
+            align: 'center'
         }, {
             title: '创建时间',
             dataIndex: 'sysDate',
             id: 'createDate',
-            sorter: (a, b) => a.createDate.length - b.createDate.length,
-            sortOrder: sortedInfo.columnKey === 'createDate' && sortedInfo.order,
+            align: 'center',
+            width:200
         }, {
             title: '最后修改人',
             dataIndex: 'lastModifiedUserId',
             id: 'updateUser',
+            align: 'center'
+        }, {
+            title: '最后修改时间',
+            dataIndex: 'lastModifiedDate',
+            id: 'updateDate',
+            align: 'center',
+            width:200
         }];
+
+        this.setState({columns:columns})
+    }
+
+    init= () =>{
         const thiz = this;
-        GET('/application/gl/findAll',function(result){
+        GET('/application/findAll',function(result){
             if(result.success){
 
                 thiz.setState({dataSource:result.result})
@@ -186,7 +100,7 @@ export default class Application extends PureComponent {
         },function(error){
             console.log(error)
         })
-        this.setState({columns:columns})
+
     }
 
 
@@ -258,9 +172,7 @@ export default class Application extends PureComponent {
     delete =()=> {
         const {rows,record} = this.state;
         const dataSource = [...this.state.dataSource];
-        //this.setState({ dataSource: dataSource.filter(item=> item.key !== record['key'])});
-        this.setState({ dataSource: dataSource.filter(item => !rows.some(jtem=>jtem.id == item.id))});
-
+        let thiz = this;
         confirm({
             title: '提示信息',
             content: '确定删除【'+rows.length+'】行数据吗?',
@@ -270,10 +182,12 @@ export default class Application extends PureComponent {
             onOk() {
                 let params = []
                 rows.map(value=>{
-                    console.log("---------",value)
                     params.push(value.id);
                 });
                 DELETE('/application/delete',params,function(result){
+                    if(result.success){
+                        thiz.setState({ dataSource: dataSource.filter(item => !rows.some(jtem=>jtem.id == item.id))});
+                    }
 
                 },function(error){
                     console.log(error)
@@ -284,8 +198,6 @@ export default class Application extends PureComponent {
             },
 
         })
-
-
 
     }
 
@@ -326,7 +238,7 @@ export default class Application extends PureComponent {
 
                             const json = values
                             // thiz.setState({dataSource:[...dataSource,json]})
-
+                            thiz.init();
                         }else{
 
                         }
@@ -340,8 +252,8 @@ export default class Application extends PureComponent {
                         if(data.success){
 
                             const json = values
-                            thiz.setState({dataSource:[...dataSource,json]})
-
+                            //thiz.setState({dataSource:[...dataSource,json]})
+                            thiz.init();
                         }
                     },function(error){
                         console.log(error);
@@ -377,24 +289,24 @@ export default class Application extends PureComponent {
                 // }).catch(function(e) {
                 //     console.log("Oops, error");
                 // });
-               // POST('http://localhost:8888/auth/login');
+                // POST('http://localhost:8888/auth/login');
             }
         }
 
         return(
 
             <Layout className={styles.application}>
-                    <div className={styles.tableOperations}>
-                        <Button icon="plus" type="primary" onClick={this.onAdd}>新增</Button>
-                        <Button icon="edit" disabled={!rows.length} onClick={this.edit}>修改</Button>
-                        <Button icon="delete" disabled={!rows.length} onClick={this.delete}>删除</Button>
-                    </div>
+                <div className={styles.tableOperations}>
+                    <Button icon="plus" type="primary" onClick={this.onAdd}>新增</Button>
+                    <Button icon="edit" disabled={!rows.length} onClick={this.edit}>修改</Button>
+                    <Button icon="delete" disabled={!rows.length} onClick={this.delete}>删除</Button>
+                </div>
                 <Content  >
-                    <Table rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
+                    <Table bordered rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
                            pagination={{
                                showSizeChanger:true,
                                showQuickJumper:true,
-                               total:data.length,
+                               total:dataSource.length,
                                onChange:this.onChange
                            }}
                     />

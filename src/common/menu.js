@@ -53,6 +53,12 @@ const menuData = [
             },{
                 name: '菜单管理',
                 path: 'MenuManage',
+            },{
+                name: '用户管理',
+                path: 'userManage',
+            },{
+                name: '角色管理',
+                path: 'roleManage',
             },
 
         ],

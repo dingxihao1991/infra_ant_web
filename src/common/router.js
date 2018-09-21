@@ -116,12 +116,20 @@ export const getRouterData = app => {
         '/user/register-result': {
             component: dynamicWrapper(app, [], () => import('../routes/User/RegisterResult')),
         },
-    //权限菜单
+        //权限菜单
         '/auth/application': {
             component: dynamicWrapper(app, [], () => import('../routes/auth/application/Application')),
         },
         '/auth/MenuManage': {
             component: dynamicWrapper(app, [], () => import('../routes/auth/menu/MenuManage')),
+        },
+        //用户管理
+        '/auth/userManage': {
+            component: dynamicWrapper(app, [], () => import('../routes/auth/user/UserManage')),
+        },
+        //角色管理
+        '/auth/roleManage': {
+            component: dynamicWrapper(app, [], () => import('../routes/auth/role/RoleManage')),
         },
     };
 

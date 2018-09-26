@@ -7,14 +7,6 @@ const TreeNode = Tree.TreeNode;
 
 
 class TreeCheck extends Component{
-    // state = {
-    //     expandedKeys: ['1','2'],//展开指定的树节点
-    //     autoExpandParent: true,//是否自动展开父节点
-    //     defaultCheckedKeys:['1','2'], //默认选中复选框的树节点
-    //     defaultExpandedKeys:[],//默认展开指定的树节点
-    //     checkedKeys: ['1','2'],
-    //     selectedKeys: ['1','2'],
-    // }
 
     state = {
         expandedKeys: [],

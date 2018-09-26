@@ -29,6 +29,7 @@ const Paging = ({dataItems, onChange, ...otherProps}) => {
     return <Pagination {...paging} />;
 };
 
+
 export default class Application extends PureComponent {
     state = {
         columns:[],
@@ -92,7 +93,7 @@ export default class Application extends PureComponent {
 
     init= () =>{
         const thiz = this;
-        GET('/application/findAll',function(result){
+        GET('/application/findAllTest',function(result){
             if(result.success){
 
                 thiz.setState({dataSource:result.result})
@@ -173,7 +174,9 @@ export default class Application extends PureComponent {
     delete =()=> {
         const {rows,record} = this.state;
         const dataSource = [...this.state.dataSource];
-        let thiz = this;
+
+        const thiz = this;
+
         confirm({
             title: '提示信息',
             content: '确定删除【'+rows.length+'】行数据吗?',
@@ -202,6 +205,44 @@ export default class Application extends PureComponent {
 
     }
 
+    onSubmit= (values) =>{
+        const thiz = this;
+        console.log("--------",values)
+        if(this.state.record!=null){
+
+            values['id']=thiz.state.record.id;
+
+            PUT('/application/update',values,function(data){
+                console.log(data);
+                if(data.success){
+
+                    const json = values
+                    // thiz.setState({dataSource:[...dataSource,json]})
+                    thiz.init();
+                }else{
+
+                }
+            },function(error){
+                console.log(error);
+            })
+        }else {
+
+            POST('/application/add',values,function(data){
+                console.log(data);
+                if(data.success){
+
+                    const json = values
+                    //thiz.setState({dataSource:[...dataSource,json]})
+                    thiz.init();
+                }
+            },function(error){
+                console.log(error);
+            })
+
+        }
+
+    }
+
     render() {
         let { columns, visible,record,rows,dataSource} = this.state;
 
@@ -227,71 +268,7 @@ export default class Application extends PureComponent {
                     visible: false
                 })
             },
-            onSubmit: (values) => {
-                console.log('-------------'+JSON.stringify(values));
-                if(thiz.state.record!=null){
-
-                    values['id']=thiz.state.record.id;
-
-                    PUT('/application/update',values,function(data){
-                        console.log(data);
-                        if(data.success){
-
-                            const json = values
-                            // thiz.setState({dataSource:[...dataSource,json]})
-                            thiz.init();
-                        }else{
-
-                        }
-                    },function(error){
-                        console.log(error);
-                    })
-                }else {
-
-                    POST('/application/add',values,function(data){
-                        console.log(data);
-                        if(data.success){
-
-                            const json = values
-                            //thiz.setState({dataSource:[...dataSource,json]})
-                            thiz.init();
-                        }
-                    },function(error){
-                        console.log(error);
-                    })
-
-                }
-
-
-                // fetch('http://localhost:8888/application/add',{
-                //     method:'POST',
-                //     //mode:'cors',// 避免cors攻击
-                //     //credentials: 'include'
-                //     headers:{
-                //         //'Accept': 'application/json',
-                //         //'Content-Type':'application/x-www-form-urlencoded'
-                //         'Content-Type':'application/json;charset=utf-8'
-                //     },
-                //     //body:'applicationName=123&key=test&describe=测试'//JSON.stringify({args:'213'})
-                //     body:JSON.stringify(values)
-                // }).then(function(response) {
-                //     //打印返回的json数据
-                //     console.log(response);
-                //     response.json().then(function(data){      //将response进行json格式化
-                //         console.log(data);
-                //         if(data.success){
-                //
-                //             const json = values
-                //             thiz.setState({dataSource:[...dataSource,json]})
-                //
-                //         }
-                //
-                //     });
-                // }).catch(function(e) {
-                //     console.log("Oops, error");
-                // });
-                // POST('http://localhost:8888/auth/login');
-            }
+            onSubmit: (values) => this.onSubmit(values)
         }
 
         return(
@@ -303,7 +280,8 @@ export default class Application extends PureComponent {
                     <Button icon="delete" disabled={!rows.length} onClick={this.delete}>删除</Button>
                 </div>
                 <Content  >
-                    <Table bordered rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
+                    <Table rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
+                           size="small"
                            pagination={{
                                showSizeChanger:true,
                                showQuickJumper:true,

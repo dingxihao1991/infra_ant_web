@@ -56,8 +56,9 @@ class ModalForm extends Component {
 
 
     render(){
-        const {title, record, columns, onCancel, onSubmit, modalOpts, loading,Contents} = this.props;
+        const {title, record, className, onCancel, onSubmit, modalOpts, loading,Contents} = this.props;
         const modalProps = {
+            className: className,
             confirmLoading:loading,
             visible:this.state.visible,
             style:{ top: 20 },

@@ -1,26 +1,72 @@
 import React, { Component } from 'react';
 import { Form, Button, Input} from 'antd';
+import { POST,GET,PUT,DELETE } from '../../../services/api';
+
+import {TreeCheck} from 'components/Tree';
 const FormItem = Form.Item;
 const {TextArea } =Input;
 const createForm = Form.create;
 
+
+const treeData = [
+    {
+    title: '0-1-q',
+    key: '1',
+    children: [
+        { title: '0-1-0-0-q', key: '0-1-0-0' },
+        { title: '0-1-0-1-q', key: '0-1-0-1' },
+        { title: '0-1-0-2-q', key: '0-1-0-2' },
+    ]
+
+}, {
+    title: '0-2-q',
+    key: '2'
+
+}];
+
 class FormSub extends Component {
     constructor(props){
         super(props)
+        this.init();
     }
 
     state = {
         checkNick: false,
+        treeData:[]
     };
 
+    componentDidMount(){
+
+    }
+
+    init = () =>{
+        const thiz = this;
+        POST('/menu/findSelectData',4,function(result){
+            if(result.success){
+                thiz.setState({treeData:result.result})
+            }
+        },function(error){
+            console.log(error)
+        })
+    }
+    onCheck = (checkedKeys) =>{
+        console.log("选中的节点："+checkedKeys);
+        this.props.form.setFieldsValue({'menuIds':checkedKeys});
+    }
 
     render(){
         const { getFieldDecorator } = this.props.form;
         const {record} =this.props;
-
+        const {treeData} = this.state;
         const formItemLayout = {
             labelCol: { span: 4 },
             wrapperCol: { span: 17 }
+        }
+
+        const tree ={
+            treeData:treeData,//treeData,//
+            onCheck: this.onCheck,
+            expandedKeys:record?record['menuIds']:null,
         }
         return (
             <Form ref='form'>
@@ -30,6 +76,7 @@ class FormSub extends Component {
                     {getFieldDecorator('applicationName', {
                         initialValue:record?record['applicationName']:null,
                         rules: [{
+                            required: true,
                             message: '请输入应用名称',
                         }],
                     })(
@@ -40,6 +87,7 @@ class FormSub extends Component {
                     {getFieldDecorator('code', {
                         initialValue:record?record['code']:null,
                         rules: [{
+                            required: true,
                             message: '请输入应用标识',
                         }],
                     })(
@@ -56,6 +104,18 @@ class FormSub extends Component {
                         <TextArea placeholder="请输入描述" rows={4} />
                     )}
                 </FormItem>
+                <FormItem {...formItemLayout} label="应用菜单">
+                    {getFieldDecorator('menuIds', {
+                        initialValue:record?record['menuIds']:null,
+
+                    })(
+                        <div style={{"border":'1px solid #D9D9D9','height':'200px',overflow: 'auto'}}>
+                            {treeData && treeData.length ?  <TreeCheck {...tree}/> : null}
+
+                        </div>
+                    )}
+                </FormItem>
+
             </Form>
         )
     }

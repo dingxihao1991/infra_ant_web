@@ -93,7 +93,7 @@ export default class Application extends PureComponent {
 
     init= () =>{
         const thiz = this;
-        GET('/application/findAllTest',function(result){
+        GET('/application/findAll',function(result){
             if(result.success){
 
                 thiz.setState({dataSource:result.result})

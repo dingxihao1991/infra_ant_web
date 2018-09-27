@@ -111,7 +111,6 @@ class FormSub extends Component {
                     })(
                         <div style={{"border":'1px solid #D9D9D9','height':'200px',overflow: 'auto'}}>
                             {treeData && treeData.length ?  <TreeCheck {...tree}/> : null}
-
                         </div>
                     )}
                 </FormItem>

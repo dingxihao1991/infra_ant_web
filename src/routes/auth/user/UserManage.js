@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import styles from './UserManage.less';
-import { Table ,Button ,Layout,Pagination,Form,Input} from 'antd';
+import { Table ,Button ,Layout,Pagination,Form,Input , message} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
 import { POST,GET,PUT,DELETE } from '../../../services/api';
 import FormSub from './Form';
@@ -40,7 +40,6 @@ export default class userManage extends PureComponent {
 
     constructor(props,context) {
         super(props,context)
-
     }
 
     componentDidMount(){
@@ -189,6 +188,10 @@ export default class userManage extends PureComponent {
         this.setState({rows:selectedRows,record:selectedRows[0]});
     }
 
+    setFileId = (fileId) =>{
+        console.log("ffulei"+fileId);
+    }
+
     render() {
         let { columns, visible,record,rows,dataSource} = this.state;
 
@@ -203,7 +206,7 @@ export default class userManage extends PureComponent {
             visible,
             Contents:from,
             modalOpts: {
-                width: 700,
+                width: 800,
             },
             onCancel: () => {
                 this.setState({
@@ -212,15 +215,17 @@ export default class userManage extends PureComponent {
                 })
             },
             onSubmit: (values) => {
-                console.log('-------------'+JSON.stringify(values));
+                console.log(values);
+                console.log('-------------'+JSON.stringify(values) );
                 if(thiz.state.record!=null){
                     values['id'] = thiz.state.record.id;
                     PUT('/users/update',values,function(data){
                         console.log(data);
                         if(data.success){
+                            message.success("更新成功")
                             thiz.init();
                         }else{
-
+                            message.success("更新失败，请联系管理员")
                         }
                     },function(error){
                         console.log(error);
@@ -229,7 +234,10 @@ export default class userManage extends PureComponent {
                     POST('/users/add',values,function(data){
                         console.log(data);
                         if(data.success){
+                            message.success("新增成功")
                             thiz.init();
+                        }else{
+                            message.success("新增失败，请联系管理员")
                         }
                     },function(error){
                         console.log(error);
@@ -251,7 +259,7 @@ export default class userManage extends PureComponent {
                            pagination={{
                                showSizeChanger:true,
                                showQuickJumper:true,
-                               total:dataSource.length,
+                               total:dataSource?dataSource.length:null,
                                onChange:this.onChange
                            }}
                     />

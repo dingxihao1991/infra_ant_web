@@ -20,8 +20,16 @@ function beforeUpload(file) {
 
 class userUpload extends React.Component {
     state = {
+        imageUrl:null,
         loading: false,
     };
+
+    componentDidMount(){
+        const {imageURL} = this.props;
+        this.setState({
+            imageUrl: imageURL
+        })
+    }
 
     handleChange = (info) => {
         if (info.file.status === 'uploading') {
@@ -29,10 +37,16 @@ class userUpload extends React.Component {
             return;
         }
         if (info.file.status === 'done') {
-            getBase64(info.file.originFileObj, imageUrl => this.setState({
-                imageUrl,
-                loading: false,
-            }));
+            if(info.file.response.success ){
+                const {setSubFileId} = this.props;
+                setSubFileId(info.file.response.result); //头像ID 赋值给form
+                getBase64(info.file.originFileObj, imageUrl => this.setState({
+                    imageUrl,
+                    loading: false,
+                }));
+            }else{
+                message.error('头像上传失败，请联系系统管理员');
+            }
         }
     }
 
@@ -44,18 +58,18 @@ class userUpload extends React.Component {
                 <p>请上传头像</p>
             </div>
         );
-        const imageUrl = this.state.imageUrl;
+
         return (
             <Upload
-                name="userUpload"
+                name="userUploadFile"
                 listType="picture-card"
                 className="avatar-uploader"
                 showUploadList={false}
-                action="//jsonplaceholder.typicode.com/posts/"
+                action="http://localhost:8888/users/upload"
                 beforeUpload={beforeUpload}
                 onChange={this.handleChange}
             >
-                {imageUrl ? <img src={imageUrl} alt="userUpload" style={{ height : "20px" , width : "20px"}}/> : uploadButton}
+                {this.state.imageUrl ? <img src={this.state.imageUrl} alt="userUpload" style={{ height : "auto" , width : '132px'}}/> : uploadButton}
             </Upload>
         );
     }

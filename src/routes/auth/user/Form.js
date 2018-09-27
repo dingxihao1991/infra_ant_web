@@ -16,24 +16,34 @@ class FormSub extends Component {
 
     state = {
         checkNick: false,
+        fileId: null,
     };
 
+    setSubFileId = (fileId)=>{
+        this.props.form.setFieldsValue({'fileId':fileId});
+    };
 
     render(){
         const { getFieldDecorator } = this.props.form;
         const {record} =this.props;
-
         const formItemLayout = {
-            labelCol: { span: 4 },
-            wrapperCol: { span: 17 }
+            labelCol: { span: 6 },
+            wrapperCol: { span: 18 },
+            style : {'width':'46%'}
         }
+
+        const data = {
+            setSubFileId: this.setSubFileId,
+            imageURL: record ? record['imgDir'] : null,
+        }
+
         return (
-            <Layout style={{"min-height":"auto"}}>
-                <Content>
-                    <Form ref='form'>
+            <Layout style={{minHeight:"auto","display":"-webkit-box" ,'background': '#fff'}}>
+                <Content style={{"flex":"1" ,'width': '80%'}}>
+                    <Form ref='form' layout="inline">
                         <FormItem
-                            label="帐号："
-                            {...formItemLayout}>
+                            label="帐号"
+                            {...formItemLayout} >
                             {getFieldDecorator('loginName', {
                                 initialValue:record?record['loginName']:null,
                                 rules: [{
@@ -41,7 +51,7 @@ class FormSub extends Component {
                                     message: '请输入帐号',
                                 }],
                             })(
-                                <Input placeholder="请输入帐号" />
+                                <Input placeholder="请输入帐号"/>
                             )}
                         </FormItem>
                         <FormItem {...formItemLayout} label="密码">
@@ -66,15 +76,15 @@ class FormSub extends Component {
                                 <Input placeholder="请输入姓名" />
                             )}
                         </FormItem>
-                        <FormItem {...formItemLayout} label="手机号码">
+                        <FormItem {...formItemLayout} label="手机">
                             {getFieldDecorator('mobilePhone', {
                                 initialValue:record?record['mobilePhone']:null,
                                 rules: [{
                                     required: true,
-                                    message: '请输入手机号码',
+                                    message: '请输入手机号',
                                 }],
                             })(
-                                <Input placeholder="请输入手机号码" />
+                                <Input placeholder="请输入手机号" />
                             )}
                         </FormItem>
                         <FormItem {...formItemLayout} label="邮箱">
@@ -84,11 +94,37 @@ class FormSub extends Component {
                                 <Input placeholder="请输入邮箱" />
                             )}
                         </FormItem>
+
+                        <FormItem {...formItemLayout} label="证件号">
+                            {getFieldDecorator('card', {
+                                initialValue:record?record['card']:null,
+                                rules: [{
+                                    required: true,
+                                    message: '请输入证件号',
+                                }]
+                            })(
+                                <Input placeholder="请输入证件号" />
+                            )}
+                        </FormItem>
+
+                        <FormItem {...formItemLayout} label="QQ">
+                            {getFieldDecorator('qq', {
+                                initialValue:record?record['qq']:null,
+                            })(
+                                <Input placeholder="请输入qq" />
+                            )}
+                        </FormItem>
                     </Form>
                 </Content>
-                <Sider>
-                    <UserUpload/>
-                </Sider>
+                <FormItem {...formItemLayout}>
+                    {getFieldDecorator('fileId', {
+                        initialValue:record?record['fileId']:null,
+                    })(
+                        <div style={{"flex":"1"}}><UserUpload {...data}/></div>
+                    )}
+                </FormItem>
+
+
             </Layout>
 
         )

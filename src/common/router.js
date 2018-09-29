@@ -131,6 +131,10 @@ export const getRouterData = app => {
         '/auth/roleManage': {
             component: dynamicWrapper(app, [], () => import('../routes/auth/role/RoleManage')),
         },
+        //机构管理
+        '/auth/organizationManage': {
+            component: dynamicWrapper(app, [], () => import('../routes/auth/organization/organizationManage')),
+        },
     };
 
     /*  !!!!! Don't  touch  me !!!!! */

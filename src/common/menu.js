@@ -60,6 +60,10 @@ const menuData = [
                 name: '角色管理',
                 path: 'roleManage',
             },
+              {
+                name: '机构管理',
+                path: 'organizationManage',
+            },
 
         ],
     },

@@ -73,11 +73,17 @@ export default class userManage extends PureComponent {
             align: 'center',
             key:'card'
         }, {
-            title: '部门id',
-            dataIndex: 'departmentId',
-            id: 'departmentId',
+            title: '机构名称',
+            dataIndex: 'orgName',
+            id: 'orgName',
             align: 'center',
-            key:'departmentId'
+            key:'orgName'
+        },{
+            title: '角色',
+            dataIndex: 'roleName',
+            id: 'roleName',
+            align: 'center',
+            key:'roleName'
         }, {
             title: '固定电话',
             dataIndex: 'phone',

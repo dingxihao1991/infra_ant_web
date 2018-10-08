@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import styles from './RoleManage.less';
-import { Table ,Button ,Layout,Pagination,Form,Input} from 'antd';
+import { Table ,Button ,Layout,Pagination,Form,Input,message} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
 import { POST,GET,PUT,DELETE } from '../../../services/api';
 import FormSub from './Form';
@@ -135,9 +135,13 @@ export default class roleManage extends PureComponent {
                 });
                 DELETE('/role/delete', params , function(result){
                     if(result.success){
+                        message.success("删除成功");
                         thiz.setState({ dataSource: dataSource.filter(item => !rows.some(jtem=>jtem.id == item.id))});
                     }else{
-                        alert(result.message);
+                        Modal.error({
+                            title: '错误信息',
+                            content: '删除失败',
+                        });
                     }
 
                 },function(error){
@@ -181,15 +185,19 @@ export default class roleManage extends PureComponent {
                 })
             },
             onSubmit: (values) => {
-                console.log('-------------'+JSON.stringify(values));
+
                 if(thiz.state.record!=null){
                     values['id'] = thiz.state.record.id;
                     PUT('/role/update',values,function(data){
                         console.log(data);
                         if(data.success){
+                            message.success('修改成功')
                             thiz.init();
                         }else{
-
+                            Modal.error({
+                                title: '错误信息',
+                                content: '修改失败',
+                            });
                         }
                     },function(error){
                         console.log(error);
@@ -198,7 +206,13 @@ export default class roleManage extends PureComponent {
                     POST('/role/add',values,function(data){
                         console.log(data);
                         if(data.success){
+                            message.success('新增成功');
                             thiz.init();
+                        }else{
+                            Modal.error({
+                                title: '错误信息',
+                                content: '新增失败',
+                            });
                         }
                     },function(error){
                         console.log(error);

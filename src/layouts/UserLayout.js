@@ -50,8 +50,9 @@ class UserLayout extends PureComponent {
                 <div className={styles.container}>
                     <div className={styles.content}>
                         <div className={styles.contentCenter}>
+                            <h2 className={styles.top} style={{padding: '25px'}}>上海轨道交通运维管理平台</h2>
                             <div>
-                                <h2 className={styles.top} style={{padding: '25px'}}>账号登录</h2>
+
                                 <Switch>
                                     {getRoutes(match.path, routerData).map(item => (
                                         <Route

@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import styles from './MenuManage.less';
 import PropTypes from 'prop-types';
-import { Table ,Button ,Layout,Pagination,Form,Input} from 'antd';
+import { Table ,Button ,Layout,Pagination,Form,Input,message} from 'antd';
 import {ModalForm}  from 'components/Modal';
 import FormSub from './Form';
 import cx from 'classnames';
@@ -311,9 +311,12 @@ export default class MenuManage extends PureComponent {
             return;
         }
         this.setState({
-            record: rows[0],
+            //record: rows[0],
             visible: true
         });
+
+
+
     }
 
     //新增事件
@@ -340,12 +343,14 @@ export default class MenuManage extends PureComponent {
             onOk() {
 
                 DELETE('/menu/delete',rows,function(result){
+
                     if(result.success){
+                        message.success("删除成功");
                         thiz.setState({ dataSource: dataSource.filter(item => !rows.some(jtem=>jtem == item.id))});
                     }else{
                         Modal.error({
                             title: '错误信息',
-                            content: result.message,
+                            content: '删除失败',
                         });
                     }
 
@@ -370,10 +375,13 @@ export default class MenuManage extends PureComponent {
             PUT('/menu/update',values,function(data){
                 console.log(data);
                 if(data.success){
-
+                    message.success('修改成功')
                     thiz.init();
                 }else{
-
+                    Modal.error({
+                        title: '错误信息',
+                        content: '修改失败',
+                    });
                 }
             },function(error){
                 console.log(error);
@@ -382,10 +390,15 @@ export default class MenuManage extends PureComponent {
 
             POST('/menu/add',values,function(data){
                 console.log(data);
-                if(data.success){
 
-                    const json = values
+                if(data.success){
+                    message.success('新增成功');
                     thiz.init();
+                }else{
+                    Modal.error({
+                        title: '错误信息',
+                        content: '新增失败',
+                    });
                 }
             },function(error){
                 console.log(error);

@@ -1,10 +1,9 @@
 import React, {PureComponent} from 'react';
 import styles from './Application.less';
-import { Table ,Button ,Layout,Pagination,Form,Input} from 'antd';
+import { Table ,Button ,Layout,Pagination,Form,Input,message} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
 import FormSub from './Form';
 import { POST,GET,PUT,DELETE } from '../../../services/api';
-import fetch from 'dva/fetch';
 
 const FormItem = Form.Item;
 const { Content, Header, Footer } = Layout;
@@ -191,8 +190,13 @@ export default class Application extends PureComponent {
                 DELETE('/application/delete',params,function(result){
                     if(result.success){
                         thiz.setState({ dataSource: dataSource.filter(item => !rows.some(jtem=>jtem.id == item.id))});
+                        message.success('删除成功')
+                    }else{
+                        Modal.error({
+                            title: '错误信息',
+                            content: '删除失败',
+                        });
                     }
-
                 },function(error){
                     console.log(error)
                 })
@@ -216,11 +220,13 @@ export default class Application extends PureComponent {
                 console.log(data);
                 if(data.success){
 
-                    const json = values
-                    // thiz.setState({dataSource:[...dataSource,json]})
+                    message.success('修改成功')
                     thiz.init();
                 }else{
-
+                    Modal.error({
+                        title: '错误信息',
+                        content: '修改失败',
+                    });
                 }
             },function(error){
                 console.log(error);
@@ -230,10 +236,13 @@ export default class Application extends PureComponent {
             POST('/application/add',values,function(data){
                 console.log(data);
                 if(data.success){
-
-                    const json = values
-                    //thiz.setState({dataSource:[...dataSource,json]})
+                    message.success('新增成功')
                     thiz.init();
+                }else{
+                    Modal.error({
+                        title: '错误信息',
+                        content: '新增失败',
+                    });
                 }
             },function(error){
                 console.log(error);

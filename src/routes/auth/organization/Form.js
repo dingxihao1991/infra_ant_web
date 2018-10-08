@@ -50,7 +50,8 @@ class FormSub extends Component {
             console.log(error)
         })
 
-      GET('/organization/findSelectData',function(result){
+      //获取应用标识
+      GET('/application/findApplicationData',function(result){
         if(result.success){
 
           thiz.setState({treeData2:result.result})
@@ -79,8 +80,12 @@ class FormSub extends Component {
 
             <Form ref='form'>
               <FormItem {...formItemLayout} label="系统标识">
-                {getFieldDecorator('title', {
-                  initialValue:record?record['title']:this.state.value,
+                {getFieldDecorator('applicationId', {
+                  initialValue:record?record['applicationId']:this.state.value,
+                  rules: [{
+                    required: true,
+                    message: '请选择系统标识',
+                  }],
                 })(
                   <TreeSelect
                     placeholder="请选择系统标识"

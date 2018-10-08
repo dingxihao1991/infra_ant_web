@@ -16,6 +16,7 @@ const { ConnectedRouter } = routerRedux;
 const { AuthorizedRoute } = Authorized;
 
 function RouterConfig({ history, app }) {
+    console.log("-------")
     const routerData = getRouterData(app);
     const UserLayout = routerData['/user'].component;
     const BasicLayout = routerData['/'].component;

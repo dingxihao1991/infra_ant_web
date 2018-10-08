@@ -3,7 +3,8 @@ import request from '../utils/request';
 
 
 export async function fakeAccountLogin(params,callBack,errorFuc) {
-  return request('/api/login/account', {
+
+  return request('/infraops/login', {
     method: 'POST',
     body: params,
   });
@@ -53,6 +54,9 @@ const ajax = function(url,method,params,callBack,errorFuc){
         //打印返回的json数据
         console.log(response);
         try{
+            console.log(  response.headers.get('token'))
+            // let token = response.getResponseHeader('token');
+            // console.log(  response.headers)
             response.json().then(callBack);
         }catch (e){
             console.log("返回参数格式化出错",e)

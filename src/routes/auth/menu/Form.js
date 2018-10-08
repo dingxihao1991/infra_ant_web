@@ -9,20 +9,6 @@ const {TextArea } =Input;
 const createForm = Form.create;
 const TreeNode = TreeSelect.TreeNode;
 
-const treeData = [{
-    title: 'Node1',
-    value: '0-0',
-    children: [{
-        title: 'Child Node1',
-        value: '0-0-1',
-    }, {
-        title: 'Child Node2',
-        value: '0-0-2',
-    }],
-}, {
-    title: 'Node2',
-    value: '0-1',
-}];
 
 class FormSub extends Component {
 
@@ -39,7 +25,7 @@ class FormSub extends Component {
 
     init= () =>{
         const thiz = this;
-        POST('/menu/findSelectData',1,function(result){
+        POST('/menu/findSelectData',4,function(result){
             if(result.success){
 
                 thiz.setState({treeData:result.result})
@@ -111,12 +97,19 @@ class FormSub extends Component {
                 <FormItem label="菜单图标："{...formItemLayout}>
                     {getFieldDecorator('menuIcon', {
                         initialValue:record?record['menuIcon']:null,
+                    })(
+                        <Input placeholder="请输入菜单" />
+                    )}
+                </FormItem>
+                <FormItem {...formItemLayout} label="权限标识">
+                    {getFieldDecorator('authCode', {
+                        initialValue:record?record['authCode']:null,
                         rules: [{
                             required: true,
-                            message: '请输入菜单图标',
+                            message: '请输入权限标识',
                         }],
                     })(
-                        <Input placeholder="请输入菜单名称" />
+                        <Input placeholder="请输入权限标识" />
                     )}
                 </FormItem>
                 <FormItem {...formItemLayout} label="URL资源">

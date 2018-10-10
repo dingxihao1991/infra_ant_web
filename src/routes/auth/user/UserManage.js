@@ -3,15 +3,82 @@ import styles from './UserManage.less';
 import { Table ,Button ,Layout,Pagination,Form,Input , message} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
 import { POST,GET,PUT,DELETE } from '../../../services/api';
+import Authorized from '../../../utils/Authorized';
 import FormSub from './Form';
 
-import fetch from 'dva/fetch';
-
-const FormItem = Form.Item;
-const { Content, Header, Footer } = Layout;
+const { ButtonAuthorize } = Authorized;
+const { Content} = Layout;
 const Modal = ModalForm.Modal;
 const confirm = Modal.confirm;
 
+const columns = [
+{
+    title: '用户名',
+    dataIndex: 'userName',
+    id: 'userName',
+    align: 'center',
+    key:'userName'
+}, {
+    title: '登录名',
+    dataIndex: 'loginName',
+    id: 'loginName',
+    align: 'center',
+    key:'loginName'
+},{
+    title: '密码',
+    dataIndex: 'password',
+    id: 'password',
+    align: 'center',
+    key:'password'
+},{
+    title: '证件号码',
+    dataIndex: 'card',
+    id: 'card',
+    align: 'center',
+    key:'card'
+}, {
+    title: '机构名称',
+    dataIndex: 'orgName',
+    id: 'orgName',
+    align: 'center',
+    key:'orgName'
+},{
+    title: '角色',
+    dataIndex: 'roleName',
+    id: 'roleName',
+    align: 'center',
+    key:'roleName'
+}, {
+    title: '固定电话',
+    dataIndex: 'phone',
+    id: 'phone',
+    align: 'center',
+    key:'phone'
+}, {
+    title: '手机',
+    dataIndex: 'mobilePhone',
+    id: 'mobilePhone',
+    align: 'center',
+    key:'mobilePhone'
+}, {
+    title: '邮箱',
+    dataIndex: 'email',
+    id: 'email',
+    align: 'center',
+    key:'email'
+}, {
+    title: 'QQ',
+    dataIndex: 'qq',
+    id: 'qq',
+    align: 'center',
+    key:'qq'
+},{
+    title: '创建时间',
+    dataIndex: 'sysDate',
+    id: 'sysDate',
+    align: 'center',
+    key:'sysDate'
+}];
 const Paging = ({dataItems, onChange, ...otherProps}) => {
     const { total, pageSize, pageNum } = dataItems;
     const paging = {
@@ -43,79 +110,8 @@ export default class userManage extends PureComponent {
     }
 
     componentDidMount(){
-        this.initColums();
-        this.init();
-    }
 
-    initColums =() =>{
-        const columns = [{
-            title: '用户名',
-            dataIndex: 'userName',
-            id: 'userName',
-            align: 'center',
-            key:'userName'
-        }, {
-            title: '登录名',
-            dataIndex: 'loginName',
-            id: 'loginName',
-            align: 'center',
-            key:'loginName'
-        },{
-            title: '密码',
-            dataIndex: 'password',
-            id: 'password',
-            align: 'center',
-            key:'password'
-        },{
-            title: '证件号码',
-            dataIndex: 'card',
-            id: 'card',
-            align: 'center',
-            key:'card'
-        }, {
-            title: '机构名称',
-            dataIndex: 'orgName',
-            id: 'orgName',
-            align: 'center',
-            key:'orgName'
-        },{
-            title: '角色',
-            dataIndex: 'roleName',
-            id: 'roleName',
-            align: 'center',
-            key:'roleName'
-        }, {
-            title: '固定电话',
-            dataIndex: 'phone',
-            id: 'phone',
-            align: 'center',
-            key:'phone'
-        }, {
-            title: '手机',
-            dataIndex: 'mobilePhone',
-            id: 'mobilePhone',
-            align: 'center',
-            key:'mobilePhone'
-        }, {
-            title: '邮箱',
-            dataIndex: 'email',
-            id: 'email',
-            align: 'center',
-            key:'email'
-        }, {
-            title: 'QQ',
-            dataIndex: 'qq',
-            id: 'qq',
-            align: 'center',
-            key:'qq'
-        },{
-            title: '创建时间',
-            dataIndex: 'sysDate',
-            id: 'sysDate',
-            align: 'center',
-            key:'sysDate'
-        }];
-        this.setState({columns:columns})
+        this.init();
     }
 
     init= () =>{
@@ -194,12 +190,9 @@ export default class userManage extends PureComponent {
         this.setState({rows:selectedRows,record:selectedRows[0]});
     }
 
-    setFileId = (fileId) =>{
-        console.log("ffulei"+fileId);
-    }
 
     render() {
-        let { columns, visible,record,rows,dataSource} = this.state;
+        let {visible,record,rows,dataSource} = this.state;
 
         const rowSelection = {
             onChange: this.onSelectChange,
@@ -221,7 +214,6 @@ export default class userManage extends PureComponent {
                 })
             },
             onSubmit: (values) => {
-                console.log(values);
                 console.log('-------------'+JSON.stringify(values) );
                 if(thiz.state.record!=null){
                     values['id'] = thiz.state.record.id;
@@ -255,10 +247,10 @@ export default class userManage extends PureComponent {
 
         return(
             <Layout className={styles.application}>
-                <div className={styles.tableOperations}>
-                    <Button icon="plus" type="primary" onClick={this.onAdd}>新增</Button>
-                    <Button icon="edit" disabled={!rows.length} onClick={this.edit}>修改</Button>
-                    <Button icon="delete" disabled={!rows.length} onClick={this.delete}>删除</Button>
+                <div>
+                    <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="user:add"/>
+                    <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="user:update"/>
+                    <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="user:delete"/>
                 </div>
                 <Content  >
                     <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}

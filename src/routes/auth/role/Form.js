@@ -20,7 +20,7 @@ class FormSub extends Component {
 
     init = () =>{
         const thiz = this;
-        POST('/menu/findSelectData',4,function(result){
+        GET('/menu/findSelectData/0',function(result){
             if(result.success){
                 thiz.setState({treeData:result.result})
             }
@@ -45,6 +45,7 @@ class FormSub extends Component {
         }
 
         const tree ={
+            checkStrictly: true,
             treeData:treeData,//treeData,//
             onCheck: this.onCheck,
             expandedKeys:record?record['menuIds']:null,
@@ -70,7 +71,7 @@ class FormSub extends Component {
                         initialValue:record?record['menuIds']:null,
 
                     })(
-                        <div style={{"border":'1px solid #D9D9D9','height':'200px',overflow: 'auto'}}>
+                        <div style={{"border":'1px solid #D9D9D9','height':'250px',overflow: 'auto'}}>
                             {treeData && treeData.length ?  <TreeCheck {...tree}/> : null}
 
                         </div>

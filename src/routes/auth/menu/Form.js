@@ -25,7 +25,7 @@ class FormSub extends Component {
 
     init= () =>{
         const thiz = this;
-        POST('/menu/findSelectData',4,function(result){
+        GET('/menu/findSelectData/4',function(result){
             if(result.success){
 
                 thiz.setState({treeData:result.result})

@@ -69,6 +69,24 @@ const menuData = [
     },
 ];
 
+function formatterT(data, parentAuthority) {
+    return data.map(item => {
+        let { path } = item;
+        if (!isUrl(path)) {
+            path = item.path;
+        }
+        const result = {
+            ...item,
+            path,
+            authority: item.authority || parentAuthority,
+        };
+        if (item.children) {
+            result.children = formatter(item.children, item.authority);
+        }
+        return result;
+    });
+}
+
 function formatter(data, parentPath = '/', parentAuthority) {
     return data.map(item => {
         let { path } = item;
@@ -83,7 +101,6 @@ function formatter(data, parentPath = '/', parentAuthority) {
         if (item.children) {
             result.children = formatter(item.children, `${parentPath}${item.path}/`, item.authority);
         }
-
         return result;
     });
 }

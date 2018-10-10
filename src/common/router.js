@@ -118,22 +118,22 @@ export const getRouterData = app => {
         },
         //权限菜单
         '/auth/application': {
-            component: dynamicWrapper(app, [], () => import('../routes/auth/application/Application')),
+            component: dynamicWrapper(app, ['application'], () => import('../routes/auth/application/Application')),
         },
         '/auth/MenuManage': {
-            component: dynamicWrapper(app, [], () => import('../routes/auth/menu/MenuManage')),
+            component: dynamicWrapper(app, ['menuManage'], () => import('../routes/auth/menu/MenuManage')),
         },
         //用户管理
         '/auth/userManage': {
-            component: dynamicWrapper(app, [], () => import('../routes/auth/user/UserManage')),
+            component: dynamicWrapper(app, ['userManage'], () => import('../routes/auth/user/UserManage')),
         },
         //角色管理
         '/auth/roleManage': {
-            component: dynamicWrapper(app, [], () => import('../routes/auth/role/RoleManage')),
+            component: dynamicWrapper(app, ['roleManage'], () => import('../routes/auth/role/RoleManage')),
         },
         //机构管理
         '/auth/organizationManage': {
-            component: dynamicWrapper(app, [], () => import('../routes/auth/organization/organizationManage')),
+            component: dynamicWrapper(app, ['organizationManage'], () => import('../routes/auth/organization/organizationManage')),
         },
     };
 

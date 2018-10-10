@@ -40,8 +40,14 @@ class TreeCheck extends Component{
 
     onCheck = (checkedKeys) => {
         this.setState({ checkedKeys });
-        const {onCheck } = this.props;
-        onCheck && onCheck(checkedKeys);
+        const {onCheck,checkStrictly } = this.props;
+        let values = null;
+        if(checkStrictly){
+            values = checkedKeys.checked
+        }else{
+            values = checkedKeys;
+        }
+        onCheck && onCheck(values);
     }
 
     renderTreeNodes = (data) => {
@@ -60,12 +66,13 @@ class TreeCheck extends Component{
 
 
     render() {
-        const {treeData} = this.props
+        const {treeData,checkStrictly} = this.props
         return (
             <Tree
                 checkable
                 onExpand={this.onExpand}
                 expandedKeys={this.state.expandedKeys} //展开指定的树节点
+                checkStrictly={checkStrictly}
                 autoExpandParent={this.state.autoExpandParent} //是否自动展开父节点
                 onCheck={this.onCheck}
                 checkedKeys={this.state.checkedKeys}

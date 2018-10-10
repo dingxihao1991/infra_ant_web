@@ -6,140 +6,54 @@ import {ModalForm}  from 'components/Modal';
 import FormSub from './Form';
 import cx from 'classnames';
 import { POST,GET,PUT,DELETE } from '../../../services/api';
+import Authorized from '../../../utils/Authorized';
 
-const FormItem = Form.Item;
-const { Content, Header, Footer } = Layout;
+const { Content} = Layout;
 const Modal = ModalForm.Modal;
 const confirm = Modal.confirm;
+const { ButtonAuthorize } = Authorized;
 
 
-const data = [
-  {
-    key: '1',
-    name: '后台管理',
-    icon:'',
-    type:'菜单',
-    menu_path:'',
-    describe:'',
-    createUser: '超级管理员',
-    createDate: '2018-09-04 22:30:01',
-    updateUser: '超级管理员',
-    children:[{
-      key:'1_1',
-      icon:'',
-      name:'应用管理',
-      type:'URL资源',
-      menu_path:'',
-      describe:'',
-      createUser: '超级管理员',
-      createDate: '2018-09-04 22:30:01',
-      updateUser: '超级管理员',
-      children:[{
-        key:'1_1_1',
-        icon:'',
-        name:'新增',
-        type:'按钮',
-        menu_path:'/application/add',
-        describe:'',
-        createUser: '超级管理员',
-        createDate: '2018-09-04 22:30:01',
-        updateUser: '超级管理员',
-      },{
-        key:'1_1_2',
-        icon:'',
-        name:'修改',
-        type:'按钮',
-        menu_path:'/application/update',
-        describe:'',
-        createUser: '超级管理员',
-        createDate: '2018-09-04 22:30:01',
-        updateUser: '超级管理员',
-      },{
-        key:'1_1_3',
-        icon:'',
-        name:'删除',
-        type:'按钮',
-        menu_path:'/application/delete',
-        describe:'',
-        createUser: '超级管理员',
-        createDate: '2018-09-04 22:30:01',
-        updateUser: '超级管理员',
-      }]
-    },{
-      key:'1_2',
-      icon:'',
-      name:'菜单管理',
-      type:'URL资源',
-      menu_path:'',
-      describe:'',
-      createUser: '超级管理员',
-      createDate: '2018-09-04 22:30:01',
-      updateUser: '超级管理员',
-      children:[{
-        key:'1_2_1',
-        icon:'',
-        name:'新增',
-        type:'按钮',
-        menu_path:'/menu/add',
-        describe:'',
-        createUser: '超级管理员',
-        createDate: '2018-09-04 22:30:01',
-        updateUser: '超级管理员',
-      },{
-        key:'1_2_2',
-        icon:'',
-        name:'修改',
-        type:'按钮',
-        menu_path:'/menu/update',
-        describe:'',
-        createUser: '超级管理员',
-        createDate: '2018-09-04 22:30:01',
-        updateUser: '超级管理员',
-      },{
-        key:'1_2_3',
-        icon:'',
-        name:'删除',
-        type:'按钮',
-        menu_path:'/menu/delete',
-        describe:'',
-        createUser: '超级管理员',
-        createDate: '2018-09-04 22:30:01',
-        updateUser: '超级管理员',
-      }]
-    }]
-  }, {
-    key: '2',
-    name: '资产备品备件管理',
-    icon:'',
-    type:'菜单',
-    menu_path:'',
-    describe:'',
-    createUser: '超级管理员',
-    createDate: '2018-09-04 22:30:01',
-    updateUser: '超级管理员',
-    children:[{
-      key: '2_1',
-      icon: '',
-      name: '设备资产',
-      type: 'URL资源',
-      menu_path: '/asset/asset',
-      describe: '',
-      createUser: '超级管理员',
-      createDate: '2018-09-04 22:30:01',
-      updateUser: '超级管理员',
-    },{
-      key: '2_2',
-      icon: '',
-      name: '备品备件',
-      type: 'URL资源',
-      menu_path: '/asset/',
-      describe: '',
-      createUser: '超级管理员',
-      createDate: '2018-09-04 22:30:01',
-      updateUser: '超级管理员',
-    }]
-  }];
+const columns = [
+    {
+    title: '系统标识',
+    dataIndex: 'systemId',
+    id: 'systemId',
+    width: 200
 
+}, {
+    title: '机构名称',
+    dataIndex: 'orgName',
+    id: 'orgName',
+    width: 100,
+},{
+    title: '机构类型',
+    dataIndex: 'orgType',
+    id: 'orgType',
+    width: 100
+},{
+    title: '描述',
+    dataIndex: 'orgRemark',
+    id: 'orgRemark',
+    width: 150
+},
+    {
+        title: '创建时间',
+        dataIndex: 'sysDate',
+        id: 'createDate',
+        width: 150
+    }, {
+        title: '最后修改人',
+        dataIndex: 'lastModifiedUser',
+        id: 'updateUser',
+        width: 100
+    }, {
+        title: '最后修改时间',
+        dataIndex: 'lastModifiedDate',
+        id: 'updateDate',
+        width: 150
+    }
+];
 
 const Paging = ({dataItems, onChange, ...otherProps}) => {
     const { total, pageSize, pageNum } = dataItems;
@@ -183,52 +97,9 @@ export default class OrganizationManage extends PureComponent {
     }
     componentDidMount(){
         this.init();
-        this.initColums();
+
     }
 
-    initColums = () =>{
-
-        const columns = [{
-            title: '系统标识',
-            dataIndex: 'systemId',
-            id: 'systemId',
-            width: 200
-
-        }, {
-            title: '机构名称',
-            dataIndex: 'orgName',
-            id: 'orgName',
-            width: 100,
-        },{
-            title: '机构类型',
-            dataIndex: 'orgType',
-            id: 'orgType',
-            width: 100
-        },{
-            title: '描述',
-            dataIndex: 'orgRemark',
-            id: 'orgRemark',
-            width: 150
-        },
-        {
-            title: '创建时间',
-            dataIndex: 'sysDate',
-            id: 'createDate',
-            width: 150
-        }, {
-            title: '最后修改人',
-            dataIndex: 'lastModifiedUser',
-            id: 'updateUser',
-                width: 100
-        }, {
-            title: '最后修改时间',
-            dataIndex: 'lastModifiedDate',
-            id: 'updateDate',
-                width: 150
-        }
-        ];
-        this.setState({columns:columns})
-    }
 
     init= () =>{
         const thiz = this;
@@ -323,7 +194,6 @@ export default class OrganizationManage extends PureComponent {
     delete =()=> {
         const {rows,record} = this.state;
 
-
         const dataSource = [...this.state.dataSource];
         let thiz = this;
         confirm({
@@ -396,7 +266,7 @@ export default class OrganizationManage extends PureComponent {
 
 
     render() {
-        let { columns, visible,record,rows,dataSource} = this.state;
+        let { visible,record,rows,dataSource} = this.state;
         const {prefixCls, className,alternateColor} = this.props;
 
         let classname = cx(
@@ -443,9 +313,10 @@ export default class OrganizationManage extends PureComponent {
 
             <Layout className={styles.application} style={{border:"1px red"}}>
                 <div className={styles.tableOperations}>
-                    <Button icon="plus" type="primary" onClick={this.onAdd}>新增</Button>
-                    <Button icon="edit" disabled={!rows.length} onClick={this.edit}>修改</Button>
-                    <Button icon="delete" disabled={!rows.length} onClick={this.delete}>删除</Button>
+                    <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="organization:add"/>
+                    <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="organization:update"/>
+                    <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="organization:delete"/>
+
                 </div>
                 <Content  className={classname}>
 

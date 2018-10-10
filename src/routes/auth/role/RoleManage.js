@@ -3,13 +3,48 @@ import styles from './RoleManage.less';
 import { Table ,Button ,Layout,Pagination,Form,Input,message} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
 import { POST,GET,PUT,DELETE } from '../../../services/api';
+import Authorized from '../../../utils/Authorized';
 import FormSub from './Form';
-import fetch from 'dva/fetch';
 
+
+const { ButtonAuthorize } = Authorized;
 const FormItem = Form.Item;
 const { Content, Header, Footer } = Layout;
 const Modal = ModalForm.Modal;
 const confirm = Modal.confirm;
+
+const columns = [
+    {
+    title: '系统标识',
+    dataIndex: 'systemId',
+    id: 'systemId',
+    align: 'center',
+    key:'systemId'
+}, {
+    title: '角色名称',
+    dataIndex: 'name',
+    id: 'name',
+    align: 'center',
+    key:'name'
+},{
+    title: '创建时间',
+    dataIndex: 'sysDate',
+    id: 'sysDate',
+    align: 'center',
+    key:'sysDate'
+},{
+    title: '创建人',
+    dataIndex: 'sysUserDame',
+    id: 'sysUserDame',
+    align: 'center',
+    key:'sysUserDame'
+},{
+    title: '最后一次修改人',
+    dataIndex: 'lastModifiedUserName',
+    id: 'lastModifiedUserName',
+    align: 'center',
+    key:'lastModifiedUserName'
+}];
 
 const Paging = ({dataItems, onChange, ...otherProps}) => {
     const { total, pageSize, pageNum } = dataItems;
@@ -43,43 +78,7 @@ export default class roleManage extends PureComponent {
     }
 
     componentDidMount(){
-        this.initColums();
         this.init();
-    }
-
-    initColums =() =>{
-        const columns = [{
-            title: '系统标识',
-            dataIndex: 'systemId',
-            id: 'systemId',
-            align: 'center',
-            key:'systemId'
-        }, {
-            title: '角色名称',
-            dataIndex: 'name',
-            id: 'name',
-            align: 'center',
-            key:'name'
-        },{
-            title: '创建时间',
-            dataIndex: 'sysDate',
-            id: 'sysDate',
-            align: 'center',
-            key:'sysDate'
-        },{
-            title: '创建人',
-            dataIndex: 'sysUserDame',
-            id: 'sysUserDame',
-            align: 'center',
-            key:'sysUserDame'
-        },{
-            title: '最后一次修改人',
-            dataIndex: 'lastModifiedUserName',
-            id: 'lastModifiedUserName',
-            align: 'center',
-            key:'lastModifiedUserName'
-        }];
-        this.setState({columns:columns})
     }
 
     init= () =>{
@@ -91,7 +90,6 @@ export default class roleManage extends PureComponent {
         },function(error){
             console.log(error)
         })
-
     }
 
     //编辑
@@ -163,7 +161,7 @@ export default class roleManage extends PureComponent {
     }
 
     render() {
-        let { columns, visible,record,rows,dataSource} = this.state;
+        let { visible,record,rows,dataSource} = this.state;
 
         const rowSelection = {
             onChange: this.onSelectChange,
@@ -224,10 +222,10 @@ export default class roleManage extends PureComponent {
 
         return(
             <Layout className={styles.application}>
-                <div className={styles.tableOperations}>
-                    <Button icon="plus" type="primary" onClick={this.onAdd}>新增</Button>
-                    <Button icon="edit" disabled={!rows.length} onClick={this.edit}>修改</Button>
-                    <Button icon="delete" disabled={!rows.length} onClick={this.delete}>删除</Button>
+                <div>
+                    <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="role:add"/>
+                    <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="role:update"/>
+                    <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="role:delete"/>
                 </div>
                 <Content  >
                     <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}

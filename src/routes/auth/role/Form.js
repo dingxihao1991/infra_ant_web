@@ -45,8 +45,8 @@ class FormSub extends Component {
         }
 
         const tree ={
-            checkStrictly: true,
-            treeData:treeData,//treeData,//
+            checkStrictly:true,
+            treeData:treeData,//treeData,////
             onCheck: this.onCheck,
             expandedKeys:record?record['menuIds']:null,
         }

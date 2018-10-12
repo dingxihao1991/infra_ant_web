@@ -4,8 +4,6 @@ import { Tree } from 'antd';
 const TreeNode = Tree.TreeNode;
 
 
-
-
 class TreeCheck extends Component{
 
     state = {
@@ -24,10 +22,8 @@ class TreeCheck extends Component{
         this.setState({
             expandedKeys,
             checkedKeys: expandedKeys,
-            //defaultCheckedKeys: expandedKeys
         })
     }
-
 
     onExpand = (expandedKeys) => {
         // if not set autoExpandParent to false, if children expanded, parent can not collapse.
@@ -38,20 +34,45 @@ class TreeCheck extends Component{
         });
     }
 
-    onCheck = (checkedKeys) => {
-        this.setState({ checkedKeys });
+    onCheck = (checkedKeys,event) => {
+
         const {onCheck,checkStrictly } = this.props;
         let values = null;
+
         if(checkStrictly){
+            const node = event.node;
+            let array = []
+            let recursive = function(node){
+                array.push(node.key)
+                if(node.props['children']){
+                    for(var i=0;i<node.props['children'].length;i++){
+                        recursive(node.props['children'][i]);
+                    }
+                }
+            }
+            //递归查找树节点
+            recursive(node);
+            //event: true：设置全部选中; false: 取消选中
+            if(event.checked){
+                for(var i=0;i<array.length;i++){
+                    checkedKeys.checked.push(array[i]);
+                }
+            }else{
+                checkedKeys.checked = checkedKeys.checked.filter(item => !array.some(jtem=>jtem == item))
+            }
+
+            this.setState({ checkedKeys});
             values = checkedKeys.checked
+
         }else{
+            this.setState({ checkedKeys });
             values = checkedKeys;
         }
+        console.log(values)
         onCheck && onCheck(values);
     }
 
     renderTreeNodes = (data) => {
-
         return data.map((item) => {
             if (item.children) {
                 return (
@@ -63,7 +84,6 @@ class TreeCheck extends Component{
             return <TreeNode {...item} />;
         });
     }
-
 
     render() {
         const {treeData,checkStrictly} = this.props
@@ -80,8 +100,7 @@ class TreeCheck extends Component{
                 {this.renderTreeNodes(treeData)}
             </Tree>
         )
-}
-
+    }
 
 }
 export default TreeCheck;

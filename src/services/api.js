@@ -1,6 +1,8 @@
 import { stringify } from 'qs';
 import request from '../utils/request';
 import { getToken } from '../utils/authority';
+import {ModalForm}  from 'components/Modal';
+const confirm = ModalForm.Modal.confirm;
 
 export async function fakeAccountLogin(params,callBack,errorFuc) {
 
@@ -50,14 +52,36 @@ const ajax = function(url,method,params,callBack,errorFuc){
 
     }
 
-    fetch('http://localhost:8888'+url,option).then(function(response) {
+    fetch('http://192.168.50.183:8888'+url,option).then(function(response) {
         try{
             response.json().then(function(result){
-                callBack(result,response)
+                if(result.code==-2){
+                    vif()
+                }else{
+                    callBack(result,response)
+                }
+
             });
         }catch (e){
             console.log("返回参数格式化出错",e)
         }
 
     }).catch(errorFuc);
+}
+
+const vif = function(){
+    confirm({
+        title: '提示信息',
+        content: '该帐号已经在其他地方登陆,是否重新登录',
+        okText: '是',
+        okType: 'danger',
+        cancelText: '否',
+        onOk() {
+            window.location.href="http://localhost:8000/#/user/login";
+        },
+        onCancel() {
+
+        },
+
+    })
 }

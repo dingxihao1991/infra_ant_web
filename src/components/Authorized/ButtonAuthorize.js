@@ -12,10 +12,10 @@ class ButtonAuthorize extends Component {
 
     constructor(props){
         super(props);
-        let authentic= JSON.parse(getAuthority());
+        let authentic= getAuthority();
         const {authority} = props;
         this.state={
-            mark: authentic.tokenObjDTO.authCode.some(item=>item==authority)
+            mark: authentic?authentic.tokenObjDTO.authCode.some(item=>item==authority):false
         }
 
     }

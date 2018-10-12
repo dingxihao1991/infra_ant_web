@@ -3,9 +3,8 @@
  * @Date: 2018/8/23
  * @Description: *
  */
-let authCodes;
 export function getAuthority() {
-    return localStorage.getItem('operation-web-authority')// || 'admin';
+    return JSON.parse(localStorage.getItem('operation-web-authority'))// || 'admin';
 }
 
 export function setAuthority(authority) {

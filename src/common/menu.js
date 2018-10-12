@@ -5,7 +5,7 @@
  */
 
 import { isUrl } from '../utils/utils';
-
+import {getAuthority} from '../utils/authority';
 const menuData = [
     {
         name: '资产备品备件管理',
@@ -70,6 +70,7 @@ const menuData = [
 ];
 
 function formatterT(data, parentAuthority) {
+
     return data.map(item => {
         let { path } = item;
         if (!isUrl(path)) {
@@ -88,6 +89,7 @@ function formatterT(data, parentAuthority) {
 }
 
 function formatter(data, parentPath = '/', parentAuthority) {
+
     return data.map(item => {
         let { path } = item;
         if (!isUrl(path)) {
@@ -104,5 +106,5 @@ function formatter(data, parentPath = '/', parentAuthority) {
         return result;
     });
 }
-
 export const getMenuData = () => formatter(menuData);
+//export const getMenuData = () => formatterT(getAuthority().tokenObjDTO.menus);

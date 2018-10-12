@@ -19,6 +19,7 @@ import pathToRegexp from "path-to-regexp";
 import {enquireScreen, unenquireScreen} from "enquire-js";
 import {getRoutes} from '../utils/utils';
 import Authorized from '../utils/Authorized';
+import {getAuthority} from '../utils/authority';
 
 
 const {Content, Header} = Layout;
@@ -87,6 +88,12 @@ const getBreadcrumbNameMap = (menuData, routerData) => {
     return Object.assign({}, routerData, result, childResult);
 };
 
+const getMenuData1 = () =>{
+    let auth = getAuthority();
+    return auth.tokenObjDTO.menus || null;
+
+}
+
 @connect(({user, global = {}, loading}) => ({
     collapsed: global.collapsed
 }))
@@ -100,9 +107,10 @@ export default class BasicLayout extends PureComponent {
 
     getChildContext() {
         const {location, routerData} = this.props;
+
         return {
             location,
-            breadcrumbNameMap: getBreadcrumbNameMap(getMenuData(), routerData),
+            breadcrumbNameMap: getBreadcrumbNameMap(getMenuData1(), routerData),
         };
     }
 
@@ -165,7 +173,7 @@ export default class BasicLayout extends PureComponent {
                 <SiderMenu
                     logo={logo}
                     Authorized={Authorized}
-                    menuData={getMenuData()}
+                    menuData={getMenuData1()}
                     collapsed={collapsed}
                     location={location}
                     onCollapse={this.handleMenuCollapse}

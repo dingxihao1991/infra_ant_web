@@ -4,9 +4,10 @@ import { Table ,Button ,Layout,Pagination,Form,Input,message} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
 import FormSub from './Form';
 import { POST,GET,PUT,DELETE } from '../../../services/api';
+import Authorized from '../../../utils/Authorized';
 
-const FormItem = Form.Item;
-const { Content, Header, Footer } = Layout;
+const { ButtonAuthorize } = Authorized;
+const { Content} = Layout;
 const Modal = ModalForm.Modal;
 const confirm = Modal.confirm;
 
@@ -284,9 +285,9 @@ export default class Application extends PureComponent {
 
             <Layout className={styles.application}>
                 <div className={styles.tableOperations}>
-                    <Button icon="plus" type="primary" onClick={this.onAdd}>新增</Button>
-                    <Button icon="edit" disabled={!rows.length} onClick={this.edit}>修改</Button>
-                    <Button icon="delete" disabled={!rows.length} onClick={this.delete}>删除</Button>
+                    <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="application:add"/>
+                    <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="application:update"/>
+                    <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="application:delete"/>
                 </div>
                 <Content  >
                     <Table rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}

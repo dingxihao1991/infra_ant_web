@@ -135,6 +135,15 @@ export const getRouterData = app => {
         '/auth/organizationManage': {
             component: dynamicWrapper(app, [], () => import('../routes/auth/organization/organizationManage')),
         },
+      //echart测试
+      '/echartsDemo/test': {
+        component: dynamicWrapper(app, [], () => import('../routes/echartsDemo/test')),
+      },
+
+      //echart测试
+      '/echartsDemo/test2': {
+        component: dynamicWrapper(app, [], () => import('../routes/echartsDemo/test2')),
+      },
     };
 
     /*  !!!!! Don't  touch  me !!!!! */

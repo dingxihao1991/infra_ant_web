@@ -16,10 +16,12 @@ const { ConnectedRouter } = routerRedux;
 const { AuthorizedRoute } = Authorized;
 
 function RouterConfig({ history, app }) {
-    console.log("-------")
+
     const routerData = getRouterData(app);
     const UserLayout = routerData['/user'].component;
     const BasicLayout = routerData['/'].component;
+
+    console.log("routerData-------",routerData);
     return (
         <LocaleProvider locale={zhCN}>
             <ConnectedRouter history={history}>
@@ -28,7 +30,7 @@ function RouterConfig({ history, app }) {
                     <AuthorizedRoute
                         path="/"
                         render={props => <BasicLayout {...props} />}
-                        authority={['admin', 'user']}
+                        //authority={['admin', 'user']}
                         redirectPath={getQueryPath('/user/login', {
                             redirect: window.location.href,
                         })}

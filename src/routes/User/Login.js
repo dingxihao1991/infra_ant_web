@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { push } from 'react-router-redux'
-
+import { setAuthority,setToken} from '../../utils/authority';
 
 import {connect} from 'dva';
 import {Link} from 'dva/router';
@@ -28,11 +28,13 @@ export default class LoginPage extends Component {
         const {type} = this.state;
         const {dispatch} = this.props;
         if (!err) {
-            POST('/infraops/login',values,function(result){
-                console.log("------"+result);
-                if(result.success){
+            POST('/infraops/login',values,function(data,response){
+                console.log("------"+data,response);
+                console.log(  response.headers.get('token'))
+                if(data.success){
+                    setAuthority(data.result);
                     dispatch (push("/"));
-
+                    setToken(response.headers.get('token'))
                     //window.location.href="http://localhost:8000";
                 }else{
                     message.error("用户名或密码错误")
@@ -70,7 +72,7 @@ export default class LoginPage extends Component {
                     <Password name="password" placeholder="密码"/>
                     <div>
                         <Checkbox checked={autoLogin} style={{float: 'left'}} onChange={this.changeAutoLogin}>
-                            我记住
+                            记住我
                         </Checkbox>
                         <a style={{float: 'right'}}>
                             忘记密码

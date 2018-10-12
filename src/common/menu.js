@@ -64,10 +64,44 @@ const menuData = [
                 name: '机构管理',
                 path: 'organizationManage',
             },
+        ],
+    },
+
+  {
+    name: '资产设备',
+    icon: 'dashboard',
+    path: 'echartsDemo',
+    children: [
+      {
+        name: '资产设备列表',
+        path: 'test',
+      },
+      {
+        name: '资产设备首页',
+        path: 'test2',
+      },
 
         ],
     },
 ];
+
+function formatterT(data, parentAuthority) {
+    return data.map(item => {
+        let { path } = item;
+        if (!isUrl(path)) {
+            path = item.path;
+        }
+        const result = {
+            ...item,
+            path,
+            authority: item.authority || parentAuthority,
+        };
+        if (item.children) {
+            result.children = formatter(item.children, item.authority);
+        }
+        return result;
+    });
+}
 
 function formatter(data, parentPath = '/', parentAuthority) {
     return data.map(item => {
@@ -83,7 +117,6 @@ function formatter(data, parentPath = '/', parentAuthority) {
         if (item.children) {
             result.children = formatter(item.children, `${parentPath}${item.path}/`, item.authority);
         }
-
         return result;
     });
 }

@@ -1,6 +1,6 @@
 import { stringify } from 'qs';
 import request from '../utils/request';
-
+import { getToken } from '../utils/authority';
 
 export async function fakeAccountLogin(params,callBack,errorFuc) {
 
@@ -35,29 +35,26 @@ export async function DELETE(url,params,callBack,errorFuc) {
  * @param errorFuc 异常回调
  */
 const ajax = function(url,method,params,callBack,errorFuc){
-    let option = null;
-    if(method!='GET'){
-        option = {
+    let option = {
             method:method,
             //mode:'cors',// 避免cors攻击
             //credentials: 'include'
-            headers:{'Content-Type':'application/json;charset=utf-8'},
+            headers:{
+                'Content-Type':'application/json;charset=utf-8',
+                'token':getToken()
+            },
             body:params?JSON.stringify(params):null
-        }
-    }else{
-        option ={
-            method:method,
-        }
+        };
+    if(method!='GET'){
+        option.body = params?JSON.stringify(params):null
+
     }
 
     fetch('http://localhost:8888'+url,option).then(function(response) {
-        //打印返回的json数据
-        console.log(response);
         try{
-            console.log(  response.headers.get('token'))
-            // let token = response.getResponseHeader('token');
-            // console.log(  response.headers)
-            response.json().then(callBack);
+            response.json().then(function(result){
+                callBack(result,response)
+            });
         }catch (e){
             console.log("返回参数格式化出错",e)
         }

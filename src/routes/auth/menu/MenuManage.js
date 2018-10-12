@@ -4,141 +4,60 @@ import PropTypes from 'prop-types';
 import { Table ,Button ,Layout,Pagination,Form,Input,message} from 'antd';
 import {ModalForm}  from 'components/Modal';
 import FormSub from './Form';
+import Authorized from '../../../utils/Authorized';
 import cx from 'classnames';
 import { POST,GET,PUT,DELETE } from '../../../services/api';
 
-const FormItem = Form.Item;
-const { Content, Header, Footer } = Layout;
+const { Content} = Layout;
 const Modal = ModalForm.Modal;
 const confirm = Modal.confirm;
+const { ButtonAuthorize } = Authorized;
 
+const columns = [
+{
+    title: '菜单名称',
+    dataIndex: 'menuName',
+    id: 'menuName',
+    width: 200
 
-const data = [
+}, {
+    title: '权限标识',
+    dataIndex: 'authCode',
+    id: 'authCode',
+    width: 150,
+},{
+    title: '菜单类型',
+    dataIndex: 'menuType',
+    id: 'menuType',
+    width: 100
+},{
+    title: 'URL资源',
+    dataIndex: 'menuPath',
+    id: 'menuPath',
+    width: 150
+},{
+    title: '描述',
+    dataIndex: 'menuRemark',
+    id: 'menuRemark',
+    width: 100
+},
     {
-        key: '1',
-        name: '后台管理',
-        icon:'',
-        type:'菜单',
-        menu_path:'',
-        describe:'',
-        createUser: '超级管理员',
-        createDate: '2018-09-04 22:30:01',
-        updateUser: '超级管理员',
-        children:[{
-            key:'1_1',
-            icon:'',
-            name:'应用管理',
-            type:'URL资源',
-            menu_path:'',
-            describe:'',
-            createUser: '超级管理员',
-            createDate: '2018-09-04 22:30:01',
-            updateUser: '超级管理员',
-            children:[{
-                key:'1_1_1',
-                icon:'',
-                name:'新增',
-                type:'按钮',
-                menu_path:'/application/add',
-                describe:'',
-                createUser: '超级管理员',
-                createDate: '2018-09-04 22:30:01',
-                updateUser: '超级管理员',
-            },{
-                key:'1_1_2',
-                icon:'',
-                name:'修改',
-                type:'按钮',
-                menu_path:'/application/update',
-                describe:'',
-                createUser: '超级管理员',
-                createDate: '2018-09-04 22:30:01',
-                updateUser: '超级管理员',
-            },{
-                key:'1_1_3',
-                icon:'',
-                name:'删除',
-                type:'按钮',
-                menu_path:'/application/delete',
-                describe:'',
-                createUser: '超级管理员',
-                createDate: '2018-09-04 22:30:01',
-                updateUser: '超级管理员',
-            }]
-        },{
-            key:'1_2',
-            icon:'',
-            name:'菜单管理',
-            type:'URL资源',
-            menu_path:'',
-            describe:'',
-            createUser: '超级管理员',
-            createDate: '2018-09-04 22:30:01',
-            updateUser: '超级管理员',
-            children:[{
-                key:'1_2_1',
-                icon:'',
-                name:'新增',
-                type:'按钮',
-                menu_path:'/menu/add',
-                describe:'',
-                createUser: '超级管理员',
-                createDate: '2018-09-04 22:30:01',
-                updateUser: '超级管理员',
-            },{
-                key:'1_2_2',
-                icon:'',
-                name:'修改',
-                type:'按钮',
-                menu_path:'/menu/update',
-                describe:'',
-                createUser: '超级管理员',
-                createDate: '2018-09-04 22:30:01',
-                updateUser: '超级管理员',
-            },{
-                key:'1_2_3',
-                icon:'',
-                name:'删除',
-                type:'按钮',
-                menu_path:'/menu/delete',
-                describe:'',
-                createUser: '超级管理员',
-                createDate: '2018-09-04 22:30:01',
-                updateUser: '超级管理员',
-            }]
-        }]
+        title: '创建时间',
+        dataIndex: 'sysDate',
+        id: 'createDate',
+        width: 150
     }, {
-        key: '2',
-        name: '资产备品备件管理',
-        icon:'',
-        type:'菜单',
-        menu_path:'',
-        describe:'',
-        createUser: '超级管理员',
-        createDate: '2018-09-04 22:30:01',
-        updateUser: '超级管理员',
-        children:[{
-            key: '2_1',
-            icon: '',
-            name: '设备资产',
-            type: 'URL资源',
-            menu_path: '/asset/asset',
-            describe: '',
-            createUser: '超级管理员',
-            createDate: '2018-09-04 22:30:01',
-            updateUser: '超级管理员',
-        },{
-            key: '2_2',
-            icon: '',
-            name: '备品备件',
-            type: 'URL资源',
-            menu_path: '/asset/',
-            describe: '',
-            createUser: '超级管理员',
-            createDate: '2018-09-04 22:30:01',
-            updateUser: '超级管理员',
-        }]
-    }];
+        title: '最后修改人',
+        dataIndex: 'lastModifiedUser',
+        id: 'updateUser',
+        width: 100
+    }, {
+        title: '最后修改时间',
+        dataIndex: 'lastModifiedDate',
+        id: 'updateDate',
+        width: 150
+    }
+];
 
 
 const Paging = ({dataItems, onChange, ...otherProps}) => {
@@ -159,15 +78,6 @@ const Paging = ({dataItems, onChange, ...otherProps}) => {
 
 export default class MenuManage extends PureComponent {
 
-    static propTypes = {
-        rows: PropTypes.array,
-    }
-
-    static defaultProps = {
-        prefixCls: "antui-datatable",
-        alternateColor: true
-    }
-
     state = {
         columns:[],
         record: null,
@@ -179,61 +89,13 @@ export default class MenuManage extends PureComponent {
 
     constructor(props,context) {
         super(props,context)
-
     }
+
     componentDidMount(){
         this.init();
-        this.initColums();
+
     }
 
-    initColums = () =>{
-
-        const columns = [{
-            title: '菜单名称',
-            dataIndex: 'menuName',
-            id: 'menuName',
-            width: 200
-
-        }, {
-            title: '菜单图标',
-            dataIndex: 'menuIcon',
-            id: 'menuIcon',
-            width: 100,
-        },{
-            title: '菜单类型',
-            dataIndex: 'menuType',
-            id: 'menuType',
-            width: 100
-        },{
-            title: 'URL资源',
-            dataIndex: 'menuPath',
-            id: 'menuPath',
-            width: 150
-        },{
-            title: '描述',
-            dataIndex: 'menuRemark',
-            id: 'menuRemark',
-            width: 100
-        },
-        {
-            title: '创建时间',
-            dataIndex: 'sysDate',
-            id: 'createDate',
-            width: 150
-        }, {
-            title: '最后修改人',
-            dataIndex: 'lastModifiedUser',
-            id: 'updateUser',
-                width: 100
-        }, {
-            title: '最后修改时间',
-            dataIndex: 'lastModifiedDate',
-            id: 'updateDate',
-                width: 150
-        }
-        ];
-        this.setState({columns:columns})
-    }
 
     init= () =>{
         const thiz = this;
@@ -315,8 +177,6 @@ export default class MenuManage extends PureComponent {
             visible: true
         });
 
-
-
     }
 
     //新增事件
@@ -329,8 +189,7 @@ export default class MenuManage extends PureComponent {
     };
 
     delete =()=> {
-        const {rows,record} = this.state;
-
+        const {rows} = this.state;
 
         const dataSource = [...this.state.dataSource];
         let thiz = this;
@@ -369,7 +228,6 @@ export default class MenuManage extends PureComponent {
     onSubmit = (values) =>{
         let thiz = this;
         if(thiz.state.record!=null){
-
             values['id']=thiz.state.record.id;
 
             PUT('/menu/update',values,function(data){
@@ -414,7 +272,7 @@ export default class MenuManage extends PureComponent {
 
 
     render() {
-        let { columns, visible,record,rows,dataSource} = this.state;
+        let {visible,record,rows,dataSource} = this.state;
         const {prefixCls, className,alternateColor} = this.props;
 
         let classname = cx(
@@ -461,33 +319,30 @@ export default class MenuManage extends PureComponent {
 
             <Layout className={styles.application} style={{border:"1px red"}}>
                 <div className={styles.tableOperations}>
-                    <Button icon="plus" type="primary" onClick={this.onAdd}>新增</Button>
-                    <Button icon="edit" disabled={!rows.length} onClick={this.edit}>修改</Button>
-                    <Button icon="delete" disabled={!rows.length} onClick={this.delete}>删除</Button>
+                    <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="menu:add"/>
+                    <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="menu:update"/>
+                    <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="menu:delete"/>
                 </div>
                 <Content  className={classname}>
+                    <Table ref="tab" style={{background: '#fff',minHeight: 320,maxHeight:'100%'}}
+                           size="small"
+                           height='80%'
+                           rowKey='id'
+                           scroll={{  y: 450 }}
+                           columns={columns}
+                           dataSource={dataSource}
+                           defaultExpandAllRows={true}
+                           onChange={this.handleChange}
+                           rowSelection={rowSelection}
+                           pagination={dataSource.length<10?false:{
+                               showSizeChanger:true,
+                               showQuickJumper:true,
+                               total:dataSource.length,
+                               onChange:this.onChange
+                           }
+                           }
 
-                    {dataSource && dataSource.length ?
-                        <Table ref="tab" style={{background: '#fff',minHeight: 320,maxHeight:'100%'}}
-                               size="small"
-                               height='80%'
-                               rowKey='id'
-                               scroll={{  y: 450 }}
-                               columns={columns}
-                               dataSource={dataSource}
-                               defaultExpandAllRows={true}
-                               onChange={this.handleChange}
-                               rowSelection={rowSelection}
-                               pagination={dataSource.length<10?false:{
-                                   showSizeChanger:true,
-                                   showQuickJumper:true,
-                                   total:dataSource.length,
-                                   onChange:this.onChange
-                               }
-                               }
-
-                        />
-                        : '暂无数据' }
+                    />
                 </Content>
                 {/*<Footer>*/}
                     {/*<Pagination {...paging}></Pagination>*/}

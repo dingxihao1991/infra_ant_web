@@ -15,13 +15,13 @@ const { ButtonAuthorize } = Authorized;
 
 
 const columns = [
-    {
+   /* {
     title: '系统标识',
     dataIndex: 'systemId',
     id: 'systemId',
     width: 200
 
-}, {
+},*/ {
     title: '机构名称',
     dataIndex: 'orgName',
     id: 'orgName',
@@ -177,7 +177,7 @@ export default class OrganizationManage extends PureComponent {
             return;
         }
         this.setState({
-            record: rows[0],
+            //record: rows[0],
             visible: true
         });
     }
@@ -204,7 +204,7 @@ export default class OrganizationManage extends PureComponent {
             cancelText: '取消',
             onOk() {
 
-                DELETE('/menu/delete',rows,function(result){
+                DELETE('/organization/delete',rows,function(result){
                     if(result.success){
                         thiz.setState({ dataSource: dataSource.filter(item => !rows.some(jtem=>jtem == item.id))});
                     }else{
@@ -230,9 +230,10 @@ export default class OrganizationManage extends PureComponent {
         let thiz = this;
         if(thiz.state.record!=null){
 
-            values['id']=thiz.state.record.id;
+          values['id']=thiz.state.record.id;
 
-            PUT('/menu/update',values,function(data){
+
+            PUT('/organization/update',values,function(data){
                 console.log(data);
                 if(data.success){
 
@@ -245,7 +246,7 @@ export default class OrganizationManage extends PureComponent {
             })
         }else {
 
-            POST('/menu/add',values,function(data){
+            POST('/organization/add',values,function(data){
                 console.log(data);
                 if(data.success){
 

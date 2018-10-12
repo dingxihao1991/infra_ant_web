@@ -64,6 +64,22 @@ const menuData = [
                 name: '机构管理',
                 path: 'organizationManage',
             },
+        ],
+    },
+
+  {
+    name: '资产设备',
+    icon: 'dashboard',
+    path: 'echartsDemo',
+    children: [
+      {
+        name: '资产设备列表',
+        path: 'test',
+      },
+      {
+        name: '资产设备首页',
+        path: 'test2',
+      },
 
         ],
     },

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Button, Input, Select,TreeSelect,InputNumber} from 'antd';
-import { POST,GET,PUT,DELETE } from '../../../services/api';
-import styles from './organizationManage.less';
+//import { POST,GET,PUT,DELETE } from '../../../services/api';
+import styles from './test.less';
 
 const Option = Select.Option;
 const FormItem = Form.Item;
@@ -34,12 +34,12 @@ class FormSub extends Component {
     };
 
 
-    constructor(props){
+    /*constructor(props){
         super(props);
         this.init();
-    }
+    }*/
 
-    init= () =>{
+   /* init= () =>{
         const thiz = this;
         GET('/organization/findSelectData',function(result){
             if(result.success){
@@ -59,14 +59,14 @@ class FormSub extends Component {
       },function(error){
         console.log(error)
       })
-    }
+    }*/
 
 
 
-    onChange = (value) => {
+    /*onChange = (value) => {
         console.log(value);
         this.setState({ value });
-    }
+    }*/
 
     render(){
         const { getFieldDecorator } = this.props.form;

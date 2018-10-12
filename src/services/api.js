@@ -52,7 +52,7 @@ const ajax = function(url,method,params,callBack,errorFuc){
 
     }
 
-    fetch('http://192.168.50.183:8888'+url,option).then(function(response) {
+    fetch('http://localhost:8888'+url,option).then(function(response) {
         try{
             response.json().then(function(result){
                 if(result.code==-2){

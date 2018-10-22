@@ -11,7 +11,45 @@ const { Content} = Layout;
 const Modal = ModalForm.Modal;
 const confirm = Modal.confirm;
 
-
+const columns = [
+{
+    title: '应用名称',
+    dataIndex: 'applicationName',
+    id: 'name',
+    align: 'center'
+}, {
+    title: '应用标识',
+    dataIndex: 'code',
+    id: 'code',
+    align: 'center'
+},{
+    title: '描述',
+    dataIndex: 'describe',
+    id: 'describe',
+    align: 'center'
+}, {
+    title: '创建人',
+    dataIndex: 'sysUserId',
+    id: 'createUser',
+    align: 'center'
+}, {
+    title: '创建时间',
+    dataIndex: 'sysDate',
+    id: 'createDate',
+    align: 'center',
+    width:200
+}, {
+    title: '最后修改人',
+    dataIndex: 'lastModifiedUserId',
+    id: 'updateUser',
+    align: 'center'
+}, {
+    title: '最后修改时间',
+    dataIndex: 'lastModifiedDate',
+    id: 'updateDate',
+    align: 'center',
+    width:200
+}];
 
 const Paging = ({dataItems, onChange, ...otherProps}) => {
     const { total, pageSize, pageNum } = dataItems;
@@ -44,51 +82,7 @@ export default class Application extends PureComponent {
 
     }
     componentDidMount(){
-        this.initColums();
         this.init();
-    }
-
-    initColums =() =>{
-        const columns = [{
-            title: '应用名称',
-            dataIndex: 'applicationName',
-            id: 'name',
-            align: 'center'
-        }, {
-            title: '应用标识',
-            dataIndex: 'code',
-            id: 'code',
-            align: 'center'
-        },{
-            title: '描述',
-            dataIndex: 'describe',
-            id: 'describe',
-            align: 'center'
-        }, {
-            title: '创建人',
-            dataIndex: 'sysUserId',
-            id: 'createUser',
-            align: 'center'
-        }, {
-            title: '创建时间',
-            dataIndex: 'sysDate',
-            id: 'createDate',
-            align: 'center',
-            width:200
-        }, {
-            title: '最后修改人',
-            dataIndex: 'lastModifiedUserId',
-            id: 'updateUser',
-            align: 'center'
-        }, {
-            title: '最后修改时间',
-            dataIndex: 'lastModifiedDate',
-            id: 'updateDate',
-            align: 'center',
-            width:200
-        }];
-
-        this.setState({columns:columns})
     }
 
     init= () =>{
@@ -168,7 +162,7 @@ export default class Application extends PureComponent {
             record: null,
             visible: true
         });
-            console.log("------------")
+
     };
 
     delete =()=> {
@@ -210,6 +204,12 @@ export default class Application extends PureComponent {
 
     }
 
+    closeModal = () =>{
+        this.setState({
+            visible: false
+        });
+    }
+
     onSubmit= (values) =>{
         const thiz = this;
         console.log("--------",values)
@@ -222,6 +222,7 @@ export default class Application extends PureComponent {
                 if(data.success){
 
                     message.success('修改成功')
+                    thiz.closeModal();
                     thiz.init();
                 }else{
                     Modal.error({
@@ -238,6 +239,7 @@ export default class Application extends PureComponent {
                 console.log(data);
                 if(data.success){
                     message.success('新增成功')
+                    thiz.closeModal();
                     thiz.init();
                 }else{
                     Modal.error({
@@ -254,7 +256,7 @@ export default class Application extends PureComponent {
     }
 
     render() {
-        let { columns, visible,record,rows,dataSource} = this.state;
+        let { visible,record,rows,dataSource} = this.state;
 
         const rowSelection = {
             onChange: this.onSelectChange,
@@ -272,12 +274,7 @@ export default class Application extends PureComponent {
             modalOpts: {
                 width: 700,
             },
-            onCancel: () => {
-                this.setState({
-                    record: null,
-                    visible: false
-                })
-            },
+            onCancel: () => this.closeModal(),
             onSubmit: (values) => this.onSubmit(values)
         }
 

@@ -8,22 +8,6 @@ const {TextArea } =Input;
 const createForm = Form.create;
 
 
-const treeData = [
-    {
-    title: '0-1-q',
-    key: '1',
-    children: [
-        { title: '0-1-0-0-q', key: '0-1-0-0' },
-        { title: '0-1-0-1-q', key: '0-1-0-1' },
-        { title: '0-1-0-2-q', key: '0-1-0-2' },
-    ]
-
-}, {
-    title: '0-2-q',
-    key: '2'
-
-}];
-
 class FormSub extends Component {
     constructor(props){
         super(props)

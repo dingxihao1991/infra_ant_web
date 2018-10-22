@@ -190,6 +190,43 @@ export default class userManage extends PureComponent {
         this.setState({rows:selectedRows,record:selectedRows[0]});
     }
 
+    onSubmit= (values) =>{
+        const thiz = this;
+        if(thiz.state.record!=null){
+            values['id'] = thiz.state.record.id;
+            PUT('/users/update',values,function(data){
+                console.log(data);
+                if(data.success){
+                    message.success("更新成功");
+                    thiz.closeModal();
+                    thiz.init();
+                }else{
+                    message.success("更新失败，请联系管理员")
+                }
+            },function(error){
+                console.log(error);
+            })
+        }else {
+            POST('/users/add',values,function(data){
+                console.log(data);
+                if(data.success){
+                    message.success("新增成功");
+                    thiz.closeModal();
+                    thiz.init();
+                }else{
+                    message.success("新增失败，请联系管理员")
+                }
+            },function(error){
+                console.log(error);
+            })
+
+        }
+    }
+    closeModal = () =>{
+        this.setState({
+            visible: false
+        });
+    }
 
     render() {
         let {visible,record,rows,dataSource} = this.state;
@@ -197,7 +234,7 @@ export default class userManage extends PureComponent {
         const rowSelection = {
             onChange: this.onSelectChange,
         };
-        const thiz = this;
+
         const from = FormSub;
         const modalFormProps = {
             loading: true,
@@ -207,42 +244,8 @@ export default class userManage extends PureComponent {
             modalOpts: {
                 width: 800,
             },
-            onCancel: () => {
-                this.setState({
-                    record: null,
-                    visible: false
-                })
-            },
-            onSubmit: (values) => {
-                console.log('-------------'+JSON.stringify(values) );
-                if(thiz.state.record!=null){
-                    values['id'] = thiz.state.record.id;
-                    PUT('/users/update',values,function(data){
-                        console.log(data);
-                        if(data.success){
-                            message.success("更新成功")
-                            thiz.init();
-                        }else{
-                            message.success("更新失败，请联系管理员")
-                        }
-                    },function(error){
-                        console.log(error);
-                    })
-                }else {
-                    POST('/users/add',values,function(data){
-                        console.log(data);
-                        if(data.success){
-                            message.success("新增成功")
-                            thiz.init();
-                        }else{
-                            message.success("新增失败，请联系管理员")
-                        }
-                    },function(error){
-                        console.log(error);
-                    })
-
-                }
-            }
+            onCancel: () => this.closeModal(),
+            onSubmit: (values) => this.onSubmit(values)
         }
 
         return(

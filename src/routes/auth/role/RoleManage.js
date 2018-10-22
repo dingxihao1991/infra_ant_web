@@ -160,13 +160,58 @@ export default class roleManage extends PureComponent {
         this.setState({rows:selectedRows,record:selectedRows[0]});
     }
 
+    closeModal = () =>{
+        this.setState({
+            visible: false
+        });
+    }
+
+    onSubmit= (values ) =>{
+        const thiz = this;
+        if(thiz.state.record!=null){
+            values['id'] = thiz.state.record.id;
+            PUT('/role/update',values,function(data){
+                console.log(data);
+                if(data.success){
+                    message.success('修改成功');
+                    thiz.closeModal();
+                    thiz.init();
+                }else{
+                    Modal.error({
+                        title: '错误信息',
+                        content: '修改失败',
+                    });
+                }
+            },function(error){
+                console.log(error);
+            })
+        }else {
+            POST('/role/add',values,function(data){
+                console.log(data);
+                if(data.success){
+                    message.success('新增成功');
+                    thiz.closeModal();
+                    thiz.init();
+                }else{
+                    Modal.error({
+                        title: '错误信息',
+                        content: '新增失败',
+                    });
+                }
+            },function(error){
+                console.log(error);
+            })
+
+        }
+    }
+
     render() {
         let { visible,record,rows,dataSource} = this.state;
 
         const rowSelection = {
             onChange: this.onSelectChange,
         };
-        const thiz = this;
+
         const from = FormSub;
         const modalFormProps = {
             loading: true,
@@ -176,48 +221,8 @@ export default class roleManage extends PureComponent {
             modalOpts: {
                 width: 700,
             },
-            onCancel: () => {
-                this.setState({
-                    record: null,
-                    visible: false
-                })
-            },
-            onSubmit: (values) => {
-
-                if(thiz.state.record!=null){
-                    values['id'] = thiz.state.record.id;
-                    PUT('/role/update',values,function(data){
-                        console.log(data);
-                        if(data.success){
-                            message.success('修改成功')
-                            thiz.init();
-                        }else{
-                            Modal.error({
-                                title: '错误信息',
-                                content: '修改失败',
-                            });
-                        }
-                    },function(error){
-                        console.log(error);
-                    })
-                }else {
-                    POST('/role/add',values,function(data){
-                        console.log(data);
-                        if(data.success){
-                            message.success('新增成功');
-                            thiz.init();
-                        }else{
-                            Modal.error({
-                                title: '错误信息',
-                                content: '新增失败',
-                            });
-                        }
-                    },function(error){
-                        console.log(error);
-                    })
-
-                }
-            }
+            onCancel: () => this.closeModal(),
+            onSubmit: (values) => this.onSubmit(values)
         }
 
         return(

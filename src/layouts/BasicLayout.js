@@ -90,7 +90,8 @@ const getBreadcrumbNameMap = (menuData, routerData) => {
 
 const getMenuData1 = () =>{
     let auth = getAuthority();
-    return auth.tokenObjDTO.menus || null;
+
+    return auth?auth.tokenObjDTO.menus: null;
 
 }
 

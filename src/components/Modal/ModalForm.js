@@ -16,12 +16,7 @@ class ModalForm extends Component {
         modalOpts: PropTypes.object,
         className: PropTypes.string
     };
-    constructor(props){
-        super(props);
-        this.state={
-            visible: this.props.visible
-        }
-    }
+
 
     closeModal = () =>{
         if (this.props.onCancel) {
@@ -41,7 +36,7 @@ class ModalForm extends Component {
                 console.log(error);
                 return;
             }
-            this.closeModal();
+
             onSubmit && onSubmit(value, record);
 
         });
@@ -56,11 +51,11 @@ class ModalForm extends Component {
 
 
     render(){
-        const {title, record, className, onCancel, onSubmit, modalOpts, loading,Contents} = this.props;
+        const {title, record, className, onCancel, onSubmit, modalOpts, loading,Contents,visible} = this.props;
         const modalProps = {
             className: className,
             confirmLoading:loading,
-            visible:this.state.visible,
+            visible:visible,
             style:{ top: 20 },
             title: title || (record ? '编辑内容' : '新增内容'),
             destroyOnClose:true,

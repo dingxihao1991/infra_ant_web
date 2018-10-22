@@ -226,6 +226,12 @@ export default class OrganizationManage extends PureComponent {
 
     }
 
+  closeModal = () =>{
+    this.setState({
+      visible: false
+    });
+  }
+
     onSubmit = (values) =>{
         let thiz = this;
         if(thiz.state.record!=null){
@@ -236,7 +242,7 @@ export default class OrganizationManage extends PureComponent {
             PUT('/organization/update',values,function(data){
                 console.log(data);
                 if(data.success){
-
+                  thiz.closeModal();
                     thiz.init();
                 }else{
 
@@ -251,6 +257,7 @@ export default class OrganizationManage extends PureComponent {
                 if(data.success){
 
                     const json = values
+                    thiz.closeModal();
                     thiz.init();
                 }
             },function(error){

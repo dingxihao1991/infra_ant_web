@@ -34,9 +34,12 @@ class FormSub extends Component {
 
     init= () =>{
         const thiz = this;
-        //console.log(this.props.record)
-        let departmentId = this.props.record.departmentId;
-        GET( '/organization/roleAndOrgs/'+departmentId, function(result){ //6 代表登陆人的虚拟机构ID
+    /*    console.log(this.props.record)
+        let departmentId = null;
+        if(this.props.record != null){
+            departmentId = this.props.record.departmentId;
+        }*/
+        GET( '/organization/roleAndOrgs', function(result){ //6 代表登陆人的虚拟机构ID
             if(result.success){
                 thiz.setState({treeData:result.result.jsonArray});
                 children = [];
@@ -53,14 +56,14 @@ class FormSub extends Component {
     onChange = (value) => {
         console.log(value);
         this.setState({ value });
-        children = [];
-        GET('/role/'+value , function(result){
-            for (let i = 0 ; i < result.result.length ; i++) {
-                children.push(<Option value={result.result[i].id}>{result.result[i].name}</Option>);
-            }
-        },function(error){
-            console.log(error)
-        })
+        /*children = [];
+      GET('/role/'+value , function(result){
+           for (let i = 0 ; i < result.result.length ; i++) {
+               children.push(<Option value={result.result[i].id}>{result.result[i].name}</Option>);
+           }
+       },function(error){
+           console.log(error)
+       })*/
     }
 
     onSelChange = (roleId) => {

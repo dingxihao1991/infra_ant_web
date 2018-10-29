@@ -71,7 +71,7 @@ class userUpload extends React.Component {
                 onChange={this.handleChange}
                 headers={{"token":getToken()}}
             >
-                {this.state.imageUrl ? <img src={this.state.imageUrl} alt="userUpload" style={{ height : "auto" , width : '132px'}}/> : uploadButton}
+                {this.state.imageUrl ? <img src={'http://139.196.197.94:90/static'+this.state.imageUrl} alt="userUpload" style={{ height : "auto" , width : '132px'}}/> : uploadButton}
             </Upload>
         );
     }

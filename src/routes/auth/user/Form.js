@@ -83,7 +83,6 @@ class FormSub extends Component {
             setSubFileId: this.setSubFileId,
             imageURL: record ? record['imgDir'] : null,
         }
-
         return (
             <Layout style={{minHeight:"auto","display":"-webkit-box" ,'background': '#fff'}}>
                 <Content style={{"flex":"1" ,'width': '80%'}}>
@@ -176,7 +175,7 @@ class FormSub extends Component {
 
                         <FormItem {...formItemLayout} label="角色">
                             {getFieldDecorator('roleId', {
-                                initialValue:record?record['roleName']:this.state.roleId,
+                                initialValue:record?record['roleId']:this.state.value,
                                 rules: [{
                                     required: true,
                                     message: '请选择角色',

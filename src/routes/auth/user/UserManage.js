@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import styles from './UserManage.less';
-import { Table ,Button ,Layout,Pagination,Form,Input , message} from 'antd';
+import { Table ,Button ,Layout,Pagination,Form,Input , message , Menu , Dropdown} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
 import { POST,GET,PUT,DELETE } from '../../../services/api';
 import Authorized from '../../../utils/Authorized';
@@ -129,7 +129,7 @@ export default class userManage extends PureComponent {
     //编辑
     edit =()=>{
         const {rows} = this.state
-        if(rows.length>1){
+        if(rows.length > 1 || rows.length == 0){
             Modal.warning({
                 title: '警告信息',
                 content: '请选中一行数据',
@@ -154,6 +154,13 @@ export default class userManage extends PureComponent {
         const {rows,record} = this.state;
         const dataSource = [...this.state.dataSource];
         let thiz = this;
+        if(rows.length > 1 || rows.length == 0){
+            Modal.warning({
+                title: '警告信息',
+                content: '请选中一行数据',
+            });
+            return;
+        }
         confirm({
             title: '提示信息',
             content: '确定删除【'+rows.length+'】行数据吗?',
@@ -228,6 +235,48 @@ export default class userManage extends PureComponent {
         });
     }
 
+    // 重置密码
+    resetPassword = ()=> {
+        const thiz = this;
+        const {rows} = this.state
+        if(rows.length > 1 || rows.length == 0){
+            Modal.warning({
+                title: '警告信息',
+                content: '请选中一行数据',
+            });
+            return;
+        }
+        confirm({
+            title: '提示信息',
+            content: '确定重置密码吗?',
+            okText: '确定',
+            okType: 'danger',
+            cancelText: '取消',
+            onOk() {
+                let params = []
+                rows.map(value=>{
+                    params.push(value.id);
+                });
+                PUT('/users/resetPassword', params , function(result){
+                    console.log(result);
+                    if(result.success){
+                        message.success("更新成功");
+                        thiz.closeModal();
+                        thiz.init();
+                    }else{
+                        message.success("更新失败，请联系管理员")
+                    }
+                },function(error){
+                    console.log(error)
+                })
+            },
+            onCancel() {
+
+            },
+
+        })
+    }
+
     render() {
         let {visible,record,rows,dataSource} = this.state;
 
@@ -248,12 +297,28 @@ export default class userManage extends PureComponent {
             onSubmit: (values) => this.onSubmit(values)
         }
 
+        const menu = (
+            <Menu>
+                <Menu.Item >
+                    <a target="_blank" rel="noopener noreferrer" href="javascript:void(0)" onClick={this.edit}>修改</a>
+                </Menu.Item>
+                <Menu.Item>
+                    <a target="_blank" rel="noopener noreferrer" href="javascript:void(0)" onClick={this.resetPassword}>重置密码</a>
+                </Menu.Item>
+                <Menu.Item>
+                    <a target="_blank" rel="noopener noreferrer" href="javascript:void(0)" onClick={this.delete}>删除</a>
+                </Menu.Item>
+            </Menu>
+        );
+
         return(
             <Layout className={styles.application}>
                 <div>
                     <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="user:add"/>
-                    <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="user:update"/>
-                    <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="user:delete"/>
+                    <Dropdown overlay={menu} placement="bottomLeft" trigger='click'>
+                        <Button icon="edit">编辑</Button>
+                    </Dropdown>
+                    {/*<ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="user:delete"/>*/}
                 </div>
                 <Content  >
                     <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}

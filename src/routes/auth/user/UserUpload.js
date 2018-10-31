@@ -1,4 +1,5 @@
 import { Upload, Icon, message } from 'antd';
+import {getToken} from '../../../utils/authority';
 
 function getBase64(img, callback) {
     const reader = new FileReader();
@@ -68,8 +69,9 @@ class userUpload extends React.Component {
                 action="http://localhost:8888/users/upload"
                 beforeUpload={beforeUpload}
                 onChange={this.handleChange}
+                headers={{"token":getToken()}}
             >
-                {this.state.imageUrl ? <img src={this.state.imageUrl} alt="userUpload" style={{ height : "auto" , width : '132px'}}/> : uploadButton}
+                {this.state.imageUrl ? <img src={'http://139.196.197.94:90/static'+this.state.imageUrl} alt="userUpload" style={{ height : "auto" , width : '132px'}}/> : uploadButton}
             </Upload>
         );
     }

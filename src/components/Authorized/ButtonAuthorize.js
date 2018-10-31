@@ -5,17 +5,22 @@
  */
 import React ,{Component}from 'react';
 import { Table ,Button} from 'antd';
-
-import {getAuthority} from '../../utils/authority'
+import PropTypes from 'prop-types';
 
 class ButtonAuthorize extends Component {
 
-    constructor(props){
+    static contextTypes = {
+        location: PropTypes.object,
+        breadcrumbNameMap: PropTypes.object,
+        userInfo:PropTypes.object
+    };
+
+    constructor(props,context){
         super(props);
-        let authentic= getAuthority();
+        let authentic= context.userInfo;
         const {authority} = props;
         this.state={
-            mark: authentic?authentic.tokenObjDTO.authCode.some(item=>item==authority):false
+            mark: authentic?authentic.authCode.some(item=>item==authority):false
         }
 
     }

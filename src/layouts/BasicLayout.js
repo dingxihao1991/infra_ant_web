@@ -90,7 +90,7 @@ const getBreadcrumbNameMap = (menuData, routerData) => {
 const getMenuData1 = () =>{
     let auth = getAuthority();
 
-    return auth?auth.tokenObjDTO.menus: null;
+    return auth?auth.menus: null;
 
 }
 
@@ -101,7 +101,8 @@ const getMenuData1 = () =>{
 export default class BasicLayout extends PureComponent {
     static childContextTypes = {
         location: PropTypes.object,
-        breadcrumbNameMap: PropTypes.object
+        breadcrumbNameMap: PropTypes.object,
+        userInfo:PropTypes.object
     };
 
 
@@ -111,6 +112,7 @@ export default class BasicLayout extends PureComponent {
         return {
             location,
             breadcrumbNameMap: getBreadcrumbNameMap(getMenuData1(), routerData),
+            userInfo: getAuthority()
         };
     }
 

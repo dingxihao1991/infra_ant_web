@@ -29,7 +29,7 @@ const columns = [
     align: 'center'
 }, {
     title: '创建人',
-    dataIndex: 'sysUserId',
+    dataIndex: 'sysUserName',
     id: 'createUser',
     align: 'center'
 }, {
@@ -40,7 +40,7 @@ const columns = [
     width:200
 }, {
     title: '最后修改人',
-    dataIndex: 'lastModifiedUserId',
+    dataIndex: 'lastModifiedUserName',
     id: 'updateUser',
     align: 'center'
 }, {

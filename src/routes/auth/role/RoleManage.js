@@ -39,12 +39,17 @@ const columns = [
     align: 'center',
     key:'sysUserDame'
 },{
-    title: '最后一次修改人',
+    title: '最后修改人',
     dataIndex: 'lastModifiedUserName',
     id: 'lastModifiedUserName',
     align: 'center',
     key:'lastModifiedUserName'
-}];
+}, {
+        title: '最后修改时间',
+        dataIndex: 'lastModifiedDate',
+        id: 'updateDate',
+        align: 'center',
+    }];
 
 const Paging = ({dataItems, onChange, ...otherProps}) => {
     const { total, pageSize, pageNum } = dataItems;

@@ -36,23 +36,27 @@ const columns = [
     dataIndex: 'orgRemark',
     id: 'orgRemark',
     width: 150
-},
-    {
+}, {
+        title: '创建人',
+        dataIndex: 'sysUserName',
+        id: 'createUser',
+        align: 'center'
+},{
         title: '创建时间',
         dataIndex: 'sysDate',
         id: 'createDate',
         width: 150
-    }, {
-        title: '最后修改人',
-        dataIndex: 'lastModifiedUser',
-        id: 'updateUser',
-        width: 100
-    }, {
-        title: '最后修改时间',
-        dataIndex: 'lastModifiedDate',
-        id: 'updateDate',
-        width: 150
-    }
+}, {
+    title: '最后修改人',
+    dataIndex: 'lastModifiedUserName',
+    id: 'updateUser',
+    width: 100
+}, {
+    title: '最后修改时间',
+    dataIndex: 'lastModifiedDate',
+    id: 'updateDate',
+    width: 150
+}
 ];
 
 const Paging = ({dataItems, onChange, ...otherProps}) => {

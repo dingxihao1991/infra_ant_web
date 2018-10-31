@@ -86,7 +86,6 @@ const menuData = [
 ];
 
 function formatterT(data, parentAuthority) {
-
     return data.map(item => {
         let { path } = item;
         if (!isUrl(path)) {

@@ -16,6 +16,7 @@ import FormSub from './Form';
 import { PUT } from '../../services/api';
 import groupBy from 'lodash/groupBy';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 
 const Modal = ModalForm.Modal;
 
@@ -91,9 +92,19 @@ const data = [
 }];
 export default class GlobalHeader extends PureComponent {
 
+    static contextTypes = {
+        location: PropTypes.object,
+        breadcrumbNameMap: PropTypes.object,
+        userInfo:PropTypes.object
+    };
+
     state = {
         visible: false,
         messageArray:[]
+    }
+
+    constructor(props) {
+        super(props);
     }
 
     componentWillReceiveProps = (nextProps) => {
@@ -221,8 +232,6 @@ export default class GlobalHeader extends PureComponent {
                     title: '提示信息',
                     content: '旧密码验证失败',
                 });
-
-
             }
         })
     }
@@ -242,8 +251,9 @@ export default class GlobalHeader extends PureComponent {
     }
 
     render() {
+
         const {
-            currentUser = {name:'admin',avatar:'http://localhost:8888/image/psb.jpg'},
+            currentUser = {name:this.context.userInfo.userName,avatar:this.context.userInfo.imgUrl},
             collapsed,
             fetchingNotices,
             isMobile,

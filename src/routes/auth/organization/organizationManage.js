@@ -25,17 +25,17 @@ const columns = [
     title: '机构名称',
     dataIndex: 'orgName',
     id: 'orgName',
-    width: 100,
+    width: 150,
 },{
     title: '机构类型',
     dataIndex: 'orgType',
     id: 'orgType',
-    width: 100
+    width: 150
 },{
     title: '描述',
     dataIndex: 'orgRemark',
     id: 'orgRemark',
-    width: 150
+    width: 100
 }, {
         title: '创建人',
         dataIndex: 'sysUserName',

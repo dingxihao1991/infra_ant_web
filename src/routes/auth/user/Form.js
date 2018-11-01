@@ -9,7 +9,7 @@ const Option = Select.Option;
 const FormItem = Form.Item;
 const {TextArea } =Input;
 const createForm = Form.create;
-var children = null;
+
 
 class FormSub extends Component {
     constructor(props){
@@ -23,7 +23,8 @@ class FormSub extends Component {
         value: undefined,
         treeData:[],
         selectData:null,
-        roleId:undefined
+        roleId:undefined,
+        children:null
     };
 
     setSubFileId = (fileId)=>{
@@ -42,12 +43,15 @@ class FormSub extends Component {
         GET( '/organization/roleAndOrgs', function(result){ //6 代表登陆人的虚拟机构ID
             if(result.success){
                 thiz.setState({treeData:result.result.jsonArray});
-                children = [];
+                var children = [];
                 thiz.setState({selectData:result.result.list});
+
+                for (let i = 0 ; i < thiz.state.selectData.length ; i++) {
+                    children.push(<Option key={thiz.state.selectData[i].id}>{thiz.state.selectData[i].name}</Option>);
+                }
+                thiz.setState({children:children});
             }
-            for (let i = 0 ; i < thiz.state.selectData.length ; i++) {
-                children.push(<Option value={thiz.state.selectData[i].id}>{thiz.state.selectData[i].name}</Option>);
-            }
+
         },function(error){
             console.log(error)
         })
@@ -56,14 +60,7 @@ class FormSub extends Component {
     onChange = (value) => {
         console.log(value);
         this.setState({ value });
-        /*children = [];
-      GET('/role/'+value , function(result){
-           for (let i = 0 ; i < result.result.length ; i++) {
-               children.push(<Option value={result.result[i].id}>{result.result[i].name}</Option>);
-           }
-       },function(error){
-           console.log(error)
-       })*/
+
     }
 
     onSelChange = (roleId) => {
@@ -73,6 +70,7 @@ class FormSub extends Component {
 
     render(){
         const { getFieldDecorator } = this.props.form;
+        const { children } = this.state;
         const {record} =this.props;
         const formItemLayout = {
             labelCol: { span: 6 },

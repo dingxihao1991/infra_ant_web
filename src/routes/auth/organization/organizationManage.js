@@ -25,34 +25,39 @@ const columns = [
     title: '机构名称',
     dataIndex: 'orgName',
     id: 'orgName',
-    width: 100,
+    width: 200,
 },{
     title: '机构类型',
     dataIndex: 'orgType',
     id: 'orgType',
-    width: 100
+    width: 150
 },{
     title: '描述',
     dataIndex: 'orgRemark',
     id: 'orgRemark',
     width: 150
-},
-    {
+}, {
+        title: '创建人',
+        dataIndex: 'sysUserName',
+        id: 'createUser',
+        align: 'center',
+        width: 100
+},{
         title: '创建时间',
         dataIndex: 'sysDate',
         id: 'createDate',
         width: 150
-    }, {
-        title: '最后修改人',
-        dataIndex: 'lastModifiedUser',
-        id: 'updateUser',
-        width: 100
-    }, {
-        title: '最后修改时间',
-        dataIndex: 'lastModifiedDate',
-        id: 'updateDate',
-        width: 150
-    }
+}, {
+    title: '最后修改人',
+    dataIndex: 'lastModifiedUserName',
+    id: 'updateUser',
+    width: 100
+}, {
+    title: '最后修改时间',
+    dataIndex: 'lastModifiedDate',
+    id: 'updateDate',
+    width: 150
+}
 ];
 
 const Paging = ({dataItems, onChange, ...otherProps}) => {

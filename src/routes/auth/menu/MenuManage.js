@@ -48,7 +48,7 @@ const columns = [
         width: 150
     }, {
         title: '最后修改人',
-        dataIndex: 'lastModifiedUser',
+        dataIndex: 'lastModifiedUserName',
         id: 'updateUser',
         width: 100
     }, {

@@ -22,17 +22,13 @@ export default class LoginPage extends Component {
 
 
     handleSubmit = (err, values) => {
-        console.log("----",values)
 
-        //window.location.href="http://localhost:8000";
         const {type} = this.state;
         const {dispatch} = this.props;
         if (!err) {
             POST('/infraops/login',values,function(data,response){
-                console.log("------"+data,response);
-                console.log(  response.headers.get('token'))
                 if(data.success){
-                    setAuthority(data.result);
+                    setAuthority(data.result.tokenObjDTO);
                     dispatch (push("/"));
                     setToken(response.headers.get('token'))
                     //window.location.href="http://localhost:8000";

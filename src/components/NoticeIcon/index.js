@@ -2,13 +2,15 @@ import React, { PureComponent } from 'react';
 import { Popover, Icon, Tabs, Badge, Spin } from 'antd';
 import classNames from 'classnames';
 import styles from './index.less';
+import List from './NoticeList';
 
 const { TabPane } = Tabs;
 
 export default class NoticeIcon extends PureComponent {
   static Tab = TabPane;
+  static tabs = Tabs;
 
-  static defaultProps = {
+    static defaultProps = {
     onItemClick: () => {},
     onPopupVisibleChange: () => {},
     onTabChange: () => {},
@@ -46,16 +48,27 @@ export default class NoticeIcon extends PureComponent {
       return null;
     }
     const panes = React.Children.map(children, child => {
+        const title =
+            child.props.list && child.props.list.length > 0
+                ? `${child.props.title} (${child.props.list.length})`
+                : child.props.title;
 
       return (
-        <TabPane>
-
+        <TabPane tab={title}>
+          <List
+              {...child.props}
+              data={child.props.list}
+              onClick={item => this.onItemClick(item, child.props)}
+              onClear={() => onClear(child.props.title)}
+              title={child.props.title}
+              locale={locale}
+          />
         </TabPane>
       );
     });
     return (
       <Spin spinning={loading} delay={0}>
-        <Tabs className={styles.tabs} onChange={this.onTabChange}>
+        <Tabs className={styles.tabs} tabPosition="top" onChange={this.onTabChange}>
           {panes}
         </Tabs>
       </Spin>
@@ -68,7 +81,7 @@ export default class NoticeIcon extends PureComponent {
     const notificationBox = this.getNotificationBox();
     const trigger = (
       <span className={noticeButtonClass}>
-        <Badge count={count} className={styles.badge}>
+        <Badge count={12} className={styles.badge}>
           <Icon type="bell" className={styles.icon} />
         </Badge>
       </span>

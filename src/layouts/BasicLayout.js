@@ -21,7 +21,6 @@ import {getRoutes} from '../utils/utils';
 import Authorized from '../utils/Authorized';
 import {getAuthority} from '../utils/authority';
 
-
 const {Content, Header} = Layout;
 const {AuthorizedRoute, check} = Authorized;
 
@@ -91,7 +90,7 @@ const getBreadcrumbNameMap = (menuData, routerData) => {
 const getMenuData1 = () =>{
     let auth = getAuthority();
 
-    return auth?auth.tokenObjDTO.menus: null;
+    return auth?auth.menus: null;
 
 }
 
@@ -103,6 +102,7 @@ export default class BasicLayout extends PureComponent {
     static childContextTypes = {
         location: PropTypes.object,
         breadcrumbNameMap: PropTypes.object,
+        userInfo:PropTypes.object
     };
 
 
@@ -112,7 +112,44 @@ export default class BasicLayout extends PureComponent {
         return {
             location,
             breadcrumbNameMap: getBreadcrumbNameMap(getMenuData1(), routerData),
+            userInfo: getAuthority()
         };
+    }
+
+    state = {
+        message:null
+    }
+    constructor(props){
+        super(props);
+        this.initWebSocket();
+    }
+
+    receiveMessage = (data) =>{
+        var result = JSON.parse(data.body);
+        this.setState({message:result});
+
+    }
+
+
+    initWebSocket= () =>{
+        let url = 'ws://139.196.197.94:15674/ws';
+        var stompClient = Stomp.over(new WebSocket(url));
+        var destination = "/exchange/dtExchange/web-queue_12";
+
+        let thiz = this;
+
+        stompClient.connect("guest", "guest", function (data) {
+            stompClient.subscribe(destination, message => {
+                thiz.receiveMessage(message);
+            });
+
+        }, function (err) {
+            console.log("webSocket连接失败，5s后重连", err);
+
+            setTimeout(function () {
+                thiz.initWebSocket();
+            }, 5000);
+        });
     }
 
     getPageTitle() {
@@ -167,6 +204,7 @@ export default class BasicLayout extends PureComponent {
             match,
             location,
         } = this.props;
+        const {message } = this.state;
 
         const baseRedirect = this.getBaseRedirect();
         const layout = (
@@ -182,6 +220,7 @@ export default class BasicLayout extends PureComponent {
                 <Layout>
                     <Header style={{padding: 0}}>
                         <GlobalHeader
+                            message={message}
                             logo={logo}
                             currentUser={currentUser}
                             fetchingNotices={fetchingNotices}

@@ -315,7 +315,7 @@ export default class userManage extends PureComponent {
             <Layout className={styles.application}>
                 <div>
                     <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="user:add"/>
-                    <Dropdown overlay={menu} placement="bottomLeft" trigger='click'>
+                    <Dropdown overlay={menu} placement="bottomLeft" trigger={['click']}>
                         <Button icon="edit">编辑</Button>
                     </Dropdown>
                     {/*<ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="user:delete"/>*/}

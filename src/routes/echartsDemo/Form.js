@@ -1,37 +1,61 @@
 import React, { Component } from 'react';
 import { Form, Button, Input, Select,TreeSelect,InputNumber} from 'antd';
+import { Map ,Marker} from 'react-amap';//引入高德地图
 //import { POST,GET,PUT,DELETE } from '../../../services/api';
-import styles from './test.less';
+import styles from './test.less';//样式引入
 
-const Option = Select.Option;
-const FormItem = Form.Item;
-const {TextArea } =Input;
+
 const createForm = Form.create;
-const TreeNode = TreeSelect.TreeNode;
+/*class App extends Component{
+  render(){
+    return <div style={{width: '100%', height: '400px'}}>
+      <Map  amapkey={'3f226058c3cd00f6fe9dfb6420904268'}/>
+    </div>
+  }
+}*/
 
-const treeData = [{
-    title: 'Node1',
-    value: '0-0',
-    children: [{
-        title: 'Child Node1',
-        value: '0-0-1',
-    }, {
-        title: 'Child Node2',
-        value: '0-0-2',
-    }],
-}, {
-    title: 'Node2',
-    value: '0-1',
-}];
+class App extends React.Component{
+  constructor(){
+    super();
+    this.toolEvents = {
+      created: (tool) => {
+        this.tool = tool;
+      }
+    }
+    this.mapPlugins = ['ToolBar'];
+    //this.mapCenter = {longitude: 121.2936837, latitude: 31.1937723};
+    this.markerPosition = {longitude: 121.2936837, latitude: 31.1937723};
+    this.mapCenter = {longitude: 121.4566333, latitude: 31.1654148};
+  }
 
-class FormSub extends Component {
+  render(){
+    return <div>
+      <div style={{width: '100%', height: 400}}>
+        <Map
+          plugins={this.mapPlugins}
+          center={this.mapCenter}
+          zoom={6}
+        >
+          <Marker position={this.markerPosition} />
+        </Map>
+      </div>
+    </div>
+  }
+}
+
+/*ReactDOM.render(
+  <App/>, mountNode
+)*/
+
+
+/*class FormSub extends Component {
 
     state = {
         checkNick: false,
         value: undefined,
         treeData:[],
         treeData2:[]
-    };
+    };*/
 
 
     /*constructor(props){
@@ -68,87 +92,19 @@ class FormSub extends Component {
         this.setState({ value });
     }*/
 
-    render(){
-        const { getFieldDecorator } = this.props.form;
-        const {record} =this.props;
+    /*render(){
 
-        const formItemLayout = {
-            labelCol: { span: 4 },
-            wrapperCol: { span: 17 }
-        }
+
+
+
         return (
+          <div> <Map amapkey="3f226058c3cd00f6fe9dfb6420904268"  version="1.4.0" /></div>
 
-            <Form ref='form'>
-              <FormItem {...formItemLayout} label="系统标识">
-                {getFieldDecorator('applicationId', {
-                  initialValue:record?record['applicationId']:this.state.value,
-                  rules: [{
-                    required: true,
-                    message: '请选择系统标识',
-                  }],
-                })(
-                  <TreeSelect
-                    placeholder="请选择系统标识"
-                    showSearch
-                    dropdownStyle={{ overflow: 'auto' }}
-                    allowClear
-                    //onChange={this.onChange}
-                    treeData={this.state.treeData2}
-                  />
-                )}
-              </FormItem>
-                <FormItem
-                    label="机构名称："
-                    {...formItemLayout}>
-                    {getFieldDecorator('orgName', {
-                        initialValue:record?record['orgName']:null,
-                        rules: [{
-                            required: true,
-                            message: '请输入机构名称',
-                        }],
-                    })(
-                       <Input placeholder="请输入机构名称" />
-                    )}
-                </FormItem>
-                <FormItem {...formItemLayout} label="上级机构">
-                    {getFieldDecorator('parentId', {
-                        initialValue:record?record['parentId']:this.state.value,
-                    })(
-                        <TreeSelect
-                            placeholder="不选默认为顶级机构"
-                            showSearch
-                            dropdownStyle={{ overflow: 'auto' }}
-                            allowClear
-                            //onChange={this.onChange}
-                            treeData={this.state.treeData}
-                            />
-                    )}
-                </FormItem>
-              <FormItem {...formItemLayout} label="机构类型">
-                {getFieldDecorator('orgType', {
-                  initialValue:record?record['orgType']:null,
-                  rules: [{
-                    required: true,
-                    message: '请选择机构类型',
-                  }],
-                })(
-                  <Select  placeholder="请选择系统标识">
-                    <Option value="集团">集团</Option>
-                    <Option value="公司">公司</Option>
-                    <Option value="部门">部门</Option>
-                    <Option value="虚拟机构">虚拟机构</Option>
-                  </Select>,
-                )}
-              </FormItem>
-                <FormItem {...formItemLayout} label="描述">
-                    {getFieldDecorator('orgRemark', {
-                        initialValue:record?record['orgRemark']:null,
-                    })(
-                        <TextArea  rows={4} />
-                    )}
-                </FormItem>
-            </Form>
+
         )
-    }
-}
-export default createForm()(FormSub);
+    }*/
+/*}*/
+/*
+export default createForm()(FormSub);*/
+
+export default createForm()(App);

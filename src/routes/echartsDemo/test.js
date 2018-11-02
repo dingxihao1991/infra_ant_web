@@ -3,6 +3,25 @@ import styles from './test.less';
 import { Table ,Button ,Layout,Pagination,Form,Input , message} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
 import FormSub from './Form';
+import { Upload, Icon } from 'antd';//引入上传
+import { getToken } from "../../utils/authority";
+
+
+function beforeUpload(file) {
+  //无法获取excel的type，故采用name获取file类型
+  let fileName  = file.name;
+  const isXls = fileName.indexOf("xls")==-1?false:true;
+  if(!isXls){
+    message.error('请上传xls或xlsx格式的文件~');
+  }
+
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error('Image must smaller than 2MB!');
+  }
+
+  return isXls && isLt2M;
+}
 
 const FormItem = Form.Item;
 const { Content, Header, Footer } = Layout;
@@ -163,6 +182,7 @@ export default class userManage extends PureComponent {
   //编辑
   edit =()=>{
     const {rows} = this.state
+    console.log(rows)
     if(rows.length>1){
       Modal.warning({
         title: '警告信息',
@@ -283,16 +303,43 @@ export default class userManage extends PureComponent {
       }
     }
 
+    const uploadButton = (
+      <div>
+        <Icon type={this.state.loading ? 'loading' : 'plus'} />
+        <div className="ant-upload-text">Upload</div>
+        <p>请上传头像</p>
+      </div>
+    );
+
+
+
+
     return(
       <Layout className={styles.application}>
         <div className={styles.tableOperations}>
-          <Button icon="plus" type="primary" onClick={this.onAdd}>新增</Button>
-          <Button icon="edit" disabled={!rows.length} onClick={this.edit}>修改</Button>
+         {/* <Button icon="plus" type="primary" onClick={this.onAdd}>上传</Button>*/}
+
+
+          <Upload
+            name="userUploadFile"
+           // listType="picture-card"
+            //className="avatar-uploader"
+            showUploadList={false}
+            action="http://localhost:8888/asset/upload"
+            beforeUpload={beforeUpload}
+            onChange={this.handleChange}
+            headers={{"token":getToken()}}
+          >
+            <Button>
+              <Icon type="upload" /> 批量上传
+            </Button>
+          </Upload>
+          <Button icon="edit" disabled={!rows.length} onClick={this.edit}>定位</Button>
           <Button icon="delete" disabled={!rows.length} onClick={this.delete}>删除</Button>
         </div>
         <Content  >
-          <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
-                  pagination={{
+          <Table rowKey='id' style={{  background: '#ffffff', minHeight: 360}} columns={columns} dataSource={dataSource} onChange={this.handleChange} rowSelection={rowSelection}
+                 pagination={{
                     showSizeChanger:true,
                     showQuickJumper:true,
                     total:dataSource?dataSource.length:null,

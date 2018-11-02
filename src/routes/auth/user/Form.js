@@ -98,17 +98,6 @@ class FormSub extends Component {
                                 <Input placeholder="请输入帐号"/>
                             )}
                         </FormItem>
-                        <FormItem {...formItemLayout} label="密码">
-                            {getFieldDecorator('password', {
-                                initialValue:record?record['password']:null,
-                                rules: [{
-                                    required: true,
-                                    message: '请输入密码',
-                                }],
-                            })(
-                                <Input placeholder="请输入密码" />
-                            )}
-                        </FormItem>
                         <FormItem {...formItemLayout} label="姓名">
                             {getFieldDecorator('userName', {
                                 initialValue:record?record['userName']:null,

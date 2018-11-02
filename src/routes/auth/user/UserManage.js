@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import styles from './UserManage.less';
-import { Table ,Button ,Layout,Pagination,Form,Input , message , Menu , Dropdown} from 'antd';
+import { Table ,Button ,Layout,Pagination,Form,Input , message , Menu , Dropdown,Icon} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
 import { POST,GET,PUT,DELETE } from '../../../services/api';
 import Authorized from '../../../utils/Authorized';
@@ -315,8 +315,10 @@ export default class userManage extends PureComponent {
             <Layout className={styles.application}>
                 <div>
                     <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="user:add"/>
-                    <Dropdown overlay={menu} placement="bottomLeft" trigger='click'>
-                        <Button icon="edit">编辑</Button>
+                    <Dropdown overlay={menu} placement="bottomLeft" >
+                        <Button icon="setting" >
+                            操作 <Icon type="down" />
+                        </Button>
                     </Dropdown>
                     {/*<ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="user:delete"/>*/}
                 </div>

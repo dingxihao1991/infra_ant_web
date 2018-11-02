@@ -22,19 +22,33 @@ class App extends React.Component{
         this.tool = tool;
       }
     }
-    this.mapPlugins = ['ToolBar'];
-    //this.mapCenter = {longitude: 121.2936837, latitude: 31.1937723};
-    this.markerPosition = {longitude: 121.2936837, latitude: 31.1937723};
-    this.mapCenter = {longitude: 121.4566333, latitude: 31.1654148};
+    //this.mapPlugins = {longitude: 121.2932245, latitude: 31.1925968};
+    //this.zooms = [3-18];   121.2936837, latitude: 31.1937723};
+    //this.mapCenter = {longitude: 121.2936837, latitude: 31.1937723};  31.1925968,121.2932245,17.13z
+
   }
 
   render(){
+    const {record} =this.props;
+    let  assetNumber =  record['1'];
+    if(assetNumber==="NV-TB9716"){
+      this.markerPosition = {longitude: 121.2932245, latitude: 31.1925968};
+      this.mapCenter = {longitude: 121.2932245, latitude: 31.1925968};
+    }else if(assetNumber==="AD-359916"){//121.5175704, latitude: 31.2460267};
+      this.markerPosition = {longitude: 121.5195704, latitude: 31.2460267};
+      this.mapCenter = {longitude: 121.5195704, latitude: 31.2460267};
+    }else{//31.812578, 117.088391
+      this.markerPosition = {longitude: 117.090391, latitude: 31.812578};
+      this.mapCenter = {longitude: 117.090391, latitude: 31.812578};
+
+    }
     return <div>
       <div style={{width: '100%', height: 400}}>
         <Map
-          plugins={this.mapPlugins}
+         // plugins={this.mapPlugins}
           center={this.mapCenter}
-          zoom={6}
+          zoom={14}
+          title={"test"}
         >
           <Marker position={this.markerPosition} />
         </Map>

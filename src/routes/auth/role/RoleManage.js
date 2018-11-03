@@ -15,40 +15,40 @@ const confirm = Modal.confirm;
 
 const columns = [
     {
-    title: '系统标识',
-    dataIndex: 'systemId',
-    id: 'systemId',
-    align: 'center',
-    key:'systemId'
-}, {
-    title: '角色名称',
-    dataIndex: 'name',
-    id: 'name',
-    align: 'center',
-    key:'name'
-},{
-    title: '创建时间',
-    dataIndex: 'sysDate',
-    id: 'sysDate',
-    align: 'center',
-    key:'sysDate'
-},{
-    title: '创建人',
-    dataIndex: 'sysUserName',
-    id: 'sysUserName',
-    align: 'center',
-    key:'sysUserDame'
-},{
-    title: '最后修改人',
-    dataIndex: 'lastModifiedUserName',
-    id: 'lastModifiedUserName',
-    align: 'center',
-    key:'lastModifiedUserName'
-}, {
-        title: '最后修改时间',
-        dataIndex: 'lastModifiedDate',
-        id: 'updateDate',
+        title: '角色名称',
+        dataIndex: 'name',
+        id: 'name',
         align: 'center',
+        key:'name'
+    }, {
+        title: '机构名称',
+        dataIndex: 'orgName',
+        id: 'orgName',
+        align: 'center',
+        key:'orgName'
+    } ,{
+        title: '创建时间',
+        dataIndex: 'sysDate',
+        id: 'sysDate',
+        align: 'center',
+        key:'sysDate'
+    },{
+        title: '创建人',
+        dataIndex: 'sysUserName',
+        id: 'sysUserName',
+        align: 'center',
+        key:'sysUserDame'
+    },{
+        title: '最后修改人',
+        dataIndex: 'lastModifiedUserName',
+        id: 'lastModifiedUserName',
+        align: 'center',
+        key:'lastModifiedUserName'
+    }, {
+            title: '最后修改时间',
+            dataIndex: 'lastModifiedDate',
+            id: 'updateDate',
+            align: 'center',
     }];
 
 const Paging = ({dataItems, onChange, ...otherProps}) => {

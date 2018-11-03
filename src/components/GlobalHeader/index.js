@@ -244,7 +244,6 @@ export default class GlobalHeader extends PureComponent {
 
     //清空通知
     onNoticeClear = type =>{
-        console.log("type-----------"+type)
         if(type == "消息"){
             this.emptyMessage();
         }

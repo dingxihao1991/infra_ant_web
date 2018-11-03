@@ -34,8 +34,8 @@ const columns = [
     key:'sysDate'
 },{
     title: '创建人',
-    dataIndex: 'sysUserDame',
-    id: 'sysUserDame',
+    dataIndex: 'sysUserName',
+    id: 'sysUserName',
     align: 'center',
     key:'sysUserDame'
 },{

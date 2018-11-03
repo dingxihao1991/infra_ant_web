@@ -57,12 +57,6 @@ class FormSub extends Component {
         })
     }
 
-    onChange = (value) => {
-        console.log(value);
-        this.setState({ value });
-
-    }
-
     onSelChange = (roleId) => {
         console.log(roleId);
         this.setState({ roleId });
@@ -154,7 +148,6 @@ class FormSub extends Component {
                                 <TreeSelect
                                     dropdownStyle={{ overflow: 'auto' }}
                                     allowClear
-                                    onChange={this.onChange}
                                     treeData={this.state.treeData}
                                 />
                             )}

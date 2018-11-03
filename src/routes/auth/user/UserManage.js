@@ -1,15 +1,19 @@
 import React, {PureComponent} from 'react';
 import styles from './UserManage.less';
-import { Table ,Button ,Layout,Pagination,Form,Input , message , Menu , Dropdown,Icon} from 'antd';
+import { Table ,Button ,Layout,Pagination,Form,Input , message , Menu , Dropdown,Icon,Tree} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
 import { POST,GET,PUT,DELETE } from '../../../services/api';
 import Authorized from '../../../utils/Authorized';
 import FormSub from './Form';
+import SideLayout from 'components/SideLayout';
+import OrganizationSide from './OrganizationSide';
 
 const { ButtonAuthorize } = Authorized;
-const { Content} = Layout;
+const { Content,Sider} = Layout;
 const Modal = ModalForm.Modal;
 const confirm = Modal.confirm;
+const TreeNode = Tree.TreeNode;
+
 
 const columns = [
 {
@@ -24,12 +28,6 @@ const columns = [
     id: 'loginName',
     align: 'center',
     key:'loginName'
-},{
-    title: '密码',
-    dataIndex: 'password',
-    id: 'password',
-    align: 'center',
-    key:'password'
 },{
     title: '证件号码',
     dataIndex: 'card',
@@ -72,12 +70,6 @@ const columns = [
     id: 'qq',
     align: 'center',
     key:'qq'
-},{
-    title: '创建时间',
-    dataIndex: 'sysDate',
-    id: 'sysDate',
-    align: 'center',
-    key:'sysDate'
 }];
 const Paging = ({dataItems, onChange, ...otherProps}) => {
     const { total, pageSize, pageNum } = dataItems;
@@ -100,9 +92,13 @@ export default class userManage extends PureComponent {
     state = {
         columns:[],
         dataSource:[],
+        fileDataSource:[],
         record: null,
         visible: false,
         rows: [],
+        openSide: true,
+        treeData:[],
+        treeDataSote:[]
     };
 
     constructor(props,context) {
@@ -110,19 +106,24 @@ export default class userManage extends PureComponent {
     }
 
     componentDidMount(){
-
         this.init();
     }
 
     init= () =>{
         const thiz = this;
-        GET('/users',function(result){
-            if(result.success){
-                thiz.setState({dataSource:result.result})
+        GET('/users',function(data){
+            if(data.success){
+                thiz.setState({
+                    fileDataSource:data.result.users,
+                    dataSource:data.result.users,
+                    treeData:data.result.org,
+                    treeDataSote: data.result.org
+                })
             }
         },function(error){
             console.log(error)
         })
+
 
     }
 
@@ -229,6 +230,7 @@ export default class userManage extends PureComponent {
 
         }
     }
+
     closeModal = () =>{
         this.setState({
             visible: false
@@ -277,9 +279,29 @@ export default class userManage extends PureComponent {
         })
     }
 
-    render() {
-        let {visible,record,rows,dataSource} = this.state;
+    onSelect = (selectedKeys, info) => {
+        let array = []
 
+        array.push(selectedKeys);
+        let recursive = function(node){
+            if(node.key!=undefined){
+                array.push(node.key)
+            }
+            if(node.props['children']){
+                for(var i=0;i<node.props['children'].length;i++){
+                    recursive(node.props['children'][i]);
+                }
+            }
+        }
+        //递归获取子集
+        recursive(info.node);
+        const {fileDataSource} = this.state;
+        this.setState({ dataSource: fileDataSource.filter(item => array.some(jtem =>item.departmentId==jtem))});
+    }
+
+
+    render() {
+        const {visible,record,rows,dataSource,treeData,searchValue,expandedKeys, autoExpandParent} = this.state;
         const rowSelection = {
             onChange: this.onSelectChange,
         };
@@ -313,25 +335,31 @@ export default class userManage extends PureComponent {
 
         return(
             <Layout className={styles.application}>
-                <div>
-                    <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="user:add"/>
-                    <Dropdown overlay={menu} placement="bottomLeft" >
-                        <Button icon="setting" >
-                            操作 <Icon type="down" />
-                        </Button>
-                    </Dropdown>
-                    {/*<ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="user:delete"/>*/}
-                </div>
-                <Content  >
-                    <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
-                           pagination={{
-                               showSizeChanger:true,
-                               showQuickJumper:true,
-                               total:dataSource?dataSource.length:null,
-                               onChange:this.onChange
-                           }}
-                    />
-                </Content>
+                <OrganizationSide
+                    treeData={treeData}
+                    onSelect={this.onSelect}
+                />
+                <Layout style={{background: '#fff',border:'1px solid #E5E5E5'}}>
+                    <div>
+                        <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="user:add"/>
+                        <Dropdown overlay={menu} placement="bottomLeft" >
+                            <Button icon="setting" >
+                                操作 <Icon type="down" />
+                            </Button>
+                        </Dropdown>
+                        {/*<ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="user:delete"/>*/}
+                    </div>
+                    <Content  >
+                        <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
+                               pagination={{
+                                   showSizeChanger:true,
+                                   showQuickJumper:true,
+                                   total:dataSource?dataSource.length:null,
+                                   onChange:this.onChange
+                               }}
+                        />
+                    </Content>
+                </Layout>
                 <ModalForm {...modalFormProps}/>
             </Layout>
         )

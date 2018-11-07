@@ -84,25 +84,25 @@ export default class MenuManage extends PureComponent {
         visible: false,
         dataSource: [],
         rows: [],
-        selectedRowKeys:[]
+        selectedRowKeys:[],
+        loading:true
+
     };
 
     constructor(props,context) {
-        super(props,context)
+        super(props,context);
     }
 
     componentDidMount(){
         this.init();
-
     }
-
 
     init= () =>{
         const thiz = this;
         GET('/menu/findAll',function(result){
             if(result.success){
 
-                thiz.setState({dataSource:result.result})
+                thiz.setState({dataSource:result.result,loading:false})
             }
         },function(error){
             console.log(error)
@@ -280,7 +280,7 @@ export default class MenuManage extends PureComponent {
 
 
     render() {
-        let {visible,record,rows,dataSource} = this.state;
+        let {visible,record,rows,dataSource,loading} = this.state;
         const {prefixCls, className,alternateColor} = this.props;
 
         let classname = cx(
@@ -321,17 +321,17 @@ export default class MenuManage extends PureComponent {
         return(
 
             <Layout className={styles.application} style={{border:"1px red"}}>
-                <div className={styles.tableOperations}>
+                <div>
                     <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="menu:add"/>
                     <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="menu:update"/>
                     <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="menu:delete"/>
                 </div>
                 <Content  className={classname}>
                     <Table ref="tab" style={{background: '#fff',minHeight: 320,maxHeight:'100%'}}
-                           size="small"
                            height='80%'
                            rowKey='id'
                            scroll={{  y: 450 }}
+                           loading={loading}
                            columns={columns}
                            dataSource={dataSource}
                            defaultExpandAllRows={true}

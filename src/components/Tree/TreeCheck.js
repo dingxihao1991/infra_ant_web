@@ -36,8 +36,29 @@ class TreeCheck extends Component{
 
     onCheck = (checkedKeys,event) => {
 
-        const {onCheck,checkStrictly } = this.props;
+        const {onCheck,checkStrictly ,treeData} = this.props;
         let values = null;
+        let array = []
+        let parentNode = function(parentId,data){
+
+            data.map(item=>{
+                if(item.id==parentId){
+                    array.push(item.id)
+                    parentNode(item.parentId,treeData)
+                }else{
+                    if(item.children){
+                        parentNode(parentId,item.children)
+                    }
+                }
+                return array;
+            })
+        }
+        //判断是否有子集，有子集则数据在dataRef中获取，否则在props中
+        if(event.node.props.dataRef){
+            parentNode(event.node.props.dataRef.parentId,treeData)
+        }else{
+            parentNode(event.node.props.parentId,treeData)
+        }
 
         if(checkStrictly){
             const node = event.node;
@@ -61,12 +82,13 @@ class TreeCheck extends Component{
                 checkedKeys.checked = checkedKeys.checked.filter(item => !array.some(jtem=>jtem == item))
             }
 
-            this.setState({ checkedKeys});
+            this.setState({ checkedKeys:checkedKeys.checked});
+
             values = checkedKeys.checked
 
         }else{
             this.setState({ checkedKeys });
-            values = checkedKeys;
+            values = array.length>0?checkedKeys.concat(array):checkedKeys;
         }
         console.log(values)
         onCheck && onCheck(values);

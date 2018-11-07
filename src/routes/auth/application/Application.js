@@ -75,6 +75,7 @@ export default class Application extends PureComponent {
         record: null,
         visible: false,
         rows: [],
+        loading:true
     };
 
     constructor(props,context) {
@@ -90,7 +91,7 @@ export default class Application extends PureComponent {
         GET('/application/findAll',function(result){
             if(result.success){
 
-                thiz.setState({dataSource:result.result})
+                thiz.setState({dataSource:result.result,loading:false})
             }
         },function(error){
             console.log(error)
@@ -256,7 +257,7 @@ export default class Application extends PureComponent {
     }
 
     render() {
-        let { visible,record,rows,dataSource} = this.state;
+        let { visible,record,rows,dataSource,loading} = this.state;
 
         const rowSelection = {
             onChange: this.onSelectChange,
@@ -281,14 +282,14 @@ export default class Application extends PureComponent {
         return(
 
             <Layout className={styles.application}>
-                <div className={styles.tableOperations}>
+                <div>
                     <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="application:add"/>
                     <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="application:update"/>
                     <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="application:delete"/>
                 </div>
                 <Content  >
                     <Table rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
-                           size="small"
+                           loading={loading}
                            pagination={{
                                showSizeChanger:true,
                                showQuickJumper:true,

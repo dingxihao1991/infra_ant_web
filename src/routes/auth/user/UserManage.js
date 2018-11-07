@@ -5,14 +5,13 @@ import {ModalForm,showConfirm}  from 'components/Modal';
 import { POST,GET,PUT,DELETE } from '../../../services/api';
 import Authorized from '../../../utils/Authorized';
 import FormSub from './Form';
-import SideLayout from 'components/SideLayout';
 import OrganizationSide from './OrganizationSide';
 
 const { ButtonAuthorize } = Authorized;
-const { Content,Sider} = Layout;
+const { Content} = Layout;
 const Modal = ModalForm.Modal;
 const confirm = Modal.confirm;
-const TreeNode = Tree.TreeNode;
+const Search = Input.Search;
 
 
 const columns = [
@@ -98,7 +97,8 @@ export default class userManage extends PureComponent {
         rows: [],
         openSide: true,
         treeData:[],
-        treeDataSote:[]
+        treeDataSote:[],
+        loading:true
     };
 
     constructor(props,context) {
@@ -117,7 +117,8 @@ export default class userManage extends PureComponent {
                     fileDataSource:data.result.users,
                     dataSource:data.result.users,
                     treeData:data.result.org,
-                    treeDataSote: data.result.org
+                    treeDataSote: data.result.org,
+                    loading:false
                 })
             }
         },function(error){
@@ -299,9 +300,12 @@ export default class userManage extends PureComponent {
         this.setState({ dataSource: fileDataSource.filter(item => array.some(jtem =>item.departmentId==jtem))});
     }
 
+    handleSearch = () => {}
+
+
 
     render() {
-        const {visible,record,rows,dataSource,treeData,searchValue,expandedKeys, autoExpandParent} = this.state;
+        const {visible,record,dataSource,treeData,loading} = this.state;
         const rowSelection = {
             onChange: this.onSelectChange,
         };
@@ -347,11 +351,12 @@ export default class userManage extends PureComponent {
                                 操作 <Icon type="down" />
                             </Button>
                         </Dropdown>
-                        {/*<ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="user:delete"/>*/}
+                        <Search style={{ margin: 10,width:'20%',float:'right'}} placeholder="搜索" onChange={this.handleSearch} />
                     </div>
                     <Content  >
                         <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
-                               pagination={{
+                                loading={loading}
+                                pagination={{
                                    showSizeChanger:true,
                                    showQuickJumper:true,
                                    total:dataSource?dataSource.length:null,

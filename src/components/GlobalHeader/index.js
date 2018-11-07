@@ -230,7 +230,7 @@ export default class GlobalHeader extends PureComponent {
             }else{
                 Modal.error({
                     title: '提示信息',
-                    content: '旧密码验证失败',
+                    content: result.message,
                 });
             }
         })

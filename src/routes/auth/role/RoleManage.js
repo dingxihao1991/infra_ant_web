@@ -75,6 +75,7 @@ export default class roleManage extends PureComponent {
         record: null,
         visible: false,
         rows: [],
+        loading:true
     };
 
     constructor(props,context) {
@@ -90,7 +91,7 @@ export default class roleManage extends PureComponent {
         const thiz = this;
         GET('/roles',function(result){
             if(result.success){
-                thiz.setState({dataSource:result.result})
+                thiz.setState({dataSource:result.result, loading:false})
             }
         },function(error){
             console.log(error)
@@ -211,7 +212,7 @@ export default class roleManage extends PureComponent {
     }
 
     render() {
-        let { visible,record,rows,dataSource} = this.state;
+        let { visible,record,rows,dataSource,loading} = this.state;
 
         const rowSelection = {
             onChange: this.onSelectChange,
@@ -237,9 +238,10 @@ export default class roleManage extends PureComponent {
                     <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="role:update"/>
                     <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="role:delete"/>
                 </div>
-                <Content  >
+                <Content>
                     <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
-                           pagination={{
+                            loading={loading}
+                            pagination={{
                                showSizeChanger:true,
                                showQuickJumper:true,
                                total:dataSource.length,

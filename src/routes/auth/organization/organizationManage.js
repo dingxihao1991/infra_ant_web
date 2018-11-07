@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import styles from './organizationManage.less';
 import PropTypes from 'prop-types';
-import { Table ,Button ,Layout,Pagination,Form,Input} from 'antd';
+import { Table ,Button ,Spin ,Layout,Pagination,Form,Input} from 'antd';
 import {ModalForm}  from 'components/Modal';
 import FormSub from './Form';
 import cx from 'classnames';
@@ -93,7 +93,8 @@ export default class OrganizationManage extends PureComponent {
         visible: false,
         dataSource: [],
         rows: [],
-        selectedRowKeys:[]
+        selectedRowKeys:[],
+        loading:true
     };
 
     constructor(props,context) {
@@ -111,7 +112,7 @@ export default class OrganizationManage extends PureComponent {
         GET('/organization/findAll',function(result){
             if(result.success){
 
-                thiz.setState({dataSource:result.result})
+                thiz.setState({dataSource:result.result,loading:false})
             }
         },function(error){
             console.log(error)
@@ -279,7 +280,7 @@ export default class OrganizationManage extends PureComponent {
 
 
     render() {
-        let { visible,record,rows,dataSource} = this.state;
+        let { visible,record,rows,dataSource,loading} = this.state;
         const {prefixCls, className,alternateColor} = this.props;
 
         let classname = cx(
@@ -325,20 +326,18 @@ export default class OrganizationManage extends PureComponent {
         return(
 
             <Layout className={styles.application} style={{border:"1px red"}}>
-                <div className={styles.tableOperations}>
+                <div>
                     <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="organization:add"/>
                     <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="organization:update"/>
                     <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="organization:delete"/>
 
                 </div>
                 <Content  className={classname}>
-
-                    {dataSource && dataSource.length ?
                         <Table ref="tab" style={{background: '#fff',minHeight: 320,maxHeight:'100%'}}
-                               size="small"
                                height='80%'
                                rowKey='id'
                                scroll={{  y: 450 }}
+                               loading={loading}
                                columns={columns}
                                dataSource={dataSource}
                                defaultExpandAllRows={true}
@@ -353,7 +352,6 @@ export default class OrganizationManage extends PureComponent {
                                }
 
                         />
-                        : '暂无数据' }
                 </Content>
                 {/*<Footer>*/}
                     {/*<Pagination {...paging}></Pagination>*/}

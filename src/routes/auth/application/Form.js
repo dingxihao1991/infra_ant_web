@@ -34,7 +34,6 @@ class FormSub extends Component {
         })
     }
     onCheck = (checkedKeys) =>{
-        console.log("选中的节点："+checkedKeys);
         this.props.form.setFieldsValue({'menuIds':checkedKeys});
     }
 
@@ -48,6 +47,7 @@ class FormSub extends Component {
         }
 
         const tree ={
+            //checkStrictly:true,
             treeData:treeData,//treeData,//
             onCheck: this.onCheck,
             expandedKeys:record?record['menuIds']:null,

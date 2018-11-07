@@ -20,7 +20,7 @@ class FormSub extends Component {
 
     init = () =>{
         const thiz = this;
-        GET('/menu/findSelectData/0',function(result){
+        GET('/menu/getLoginUserMenuInfo',function(result){
             if(result.success){
                 thiz.setState({treeData:result.result})
             }
@@ -30,7 +30,6 @@ class FormSub extends Component {
     }
 
     onCheck = (checkedKeys) =>{
-
         this.props.form.setFieldsValue({'menuIds':checkedKeys});
     }
 
@@ -45,7 +44,7 @@ class FormSub extends Component {
         }
 
         const tree ={
-            checkStrictly:true,
+            //checkStrictly:true,
             treeData:treeData,//treeData,////
             onCheck: this.onCheck,
             expandedKeys:record?record['menuIds']:null,

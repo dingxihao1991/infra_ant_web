@@ -144,6 +144,9 @@ export const getRouterData = app => {
       '/echartsDemo/test2': {
         component: dynamicWrapper(app, [], () => import('../routes/echartsDemo/test2')),
       },
+        '/auth/systemOperationLogs': {
+            component: dynamicWrapper(app, [], () => import('../routes/auth/log/LogManage')),
+        },
     };
 
     /*  !!!!! Don't  touch  me !!!!! */

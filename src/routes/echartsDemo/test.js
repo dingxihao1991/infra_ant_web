@@ -3,12 +3,14 @@ import styles from './test.less';
 import { Table ,Button ,Layout,Pagination,Form,Input , message} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
 import FormSub from './Form';
+import FormSub2 from './Form2';
+
 import { Upload, Icon } from 'antd';//引入上传
 import { getToken } from "../../utils/authority";
 
 
 function beforeUpload(file) {
-  //无法获取excel的type，故采用name获取file类型
+  //无法获取excel的type，故采用name获取file类型    fileName is undefined
   let fileName  = file.name;
   const isXls = fileName.indexOf("xls")==-1?false:true;
   if(!isXls){
@@ -44,10 +46,10 @@ const Paging = ({dataItems, onChange, ...otherProps}) => {
   return <Pagination {...paging} />;
 };
 
-const modalFormProps = {
+/*const modalFormProps = {
   loading: true,
- /* record,
-  visible,*/
+ /!* record,
+  visible,*!/
   Contents:FormSub,
   modalOpts: {
     width: 700,
@@ -60,6 +62,25 @@ const modalFormProps = {
   },
   onSubmit: (values) => this.onSubmit(values)
 }
+
+const modalFormProps2 = {
+  loading: true,
+  /!* record,
+   visible,*!/
+  Contents:FormSub2,
+  modalOpts: {
+    width: 700,
+  },
+  onCancel: () => {
+    this.setState({
+      record: null,
+      visible: false
+    })
+  },
+  onSubmit: (values) => this.onSubmit(values)
+}*/
+
+
 
 
 const data = [{
@@ -102,15 +123,20 @@ export default class userManage extends PureComponent {
     record: null,
     visible: false,
     rows: [],
+    form: FormSub
   };
 
+  //props :接收任意的输入值
   constructor(props,context) {
+    //传递props到基础构造函数中
     super(props,context)
   }
 
   componentDidMount(){
     this.initColums();
     this.init();
+
+    console.log("test")
   }
 
   initColums =() =>{
@@ -190,9 +216,32 @@ export default class userManage extends PureComponent {
       });
       return;
     }
+    let  form = FormSub
     this.setState({
       record:rows[0],
-      visible: true
+      visible: true,
+      form:form
+    });
+  }
+
+  //变更
+  change =()=>{
+    const {rows} = this.state
+    console.log(rows)
+    if(rows.length>1){
+      Modal.warning({
+        title: '警告信息',
+        content: '请选中一行数据',
+      });
+      return;
+    }
+    console.log("变更...");
+    let  form2 = FormSub2
+    this.setState({
+      form: form2,
+      record:rows[0],
+      visible: true,
+
     });
   }
 
@@ -249,7 +298,8 @@ export default class userManage extends PureComponent {
   }
 
   render() {
-    let { columns, visible,record,rows,dataSource} = this.state;
+    //增加form变量
+    let { columns, visible,record,rows,dataSource,form} = this.state;
 
     const rowSelection = {
       onChange: this.onSelectChange,
@@ -260,7 +310,7 @@ export default class userManage extends PureComponent {
       loading: true,
       record,
       visible,
-      Contents:FormSub,
+      Contents:form,
       modalOpts: {
         width: 800,
       },
@@ -335,6 +385,7 @@ export default class userManage extends PureComponent {
             </Button>
           </Upload>
           <Button icon="edit" disabled={!rows.length} onClick={this.edit}>定位</Button>
+          <Button icon="edit" disabled={!rows.length} onClick={this.change}>变更</Button>
           <Button icon="delete" disabled={!rows.length} onClick={this.delete}>删除</Button>
         </div>
         <Content  >
@@ -348,6 +399,7 @@ export default class userManage extends PureComponent {
           />
         </Content>
         <ModalForm {...modalFormProps}/>
+
       </Layout>
     )
 

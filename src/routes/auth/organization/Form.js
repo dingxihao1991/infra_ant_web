@@ -44,6 +44,7 @@ class FormSub extends Component {
         GET('/organization/findSelectData',function(result){
             if(result.success){
 
+              console.log(result);
                 thiz.setState({treeData:result.result})
             }
         },function(error){
@@ -54,7 +55,11 @@ class FormSub extends Component {
       GET('/application/findApplicationData',function(result){
         if(result.success){
 
-          thiz.setState({treeData2:result.result})
+          //获取应用标识数量
+          let appLength = result.result.length;
+          thiz.setState({treeData2:result.result,appLength:appLength})
+
+          console.log(appLength);
         }
       },function(error){
         console.log(error)
@@ -79,6 +84,34 @@ class FormSub extends Component {
         return (
 
             <Form ref='form'>
+
+             {/* {
+                this.state.appLength === 1 ? (//系统标识只有1个，
+
+                 null
+
+                ) : (
+                  <FormItem {...formItemLayout} label="系统标识">
+                    {getFieldDecorator('applicationId', {
+                      initialValue:record?record['applicationId']:this.state.value,
+                      rules: [{
+                        required: true,
+                        message: '请选择系统标识',
+                      }],
+                    })(
+                      <TreeSelect
+                        placeholder="请选择系统标识"
+                        showSearch
+                        dropdownStyle={{ overflow: 'auto' }}
+                        allowClear
+                        //onChange={this.onChange}
+                        treeData={this.state.treeData2}
+                      />
+                    )}
+                  </FormItem>
+                )
+              }*/}
+
               <FormItem {...formItemLayout} label="系统标识">
                 {getFieldDecorator('applicationId', {
                   initialValue:record?record['applicationId']:this.state.value,
@@ -97,6 +130,7 @@ class FormSub extends Component {
                   />
                 )}
               </FormItem>
+
                 <FormItem
                     label="机构名称："
                     {...formItemLayout}>
@@ -110,20 +144,21 @@ class FormSub extends Component {
                        <Input placeholder="请输入机构名称" />
                     )}
                 </FormItem>
-                <FormItem {...formItemLayout} label="上级机构">
+                  <FormItem {...formItemLayout} label="上级机构">
                     {getFieldDecorator('parentId', {
-                        initialValue:record?record['parentId']:this.state.value,
+                      initialValue:record?record['parentId']:this.state.value,
                     })(
-                        <TreeSelect
-                            placeholder="不选默认为顶级机构"
-                            showSearch
-                            dropdownStyle={{ overflow: 'auto' }}
-                            allowClear
-                            //onChange={this.onChange}
-                            treeData={this.state.treeData}
-                            />
+                      <TreeSelect
+                        placeholder="不选默认为顶级机构"
+                        showSearch
+                        dropdownStyle={{ overflow: 'auto' }}
+                        allowClear
+                        //onChange={this.onChange}
+                        treeData={this.state.treeData}
+                      />
                     )}
-                </FormItem>
+                  </FormItem>
+
               <FormItem {...formItemLayout} label="机构类型">
                 {getFieldDecorator('orgType', {
                   initialValue:record?record['orgType']:null,
@@ -140,7 +175,7 @@ class FormSub extends Component {
                   </Select>,
                 )}
               </FormItem>
-                <FormItem {...formItemLayout} label="描述">
+                <FormItem {...formItemLayout} label="描述" >
                     {getFieldDecorator('orgRemark', {
                         initialValue:record?record['orgRemark']:null,
                     })(

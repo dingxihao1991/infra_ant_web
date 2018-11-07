@@ -28,6 +28,7 @@ export default class LoginPage extends Component {
         if (!err) {
             POST('/infraops/login',values,function(data,response){
                 if(data.success){
+                    console.log(data);
                     setAuthority(data.result.tokenObjDTO);
                     dispatch (push("/"));
                     setToken(response.headers.get('token'))

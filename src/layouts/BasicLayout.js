@@ -20,6 +20,7 @@ import {enquireScreen, unenquireScreen} from "enquire-js";
 import {getRoutes} from '../utils/utils';
 import Authorized from '../utils/Authorized';
 import {getAuthority} from '../utils/authority';
+import exception from '../routes/exception/404';
 
 const {Content, Header} = Layout;
 const {AuthorizedRoute, check} = Authorized;
@@ -245,6 +246,7 @@ export default class BasicLayout extends PureComponent {
                                 />
                             ))}
                             <Redirect exact from="/" to={baseRedirect}/>
+                            <Route component={exception}/>
                         </Switch>
                     </Content>
                 </Layout>

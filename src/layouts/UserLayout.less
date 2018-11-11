@@ -11,21 +11,20 @@
 }
 
 .content {
-  width: 100%;
-  max-width: 500px;
-  padding: 15px;
-  //margin: auto;
+
+  left: 17%;
+  height: 80%;
+  box-shadow: 10px 13px 20px 10px #00000024;
+  background-color: white;
+  position: absolute;
 }
 
 .contentCenter {
-  top:10%;
-  left: 4%;
-  position: absolute;
-  //height: 340px;
-  //background: #ffffffb8;
-  //border-radius: 10px;
-  //-webkit-box-shadow: 1px 5px 13px 0 #c7c7c7;
-  //box-shadow: 1px 5px 13px 0 #4a4a4a;
+  height: 450px;
+  background: #ffffffb8;
+  border-radius: 10px;
+  -webkit-box-shadow: 1px 5px 13px 0 #c7c7c7;
+  box-shadow: 1px 5px 13px 0 #4a4a4a;
 }
 
 
@@ -35,25 +34,41 @@
   transform: translateY(-50%);
 }
 
+.footer {
+  width: 100%;
+  //text-align: center;
+  color: #999999;
+  bottom: 10px;
+  position: absolute;
+  left: 0px;
+}
+.qrcode{
+  float:left;
+  background-size:100% 100%;
+  margin-right: 5px;
+  width:40px;
+  height:40px;
+  background-image: url('../../public/images/back/mophone.png') !important;
+  background-repeat: no-repeat;
+  background-position-x: right;
+  background-position-y: bottom;
+}
 @media (min-width: @screen-md-min) {
   .container {
-    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(185, 184, 184, 0.34) 100%), url('../../public/images/login1.png');
+    background: url('../../public/images/back/login.gif'),#4D7FFF;
     background-repeat: no-repeat;
-    background-size: 100% 100%;
-    background-position: 0;
+    background-position-x: right;
+    background-position-y: bottom;
   }
 
   .content {
-    padding: 50px 40px 24px 40px;
+    padding:60px 30px 0px 30px;
   }
 }
 
 .top {
-  color: #4751FF;
-  font-size: 53px;
-  fontfamily: 微软雅黑;
-
-  //text-align: center;
+  text-align: center;
+  color: #3227c6;
 }
 
 .header {

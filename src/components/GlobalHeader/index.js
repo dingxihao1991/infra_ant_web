@@ -17,6 +17,8 @@ import { PUT } from '../../services/api';
 import groupBy from 'lodash/groupBy';
 import moment from 'moment';
 import PropTypes from 'prop-types';
+import SearchBox from './SearchBox';
+
 
 const Modal = ModalForm.Modal;
 
@@ -100,7 +102,8 @@ export default class GlobalHeader extends PureComponent {
 
     state = {
         visible: false,
-        messageArray:[]
+        messageArray:[],
+        openSearchBox: false,
     }
 
     constructor(props) {
@@ -249,7 +252,22 @@ export default class GlobalHeader extends PureComponent {
         }
     }
 
+    onCloseSearchBox = () => {
+        console.log("---关闭组件");
+        this.setState({
+            openSearchBox: false,
+        });
+    }
+
+    onOpenSearchBox = (value) => {
+        console.log("--------"+value)
+        this.setState({
+            openSearchBox: true,
+        })
+    }
+
     render() {
+        const {visible,openSearchBox } =this.state
 
         const {
             currentUser = {name:this.context.userInfo.userName,avatar:'http://139.196.197.94/file/'+this.context.userInfo.imgUrl},
@@ -263,7 +281,7 @@ export default class GlobalHeader extends PureComponent {
 
         } = this.props;
         const noticeData = this.getNoticeData();
-        const {visible } =this.state
+
         const menu = (
             <Menu className={styles.menu} selectedKeys={[]} onClick={this.onMenuClick}>
                 <Menu.Item key="">
@@ -311,12 +329,12 @@ export default class GlobalHeader extends PureComponent {
                         className={`${styles.action} ${styles.search}`}
                         placeholder="搜索"
                         dataSource={[]}
+                        onClick={this.onOpenSearchBox}
                         onSearch={value => {
                             console.log('input', value);
                         }}
-                        onPressEnter={value => {
-                            console.log('enter', value);
-                        }}
+
+                        onPressEnter={value => this.onOpenSearchBox(value)}
                     />
                     <NoticeIcon
                         className={styles.action}
@@ -359,6 +377,7 @@ export default class GlobalHeader extends PureComponent {
                     )}
                 </div>
                 <ModalForm {...modalFormProps}/>
+                <SearchBox visible={openSearchBox} onClose={this.onCloseSearchBox} />
             </div>
         );
     }

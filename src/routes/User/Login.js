@@ -55,27 +55,24 @@ export default class LoginPage extends Component {
         });
     };
 
-    renderMessage = content => {
-        return <Alert style={{marginBottom: 24}} message={content} type="error" showIcon/>;
-    };
-
     render() {
         const {login, submitting} = this.props;
-        const {type, autoLogin} = this.state;
+        const {type,autoLogin} = this.state;
         return (
             <div className={styles.main}>
-                <Login defaultActiveKey={type} onSubmit={this.handleSubmit}>
+                <Login onSubmit={this.handleSubmit}>
                     <UserName name="loginName" placeholder="用户名"/>
                     <Password name="password" placeholder="密码"/>
-                    <div>
+                    <div style={{marginTop:'25px'}}>
                         <Checkbox checked={autoLogin} style={{float: 'left'}} onChange={this.changeAutoLogin}>
-                            记住我
+                            <span style={{color:'#2a9ae9'}}>记住密码</span>
                         </Checkbox>
                         <a style={{float: 'right'}}>
-                            忘记密码
+                            <Icon type="question-circle" />忘记密码
                         </a>
                     </div>
-                    <Submit className={styles.loginButton} loading={submitting}>登录</Submit>
+                    <Submit className={styles.loginButton} loading={submitting}><span style={{fontSize:'19'}}>登录</span></Submit>
+                    {/*<a style={{coloe:'#2a9ae9'}}><Icon type="question-circle" />无法登录账户</a>*/}
                 </Login>
             </div>
         );

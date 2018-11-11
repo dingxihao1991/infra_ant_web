@@ -139,14 +139,11 @@ export const getRouterData = app => {
       '/echartsDemo/test': {
         component: dynamicWrapper(app, [], () => import('../routes/echartsDemo/test')),
       },
-
       //echart测试
       '/echartsDemo/test2': {
         component: dynamicWrapper(app, [], () => import('../routes/echartsDemo/test2')),
       },
-        '/auth/systemOperationLogs': {
-            component: dynamicWrapper(app, [], () => import('../routes/auth/log/LogManage')),
-        },
+
     };
 
     /*  !!!!! Don't  touch  me !!!!! */

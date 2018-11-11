@@ -40,7 +40,12 @@ const columns = [
     dataIndex: 'menuRemark',
     id: 'menuRemark',
     width: 100
-},
+},{
+        title: '序号',
+        dataIndex: 'menuSrno',
+        id: 'menuSrno',
+        width: 100
+    },
     {
         title: '创建时间',
         dataIndex: 'sysDate',
@@ -327,10 +332,10 @@ export default class MenuManage extends PureComponent {
                     <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="menu:delete"/>
                 </div>
                 <Content  className={classname}>
-                    <Table ref="tab" style={{background: '#fff',minHeight: 320,maxHeight:'100%'}}
+                    <Table ref="tab" style={{background: '#fff'}}
                            height='80%'
                            rowKey='id'
-                           scroll={{  y: 450 }}
+                           //scroll={{  y: 450 }}
                            loading={loading}
                            columns={columns}
                            dataSource={dataSource}

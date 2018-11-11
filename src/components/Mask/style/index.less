@@ -1,0 +1,29 @@
+@import "~antd/lib/style/themes/default.less";
+// mask
+.basic_mask {
+  z-index: 99;
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  :global {
+    .basic_mask_close {
+      cursor: pointer;
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      font-size: 3rem;
+      color: #bdbdbd;
+      transition: color .3s;
+      &:hover {
+        color: #ddd;
+      }
+      &:active {
+        color: #bdbdbd;
+      }
+    }
+  }
+}

@@ -68,12 +68,12 @@ export default class SiderMenu extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        const {location} = this.props;
-        if (nextProps.location.pathname !== location.pathname) {
-            this.setState({
-                openKeys: this.getDefaultCollapsedSubMenus(nextProps),
-            });
-        }
+        // const {location} = this.props;
+        // if (nextProps.location.pathname !== location.pathname) {
+        //     this.setState({
+        //         openKeys: this.getDefaultCollapsedSubMenus(nextProps),
+        //     });
+        // }
     }
 
     /**
@@ -218,6 +218,7 @@ export default class SiderMenu extends PureComponent {
 
     handleOpenChange = openKeys => {
         const lastOpenKey = openKeys[openKeys.length - 1];
+        console.log(openKeys)
         const moreThanOne = openKeys.filter(openKey => this.isMainMenu(openKey)).length > 1;
         this.setState({
             openKeys: moreThanOne ? [lastOpenKey] : [...openKeys],
@@ -228,17 +229,12 @@ export default class SiderMenu extends PureComponent {
         const {logo, menuData, collapsed, onCollapse} = this.props;
         const {openKeys} = this.state;
         // Don't show popup menu when it is been collapsed
-        const menuProps = collapsed
-            ? {}
-            : {
-                openKeys,
-            };
+        const menuProps = collapsed ? {} : {openKeys};
+
         let selectedKeys = this.getSelectedMenuKeys();
         if (!selectedKeys.length) {
             selectedKeys = [openKeys[openKeys.length - 1]];
         }
-
-
         return (
             <Sider
                 trigger={null}

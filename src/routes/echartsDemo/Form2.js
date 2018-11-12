@@ -1,138 +1,206 @@
 import React, { Component } from 'react';
 import { Form, Button, Input, Select,TreeSelect,InputNumber} from 'antd';
-import { Map ,Marker} from 'react-amap';//引入高德地图
 //import { POST,GET,PUT,DELETE } from '../../../services/api';
-import styles from './test.less';//样式引入
+import styles from './test.less';
 
-
+const Option = Select.Option;
+const FormItem = Form.Item;
+const {TextArea } =Input;
 const createForm = Form.create;
-/*class App extends Component{
-  render(){
-    return <div style={{width: '100%', height: '400px'}}>
-      <Map  amapkey={'3f226058c3cd00f6fe9dfb6420904268'}/>
-    </div>
-  }
-}*/
+const TreeNode = TreeSelect.TreeNode;
 
-console.log("已进入form2页面;");
+const treeData = [{
+  title: 'Node1',
+  value: '0-0',
+  children: [{
+    title: 'Child Node1',
+    value: '0-0-1',
+  }, {
+    title: 'Child Node2',
+    value: '0-0-2',
+  }],
+}, {
+  title: 'Node2',
+  value: '0-1',
+}];
 
-class App extends React.Component{
+class FormSub extends Component {
 
-
-  constructor(){
-    super();
-    this.toolEvents = {
-      created: (tool) => {
-        this.tool = tool;
-      }
-    }
-    //this.mapPlugins = {longitude: 121.2932245, latitude: 31.1925968};
-    //this.zooms = [3-18];   121.2936837, latitude: 31.1937723};
-    //this.mapCenter = {longitude: 121.2936837, latitude: 31.1937723};  31.1925968,121.2932245,17.13z
-
-  }
-
-
-
-  render(){
-
-    //console.log("进入资产变更页面;");
-    const {record} =this.props;
-    let data = this.props.record;
-    console.log(data);
-    //console.log(data.get(1));
-    console.log(this.props);
-    let  assetNumber =  record['1'];
-    if(assetNumber==="NV-TB9716"){//121
-      this.markerPosition = {longitude: 123, latitude: 33};
-      this.mapCenter = {longitude: 123, latitude: 33};
-    }else if(assetNumber==="AD-359916"){//121.5175704, latitude: 31.2460267};
-      this.markerPosition = {longitude: 123, latitude: 33};
-      this.mapCenter = {longitude: 123, latitude: 33};
-    }else{//31.812578, 117.088391
-      this.markerPosition = {longitude: 123, latitude: 33};
-      this.mapCenter = {longitude: 123, latitude: 33};
-
-    }
+  state = {
+    checkNick: false,
+    value: undefined,
+    treeData:[],
+    treeData2:[]
+  };
 
 
-    return <div>
-      <div style={{width: '100%', height: 400}}>
-        <Map
-          // plugins={this.mapPlugins}
-          center={this.mapCenter}
-          zoom={18}
-          title={"test"}
-        >
-          <Marker position={this.markerPosition} />
-        </Map>
-      </div>
-    </div>
-  }
-}
-
-/*ReactDOM.render(
-  <App/>, mountNode
-)*/
-
-
-/*class FormSub extends Component {
-
-    state = {
-        checkNick: false,
-        value: undefined,
-        treeData:[],
-        treeData2:[]
-    };*/
-
-
-/*constructor(props){
+  constructor(props){
     super(props);
     this.init();
-}*/
+  }
 
-/* init= () =>{
-     const thiz = this;
-     GET('/organization/findSelectData',function(result){
-         if(result.success){
+  init= () =>{
+   /* const thiz = this;
+    GET('/organization/findSelectData',function(result){
+      if(result.success){
 
-             thiz.setState({treeData:result.result})
-         }
-     },function(error){
-         console.log(error)
-     })
+        console.log(result);
+        thiz.setState({treeData:result.result})
+      }
+    },function(error){
+      console.log(error)
+    })
 
-   //获取应用标识
-   GET('/application/findApplicationData',function(result){
-     if(result.success){
+    //获取应用标识
+    GET('/application/findApplicationData',function(result){
+      if(result.success){
 
-       thiz.setState({treeData2:result.result})
-     }
-   },function(error){
-     console.log(error)
-   })
- }*/
+        //获取应用标识数量
+        let appLength = result.result.length;
+        thiz.setState({treeData2:result.result,appLength:appLength})
+
+        console.log(appLength);
+      }
+    },function(error){
+      console.log(error)
+    })*/
+  }
 
 
 
-/*onChange = (value) => {
+  onChange = (value) => {
     console.log(value);
     this.setState({ value });
-}*/
+  }
 
-/*render(){
+  render(){
+    const { getFieldDecorator } = this.props.form;
+    const {record} =this.props;
 
-
-
-
+    const formItemLayout = {
+      labelCol: { span: 4 },
+      wrapperCol: { span: 17 }
+    }
     return (
-      <div> <Map amapkey="3f226058c3cd00f6fe9dfb6420904268"  version="1.4.0" /></div>
 
+      <Form ref='form'>
 
+        {/* {
+                this.state.appLength === 1 ? (//系统标识只有1个，
+
+                 null
+
+                ) : (
+                  <FormItem {...formItemLayout} label="系统标识">
+                    {getFieldDecorator('applicationId', {
+                      initialValue:record?record['applicationId']:this.state.value,
+                      rules: [{
+                        required: true,
+                        message: '请选择系统标识',
+                      }],
+                    })(
+                      <TreeSelect
+                        placeholder="请选择系统标识"
+                        showSearch
+                        dropdownStyle={{ overflow: 'auto' }}
+                        allowClear
+                        //onChange={this.onChange}
+                        treeData={this.state.treeData2}
+                      />
+                    )}
+                  </FormItem>
+                )
+              }*/}
+
+        <FormItem {...formItemLayout} label="资产设备编号">
+          {getFieldDecorator('applicationId', {
+            initialValue:record?record['applicationId']:this.state.value,
+            rules: [{
+              required: false,
+              message: '请选择资产设备编号',
+            }],
+          })(
+            <TreeSelect
+              placeholder="请选择资产设备编号"
+              showSearch
+              dropdownStyle={{ overflow: 'auto' }}
+              allowClear
+              //onChange={this.onChange}
+              treeData={this.state.treeData2}
+            />
+          )}
+        </FormItem>
+
+        <FormItem
+          label="资产设备名称："
+          {...formItemLayout}>
+          {getFieldDecorator('orgName', {
+            initialValue:record?record['orgName']:null,
+            rules: [{
+              required: false,
+              message: '请输入资产设备名称',
+            }],
+          })(
+            <Input placeholder="请输入资产设备名称" />
+          )}
+        </FormItem>
+        <FormItem {...formItemLayout} label="资产设备类型">
+          {getFieldDecorator('parentId', {
+            initialValue:record?record['parentId']:this.state.value,
+          })(
+            <TreeSelect
+              showSearch
+              dropdownStyle={{ overflow: 'auto' }}
+              allowClear
+              //onChange={this.onChange}
+              treeData={this.state.treeData}
+            />
+          )}
+        </FormItem>
+
+        <FormItem {...formItemLayout} label="资产设备位置">
+          {getFieldDecorator('orgType', {
+            initialValue:record?record['orgType']:null,
+            rules: [{
+              required: false,
+              message: '请选择资产设备位置',
+            }],
+          })(
+            <Select  placeholder="请选择资产设备状态">
+              <Option value="集团">集团</Option>
+              <Option value="公司">公司</Option>
+              <Option value="部门">部门</Option>
+              <Option value="虚拟机构">虚拟机构</Option>
+            </Select>,
+          )}
+        </FormItem>
+
+        <FormItem {...formItemLayout} label="资产设备状态">
+          {getFieldDecorator('orgType', {
+            initialValue:record?record['orgType']:null,
+            rules: [{
+              required: false,
+              message: '请选择资产设备位置',
+            }],
+          })(
+            <Select  placeholder="请选择资产设备状态">
+              <Option value="集团">集团</Option>
+              <Option value="公司">公司</Option>
+              <Option value="部门">部门</Option>
+              <Option value="虚拟机构">虚拟机构</Option>
+            </Select>,
+          )}
+        </FormItem>
+
+        <FormItem {...formItemLayout} label="描述" >
+          {getFieldDecorator('orgRemark', {
+            initialValue:record?record['orgRemark']:null,
+          })(
+            <TextArea  rows={4} />
+          )}
+        </FormItem>
+      </Form>
     )
-}*/
-/*}*/
-/*
-export default createForm()(FormSub);*/
-
-export default createForm()(App);
+  }
+}
+export default createForm()(FormSub);

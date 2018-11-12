@@ -37,6 +37,16 @@ class App extends React.Component{
     }else if(assetNumber==="AD-359916"){//121.5175704, latitude: 31.2460267};
       this.markerPosition = {longitude: 121.5195704, latitude: 31.2460267};
       this.mapCenter = {longitude: 121.5195704, latitude: 31.2460267};
+    }else if(assetNumber==="ARCM300T-Z-2G"){//121.5175704, latitude: 31.2460267};  去
+      this.markerPosition = {longitude: 117.413797, latitude: 31.954947};
+      this.mapCenter = {longitude: 117.413797, latitude: 31.954947};
+    }else if(assetNumber==="ASD862O-GB"){//121.5175704, latitude: 31.2460267};
+      this.markerPosition = {longitude: 121.2293614, latitude: 30.983012};
+      this.mapCenter = {longitude: 121.2293614, latitude: 30.983012};
+    }else if(assetNumber==="BG-569ASD"){//121.5175704, latitude: 31.2460267};
+      // TODO
+      this.markerPosition = {longitude: 121.687247, latitude: 31.317757};
+      this.mapCenter = {longitude: 121.687247, latitude: 31.317757};
     }else{//31.812578, 117.088391
       this.markerPosition = {longitude: 117.090391, latitude: 31.812578};
       this.mapCenter = {longitude: 117.090391, latitude: 31.812578};

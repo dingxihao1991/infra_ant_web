@@ -1,9 +1,11 @@
 import React, {PureComponent} from 'react';
 import styles from './test.less';
-import { Table ,Button ,Layout,Pagination,Form,Input , message} from 'antd';
+import { Table ,Button ,Layout,Pagination,Form,Input , message,Dropdown,Menu} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
-import FormSub from './Form';
-import FormSub2 from './Form2';
+import FormSub from './Form';//资产设备单个定位页面
+import FormSub2 from './Form2';//资产设备变更页面
+import FormSub3 from './Form3';//所有资产设备定位页面
+import FormSub4 from './Form4';//资产设备详情页面
 
 import { Upload, Icon } from 'antd';//引入上传
 import { getToken } from "../../utils/authority";
@@ -20,6 +22,10 @@ function beforeUpload(file) {
   const isLt2M = file.size / 1024 / 1024 < 2;
   if (!isLt2M) {
     message.error('Image must smaller than 2MB!');
+  }
+
+  if(isXls&&isLt2M){
+     message.success("上传成功~");
   }
 
   return isXls && isLt2M;
@@ -83,6 +89,8 @@ const modalFormProps2 = {
 
 
 
+
+
 const data = [{
   1: 'NV-TB9716',
   2: '智能照明设备',
@@ -113,7 +121,46 @@ const data = [{
   7: '2018-5-8',
   8: 'admin',
   9: '2018-10-12',
-}];
+}, {
+  1: 'ARCM300T-Z-2G',
+  2: '安科瑞智慧用电在线监控装置',
+  3: '管廊系统',
+  4: '合肥市新站区管廊控制中心',
+  5: '检修',
+  6: '/',
+  7: '2018-9-6',
+  8: 'admin',
+  9: '2018-11-8',
+}, {
+  1: 'ASD862O-GB',
+  2: '管廊地下管道甲烷检测器',
+  3: '通风系统',
+  4: '上海市松江南站大型居民区',
+  5: '正常',
+  6: '/',
+  7: '2017-5-15',
+  8: 'admin',
+  9: '2018-11-11',
+}, {
+  1: 'BG-569ASD',
+  2: '集水坑内液位传感器',
+  3: '供水系统',
+  4: '上海市长江隧道',
+  5: '正常',
+  6: '/',
+  7: '2018-5-8',
+  8: 'admin',
+  9: '2018-10-12',
+}
+];
+
+const menu = (
+  <Menu>
+    <Menu.Item key="1">定位</Menu.Item>
+    <Menu.Item key="2">变更</Menu.Item>
+    <Menu.Item key="3" > <Button icon="form" onClick={this.detail}>详情</Button></Menu.Item>
+  </Menu>
+);
 
 export default class userManage extends PureComponent {
 
@@ -123,7 +170,8 @@ export default class userManage extends PureComponent {
     record: null,
     visible: false,
     rows: [],
-    form: FormSub
+    form: FormSub,
+    title:"资产设备定位"
   };
 
   //props :接收任意的输入值
@@ -138,6 +186,11 @@ export default class userManage extends PureComponent {
 
     console.log("test")
   }
+
+
+
+
+
 
   initColums =() =>{
     const columns = [{
@@ -174,28 +227,55 @@ export default class userManage extends PureComponent {
       title: '描述',
       dataIndex: '6',
       id: '6',
+      align: 'center',
       width: 150
     },
       {
         title: '创建时间',
         dataIndex: '7',
         id: '7',
+        align: 'center',
         width: 150
       }, {
         title: '最后修改人',
         dataIndex: '8',
         id: '8',
+        align: 'center',
         width: 100
       }, {
         title: '最后修改时间',
         dataIndex: '9',
         id: '9',
+        align: 'center',
         width: 150
+      },{//增加操作栏
+        title: '操作',
+        dataIndex: '9',
+        id: '9',
+        align: 'center',
+        width: 150,
+        render: () => (
+          <Dropdown overlay={<Menu>
+        <Menu.Item key="1"><Button style={{ marginRight: 5 }} icon="form" onClick={this.detail}>详情</Button></Menu.Item>
+      </Menu>}>
+        <Button >
+    更多 <Icon type="down" />
+      </Button>
+  </Dropdown>
+
+
+
+
+        ),
       }];
     this.setState({columns:columns})
   }
 
-
+/*<Dropdown overlay={menu}>
+<Button>
+Actions <Icon type="user" />
+</Button>
+</Dropdown>*/
 
   init= () =>{
     const thiz = this;
@@ -241,7 +321,43 @@ export default class userManage extends PureComponent {
       form: form2,
       record:rows[0],
       visible: true,
+      title:"资产设备变更",
 
+    });
+  }
+
+
+  //资产详情页
+  detail =()=>{
+    const {rows} = this.state
+    console.log(rows)
+    if(rows.length>1){
+      Modal.warning({
+        title: '警告信息',
+        content: '请选中一行数据',
+      });
+      return;
+    }
+    console.log("资产详情...");
+    let  form4 = FormSub4
+    this.setState({
+      form: form4,
+      record:rows[0],
+      visible: true,
+      title:"详细信息",
+    });
+  }
+
+  //获取所有设备位置
+  getAll =()=>{
+    const {rows} = this.state
+    console.log(rows)
+    let  form = FormSub3
+    this.setState({
+      record:rows[0],
+      visible: true,
+      form:form,
+      title:"资产设备位置",
     });
   }
 
@@ -299,7 +415,7 @@ export default class userManage extends PureComponent {
 
   render() {
     //增加form变量
-    let { columns, visible,record,rows,dataSource,form} = this.state;
+    let { columns, visible,record,rows,dataSource,form,title} = this.state;
 
     const rowSelection = {
       onChange: this.onSelectChange,
@@ -307,6 +423,7 @@ export default class userManage extends PureComponent {
     const thiz = this;
     //const from = FormSub;
     const modalFormProps = {
+      title:title,
       loading: true,
       record,
       visible,
@@ -320,37 +437,44 @@ export default class userManage extends PureComponent {
           visible: false
         })
       },
-      onSubmit: (values) => {
+      onSubmit: () => {
+        this.setState({
+          record: null,
+          visible: false
+        })
+      },
+      /*  onSubmit: (values) => {
+         thiz.init();
         console.log(values);
-        console.log('-------------'+JSON.stringify(values) );
-        if(thiz.state.record!=null){
-          values['id'] = thiz.state.record.id;
-          PUT('/users/update',values,function(data){
-            console.log(data);
-            if(data.success){
-              message.success("更新成功")
-              thiz.init();
-            }else{
-              message.success("更新失败，请联系管理员")
-            }
-          },function(error){
-            console.log(error);
-          })
-        }else {
-          POST('/users/add',values,function(data){
-            console.log(data);
-            if(data.success){
-              message.success("新增成功")
-              thiz.init();
-            }else{
-              message.success("新增失败，请联系管理员")
-            }
-          },function(error){
-            console.log(error);
-          })
+         console.log('-------------'+JSON.stringify(values) );
+         if(thiz.state.record!=null){
+           values['id'] = thiz.state.record.id;
+           PUT('/users/update',values,function(data){
+             console.log(data);
+             if(data.success){
+               message.success("更新成功")
+               thiz.init();
+             }else{
+               message.success("更新失败，请联系管理员")
+             }
+           },function(error){
+             console.log(error);
+           })
+         }else {
+           POST('/users/add',values,function(data){
+             console.log(data);
+             if(data.success){
+               message.success("新增成功")
+               thiz.init();
+             }else{
+               message.success("新增失败，请联系管理员")
+             }
+           },function(error){
+             console.log(error);
+           })
 
-        }
-      }
+         }
+       }*/
     }
 
     const uploadButton = (
@@ -375,18 +499,18 @@ export default class userManage extends PureComponent {
            // listType="picture-card"
             //className="avatar-uploader"
             showUploadList={false}
-            action="http://localhost:8888/asset/upload"
+            //action="http://localhost:8888/asset/upload"
             beforeUpload={beforeUpload}
             onChange={this.handleChange}
             headers={{"token":getToken()}}
           >
             <Button>
-              <Icon type="upload" /> 批量上传
+              <Icon type="upload" /> 上传
             </Button>
           </Upload>
-          <Button icon="edit" disabled={!rows.length} onClick={this.edit}>定位</Button>
-          <Button icon="edit" disabled={!rows.length} onClick={this.change}>变更</Button>
-          <Button icon="delete" disabled={!rows.length} onClick={this.delete}>删除</Button>
+          <Button icon="select" disabled={!rows.length} onClick={this.edit}>定位</Button>
+          <Button icon="form" disabled={!rows.length} onClick={this.change}>变更</Button>
+          <Button icon="search"  onClick={this.getAll}>查看所有设备位置</Button>
         </div>
         <Content  >
           <Table rowKey='id' style={{  background: '#ffffff', minHeight: 360}} columns={columns} dataSource={dataSource} onChange={this.handleChange} rowSelection={rowSelection}

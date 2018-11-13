@@ -256,6 +256,8 @@ export default class userManage extends PureComponent {
         width: 150,
         render: () => (
           <Dropdown overlay={<Menu>
+            <Menu.Item key="1"><Button style={{ marginRight: 5 }} icon="form" onClick={this.edit}>定位</Button></Menu.Item>
+            <Menu.Item key="1"><Button style={{ marginRight: 5 }} icon="form" onClick={this.change}>变更</Button></Menu.Item>
         <Menu.Item key="1"><Button style={{ marginRight: 5 }} icon="form" onClick={this.detail}>详情</Button></Menu.Item>
       </Menu>}>
         <Button >
@@ -287,6 +289,8 @@ Actions <Icon type="user" />
 
   //编辑
   edit =()=>{
+   // alert("进入定位页面"+"dataq为"+data);
+    console.log(this.state);
     const {rows} = this.state
     console.log(rows)
     if(rows.length>1){
@@ -508,8 +512,8 @@ Actions <Icon type="user" />
               <Icon type="upload" /> 上传
             </Button>
           </Upload>
-          <Button icon="select" disabled={!rows.length} onClick={this.edit}>定位</Button>
-          <Button icon="form" disabled={!rows.length} onClick={this.change}>变更</Button>
+         {/* <Button icon="select" disabled={!rows.length} onClick={this.edit}>定位</Button>
+          <Button icon="form" disabled={!rows.length} onClick={this.change}>变更</Button>*/}
           <Button icon="search"  onClick={this.getAll}>查看所有设备位置</Button>
         </div>
         <Content  >

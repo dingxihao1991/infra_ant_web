@@ -30,7 +30,7 @@ class App extends React.Component{
 
   render(){
     const {record} =this.props;
-    let  assetNumber =  record['1'];
+  /*  let  assetNumber =  record['1'];
     if(assetNumber==="NV-TB9716"){
       this.markerPosition = {longitude: 121.2932245, latitude: 31.1925968};
       this.mapCenter = {longitude: 121.2932245, latitude: 31.1925968};
@@ -51,7 +51,10 @@ class App extends React.Component{
       this.markerPosition = {longitude: 117.090391, latitude: 31.812578};
       this.mapCenter = {longitude: 117.090391, latitude: 31.812578};
 
-    }
+    }*/
+
+    this.markerPosition = {longitude: 121.2932245, latitude: 31.1925968};
+    this.mapCenter = {longitude: 121.2932245, latitude: 31.1925968};
     return <div>
       <div style={{width: '100%', height: 400}}>
         <Map

@@ -114,7 +114,7 @@ class FormSub extends Component {
 
         <FormItem {...formItemLayout} label="资产设备编号">
           {getFieldDecorator('applicationId', {
-            initialValue:record?record['applicationId']:this.state.value,
+            initialValue:record?record['applicationId']:"NV-TB9716",
             rules: [{
               required: false,
               message: '请选择资产设备编号',
@@ -135,7 +135,7 @@ class FormSub extends Component {
           label="资产设备名称："
           {...formItemLayout}>
           {getFieldDecorator('orgName', {
-            initialValue:record?record['orgName']:null,
+            initialValue:record?record['orgName']:"智能照明设备",
             rules: [{
               required: false,
               message: '请输入资产设备名称',
@@ -146,7 +146,7 @@ class FormSub extends Component {
         </FormItem>
         <FormItem {...formItemLayout} label="资产设备类型">
           {getFieldDecorator('parentId', {
-            initialValue:record?record['parentId']:this.state.value,
+            initialValue:record?record['parentId']:"照明系统",
           })(
             <TreeSelect
               showSearch
@@ -160,7 +160,7 @@ class FormSub extends Component {
 
         <FormItem {...formItemLayout} label="资产设备位置">
           {getFieldDecorator('orgType', {
-            initialValue:record?record['orgType']:null,
+            initialValue:record?record['orgType']:"上海市青浦区诸光路(地铁站)",
             rules: [{
               required: false,
               message: '请选择资产设备位置',
@@ -177,7 +177,7 @@ class FormSub extends Component {
 
         <FormItem {...formItemLayout} label="资产设备状态">
           {getFieldDecorator('orgType', {
-            initialValue:record?record['orgType']:null,
+            initialValue:record?record['orgType']:"正常",
             rules: [{
               required: false,
               message: '请选择资产设备位置',
@@ -194,7 +194,7 @@ class FormSub extends Component {
 
         <FormItem {...formItemLayout} label="描述" >
           {getFieldDecorator('orgRemark', {
-            initialValue:record?record['orgRemark']:null,
+            initialValue:record?record['orgRemark']:"/",
           })(
             <TextArea  rows={4} />
           )}

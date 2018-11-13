@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Button, Input, Select,TreeSelect,InputNumber} from 'antd';
 //import { POST,GET,PUT,DELETE } from '../../../services/api';
-import styles from './test.less';
+import styles from './test.less';//引入test.less文件，申明为styles
 
 const Option = Select.Option;
 const FormItem = Form.Item;

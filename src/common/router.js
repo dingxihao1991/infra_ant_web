@@ -143,6 +143,11 @@ export const getRouterData = app => {
       '/echartsDemo/test2': {
         component: dynamicWrapper(app, [], () => import('../routes/echartsDemo/test2')),
       },
+        //个人中心
+        '/personal/centre': {
+            component: dynamicWrapper(app, [], () => import('../routes/User/centre/PersonalCentre')),
+        },
+
 
     };
 

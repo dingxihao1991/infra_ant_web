@@ -18,7 +18,9 @@ import groupBy from 'lodash/groupBy';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import SearchBox from './SearchBox';
-
+import { routerRedux } from 'dva/router';
+import { push } from 'react-router-redux'
+import { connect } from 'dva';
 
 const Modal = ModalForm.Modal;
 
@@ -92,6 +94,10 @@ const data = [
     status: 'processing',
     type: '待办',
 }];
+
+@connect(({user, global = {}, loading}) => ({
+    collapsed: global.collapsed
+}))
 export default class GlobalHeader extends PureComponent {
 
     static contextTypes = {
@@ -216,11 +222,25 @@ export default class GlobalHeader extends PureComponent {
     }
     //下拉菜单事件
     onMenuClick=( item, key, keyPath )=>{
-        //修改密码
+        const {dispatch} = this.props;
+
+        var thiz = this;
         if(item.key=='updatePassword'){
             this.setState({
                 visible: true
             });
+        }
+        switch(item.key){
+            case 'user':
+                dispatch(push('/personal/centre'));
+                break;
+            case 'updatePassword':
+                thiz.setState({
+                    visible: true
+                });
+                break;
+            case '退出登录':
+                break;
         }
     }
     //修改密码
@@ -249,6 +269,28 @@ export default class GlobalHeader extends PureComponent {
     onNoticeClear = type =>{
         if(type == "消息"){
             this.emptyMessage();
+        }
+    }
+
+    //更多
+    onMore = type =>{
+        const {dispatch} = this.props;
+
+        switch (type) {
+            case "待办":
+                dispatch(routerRedux.push({
+                    pathname: '/personal/centre',
+                    state:{key:'task'}
+                }))
+               // dispatch(push({pathname: 'info/detail',state:{key:'applications'}}));
+               // dispatch(push('/personal/centre',{key:'applications'}));
+                break;
+            case "消息":
+                break;
+            case "通知":
+                break;
+            default:
+                break;
         }
     }
 
@@ -284,7 +326,7 @@ export default class GlobalHeader extends PureComponent {
 
         const menu = (
             <Menu className={styles.menu} selectedKeys={[]} onClick={this.onMenuClick}>
-                <Menu.Item key="">
+                <Menu.Item key="user">
                     <Icon type="user" />个人中心
                 </Menu.Item>
                 <Menu.Item >
@@ -310,7 +352,6 @@ export default class GlobalHeader extends PureComponent {
             onCancel: () => this.closeModal(),
             onSubmit: (values) => this.passwordSub(values)
         }
-
         return (
             <div className={styles.header}>
                 {isMobile && [
@@ -342,6 +383,7 @@ export default class GlobalHeader extends PureComponent {
                             console.log(item, tabProps);
                         }}
                         onClear={this.onNoticeClear}
+                        onMore={this.onMore}
                         onPopupVisibleChange={onNoticeVisibleChange}
                         loading={fetchingNotices}
                         popupAlign={{ offset: [20, -16] }}

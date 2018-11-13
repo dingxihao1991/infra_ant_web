@@ -133,7 +133,7 @@ export default class BasicLayout extends PureComponent {
 
 
     initWebSocket= () =>{
-        let url = 'ws://139.196.197.94:15674/ws';
+        let url = 'ws://192.168.8.70:15674/ws';
         var stompClient = Stomp.over(new WebSocket(url));
         var destination = "/exchange/dtExchange/web-queue_12";
 

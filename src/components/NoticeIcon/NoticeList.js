@@ -7,6 +7,7 @@ export default function NoticeList({
     data = [],
     onClick,
     onClear,
+    onMore,
     title,
     locale,
     emptyText,
@@ -62,8 +63,10 @@ export default function NoticeList({
                 })}
             </List>
             {showClear ? (
-                    <div className={styles.clear} onClick={onClear}>
-                        {locale.clear} {title}
+                    <div>
+
+                        <div className={styles.clear} style={{borderRight:'1px solid #E8E8E8'}}  onClick={onClear}>{locale.clear}</div>
+                        <div className={styles.clear}  onClick={onMore}>更多</div>
                     </div>
                 ) : null}
         </div>

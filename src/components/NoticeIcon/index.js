@@ -11,16 +11,17 @@ export default class NoticeIcon extends PureComponent {
   static tabs = Tabs;
 
     static defaultProps = {
-    onItemClick: () => {},
-    onPopupVisibleChange: () => {},
-    onTabChange: () => {},
-    onClear: () => {},
-    loading: false,
-    locale: {
-      emptyText: '暂无数据',
-      clear: '清空',
-    },
-    emptyImage: 'https://gw.alipayobjects.com/zos/rmsportal/wAhyIChODzsoKIOBHcBk.svg',
+      onItemClick: () => {},
+      onPopupVisibleChange: () => {},
+      onTabChange: () => {},
+      onClear: () => {},
+      onMore: () => {},
+      loading: false,
+      locale: {
+        emptyText: '暂无数据',
+        clear: '清空',
+      },
+      emptyImage: 'https://gw.alipayobjects.com/zos/rmsportal/wAhyIChODzsoKIOBHcBk.svg',
   };
 
   constructor(props) {
@@ -43,7 +44,7 @@ export default class NoticeIcon extends PureComponent {
   };
 
   getNotificationBox() {
-    const { children, loading, locale, onClear } = this.props;
+    const { children, loading, locale, onClear,onMore } = this.props;
     if (!children) {
       return null;
     }
@@ -60,6 +61,7 @@ export default class NoticeIcon extends PureComponent {
               data={child.props.list}
               onClick={item => this.onItemClick(item, child.props)}
               onClear={() => onClear(child.props.title)}
+              onMore={() => onMore(child.props.title)}
               title={child.props.title}
               locale={locale}
           />

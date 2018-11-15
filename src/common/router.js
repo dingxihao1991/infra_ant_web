@@ -98,6 +98,9 @@ export const getRouterData = app => {
         '/': {
             component: dynamicWrapper(app, ['user'], () => import('../layouts/BasicLayout')),
         },
+        '/index': {
+            component: dynamicWrapper(app, ['assets'], () => import('../routes/home/Home')),
+        },
         '/facility/assets': {
             component: dynamicWrapper(app, ['assets'], () => import('../routes/Facility/Assets')),
         },

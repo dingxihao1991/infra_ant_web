@@ -1,4 +1,5 @@
 import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
 import styles from './RoleManage.less';
 import { Table ,Button ,Layout,Pagination,Form,Input,message} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
@@ -69,6 +70,10 @@ const Paging = ({dataItems, onChange, ...otherProps}) => {
 
 export default class roleManage extends PureComponent {
 
+    static contextTypes = {
+        openModal: PropTypes.func,
+    };
+
     state = {
         columns:[],
         dataSource:[],
@@ -91,7 +96,10 @@ export default class roleManage extends PureComponent {
         const thiz = this;
         GET('/roles',function(result){
             if(result.success){
-                thiz.setState({dataSource:result.result, loading:false})
+                thiz.setState({
+                    dataSource:result.result,
+                    loading:false,
+                })
             }
         },function(error){
             console.log(error)
@@ -100,7 +108,7 @@ export default class roleManage extends PureComponent {
 
     //编辑
     edit =()=>{
-        const {rows} = this.state
+        const {rows,record} = this.state
         if(rows.length>1){
             Modal.warning({
                 title: '警告信息',
@@ -108,19 +116,27 @@ export default class roleManage extends PureComponent {
             });
             return;
         }
-        this.setState({
-            record:rows[0],
-            visible: true
-        });
+        this.openModal(record);
     }
 
     //新增事件
     onAdd = () => {
-        this.setState({
-            record: null,
-            visible: true
-        });
+        this.openModal(null);
     };
+
+    openModal =(record)=>{
+        const modalFormProps = {
+            loading: true,
+            record:record,
+            isShow:true,
+            Contents:FormSub,
+            modalOpts: {
+                width: 700,
+            },
+            onSubmit: (values) => this.onSubmit(values)
+        }
+        this.context.openModal(modalFormProps);
+    }
 
     delete =()=> {
         const {rows,record} = this.state;

@@ -1,4 +1,5 @@
 import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
 import styles from './UserManage.less';
 import { Table ,Button ,Layout,Pagination,Form,Input , message , Menu , Dropdown,Icon,Tree} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
@@ -88,6 +89,10 @@ const Paging = ({dataItems, onChange, ...otherProps}) => {
 
 export default class userManage extends PureComponent {
 
+    static contextTypes = {
+        openModal: PropTypes.func,
+    };
+
     state = {
         columns:[],
         dataSource:[],
@@ -130,27 +135,35 @@ export default class userManage extends PureComponent {
 
     //编辑
     edit =()=>{
-        const {rows} = this.state
-        if(rows.length > 1 || rows.length == 0){
+        const {rows,record} = this.state
+        if(rows.length>1){
             Modal.warning({
                 title: '警告信息',
                 content: '请选中一行数据',
             });
             return;
         }
-        this.setState({
-            record:rows[0],
-            visible: true
-        });
+        this.openModal(record);
     }
 
     //新增事件
     onAdd = () => {
-        this.setState({
-            record: null,
-            visible: true
-        });
+        this.openModal(null);
     };
+
+    openModal =(record)=>{
+        const modalFormProps = {
+            loading: true,
+            record:record,
+            isShow:true,
+            Contents:FormSub,
+            modalOpts: {
+                width: 700,
+            },
+            onSubmit: (values) => this.onSubmit(values)
+        }
+        this.context.openModal(modalFormProps);
+    }
 
     delete =()=> {
         const {rows,record} = this.state;

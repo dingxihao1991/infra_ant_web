@@ -20,6 +20,7 @@ class ModalForm extends Component {
 
     closeModal = () =>{
         if (this.props.onCancel) {
+            alert("调用")
             this.props.onCancel();
             return;
         }
@@ -29,15 +30,15 @@ class ModalForm extends Component {
     }
 
     onSubmit = () => {
-        const { record, onSubmit } = this.props;
+        const { record, onSubmit,onCancel } = this.props;
 
         this.refs.form.validateFields((error, value) => {
             if (error) {
                 console.log(error);
                 return;
             }
-
             onSubmit && onSubmit(value, record);
+            onCancel();
 
         });
     }
@@ -48,7 +49,6 @@ class ModalForm extends Component {
             });
         }
     }
-
 
     render(){
         const {title, record, className, onCancel, onSubmit, modalOpts, loading,Contents,visible} = this.props;
@@ -61,10 +61,10 @@ class ModalForm extends Component {
             destroyOnClose:true,
             maskClosable: false,
             modalOpts,
-            onCancel: this.closeModal,
+            onCancel: onCancel,
             footer:[
                 onCancel && (
-                    <Button key="back" onClick={this.closeModal}>
+                    <Button key="back" onClick={onCancel}>
                         取消
                     </Button>
                 ),
@@ -79,7 +79,7 @@ class ModalForm extends Component {
 
         return (
             <Modal {...modalProps}>
-                <Contents ref='form' record={record}/>
+                {Contents?<Contents ref='form' record={record}/>:<div/>}
             </Modal>
         )
     }

@@ -21,6 +21,7 @@ import {getRoutes} from '../utils/utils';
 import Authorized from '../utils/Authorized';
 import {getAuthority} from '../utils/authority';
 import exception from '../routes/exception/404';
+import {ModalForm}  from 'components/Modal';
 
 const {Content, Header} = Layout;
 const {AuthorizedRoute, check} = Authorized;
@@ -103,7 +104,8 @@ export default class BasicLayout extends PureComponent {
     static childContextTypes = {
         location: PropTypes.object,
         breadcrumbNameMap: PropTypes.object,
-        userInfo:PropTypes.object
+        userInfo:PropTypes.object,
+        openModal:PropTypes.func,
     };
 
 
@@ -113,16 +115,30 @@ export default class BasicLayout extends PureComponent {
         return {
             location,
             breadcrumbNameMap: getBreadcrumbNameMap(getMenuData1(), routerData),
-            userInfo: getAuthority()
+            userInfo: getAuthority(),
+            openModal:this.openModal
         };
     }
 
     state = {
-        message:null
+        message:null,
+        visible:false,
+        modalFormProps:{
+            visible:false
+        }
     }
     constructor(props){
         super(props);
         this.initWebSocket();
+    }
+
+    openModal = modalFormProps =>{
+        console.log("modalFormProps----",modalFormProps)
+        this.setState({visible:modalFormProps?modalFormProps.isShow:false,modalFormProps:modalFormProps});
+    }
+
+    onCancel =()=>{
+        this.setState({visible:false});
     }
 
     receiveMessage = (data) =>{
@@ -205,11 +221,11 @@ export default class BasicLayout extends PureComponent {
             match,
             location,
         } = this.props;
-        const {message } = this.state;
-
+        const {message ,visible ,modalFormProps} = this.state;
         const baseRedirect = this.getBaseRedirect();
         const layout = (
             <Layout>
+                <ModalForm visible={visible} onCancel={this.onCancel} {...modalFormProps}/>
                 <SiderMenu
                     logo={logo}
                     Authorized={Authorized}

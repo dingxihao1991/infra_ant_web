@@ -3,9 +3,10 @@
  * @Author:  yulin.zhang
  * @CreateDate: 2018/11/11 10:30
  */
-import React, {Component} from 'react';
+import React, {Component,PureComponent} from 'react';
 import { Card, Row, Col, Icon, Avatar, Tag, Divider, Spin, Input } from 'antd';
 import styles from './PersonalCentre.less';
+import PropTypes from 'prop-types';
 import { routerRedux } from 'dva/router';
 import { push } from 'react-router-redux'
 import { connect } from 'dva';
@@ -33,7 +34,20 @@ const currentUser = {
     },
     address: '西湖区工专路 77 号',
     phone: '0752-268888888',
+    tags: [
+        {
+            key: '0',
+            label: '10点汇报工作',
+        },
+        {
+            key: '1',
+            label: '18点参加部门会议',
+        }
+
+    ],
 }
+import FormSub from './MemoForm';
+import {ModalForm}  from 'components/Modal';
 
 const tabsList ={
     'task':<Task/>,
@@ -44,14 +58,23 @@ const tabsList ={
 @connect(({user, global = {}, loading}) => ({
     collapsed: global.collapsed
 }))
-class PersonalCentre extends Component{
+export default class PersonalCentre extends  PureComponent {
+
+    static contextTypes = {
+        location: PropTypes.object,
+        breadcrumbNameMap: PropTypes.object,
+        userInfo:PropTypes.object,
+        openModal: PropTypes.func,
+    };
 
     constructor(props){
         super(props);
         this.state = {
             newTags: [],
+            contents:null,
             inputVisible: false,
             inputValue: '',
+            visible:false,
             key:props.location.state?props.location.state.key:'task'
         };
     }
@@ -79,13 +102,28 @@ class PersonalCentre extends Component{
         }
     };
 
+    addMemo = () =>{
+        const modalFormProps = {
+            title:'添加备忘录',
+            record:null,
+            isShow:true,
+            Contents:FormSub,
+            modalOpts: {
+                width: 700,
+            },
+            onSubmit: (values) => this.onSubmit(values)
+        }
+        this.context.openModal(modalFormProps);
+        this.setState({contents:FormSub});
+        this.setState({visible:true});
+    }
+
+    onSubmit =(values)=>{
+        console.log(",,,",values)
+    }
+
     render(){
         const { newTags, inputVisible, inputValue ,key} = this.state;
-
-        const {
-            match,
-            location,
-        } = this.props;
 
         const operationTabList = [
             {
@@ -113,6 +151,7 @@ class PersonalCentre extends Component{
                 ),
             },
         ];
+
 
         return(
             <div>
@@ -143,11 +182,32 @@ class PersonalCentre extends Component{
                                         </div>
                                         <Divider dashed />
                                         <div className={styles.tags}>
-                                            <div className={styles.tagsTitle}>标签</div>
+                                            <div className={styles.tagsTitle}>备忘录</div>
+                                            {currentUser.tags.concat(newTags).map(item => (
+                                                <Tag key={item.key}>{item.label}</Tag>
+                                            ))}
+                                            {inputVisible && (
+                                                <Input
+                                                    ref={this.saveInputRef}
+                                                    type="text"
+                                                    size="small"
+                                                    style={{ width: 78 }}
+                                                    value={inputValue}
+
+                                                />
+                                            )}
+                                            {!inputVisible && (
+                                                <Tag
+                                                    onClick={this.addMemo}
+                                                    style={{ background: '#fff', borderStyle: 'dashed' }}
+                                                >
+                                                    <Icon type="plus" />
+                                                </Tag>
+                                            )}
                                         </div>
                                         <Divider style={{ marginTop: 16 }} dashed />
                                         <div className={styles.team}>
-                                            <div className={styles.teamTitle}>团队</div>
+                                            <div className={styles.teamTitle}>天气</div>
 
                                         </div>
                                     </div>
@@ -161,11 +221,11 @@ class PersonalCentre extends Component{
                             className={styles.tabsCard}
                             bordered={false}
                             tabList={operationTabList}
-                            activeTabKey={this.state.key}
+                            activeTabKey={key}
                             onTabChange={this.onTabChange}
 
                         >
-                            {tabsList[this.state.key]}
+                            {tabsList[key]}
                         </Card>
                     </Col>
                 </Row>
@@ -173,5 +233,3 @@ class PersonalCentre extends Component{
         )
     }
 }
-
-export default  PersonalCentre;

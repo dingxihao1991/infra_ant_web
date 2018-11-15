@@ -90,7 +90,6 @@ class TreeCheck extends Component{
             this.setState({ checkedKeys });
             values = array.length>0?checkedKeys.concat(array):checkedKeys;
         }
-        console.log(values)
         onCheck && onCheck(values);
     }
 

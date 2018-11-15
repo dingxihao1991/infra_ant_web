@@ -83,6 +83,10 @@ const Paging = ({dataItems, onChange, ...otherProps}) => {
 
 export default class MenuManage extends PureComponent {
 
+    static contextTypes = {
+        openModal: PropTypes.func,
+    };
+
     state = {
         columns:[],
         record: null,
@@ -123,7 +127,7 @@ export default class MenuManage extends PureComponent {
 
     //选中项发生变化时的回调
     onSelectChange = (selectedRowKeys,selectedRows) => {
-
+        console.log('selectedRowKeys changed: ', selectedRows);
         this.setState({selectedRowKeys:selectedRowKeys,record:selectedRows[0]});
     }
 
@@ -169,7 +173,7 @@ export default class MenuManage extends PureComponent {
 
     //编辑
     edit =()=>{
-        const {rows} = this.state
+        const {rows,record} = this.state
         if(rows.length>1){
             Modal.warning({
                 title: '警告信息',
@@ -177,21 +181,29 @@ export default class MenuManage extends PureComponent {
             });
             return;
         }
-        this.setState({
-            //record: rows[0],
-            visible: true
-        });
+        this.openModal(record);
 
     }
 
     //新增事件
     onAdd = () => {
-        this.setState({
-            record: null,
-            visible: true
-        });
+        this.openModal(null);
 
     };
+
+    openModal =(record)=>{
+        const modalFormProps = {
+            loading: true,
+            record:record,
+            isShow:true,
+            Contents:FormSub,
+            modalOpts: {
+                width: 700,
+            },
+            onSubmit: (values) => this.onSubmit(values)
+        }
+        this.context.openModal(modalFormProps);
+    }
 
     delete =()=> {
         const {rows} = this.state;
@@ -285,7 +297,7 @@ export default class MenuManage extends PureComponent {
 
 
     render() {
-        let {visible,record,rows,dataSource,loading} = this.state;
+        let {rows,dataSource,loading} = this.state;
         const {prefixCls, className,alternateColor} = this.props;
 
         let classname = cx(
@@ -299,17 +311,6 @@ export default class MenuManage extends PureComponent {
             onSelect: this.onSelect,
         };
 
-        const modalFormProps = {
-            loading: true,
-            record,
-            visible,
-            Contents:FormSub,
-            modalOpts: {
-                width: 700,
-            },
-            onCancel: () => this.closeModal(),
-            onSubmit: (values) => this.onSubmit(values)
-        }
 
         const paging = {
             total: dataSource.length,
@@ -355,7 +356,6 @@ export default class MenuManage extends PureComponent {
                 {/*<Footer>*/}
                     {/*<Pagination {...paging}></Pagination>*/}
                 {/*</Footer>*/}
-                <ModalForm {...modalFormProps}/>
             </Layout>
         )
 

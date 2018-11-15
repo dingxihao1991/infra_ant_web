@@ -11,7 +11,6 @@ import styles from './index.less';
 import {Link} from "react-router-dom";
 import NoticeIcon from '../NoticeIcon';
 import HeaderSearch from "../HeaderSearch";
-import {ModalForm}  from 'components/Modal';
 import FormSub from './Form';
 import { PUT } from '../../services/api';
 import groupBy from 'lodash/groupBy';
@@ -22,7 +21,6 @@ import { routerRedux } from 'dva/router';
 import { push } from 'react-router-redux'
 import { connect } from 'dva';
 
-const Modal = ModalForm.Modal;
 
 
 const data = [
@@ -103,7 +101,8 @@ export default class GlobalHeader extends PureComponent {
     static contextTypes = {
         location: PropTypes.object,
         breadcrumbNameMap: PropTypes.object,
-        userInfo:PropTypes.object
+        userInfo:PropTypes.object,
+        openModal: PropTypes.func,
     };
 
     state = {
@@ -235,9 +234,17 @@ export default class GlobalHeader extends PureComponent {
                 dispatch(push('/personal/centre'));
                 break;
             case 'updatePassword':
-                thiz.setState({
-                    visible: true
-                });
+                const modalFormProps = {
+                    title:'修改密码',
+                    record:null,
+                    isShow:true,
+                    Contents:FormSub,
+                    modalOpts: {
+                        width: 500,
+                    },
+                    onSubmit: (values) => this.passwordSub(values)
+                }
+                this.context.openModal(modalFormProps);
                 break;
             case '退出登录':
                 break;
@@ -342,16 +349,6 @@ export default class GlobalHeader extends PureComponent {
             </Menu>
         );
 
-        const modalFormProps = {
-            loading: true,
-            visible,
-            Contents:FormSub,
-            modalOpts: {
-                width: 500,
-            },
-            onCancel: () => this.closeModal(),
-            onSubmit: (values) => this.passwordSub(values)
-        }
         return (
             <div className={styles.header}>
                 {isMobile && [
@@ -418,7 +415,7 @@ export default class GlobalHeader extends PureComponent {
                         <Spin size="small" style={{ marginLeft: 8 }} />
                     )}
                 </div>
-                <ModalForm {...modalFormProps}/>
+
                 <SearchBox visible={openSearchBox} onClose={this.onCloseSearchBox} />
             </div>
         );

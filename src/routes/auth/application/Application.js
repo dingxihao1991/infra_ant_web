@@ -5,6 +5,7 @@ import {ModalForm,showConfirm}  from 'components/Modal';
 import FormSub from './Form';
 import { POST,GET,PUT,DELETE } from '../../../services/api';
 import Authorized from '../../../utils/Authorized';
+import PropTypes from 'prop-types';
 
 const { ButtonAuthorize } = Authorized;
 const { Content} = Layout;
@@ -69,13 +70,19 @@ const Paging = ({dataItems, onChange, ...otherProps}) => {
 
 
 export default class Application extends PureComponent {
+
+    static contextTypes = {
+        openModal: PropTypes.func,
+    };
+
     state = {
         columns:[],
         dataSource:[],
         record: null,
         visible: false,
         rows: [],
-        loading:true
+        loading:true,
+        selectedRowKeys:[]
     };
 
     constructor(props,context) {
@@ -91,7 +98,7 @@ export default class Application extends PureComponent {
         GET('/application/findAll',function(result){
             if(result.success){
 
-                thiz.setState({dataSource:result.result,loading:false})
+                thiz.setState({dataSource:result.result,loading:false,selectedRowKeys:[]})
             }
         },function(error){
             console.log(error)
@@ -106,26 +113,15 @@ export default class Application extends PureComponent {
             filteredInfo: filters,
             sortedInfo: sorter,
         });
-        console.log("------------",pagination);
     }
 
-    clearFilters = () => {
-        this.setState({ filteredInfo: null });
-    }
-
-    clearAll = () => {
-        this.setState({
-            filteredInfo: null,
-            sortedInfo: null,
-        });
-    }
 
 
 
     //选中项发生变化时的回调
     onSelectChange = (selectedRowKeys,selectedRows) => {
         console.log('selectedRowKeys changed: ', selectedRowKeys);
-        this.setState({rows:selectedRows,record:selectedRows[0]});
+        this.setState({rows:selectedRows,record:selectedRows[0],selectedRowKeys});
     }
 
     //分页回调事件
@@ -151,19 +147,27 @@ export default class Application extends PureComponent {
             });
             return;
         }
-        this.setState({
-            record:rows[0],
-            visible: true
-        });
+
+        this.openModal(rows[0]);
+    }
+
+    openModal =(record)=>{
+        const modalFormProps = {
+            loading: true,
+            record:record,
+            isShow:true,
+            Contents:FormSub,
+            modalOpts: {
+                width: 700,
+            },
+            onSubmit: (values) => this.onSubmit(values)
+        }
+        this.context.openModal(modalFormProps);
     }
 
     //新增事件
     onAdd = () => {
-        this.setState({
-            record: null,
-            visible: true
-        });
-
+        this.openModal(null);
     };
 
     delete =()=> {
@@ -213,7 +217,7 @@ export default class Application extends PureComponent {
 
     onSubmit= (values) =>{
         const thiz = this;
-        console.log("--------",values)
+
         if(this.state.record!=null){
 
             values['id']=thiz.state.record.id;
@@ -223,7 +227,6 @@ export default class Application extends PureComponent {
                 if(data.success){
 
                     message.success('修改成功')
-                    thiz.closeModal();
                     thiz.init();
                 }else{
                     Modal.error({
@@ -257,30 +260,15 @@ export default class Application extends PureComponent {
     }
 
     render() {
-        let { visible,record,rows,dataSource,loading} = this.state;
+        let { rows,dataSource,loading,selectedRowKeys} = this.state;
 
         const rowSelection = {
             onChange: this.onSelectChange,
             //onSelect: this.onSelect,
+            selectedRowKeys:selectedRowKeys
         };
-        const  from = FormSub;
-        const thiz = this;
-
-        const modalFormProps = {
-            loading: true,
-
-            record,
-            visible,
-            Contents:from,
-            modalOpts: {
-                width: 700,
-            },
-            onCancel: () => this.closeModal(),
-            onSubmit: (values) => this.onSubmit(values)
-        }
 
         return(
-
             <Layout className={styles.application}>
                 <div>
                     <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="application:add"/>
@@ -298,7 +286,6 @@ export default class Application extends PureComponent {
                            }}
                     />
                 </Content>
-                <ModalForm {...modalFormProps}/>
             </Layout>
         )
 

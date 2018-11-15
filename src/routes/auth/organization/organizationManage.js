@@ -15,13 +15,7 @@ const { ButtonAuthorize } = Authorized;
 
 
 const columns = [
-   /* {
-    title: '系统标识',
-    dataIndex: 'systemId',
-    id: 'systemId',
-    width: 200
-
-},*/ {
+ {
     title: '机构名称',
     dataIndex: 'orgName',
     id: 'orgName',
@@ -78,9 +72,10 @@ const Paging = ({dataItems, onChange, ...otherProps}) => {
 
 export default class OrganizationManage extends PureComponent {
 
-    static propTypes = {
-        rows: PropTypes.array,
-    }
+    static contextTypes = {
+        openModal: PropTypes.func,
+    };
+
 
     static defaultProps = {
         prefixCls: "antui-datatable",
@@ -174,7 +169,7 @@ export default class OrganizationManage extends PureComponent {
 
     //编辑
     edit =()=>{
-        const {rows} = this.state
+        const {rows,record} = this.state
         if(rows.length>1){
             Modal.warning({
                 title: '警告信息',
@@ -182,20 +177,28 @@ export default class OrganizationManage extends PureComponent {
             });
             return;
         }
-        this.setState({
-            //record: rows[0],
-            visible: true
-        });
+        this.openModal(record);
     }
 
     //新增事件
     onAdd = () => {
-        this.setState({
-            record: null,
-            visible: true
-        });
+        this.openModal(null);
 
     };
+
+    openModal =(record)=>{
+        const modalFormProps = {
+            loading: true,
+            record:record,
+            isShow:true,
+            Contents:FormSub,
+            modalOpts: {
+                width: 700,
+            },
+            onSubmit: (values) => this.onSubmit(values)
+        }
+        this.context.openModal(modalFormProps);
+    }
 
     delete =()=> {
         const {rows,record} = this.state;
@@ -232,21 +235,18 @@ export default class OrganizationManage extends PureComponent {
 
     }
 
-  closeModal = () =>{
-    this.setState({
-      visible: false
-    });
-  }
+    closeModal = () =>{
+        this.setState({
+          visible: false
+        });
+    }
 
     onSubmit = (values) =>{
         let thiz = this;
         if(thiz.state.record!=null){
-
           values['id']=thiz.state.record.id;
-
-
             PUT('/organization/update',values,function(data){
-                console.log(data);
+
                 if(data.success){
                   thiz.closeModal();
                     thiz.init();
@@ -280,7 +280,7 @@ export default class OrganizationManage extends PureComponent {
 
 
     render() {
-        let { visible,record,rows,dataSource,loading} = this.state;
+        let {rows,dataSource,loading} = this.state;
         const {prefixCls, className,alternateColor} = this.props;
 
         let classname = cx(
@@ -293,23 +293,6 @@ export default class OrganizationManage extends PureComponent {
             onChange: this.onSelectChange,
             onSelect: this.onSelect,
         };
-
-        const modalFormProps = {
-            loading: true,
-            record,
-            visible,
-            Contents:FormSub,
-            modalOpts: {
-                width: 700,
-            },
-            onCancel: () => {
-                this.setState({
-                    record: null,
-                    visible: false
-                })
-            },
-            onSubmit: (values) => this.onSubmit(values)
-        }
 
         const paging = {
             total: dataSource.length,
@@ -353,10 +336,7 @@ export default class OrganizationManage extends PureComponent {
 
                         />
                 </Content>
-                {/*<Footer>*/}
-                    {/*<Pagination {...paging}></Pagination>*/}
-                {/*</Footer>*/}
-                <ModalForm {...modalFormProps}/>
+
             </Layout>
         )
 

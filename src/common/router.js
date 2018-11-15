@@ -98,6 +98,9 @@ export const getRouterData = app => {
         '/': {
             component: dynamicWrapper(app, ['user'], () => import('../layouts/BasicLayout')),
         },
+        '/index': {
+            component: dynamicWrapper(app, ['assets'], () => import('../routes/home/Home')),
+        },
         '/facility/assets': {
             component: dynamicWrapper(app, ['assets'], () => import('../routes/Facility/Assets')),
         },
@@ -143,7 +146,9 @@ export const getRouterData = app => {
       '/echartsDemo/test2': {
         component: dynamicWrapper(app, [], () => import('../routes/echartsDemo/test2')),
       },
-
+        '/auth/systemOperationLogs': {
+            component: dynamicWrapper(app, [], () => import('../routes/auth/log/LogManage')),
+        },
     };
 
     /*  !!!!! Don't  touch  me !!!!! */

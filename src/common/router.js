@@ -146,9 +146,16 @@ export const getRouterData = app => {
       '/echartsDemo/test2': {
         component: dynamicWrapper(app, [], () => import('../routes/echartsDemo/test2')),
       },
-        '/auth/systemOperationLogs': {
-            component: dynamicWrapper(app, [], () => import('../routes/auth/log/LogManage')),
+      //echart测试
+      '/echartsDemo/test3': {
+        component: dynamicWrapper(app, [], () => import('../routes/echartsDemo/test3')),
+      },
+        //个人中心
+        '/personal/centre': {
+            component: dynamicWrapper(app, [], () => import('../routes/User/centre/PersonalCentre')),
         },
+
+
     };
 
     /*  !!!!! Don't  touch  me !!!!! */

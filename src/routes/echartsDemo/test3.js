@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import styles from './test.less';
 import { Table, Button, Layout, Pagination, Form, Input, message, Dropdown, Menu, Tabs } from "antd";
 import {ModalForm,showConfirm}  from 'components/Modal';
-import FormSub from './Form';//资产设备单个定位页面
+import FormSub from './Form5';//资产设备单个定位页面
 import FormSub2 from './Form2';//资产设备变更页面
 import FormSub3 from './Form3';//所有资产设备定位页面
 import FormSub4 from './Form4';//资产设备详情页面
@@ -392,19 +392,7 @@ export default class userManage extends PureComponent {
         id: '9',
         align: 'center',
         render: () => (
-          <Dropdown overlay={<Menu>
-            <Menu.Item key="1"><Button style={{ marginRight: 5 }} icon="form" onClick={this.edit}>详情</Button></Menu.Item>
-            <Menu.Item key="1"><Button style={{ marginRight: 5 }} icon="form" onClick={this.change}>记录</Button></Menu.Item>
-            <Menu.Item key="1"><Button style={{ marginRight: 5 }} icon="form" onClick={this.detail}>测试</Button></Menu.Item>
-          </Menu>}>
-            <Button >
-              更多 <Icon type="down" />
-            </Button>
-          </Dropdown>
-
-
-
-
+          <Button style={{ marginRight: 5 }} icon="form" onClick={this.edit}>详情</Button>
         ),
       }];
     this.setState({columns:columns})

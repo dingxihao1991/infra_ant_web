@@ -154,6 +154,7 @@ export const getRouterData = app => {
         '/personal/centre': {
             component: dynamicWrapper(app, [], () => import('../routes/User/centre/PersonalCentre')),
         },
+    //操作记录
       '/auth/systemOperationLogs': {
         component: dynamicWrapper(app, [], () => import('../routes/auth/log/LogManage')),
       },

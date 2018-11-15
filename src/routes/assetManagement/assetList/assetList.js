@@ -1,16 +1,21 @@
-import React, {PureComponent} from 'react';
-import styles from './test.less';
-import { Table ,Button ,Layout,Pagination,Form,Input , message,Dropdown,Menu} from 'antd';
-import {ModalForm,showConfirm}  from 'components/Modal';
-import FormSub from './Form';//资产设备单个定位页面
-import FormSub2 from './Form2';//资产设备变更页面
-import FormSub3 from './Form3';//所有资产设备定位页面
-import FormSub4 from './Form4';//资产设备详情页面
+import React, { PureComponent } from "react";
+import styles from "./assetList.less"; //引入样式
+import { Button, Dropdown, Icon, Layout, Menu, message, Table, Upload } from "antd"; //引入上传
+import { ModalForm, showConfirm } from "components/Modal";
+import FormSub from "./assetsLocation"; //资产设备单个定位页面
+import FormSub2 from "./assetChange"; //资产设备变更页面
+import FormSub3 from "./assetsAllLocation"; //所有资产设备定位页面
+import FormSub4 from "./assetDetails"; //资产设备详情页面
 
-import { Upload, Icon } from 'antd';//引入上传
-import { getToken } from "../../utils/authority";
+/**
+ * 资产列表页面
+ *
+ * @param file
+ * @returns {boolean}
+ */
 
 
+//上传方法
 function beforeUpload(file) {
   //无法获取excel的type，故采用name获取file类型    fileName is undefined
   let fileName  = file.name;
@@ -31,65 +36,8 @@ function beforeUpload(file) {
   return isXls && isLt2M;
 }
 
-const FormItem = Form.Item;
-const { Content, Header, Footer } = Layout;
+const { Content,} = Layout;
 const Modal = ModalForm.Modal;
-const confirm = Modal.confirm;
-
-const Paging = ({dataItems, onChange, ...otherProps}) => {
-  const { total, pageSize, pageNum } = dataItems;
-  const paging = {
-    total: total,
-    pageSize: pageSize,
-    current: pageNum,
-    showSizeChanger: true,
-    showQuickJumper: true,
-    showTotal: total => `共 ${total} 条`,
-    onShowSizeChange: (pageNum, pageSize) => onChange({pageNum, pageSize}),
-    onChange: (pageNum) => onChange({pageNum}),
-    ...otherProps
-  };
-  return <Pagination {...paging} />;
-};
-
-/*const modalFormProps = {
-  loading: true,
- /!* record,
-  visible,*!/
-  Contents:FormSub,
-  modalOpts: {
-    width: 700,
-  },
-  onCancel: () => {
-    this.setState({
-      record: null,
-      visible: false
-    })
-  },
-  onSubmit: (values) => this.onSubmit(values)
-}
-
-const modalFormProps2 = {
-  loading: true,
-  /!* record,
-   visible,*!/
-  Contents:FormSub2,
-  modalOpts: {
-    width: 700,
-  },
-  onCancel: () => {
-    this.setState({
-      record: null,
-      visible: false
-    })
-  },
-  onSubmit: (values) => this.onSubmit(values)
-}*/
-
-
-
-
-
 
 const data = [{
   1: 'NV-TB9716',
@@ -154,14 +102,6 @@ const data = [{
 }
 ];
 
-const menu = (
-  <Menu>
-    <Menu.Item key="1">定位</Menu.Item>
-    <Menu.Item key="2">变更</Menu.Item>
-    <Menu.Item key="3" > <Button icon="form" onClick={this.detail}>详情</Button></Menu.Item>
-  </Menu>
-);
-
 export default class userManage extends PureComponent {
 
   state = {
@@ -183,14 +123,7 @@ export default class userManage extends PureComponent {
   componentDidMount(){
     this.initColums();
     this.init();
-
-    console.log("test")
   }
-
-
-
-
-
 
   initColums =() =>{
     const columns = [{
@@ -265,34 +198,21 @@ export default class userManage extends PureComponent {
       </Button>
   </Dropdown>
 
-
-
-
         ),
       }];
     this.setState({columns:columns})
   }
-
-/*<Dropdown overlay={menu}>
-<Button>
-Actions <Icon type="user" />
-</Button>
-</Dropdown>*/
 
   init= () =>{
     const thiz = this;
 
         thiz.setState({dataSource:data})
 
-
   }
 
   //编辑
   edit =()=>{
-   // alert("进入定位页面"+"dataq为"+data);
-    console.log(this.state);
     const {rows} = this.state
-    console.log(rows)
     if(rows.length>1){
       Modal.warning({
         title: '警告信息',
@@ -330,7 +250,6 @@ Actions <Icon type="user" />
     });
   }
 
-
   //资产详情页
   detail =()=>{
     const {rows} = this.state
@@ -365,67 +284,19 @@ Actions <Icon type="user" />
     });
   }
 
-  //新增事件
-  onAdd = () => {
-    this.setState({
-      record: null,
-      visible: true
-    });
-  };
-
-  delete =()=> {
-    const {rows,record} = this.state;
-    const dataSource = [...this.state.dataSource];
-    let thiz = this;
-    confirm({
-      title: '提示信息',
-      content: '确定删除【'+rows.length+'】行数据吗?',
-      okText: '确定',
-      okType: 'danger',
-      cancelText: '取消',
-      onOk() {
-        let params = []
-        rows.map(value=>{
-          params.push(value.id);
-        });
-        DELETE('/users/delete', params , function(result){
-          if(result.success){
-            thiz.setState({ dataSource: dataSource.filter(item => !rows.some(jtem=>jtem.id == item.id))});
-          }else{
-            alert(result.message);
-          }
-
-        },function(error){
-          console.log(error)
-        })
-      },
-      onCancel() {
-
-      },
-
-    })
-
-  }
-
   //选中项发生变化时的回调
   onSelectChange = (selectedRowKeys,selectedRows) => {
     console.log('selectedRowKeys changed: ', selectedRowKeys);
     this.setState({rows:selectedRows,record:selectedRows[0]});
   }
 
-  setFileId = (fileId) =>{
-    console.log("ffulei"+fileId);
-  }
-
   render() {
     //增加form变量
-    let { columns, visible,record,rows,dataSource,form,title} = this.state;
+    let { columns, visible,record,dataSource,form,title} = this.state;
 
     const rowSelection = {
       onChange: this.onSelectChange,
     };
-    const thiz = this;
-    //const from = FormSub;
     const modalFormProps = {
       title:title,
       loading: true,
@@ -447,73 +318,22 @@ Actions <Icon type="user" />
           visible: false
         })
       },
-      /*  onSubmit: (values) => {
-         thiz.init();
-        console.log(values);
-         console.log('-------------'+JSON.stringify(values) );
-         if(thiz.state.record!=null){
-           values['id'] = thiz.state.record.id;
-           PUT('/users/update',values,function(data){
-             console.log(data);
-             if(data.success){
-               message.success("更新成功")
-               thiz.init();
-             }else{
-               message.success("更新失败，请联系管理员")
-             }
-           },function(error){
-             console.log(error);
-           })
-         }else {
-           POST('/users/add',values,function(data){
-             console.log(data);
-             if(data.success){
-               message.success("新增成功")
-               thiz.init();
-             }else{
-               message.success("新增失败，请联系管理员")
-             }
-           },function(error){
-             console.log(error);
-           })
-
-         }
-       }*/
     }
-
-    const uploadButton = (
-      <div>
-        <Icon type={this.state.loading ? 'loading' : 'plus'} />
-        <div className="ant-upload-text">Upload</div>
-        <p>请上传头像</p>
-      </div>
-    );
-
-
-
 
     return(
       <Layout className={styles.application}>
         <div className={styles.tableOperations}>
-         {/* <Button icon="plus" type="primary" onClick={this.onAdd}>上传</Button>*/}
-
 
           <Upload
             name="userUploadFile"
-           // listType="picture-card"
-            //className="avatar-uploader"
             showUploadList={false}
-            //action="http://localhost:8888/asset/upload"
             beforeUpload={beforeUpload}
             onChange={this.handleChange}
-            headers={{"token":getToken()}}
           >
             <Button>
               <Icon type="upload" /> 上传
             </Button>
           </Upload>
-         {/* <Button icon="select" disabled={!rows.length} onClick={this.edit}>定位</Button>
-          <Button icon="form" disabled={!rows.length} onClick={this.change}>变更</Button>*/}
           <Button icon="search"  onClick={this.getAll}>查看所有设备位置</Button>
         </div>
         <Content  >

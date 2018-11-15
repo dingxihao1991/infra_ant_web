@@ -10,13 +10,13 @@ import  'echarts/lib/chart/line';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 
-var timeList = ['15:01','15:02','15:03','15:04','15:05','15:06','15:07']
-var inData = [100,150,199,300,50,89,60]
-var outData = [300,200,400,70,90,160,230]
-var d1 = [100,150,199,300,50,89,60]
-var d2 = [300,200,400,70,90,160,230]
+const timeList = ["15:01", "15:02", "15:03", "15:04", "15:05", "15:06", "15:07"];
+const inData = [100,150,199,300,50,89,60]
+const outData = [300,200,400,70,90,160,230]
+const d1 = [100,150,199,300,50,89,60]
+const d2 = [300,200,400,70,90,160,230]
 
-var option = {
+const option = {
   title: {
     text: '各系统备品备件实时数量图',
     subtext: '实时刷新(5秒/次)',

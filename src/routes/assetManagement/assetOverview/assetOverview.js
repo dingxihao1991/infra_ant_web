@@ -1,9 +1,7 @@
-import React, { Component, PureComponent } from "react";
+import React, { PureComponent } from "react";
 
 // 引入 ECharts 主模块
 import echarts from 'echarts/lib/echarts';
-// 引入柱状图
-//import  'echarts/lib/chart/bar';
 //引入折线图
 import 'echarts/lib/chart/line';
 //引入饼图
@@ -12,7 +10,7 @@ import 'echarts/lib/chart/pie';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 //引入列表
-import { Avatar, Button, List } from "antd";
+import { Avatar, List } from "antd";
 //引入卡片
 import { Card } from 'antd';
 //引入图标
@@ -62,7 +60,6 @@ export default class EchartsTest extends PureComponent {
   componentDidMount() {
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('main'));
-    //var myChart2 = echarts.init(document.getElementById('main2'));
     var myChart3 = echarts.init(document.getElementById('main3'));
     // 绘制图表
     myChart.setOption({
@@ -225,20 +222,11 @@ export default class EchartsTest extends PureComponent {
 
         <div id="main"  className="col-md-8" style={{ width: 400, height: 400 }}></div>
 
-
-
       </div>
     );
-
 
   }
 
 
-
-
-
-
-
 }
-
 

@@ -138,23 +138,27 @@ export const getRouterData = app => {
         '/auth/organizationManage': {
             component: dynamicWrapper(app, [], () => import('../routes/auth/organization/organizationManage')),
         },
-      //echart测试
-      '/echartsDemo/test': {
-        component: dynamicWrapper(app, [], () => import('../routes/echartsDemo/test')),
+      //资产列表
+      '/assetManagement/assetList': {
+        component: dynamicWrapper(app, [], () => import('../routes/assetManagement/assetList/assetList')),
       },
-      //echart测试
-      '/echartsDemo/test2': {
-        component: dynamicWrapper(app, [], () => import('../routes/echartsDemo/test2')),
+      //资产概览
+      '/assetManagement/assetOverview': {
+        component: dynamicWrapper(app, [], () => import('../routes/assetManagement/assetOverview/assetOverview.js')),
       },
-      //echart测试
-      '/echartsDemo/test3': {
-        component: dynamicWrapper(app, [], () => import('../routes/echartsDemo/test3')),
+      //资产维保记录
+      '/assetManagement/assetRecord': {
+        component: dynamicWrapper(app, [], () => import('../routes/assetManagement/assetRecord/assetRecord.js')),
       },
-        //个人中心
+      //资产备品备件
+      '/assetManagement/bomManagement': {
+        component: dynamicWrapper(app, [], () => import('../routes/assetManagement/bomManagement/bomManagement.js')),
+      },
+      //个人中心
         '/personal/centre': {
             component: dynamicWrapper(app, [], () => import('../routes/User/centre/PersonalCentre')),
         },
-    //操作记录
+      //操作记录
       '/auth/systemOperationLogs': {
         component: dynamicWrapper(app, [], () => import('../routes/auth/log/LogManage')),
       },

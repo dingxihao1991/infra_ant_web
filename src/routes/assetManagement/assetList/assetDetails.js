@@ -7,11 +7,16 @@ import {
   List,
   message,
   Avatar,
-  Button,
 } from "antd";
 
-import styles from './test.less';
 
+/**
+ * 资产详情页面
+ *
+ * @type {<TOwnProps>(options?: FormCreateOption<TOwnProps>) => ComponentDecorator}
+ */
+
+//定义各类变量
 const createForm = Form.create;
 
 const TabPane = Tabs.TabPane;
@@ -19,10 +24,9 @@ const TabPane = Tabs.TabPane;
 const { Meta } = Card;
 
 const count = 3;
-const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat&noinfo`;
 
 
-//数据2
+//维护变更记录
 const data2 = [
   {
     title: '管廊系统—合肥管廊高新段—鸡鸣山路排水设备检修',
@@ -55,65 +59,8 @@ const data2 = [
   }
 ];
 
-//数据  sp
-const data3 = [{
-      "gender": "male",
-      "name": {
-        "title": "mr",
-        "first": "lucas",
-        "last": "scott"
-      },
-      "email": "lucas.scott@example.com",
-      "nat": "CA"
-    }, {
-      "gender": "female",
-      "name": {
-        "title": "ms",
-        "first": "camille",
-        "last": "young"
-      },
-      "email": "camille.young@example.com",
-      "nat": "CA"
-    }, {
-      "gender": "female",
-      "name": {
-        "title": "ms",
-        "first": "sofia",
-        "last": "kallio"
-      },
-      "email": "sofia.kallio@example.com",
-      "nat": "FI"
-    }, {
-      "gender": "female",
-      "name": {
-        "title": "mrs",
-        "first": "mile",
-        "last": "oliveira"
-      },
-      "email": "mile.oliveira@example.com",
-      "nat": "BR"
-    }, {
-      "gender": "male",
-      "name": {
-        "title": "mr",
-        "first": "liam",
-        "last": "thomas"
-      },
-      "email": "liam.thomas@example.com",
-      "nat": "NZ"
-    }, {
-      "gender": "female",
-      "name": {
-        "title": "miss",
-        "first": "layla",
-        "last": "taylor"
-      },
-      "email": "layla.taylor@example.com",
-      "nat": "NZ"
-    }
-]
 
-
+//文档数据
 const listData = [];
 for (let i = 0; i < 23; i++) {
   listData.push({
@@ -124,15 +71,6 @@ for (let i = 0; i < 23; i++) {
 });
 }
 
-const IconText = ({ type, text }) => (
-  <span>
-    <Icon type={type} style={{ marginRight: 8 }} />
-    {text}
-  </span>
-);
-
-
-
 
 class FormSub extends Component {
 
@@ -141,7 +79,6 @@ class FormSub extends Component {
     value: undefined,
     treeData:[],
     treeData2:[],
-    //sp
     initLoading: true,
     loading: false,
     data: [],
@@ -152,70 +89,15 @@ class FormSub extends Component {
   componentDidMount() {//sp
       this.setState({
         initLoading: false,
-        data: data3,
-        list: data3,
       });
   }
 
-
-/*  getData = (callback) => {
-
-  }*/
-
-
-  onLoadMore = () => {//sp
-    this.setState({
-      loading: true,
-      list: this.state.data.concat([...new Array(count)].map(() => ({ loading: true, name: {} }))),
-    });
-      const data = data3;
-      console.log(data);
-      this.setState({
-        data,
-        list: data,
-        loading: false,
-      }, () => {
-        // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
-        // In real scene, you can using public method of react-virtualized:
-        // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-        window.dispatchEvent(new Event('resize'));
-      });
-  }
 
   constructor(props){
     super(props);
-    this.init();
   }
 
-  init= () =>{
-    /* const thiz = this;
-     GET('/organization/findSelectData',function(result){
-       if(result.success){
-
-         console.log(result);
-         thiz.setState({treeData:result.result})
-       }
-     },function(error){
-       console.log(error)
-     })
-
-     //获取应用标识
-     GET('/application/findApplicationData',function(result){
-       if(result.success){
-
-         //获取应用标识数量
-         let appLength = result.result.length;
-         thiz.setState({treeData2:result.result,appLength:appLength})
-
-         console.log(appLength);
-       }
-     },function(error){
-       console.log(error)
-     })*/
-  }
-
-
-
+  //文档分页函数
   onChange = (value) => {
     console.log(value);
     this.setState({ value });
@@ -223,45 +105,14 @@ class FormSub extends Component {
 
   //编辑
   edit =()=>{
-   /* const {rows} = this.state
-    console.log(rows)*/
-  /*  if(rows.length>1){
-      Modal.warning({
-        title: '警告信息',
-        content: '请选中一行数据',
-      });
-      return;
-    }*/
     message.error("功能开发中~~~");
-  /*  let  form = FormSub2
-    this.setState({
-      //record:rows[0],
-      visible: true,
-      form:form
-    });*/
   }
 
   render(){
-    const { getFieldDecorator } = this.props.form;
-    const {record} =this.props;
-
-    const formItemLayout = {
-      labelCol: { span: 4 },
-      wrapperCol: { span: 17 }
-    }
-
-    const { initLoading, loading, list } = this.state;
-    const loadMore = !initLoading && !loading ? (
-      <div style={{ textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px' }}>
-        <Button onClick={this.onLoadMore}>loading more</Button>
-      </div>
-    ) : null;
 
     return (
-//onChange={callback}
       <Tabs defaultActiveKey="1">
         <TabPane tab="基本信息" key="1" styles>
-
 
           <Card
             style={{ width: 700 }}
@@ -287,6 +138,7 @@ class FormSub extends Component {
             <p><Icon type="double-right"/> 资产设备状态 :         '正常'</p>
           </Card>
         </TabPane>
+
         <TabPane tab="维护变更记录" key="2">
 
           <List
@@ -303,32 +155,9 @@ class FormSub extends Component {
             )}
           />
 
-
-
-
-
         </TabPane>
 
       <TabPane tab="相关文档" key="3">
-
-        {/*<List  //sp
-          className={styles.demoLoadMoreList}
-          loading={initLoading}
-          itemLayout="horizontal"
-          loadMore={loadMore}
-          dataSource={list}
-          renderItem={item => (
-            <List.Item actions={[<a>edit</a>, <a>more</a>]}>
-                <List.Item.Meta
-                  avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                  title={<a href="https://ant.design">{item.name.last}</a>}
-                  description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                />
-                <div>content</div>
-            </List.Item>
-          )}
-        />*/}
-
 
         <List
           itemLayout="vertical"
@@ -340,11 +169,9 @@ class FormSub extends Component {
             pageSize: 3,
           }}
           dataSource={listData}
-         /* footer={<div><b>ant design</b> footer part</div>}*/
           renderItem={item => (
             <List.Item
               key={item.title}
-             /* actions={[<IconText type="download-o" text="156" />, <IconText type="like-o" text="156" />, <IconText type="message" text="2" />]}*/
               extra={<img width={202} alt="logo" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542018125427&di=22c32d0f6b38e169fc52f2f1ad9be11b&imgtype=0&src=http%3A%2F%2Fimgsa.baidu.com%2Fexp%2Fpic%2Fitem%2F8367d1fc1e178a82184c0aa2f503738da977e805.jpg" />}
             >
               <List.Item.Meta
@@ -362,7 +189,6 @@ class FormSub extends Component {
     )
 
   }
-
 
 }
 

@@ -4,7 +4,6 @@ import {Button, Form, Input, Layout, message, Pagination, Table} from 'antd';
 import {ModalForm, showConfirm} from 'components/Modal';
 import {GET, POST, PUT} from '../../../services/api';
 import Authorized from '../../../utils/Authorized';
-import FormSub from './Form';
 
 
 const { ButtonAuthorize } = Authorized;
@@ -143,20 +142,6 @@ export default class logManage extends PureComponent {
         const rowSelection = {
             onChange: this.onSelectChange,
         };
-
-        const from = FormSub;
-        const modalFormProps = {
-            loading: true,
-            record,
-            visible,
-            Contents:from,
-            modalOpts: {
-                width: 700,
-            },
-            onCancel: () => this.closeModal(),
-            onSubmit: (values) => this.onSubmit(values)
-        }
-
         return(
             <Layout className={styles.application}>
                 <Content  >

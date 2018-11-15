@@ -169,7 +169,6 @@ export default class logManage extends PureComponent {
                            }}
                     />
                 </Content>
-                <ModalForm {...modalFormProps}/>
             </Layout>
         )
 

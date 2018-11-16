@@ -320,7 +320,7 @@ export var option8 = {
   },
   grid: {
     left: '1%',
-    right: '10%',
+    right: '12%',
     bottom: '3%',
     height:'80%',
     containLabel: true

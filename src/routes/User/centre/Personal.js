@@ -7,13 +7,17 @@ import React, {Component,PureComponent} from 'react';
 import { Card, Row, Col, Icon, Avatar, Tag, Divider, Spin, Input } from 'antd';
 import styles from './PersonalCentre.less';
 import PropTypes from 'prop-types';
-import { routerRedux } from 'dva/router';
 import { push } from 'react-router-redux'
 import { connect } from 'dva';
 import Task from './task/Task';
 import WorkingCalendar from './calendar/WorkingCalendar';
 import Announcement from './announcement/Announcement';
-const currentUser = {
+import moment from 'moment';
+
+import FormSub from './MemoForm';
+import {ModalForm}  from 'components/Modal';
+
+const currentUser1 = {
     name: '超级管理员',
     avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
     userid: '00000001',
@@ -46,18 +50,18 @@ const currentUser = {
 
     ],
 }
-import FormSub from './MemoForm';
-import {ModalForm}  from 'components/Modal';
 
 const tabsList ={
     'task':<Task/>,
     'calendar':<WorkingCalendar/>,
     'announcement':<Announcement/>,
 }
+let i=4;
 
-@connect(({user, global = {}, loading}) => ({
-    collapsed: global.collapsed
-}))
+ @connect(({loading, personalCentre}) => ({
+     tags:personalCentre.tags,
+     currentUser:personalCentre.currentUser,
+ }))
 export default class PersonalCentre extends  PureComponent {
 
     static contextTypes = {
@@ -77,9 +81,25 @@ export default class PersonalCentre extends  PureComponent {
             visible:false,
             key:props.location.state?props.location.state.key:'task'
         };
+
+    }
+
+    componentDidMount(){
+        const {dispatch } = this.props;
+        dispatch({
+            type: 'personalCentre/fetch',
+            payload: {
+            },
+        });
+        dispatch({
+            type: 'taskList/fetch',
+            payload: {
+            },
+        });
     }
 
     componentWillReceiveProps(newProps){
+        const {currentUser} = newProps;
         if(newProps.location.state){
             this.setState({key:newProps.location.state.key})
         }
@@ -119,12 +139,26 @@ export default class PersonalCentre extends  PureComponent {
     }
 
     onSubmit =(values)=>{
-        console.log(",,,",values)
+        console.log(",,,",values,'=======',moment(values.date).format('YYYY-MM-DD'))
+
+
+        const {dispatch } = this.props;
+        dispatch({
+            type: 'personalCentre/add',
+            payload: {
+                tags:{
+                    key:i++,
+                    date:moment(values.date).format('YYYY-MM-DD'),
+                    label: values.describe,
+                }
+            },
+        });
     }
 
     render(){
         const { newTags, inputVisible, inputValue ,key} = this.state;
 
+        const {currentUser,tags} = this.props;
         const operationTabList = [
             {
                 key: 'task',
@@ -151,7 +185,6 @@ export default class PersonalCentre extends  PureComponent {
                 ),
             },
         ];
-
 
         return(
             <div>
@@ -183,9 +216,11 @@ export default class PersonalCentre extends  PureComponent {
                                         <Divider dashed />
                                         <div className={styles.tags}>
                                             <div className={styles.tagsTitle}>备忘录</div>
-                                            {currentUser.tags.concat(newTags).map(item => (
-                                                <Tag key={item.key}>{item.label}</Tag>
-                                            ))}
+                                            {tags.concat(newTags).map(item => {
+
+                                                return (<Tag key={item.key}>{item.label}</Tag>)
+                                            }
+                                            )}
                                             {inputVisible && (
                                                 <Input
                                                     ref={this.saveInputRef}
@@ -223,7 +258,6 @@ export default class PersonalCentre extends  PureComponent {
                             tabList={operationTabList}
                             activeTabKey={key}
                             onTabChange={this.onTabChange}
-
                         >
                             {tabsList[key]}
                         </Card>

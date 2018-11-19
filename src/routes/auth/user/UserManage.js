@@ -103,7 +103,6 @@ export default class userManage extends PureComponent {
         openSide: true,
         treeData:[],
         treeDataSote:[],
-        loading:true
     };
 
     constructor(props,context) {
@@ -123,7 +122,6 @@ export default class userManage extends PureComponent {
                     dataSource:data.result.users,
                     treeData:data.result.org,
                     treeDataSote: data.result.org,
-                    loading:false
                 })
             }
         },function(error){
@@ -148,12 +146,12 @@ export default class userManage extends PureComponent {
 
     //新增事件
     onAdd = () => {
+        this.setState({record:null});
         this.openModal(null);
     };
 
     openModal =(record)=>{
         const modalFormProps = {
-            loading: true,
             record:record,
             isShow:true,
             Contents:FormSub,
@@ -318,23 +316,10 @@ export default class userManage extends PureComponent {
 
 
     render() {
-        const {visible,record,dataSource,treeData,loading} = this.state;
+        const {visible,record,dataSource,treeData} = this.state;
         const rowSelection = {
             onChange: this.onSelectChange,
         };
-
-        const from = FormSub;
-        const modalFormProps = {
-            loading: true,
-            record,
-            visible,
-            Contents:from,
-            modalOpts: {
-                width: 800,
-            },
-            onCancel: () => this.closeModal(),
-            onSubmit: (values) => this.onSubmit(values)
-        }
 
         const menu = (
             <Menu>
@@ -368,7 +353,6 @@ export default class userManage extends PureComponent {
                     </div>
                     <Content  >
                         <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
-                                loading={loading}
                                 pagination={{
                                    showSizeChanger:true,
                                    showQuickJumper:true,
@@ -378,7 +362,6 @@ export default class userManage extends PureComponent {
                         />
                     </Content>
                 </Layout>
-                <ModalForm {...modalFormProps}/>
             </Layout>
         )
 

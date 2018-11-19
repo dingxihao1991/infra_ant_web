@@ -5,8 +5,7 @@ import styles from './Task.less';
 import ArticleListContent from 'components/ArticleListContent';
 import logo from '../../../../logo.svg';
 
-
-const list = [
+const list1 = [
     {
         id: '000000009',
         title: '任务名称',
@@ -48,7 +47,11 @@ const list = [
         type: '临时任务',
         avatar:logo,
     }];
+@connect(({loading, taskList}) => ({
+    taskList
+}))
 class Task extends PureComponent {
+
 
     getRenderItem = item =>{
         const color = {
@@ -82,9 +85,11 @@ class Task extends PureComponent {
         )
     }
     render() {
-        // const {
-        //   list: { list },
-        // } = this.props;
+        const {
+            taskList: { list },
+            loading,
+        } = this.props;
+        console.log(loading,"list----------",list)
         const IconText = ({ type, text }) => (
             <span>
         <Icon type={type} style={{ marginRight: 8 }} />
@@ -93,6 +98,7 @@ class Task extends PureComponent {
         );
         return (
             <List
+                loading={loading}
                 size="large"
                 className={styles.articleList}
                 rowKey="id"

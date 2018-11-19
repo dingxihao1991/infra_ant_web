@@ -94,7 +94,6 @@ export default class MenuManage extends PureComponent {
         dataSource: [],
         rows: [],
         selectedRowKeys:[],
-        loading:true
 
     };
 
@@ -111,7 +110,7 @@ export default class MenuManage extends PureComponent {
         GET('/menu/findAll',function(result){
             if(result.success){
 
-                thiz.setState({dataSource:result.result,loading:false})
+                thiz.setState({dataSource:result.result})
             }
         },function(error){
             console.log(error)
@@ -187,13 +186,13 @@ export default class MenuManage extends PureComponent {
 
     //新增事件
     onAdd = () => {
+        this.setState({record:null});
         this.openModal(null);
 
     };
 
     openModal =(record)=>{
         const modalFormProps = {
-            loading: true,
             record:record,
             isShow:true,
             Contents:FormSub,
@@ -297,7 +296,7 @@ export default class MenuManage extends PureComponent {
 
 
     render() {
-        let {rows,dataSource,loading} = this.state;
+        let {rows,dataSource} = this.state;
         const {prefixCls, className,alternateColor} = this.props;
 
         let classname = cx(
@@ -309,19 +308,6 @@ export default class MenuManage extends PureComponent {
             selectedRowKeys: rows,
             onChange: this.onSelectChange,
             onSelect: this.onSelect,
-        };
-
-
-        const paging = {
-            total: dataSource.length,
-           // pageSize: pageSize,
-            current: 1,
-            showSizeChanger: true,
-            showQuickJumper: true,
-            showTotal: total => `共 ${total} 条`,
-            onShowSizeChange: (pageNum, pageSize) => this.onChange({pageNum, pageSize}),
-            onChange: (pageNum) => this.onChange({pageNum}),
-
         };
 
         return(
@@ -337,7 +323,6 @@ export default class MenuManage extends PureComponent {
                            height='80%'
                            rowKey='id'
                            //scroll={{  y: 450 }}
-                           loading={loading}
                            columns={columns}
                            dataSource={dataSource}
                            defaultExpandAllRows={true}

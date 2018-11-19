@@ -4,6 +4,31 @@ import { getToken } from '../utils/authority';
 import {ModalForm}  from 'components/Modal';
 const confirm = ModalForm.Modal.confirm;
 
+export async function addCurrentUser(params) {
+    return request('/api/addcurrentUser', {
+        method: 'POST',
+        body:{
+            ...params,
+            method: 'post',
+        }
+    });
+}
+
+export async function queryCurrentUser() {
+
+    return request('/api/currentUser', {
+        method: 'GET',
+    });
+}
+
+export async function queryTaskList(params) {
+    console.log("查询任务------")
+    return request('/api/task', {
+        method: 'get',
+    });
+}
+
+
 export async function fakeAccountLogin(params,callBack,errorFuc) {
 
   return request('/infraops/login', {

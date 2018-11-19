@@ -11,6 +11,8 @@ import 'echarts/lib/chart/line';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import { Map ,Markers} from 'react-amap';//引入高德地图
+import 'echarts/lib/component/legend';//折线说明
+
 
 /**
  * 资产维保记录页面
@@ -130,7 +132,7 @@ export default class userManage extends PureComponent {
     myChart.setOption({
       title: {
         text: '2018年—资产设备类型月度维保统计图',
-        left: 'center',
+        left: 'left',
       },
       tooltip: {
         trigger: 'axis'

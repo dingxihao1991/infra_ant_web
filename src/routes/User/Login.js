@@ -20,6 +20,11 @@ export default class LoginPage extends Component {
         autoLogin: true,
     };
 
+    componentDidMount(){
+        const {login} = this.props;
+        console.log("--login------",login)
+    }
+
 
     handleSubmit = (err, values) => {
 

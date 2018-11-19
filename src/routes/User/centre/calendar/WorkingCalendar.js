@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 
 import BigCalendar from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
+import { connect } from 'dva';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 
@@ -200,6 +201,10 @@ const events = [
         calendarId: "402888c666d8b8870166d8c02dea0009"
     }
 ]
+
+@connect(({loading, personalCentre}) => ({
+    calendarList:personalCentre.calendarList,
+}))
 class WorkingCalendar extends PureComponent{
 
     state = {
@@ -262,6 +267,9 @@ class WorkingCalendar extends PureComponent{
 
     render(){
         const {events,culture} = this.state;
+
+        const {calendarList} =this.props;
+
         return(
             <div style={DefaultPanel}>
 
@@ -269,7 +277,7 @@ class WorkingCalendar extends PureComponent{
                     <div style={CalendarPanel}>
                         <DragAndDropCalendar
                             selectable
-                            events={events}
+                            events={calendarList}
                             defaultView='month'
                             culture={culture}
                             views={allViews}

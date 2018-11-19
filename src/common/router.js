@@ -19,7 +19,7 @@ const getRouterDataCache = app => {
 };
 
 const modelNotExisted = (app, model) => {
-    !app._models.some(({namespace}) => {
+    return !app._models.some(({namespace}) => {
         return namespace === model.substring(model.lastIndexOf('/') + 1);
     });
 };
@@ -74,6 +74,7 @@ function getFlatMenuData(menus) {
     return keys;
 }
 
+
 function findMenuKey(menuData, path) {
     const menuKey = Object.keys(menuData).find(key => pathToRegexp(path).test(key));
     if (menuKey == null) {
@@ -96,16 +97,16 @@ export const getRouterData = app => {
     //!!!! router set data  ....config  add router !!!!
     const routerConfig = {
         '/': {
-            component: dynamicWrapper(app, ['user'], () => import('../layouts/BasicLayout')),
+            component: dynamicWrapper(app, [], () => import('../layouts/BasicLayout')),
         },
         '/index': {
-            component: dynamicWrapper(app, ['assets'], () => import('../routes/home/Home')),
+            component: dynamicWrapper(app, [], () => import('../routes/home/Home')),
         },
         '/facility/assets': {
-            component: dynamicWrapper(app, ['assets'], () => import('../routes/Facility/Assets')),
+            component: dynamicWrapper(app, [], () => import('../routes/Facility/Assets')),
         },
         '/facility/spare': {
-            component: dynamicWrapper(app, ['spare'], () => import('../routes/Facility/Spare')),
+            component: dynamicWrapper(app, [], () => import('../routes/Facility/Spare')),
         },
         '/user': {
             component: dynamicWrapper(app, [], () => import('../layouts/UserLayout')),
@@ -114,7 +115,7 @@ export const getRouterData = app => {
             component: dynamicWrapper(app, ['login'], () => import('../routes/User/Login')),
         },
         '/user/register': {
-            component: dynamicWrapper(app, ['register'], () => import('../routes/User/Register')),
+            component: dynamicWrapper(app, [], () => import('../routes/User/Register')),
         },
         '/user/register-result': {
             component: dynamicWrapper(app, [], () => import('../routes/User/RegisterResult')),
@@ -156,7 +157,7 @@ export const getRouterData = app => {
       },
       //个人中心
         '/personal/centre': {
-            component: dynamicWrapper(app, [], () => import('../routes/User/centre/PersonalCentre')),
+            component: dynamicWrapper(app, ['user/personalCentre','user/taskList'], () => import('../routes/User/centre/Personal')),
         },
       //操作记录
       '/auth/systemOperationLogs': {

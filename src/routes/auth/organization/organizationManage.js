@@ -182,8 +182,8 @@ export default class OrganizationManage extends PureComponent {
 
     //新增事件
     onAdd = () => {
+        this.setState({record:null});
         this.openModal(null);
-
     };
 
     openModal =(record)=>{

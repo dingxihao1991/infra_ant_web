@@ -187,6 +187,7 @@ export default class MenuManage extends PureComponent {
 
     //新增事件
     onAdd = () => {
+        this.setState({record:null});
         this.openModal(null);
 
     };

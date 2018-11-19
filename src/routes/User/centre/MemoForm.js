@@ -37,7 +37,7 @@ class FormSub extends Component {
                 <FormItem
                     label="日期："
                     {...formItemLayout}>
-                    {getFieldDecorator('applicationName', {
+                    {getFieldDecorator('date', {
                         initialValue:record?record['applicationName']:null,
                         rules: [{
                             required: true,

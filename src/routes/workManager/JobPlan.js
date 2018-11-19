@@ -1,11 +1,12 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import styles from './jobPlan.less';
-import { Table ,Button ,Layout,Pagination,Form,Input,message,Dropdown,Menu,Icon} from 'antd';
+import { Table ,Button ,Layout,Pagination,Form,Input,message,Dropdown,Menu,Icon,Row,Col} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
 import { POST,GET,PUT,DELETE } from '../../services/api';
 import Authorized from '../../utils/Authorized';
 import FormSub from './Form';
+import AdvancedSearchForm from './SearchForm';
 import{tableData} from './data';
 
 const { ButtonAuthorize } = Authorized;
@@ -13,77 +14,6 @@ const FormItem = Form.Item;
 const { Content, Header, Footer } = Layout;
 const Modal = ModalForm.Modal;
 const confirm = Modal.confirm;
-
-const columns = [
-  {
-    title: '管廊名称',
-    dataIndex: 'gallery_name',
-    id: 'gallery_name',
-    align: 'center',
-    key:'gallery_name'
-  },
-  {
-    title: '计划类型',
-    dataIndex: 'work_type',
-    id: 'work_type',
-    align: 'center',
-    key:'work_type'
-  }, {
-    title: '计划名称',
-    dataIndex: 'work_name',
-    id: 'work_name',
-    align: 'center',
-    key:'work_name'
-  } ,{
-    title: '计划详细',
-    dataIndex: 'work_detailed',
-    id: 'work_detailed',
-    align: 'center',
-    key:'work_detailed'
-  },{
-    title: '计划状态',
-    dataIndex: 'work_status',
-    id: 'work_status',
-    align: 'center',
-    key:'work_status'
-  },{
-    title: '预定路线',
-    dataIndex: 'work_line',
-    id: 'work_line',
-    align: 'center',
-    key:'work_line'
-  }, {
-    title: '计划周期',
-    dataIndex: 'work_time',
-    id: 'work_time',
-    align: 'center',
-  },
-  {
-    title: '执行时间',
-    dataIndex: 'startDate',
-    id: 'startDate',
-    align: 'center',
-  },{//增加操作栏
-  title: '操作',
-    dataIndex: '9',
-    id: '9',
-    align: 'center',
-    width: 150,
-    render: () => (
-      <Dropdown overlay={
-        <Menu>
-            <Menu.Item key="1"><Button style={{ marginRight: 5 }} icon="form" onClick={this.edit}>修改</Button></Menu.Item>
-            <Menu.Item key="2"><Button style={{ marginRight: 5 }} icon="form" onClick={this.change}>删除</Button></Menu.Item>
-        </Menu>
-          }>
-        <Button >
-          操作 <Icon type="down" />
-        </Button>
-      </Dropdown>
-
-  ),
-}
-];
 
 const Paging = ({dataItems, onChange, ...otherProps}) => {
   const { total, pageSize, pageNum } = dataItems;
@@ -100,6 +30,7 @@ const Paging = ({dataItems, onChange, ...otherProps}) => {
   };
   return <Pagination {...paging} />;
 };
+
 
 export default class JobPlan extends PureComponent {
 
@@ -122,12 +53,87 @@ export default class JobPlan extends PureComponent {
   }
 
   componentDidMount(){
+    this.initColums();
     this.init();
   }
 
+  initColums = ()=>{
+    const columns = [
+      {
+        title: '管廊名称',
+        dataIndex: 'gallery_name',
+        id: 'gallery_name',
+        align: 'center',
+        key:'gallery_name'
+      },
+      {
+        title: '计划类型',
+        dataIndex: 'work_type',
+        id: 'work_type',
+        align: 'center',
+        key:'work_type'
+      }, {
+        title: '计划名称',
+        dataIndex: 'work_name',
+        id: 'work_name',
+        align: 'center',
+        key:'work_name'
+      } ,{
+        title: '计划详细',
+        dataIndex: 'work_detailed',
+        id: 'work_detailed',
+        align: 'center',
+        key:'work_detailed'
+      },{
+        title: '计划状态',
+        dataIndex: 'work_status',
+        id: 'work_status',
+        align: 'center',
+        key:'work_status'
+      },{
+        title: '预定路线',
+        dataIndex: 'work_line',
+        id: 'work_line',
+        align: 'center',
+        key:'work_line'
+      }, {
+        title: '计划周期',
+        dataIndex: 'work_time',
+        id: 'work_time',
+        align: 'center',
+      },
+      {
+        title: '执行时间',
+        dataIndex: 'startDate',
+        id: 'startDate',
+        align: 'center',
+      },{ //增加操作栏
+        title: '操作',
+        dataIndex: '9',
+        id: '9',
+        align: 'center',
+        width: 150,
+        render: (text, record) => (
+          <Dropdown overlay={
+            <Menu>
+              <Menu.Item key="1"><Button style={{ marginRight: 5 }} icon="form" onClick={() => this.edit(record)}>修改</Button></Menu.Item>
+              <Menu.Item key="2"><Button style={{ marginRight: 5 }} icon="form" onClick={() => this.delete(record)}>删除</Button></Menu.Item>
+            </Menu>
+          }>
+            <Button >
+              操作 <Icon type="down" />
+            </Button>
+          </Dropdown>
+
+        ),
+      }
+    ];
+    this.setState({columns:columns})
+  }
+
   init= () =>{
-   const thiz = this;
-   thiz.setState({
+    const thiz = this;
+    thiz.setState({
      dataSource:tableData,
      loading:false,
    })
@@ -144,16 +150,8 @@ export default class JobPlan extends PureComponent {
   }
 
   //编辑
-  edit =()=>{
-    console.log(this.state.record)
-    const {rows,record} = this.state
-    if(rows.length>1){
-      Modal.warning({
-        title: '警告信息',
-        content: '请选中一行数据',
-      });
-      return;
-    }
+  edit =(record)=>{
+    console.log(record)
     this.openModal(record);
   }
 
@@ -176,8 +174,11 @@ export default class JobPlan extends PureComponent {
     this.context.openModal(modalFormProps);
   }
 
-  delete =()=> {/*
-    const {rows,record} = this.state;
+  delete =(record)=> {
+    console.log(record)
+    alert(record.id);
+    /*
+
     const dataSource = [...this.state.dataSource];
     let thiz = this;
     confirm({
@@ -212,6 +213,13 @@ export default class JobPlan extends PureComponent {
 
     })*/
 
+  }
+
+  batchDelete=() => {
+    const {rows , record} = this.state
+    console.log(rows)
+    console.log(record)
+    alert(record.id);
   }
 
   //选中项发生变化时的回调
@@ -287,7 +295,7 @@ export default class JobPlan extends PureComponent {
   }
 
   render() {
-    let { visible,record,rows,dataSource,loading} = this.state;
+    let { columns,visible,record,rows,dataSource,loading} = this.state;
     const rowSelection = {
       onChange: this.onSelectChange,
     };
@@ -307,10 +315,11 @@ export default class JobPlan extends PureComponent {
 
     return(
       <Layout className={styles.application}>
-        <div>
+        <div style={{ background: 'white'}}>
+          <AdvancedSearchForm/>
           <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="role:add"/>
-          <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="role:update"/>
-          <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="role:delete"/>
+         {/* <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="role:update"/>*/}
+          <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.batchDelete} name="批量删除" authority="role:delete"/>
         </div>
         <Content>
           <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}

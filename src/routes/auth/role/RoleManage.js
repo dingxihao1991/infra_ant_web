@@ -80,7 +80,6 @@ export default class roleManage extends PureComponent {
         record: null,
         visible: false,
         rows: [],
-        loading:true
     };
 
     constructor(props,context) {
@@ -98,7 +97,6 @@ export default class roleManage extends PureComponent {
             if(result.success){
                 thiz.setState({
                     dataSource:result.result,
-                    loading:false,
                 })
             }
         },function(error){
@@ -127,7 +125,6 @@ export default class roleManage extends PureComponent {
 
     openModal =(record)=>{
         const modalFormProps = {
-            loading: true,
             record:record,
             isShow:true,
             Contents:FormSub,
@@ -229,24 +226,11 @@ export default class roleManage extends PureComponent {
     }
 
     render() {
-        let { visible,record,rows,dataSource,loading} = this.state;
+        let { visible,record,rows,dataSource} = this.state;
 
         const rowSelection = {
             onChange: this.onSelectChange,
         };
-
-        const from = FormSub;
-        const modalFormProps = {
-            loading: true,
-            record,
-            visible,
-            Contents:from,
-            modalOpts: {
-                width: 700,
-            },
-            onCancel: () => this.closeModal(),
-            onSubmit: (values) => this.onSubmit(values)
-        }
 
         return(
             <Layout className={styles.application}>
@@ -257,7 +241,6 @@ export default class roleManage extends PureComponent {
                 </div>
                 <Content>
                     <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
-                            loading={loading}
                             pagination={{
                                showSizeChanger:true,
                                showQuickJumper:true,
@@ -266,7 +249,6 @@ export default class roleManage extends PureComponent {
                            }}
                     />
                 </Content>
-                <ModalForm {...modalFormProps}/>
             </Layout>
         )
 

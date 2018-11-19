@@ -163,6 +163,10 @@ export const getRouterData = app => {
       '/auth/systemOperationLogs': {
         component: dynamicWrapper(app, [], () => import('../routes/auth/log/LogManage')),
       },
+      //工作计划
+      '/job/plan': {
+        component: dynamicWrapper(app, [], () => import('../routes/workManager/JobPlan')),
+      }
     };
 
     /*  !!!!! Don't  touch  me !!!!! */

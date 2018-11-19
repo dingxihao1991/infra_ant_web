@@ -13,6 +13,7 @@ import { Button, Layout, Table, Tabs } from "antd";
 import styles from "./bomManagementDetails.less";
 import {ModalForm,showConfirm}  from 'components/Modal';
 import FormSub from "./bomManageDetails";
+import 'echarts/lib/component/legend';//折线说明
 
 const timeList = ["15:01", "15:02", "15:03", "15:04", "15:05", "15:06", "15:07"];
 const inData = [100,150,199,300,50,89,60]
@@ -28,7 +29,7 @@ const option = {
   title: {
     text: '各系统备品备件实时数量图',
     subtext: '实时刷新(5秒/次)',
-    left: 'center',
+    left: 'left',
   },
   tooltip: {
     trigger: 'axis'

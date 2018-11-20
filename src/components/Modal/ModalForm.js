@@ -51,7 +51,7 @@ class ModalForm extends Component {
     }
 
     render(){
-        const {title, record, className, onCancel, onSubmit, modalOpts, loading,Contents,visible} = this.props;
+        const {title, record, className, onCancel, onSubmit, modalOpts, loading,Contents,visible,isFooter} = this.props;
         const modalProps = {
             className: className,
             confirmLoading:loading,
@@ -62,18 +62,18 @@ class ModalForm extends Component {
             maskClosable: false,
             modalOpts,
             onCancel: onCancel,
-            footer:[
-                onCancel && (
-                    <Button key="back" onClick={onCancel}>
-                        取消
-                    </Button>
-                ),
-                onSubmit && (
-                    <Button key="submit" type="primary" onClick={this.onSubmit}>
-                        确定
-                    </Button>
-                )
-            ],
+            footer:!isFooter? [
+                    onCancel && (
+                        <Button key="back" onClick={onCancel}>
+                            取消
+                        </Button>
+                    ),
+                    onSubmit && (
+                        <Button key="submit" type="primary" onClick={this.onSubmit}>
+                            确定
+                        </Button>
+                    )
+                ]:null,
             ...modalOpts
         }
 

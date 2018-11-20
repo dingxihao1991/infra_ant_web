@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import styles from './jobPlan.less';
 import { Table ,Button ,Layout,Pagination,Form,Input,message,Dropdown,Menu,Icon,Row,Col} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
-import { POST,GET,PUT,DELETE } from '../../services/api';
-import Authorized from '../../utils/Authorized';
+import { POST,GET,PUT,DELETE } from '../../../services/api';
+import Authorized from '../../../utils/Authorized';
 import FormSub from './Form';
+import FormSub2 from "./workPlanDetail";
 import AdvancedSearchForm from './SearchForm';
 import{tableData} from './data';
 
@@ -39,6 +40,8 @@ export default class JobPlan extends PureComponent {
   };
 
   state = {
+    title:'新增工作计划',
+    form:FormSub,
     columns:[],
     dataSource:[],
     record: null,
@@ -152,27 +155,19 @@ export default class JobPlan extends PureComponent {
   //编辑
   edit =(record)=>{
     console.log(record)
-    this.openModal(record);
+    this.setState({
+      title:'修改工作计划',
+      record:record,
+      visible: true
+    });
   }
 
   //新增事件
   onAdd = () => {
-    this.openModal(null);
+    this.setState({
+      visible: true
+    });
   };
-
-  openModal =(record)=>{
-    const modalFormProps = {
-      loading: true,
-      record:record,
-      isShow:true,
-      Contents:FormSub,
-      modalOpts: {
-        width: 700,
-      },
-      onSubmit: (values) => this.onSubmit(values)
-    }
-    this.context.openModal(modalFormProps);
-  }
 
   delete =(record)=> {
     console.log(record)
@@ -294,37 +289,28 @@ export default class JobPlan extends PureComponent {
     }*/
   }
 
-  handlerRow = (record)=>{
-    return {
-      onClick: () => {
-        alert(1)
-      },       // 点击行
-
-      onDoubleClick: () => {
-        alert(2)
-      },
-    };
-  }
-
   handlerDoubleClick = (record, index, event) => {
     console.log(record)
-    alert(22)
-    event.stopPropagation(); //尝试阻止默认事件，失败
-
+    this.setState({
+      form:FormSub2,
+      visible: true,
+      record:record,
+      title:'计划详情'
+    });
   };
 
   render() {
-    let { columns,visible,record,rows,dataSource,loading} = this.state;
+    let { columns,visible,record,rows,dataSource,loading,form,title} = this.state;
     const rowSelection = {
       onChange: this.onSelectChange,
     };
 
-    const from = FormSub;
     const modalFormProps = {
+      title:title,
       loading: true,
       record,
       visible,
-      Contents:from,
+      Contents:form,
       modalOpts: {
         width: 700,
       },

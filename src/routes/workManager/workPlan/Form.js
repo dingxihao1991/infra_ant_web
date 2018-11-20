@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Button, Input, Select ,DatePicker} from 'antd';
 import {TreeCheck} from 'components/Tree';
-import { POST,GET,PUT,DELETE } from '../../services/api';
+import { POST,GET,PUT,DELETE } from '../../../services/api';
 import moment from 'moment';
 
 const FormItem = Form.Item;

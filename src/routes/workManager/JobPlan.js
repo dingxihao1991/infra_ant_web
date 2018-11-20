@@ -294,6 +294,25 @@ export default class JobPlan extends PureComponent {
     }*/
   }
 
+  handlerRow = (record)=>{
+    return {
+      onClick: () => {
+        alert(1)
+      },       // 点击行
+
+      onDoubleClick: () => {
+        alert(2)
+      },
+    };
+  }
+
+  handlerDoubleClick = (record, index, event) => {
+    console.log(record)
+    alert(22)
+    event.stopPropagation(); //尝试阻止默认事件，失败
+
+  };
+
   render() {
     let { columns,visible,record,rows,dataSource,loading} = this.state;
     const rowSelection = {
@@ -330,6 +349,7 @@ export default class JobPlan extends PureComponent {
                     total:dataSource.length,
                     onChange:this.onChange
                   }}
+                  onRowDoubleClick={this.handlerDoubleClick}
           />
         </Content>
         <ModalForm {...modalFormProps}/>

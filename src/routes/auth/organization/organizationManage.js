@@ -249,7 +249,7 @@ export default class OrganizationManage extends PureComponent {
 
                 if(data.success){
                   thiz.closeModal();
-                    thiz.init();
+                  thiz.init();
                 }else{
 
                 }
@@ -320,7 +320,6 @@ export default class OrganizationManage extends PureComponent {
                                height='80%'
                                rowKey='id'
                                scroll={{  y: 450 }}
-                               loading={loading}
                                columns={columns}
                                dataSource={dataSource}
                                defaultExpandAllRows={true}

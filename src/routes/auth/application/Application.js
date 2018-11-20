@@ -81,7 +81,6 @@ export default class Application extends PureComponent {
         record: null,
         visible: false,
         rows: [],
-        loading:true,
         selectedRowKeys:[]
     };
 
@@ -98,7 +97,7 @@ export default class Application extends PureComponent {
         GET('/application/findAll',function(result){
             if(result.success){
 
-                thiz.setState({dataSource:result.result,loading:false,selectedRowKeys:[]})
+                thiz.setState({dataSource:result.result,selectedRowKeys:[]})
             }
         },function(error){
             console.log(error)
@@ -153,7 +152,6 @@ export default class Application extends PureComponent {
 
     openModal =(record)=>{
         const modalFormProps = {
-            loading: true,
             record:record,
             isShow:true,
             Contents:FormSub,
@@ -261,7 +259,7 @@ export default class Application extends PureComponent {
     }
 
     render() {
-        let { rows,dataSource,loading,selectedRowKeys} = this.state;
+        let { rows,dataSource,selectedRowKeys} = this.state;
 
         const rowSelection = {
             onChange: this.onSelectChange,
@@ -278,7 +276,6 @@ export default class Application extends PureComponent {
                 </div>
                 <Content  >
                     <Table rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
-                           loading={loading}
                            pagination={{
                                showSizeChanger:true,
                                showQuickJumper:true,

@@ -312,7 +312,7 @@ export default class EchartsTest extends PureComponent {
     return (
       <Tabs defaultActiveKey="1">
         <TabPane tab="图表模式" key="1" styles>
-          <div  id="main"    style={{ width: 1200, height: 700 }}></div>
+          <div  id="main"    style={{ width: "100%", height: 700 }}></div>
         </TabPane>
         <TabPane tab="表格模式" key="2" >
           <Layout className={styles.application}>

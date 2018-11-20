@@ -322,9 +322,9 @@ export default class userManage extends PureComponent {
     return(
       <Tabs defaultActiveKey="1">
         <TabPane tab="图表模式" key="1" styles>
-          <div id="main"  className="col-md-12" style={{ width: 1200, height: 350 }}/>
+          <div id="main"  className="col-md-12" style={{ width: "100%", height: 350 }}/>
           <div style={{ height: 50,textAlign: 'center',marginTop:10}}><span style={{fontSize:20,fontWeight:800}}> 2018年—资产设备维保分布图</span></div>
-            <div className="col-md-12" style={{width: 1200, height: 350}}>
+            <div className="col-md-12" style={{width: "100%", height: 350}}>
               <Map plugins={['ToolBar']} center={this.center} zoom={5}>
                 <Markers
                   markers={this.markers}

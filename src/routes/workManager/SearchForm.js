@@ -35,7 +35,7 @@ class AdvancedSearchForm extends React.Component {
             </FormItem>
 
           </Col>
-          <Col span={8} key="gallery_name">
+          <Col span={8} key="work_type">
             <FormItem label='计划类型'>
               {getFieldDecorator(`work_type`)(
                 <Select placeholder="请选择" style={{ width:400 }}>
@@ -46,9 +46,9 @@ class AdvancedSearchForm extends React.Component {
             </FormItem>
           </Col>
 
-          <Col span={8} key="gallery_name">
+          <Col span={8} key="work_name">
             <FormItem label='计划名称'>
-              {getFieldDecorator(`gallery_name`)(
+              {getFieldDecorator(`work_name`)(
                 <Input placeholder="请输入"  style={{width: 400}}/>
               )}
             </FormItem>
@@ -85,7 +85,7 @@ class AdvancedSearchForm extends React.Component {
             </FormItem>
 
           </Col>
-          <Col span={8} key="gallery_name">
+          <Col span={8} key="work_type">
             <FormItem label='计划类型'>
               {getFieldDecorator(`work_type`)(
                 <Select placeholder="请选择" style={{ width:400 }}>
@@ -96,28 +96,28 @@ class AdvancedSearchForm extends React.Component {
             </FormItem>
           </Col>
 
-          <Col span={8} key="gallery_name">
+          <Col span={8} key="work_name">
             <FormItem label='计划名称'>
-              {getFieldDecorator(`gallery_name`)(
+              {getFieldDecorator(`work_name`)(
                 <Input placeholder="请输入"  style={{width: 400}}/>
               )}
             </FormItem>
           </Col>
 
-          <Col span={8} key="gallery_name">
-            <FormItem label='计划名称'>
+          <Col span={8} key="startDate">
+            <FormItem label='执行时间'>
               {getFieldDecorator(`startDate`)(
                 <DatePicker style={{ width: 400 }} />
               )}
             </FormItem>
           </Col>
 
-          <Col span={8} key="gallery_name">
+          <Col span={8} key="work_status">
             <FormItem label='计划状态'>
               {getFieldDecorator(`work_status`)(
                 <Select placeholder="请选择" style={{ width:400 }}>
-                  <Option value="0">养护</Option>
-                  <Option value="1">巡检</Option>
+                  <Option value="0">启动</Option>
+                  <Option value="1">禁用</Option>
                 </Select>
               )}
             </FormItem>

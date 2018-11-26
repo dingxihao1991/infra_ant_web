@@ -3,7 +3,7 @@ import { Form, Input} from 'antd';
 
 
 /**
- * 资产维保记录详情页面
+ * 备品备件详情页面
  *
  * @type {FormItem}
  */

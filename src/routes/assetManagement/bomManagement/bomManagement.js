@@ -15,6 +15,11 @@ import {ModalForm,showConfirm}  from 'components/Modal';
 import FormSub from "./bomManageDetails";
 import 'echarts/lib/component/legend';//折线说明
 
+/**
+ * 备品备件列表页
+ * @type {string[]}
+ */
+
 const timeList = ["15:01", "15:02", "15:03", "15:04", "15:05", "15:06", "15:07"];
 const inData = [100,150,199,300,50,89,60]
 const outData = [300,200,400,70,90,160,230]
@@ -162,7 +167,7 @@ const data = [{
 }
 ];
 
-export default class EchartsTest extends PureComponent {
+export default class bomManagement extends PureComponent {
 
   state = {
     columns:[],

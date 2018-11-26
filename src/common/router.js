@@ -165,12 +165,24 @@ export const getRouterData = app => {
       },
       //工作计划
       '/job/plan': {
-        component: dynamicWrapper(app, [], () => import('../routes/workManager/JobPlan')),
+        component: dynamicWrapper(app, [], () => import('../routes/workManager/workPlan/JobPlan')),
       },
       //监控列表
       '/operationMonitoring/monitoringList': {
         component: dynamicWrapper(app, [], () => import('../routes/operationMonitoring/monitoringList/monitoringList.js')),
-      }
+      },
+      //任务计划
+      '/job/willdo': {
+        component: dynamicWrapper(app, [], () => import('../routes/workManager/workTask/TaskPlan')),
+      },
+      //工作记录
+      '/job/record': {
+        component: dynamicWrapper(app, [], () => import('../routes/workManager/workRecord/TaskRecord')),
+      },
+      //事件记录
+      '/job/event': {
+        component: dynamicWrapper(app, [], () => import('../routes/workManager/workEvent/workEvent'))
+      },
     };
 
     /*  !!!!! Don't  touch  me !!!!! */

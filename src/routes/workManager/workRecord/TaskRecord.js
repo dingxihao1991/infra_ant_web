@@ -5,18 +5,15 @@ import { Table ,Button ,Layout,Pagination,Form,Input,message,Dropdown,Menu,Icon,
 import {ModalForm,showConfirm}  from 'components/Modal';
 import { POST,GET,PUT,DELETE } from '../../../services/api';
 import Authorized from '../../../utils/Authorized';
-import FormSub from './Form';
-import FormSub2 from "./WorkPlanDetail";
 import AdvancedSearchForm from './SearchForm';
-import{tableData} from '../data';
-
+import FormSub2 from "./TaskRecordDetail";
+import {taskRecord} from '../data';
 const { ButtonAuthorize } = Authorized;
-const FormItem = Form.Item;
-const { Content, Header, Footer } = Layout;
+const { Content } = Layout;
 const Modal = ModalForm.Modal;
 const confirm = Modal.confirm;
 
-const Paging = ({dataItems, onChange, ...otherProps}) => {
+  const Paging = ({dataItems, onChange, ...otherProps}) => {
   const { total, pageSize, pageNum } = dataItems;
   const paging = {
     total: total,
@@ -33,7 +30,7 @@ const Paging = ({dataItems, onChange, ...otherProps}) => {
 };
 
 
-export default class JobPlan extends PureComponent {
+export default class TaskRecord extends PureComponent {
 
   static contextTypes = {
     openModal: PropTypes.func,
@@ -41,7 +38,7 @@ export default class JobPlan extends PureComponent {
 
   state = {
     title:'新增工作计划',
-    form:FormSub,
+    form:null,
     columns:[],
     dataSource:[],
     record: null,
@@ -71,45 +68,52 @@ export default class JobPlan extends PureComponent {
         key:'gallery_name'
       },
       {
-        title: '计划类型',
-        dataIndex: 'work_type',
-        id: 'work_type',
-        align: 'center',
-        key:'work_type'
-      }, {
-        title: '计划名称',
+        title: '任务名称',
         dataIndex: 'work_name',
         id: 'work_name',
         align: 'center',
         key:'work_name'
-      } ,{
-        title: '计划详细',
+      }, {
+        title: '任务详细',
         dataIndex: 'work_detailed',
         id: 'work_detailed',
         align: 'center',
         key:'work_detailed'
+      } ,{
+        title: '计划类型',
+        dataIndex: 'work_plan_type',
+        id: 'work_plan_type',
+        align: 'center',
+        key:'work_plan_type'
       },{
-        title: '计划状态',
+        title: '任务类型',
+        dataIndex: 'work_type',
+        id: 'work_type',
+        align: 'center',
+        key:'work_type'
+      },{
+        title: '任务执行人',
+        dataIndex: 'work_user',
+        id: 'work_user',
+        align: 'center',
+        key:'work_user'
+      },{
+        title: '任务状态',
         dataIndex: 'work_status',
         id: 'work_status',
         align: 'center',
         key:'work_status'
-      },{
-        title: '预定路线',
-        dataIndex: 'work_line',
-        id: 'work_line',
-        align: 'center',
-        key:'work_line'
-      }, {
-        title: '计划周期',
-        dataIndex: 'work_time',
-        id: 'work_time',
+      },
+      {
+        title: '预计开始时间',
+        dataIndex: 'startDate',
+        id: 'startDate',
         align: 'center',
       },
       {
-        title: '执行时间',
-        dataIndex: 'startDate',
-        id: 'startDate',
+        title: '预计结束时间',
+        dataIndex: 'endDate',
+        id: 'endDate',
         align: 'center',
       },{ //增加操作栏
         title: '操作',
@@ -120,8 +124,7 @@ export default class JobPlan extends PureComponent {
         render: (text, record) => (
           <Dropdown overlay={
             <Menu>
-              <Menu.Item key="1"><Button style={{ marginRight: 5 }} icon="form" onClick={() => this.edit(record)}>修改</Button></Menu.Item>
-              <Menu.Item key="2"><Button style={{ marginRight: 5 }} icon="form" onClick={() => this.delete(record)}>删除</Button></Menu.Item>
+              <Menu.Item key="1"><Button style={{ marginRight: 0 }} icon="form" onClick={() => this.complete(record)}>完成任务</Button></Menu.Item>
             </Menu>
           }>
             <Button >
@@ -138,7 +141,7 @@ export default class JobPlan extends PureComponent {
   init= () =>{
     const thiz = this;
     thiz.setState({
-     dataSource:tableData,
+     dataSource:taskRecord,
      loading:false,
    })
   /*  GET('/roles',function(result){
@@ -153,33 +156,17 @@ export default class JobPlan extends PureComponent {
     })*/
   }
 
-  //编辑
-  edit =(record)=>{
+  batchComplete=() => {
+    const {rows , record} = this.state
+    console.log(rows)
     console.log(record)
-    this.setState({
-      title:'修改工作计划',
-      record:record,
-      visible: true,
-      form:FormSub,
-      isFooter:false
-    });
+    alert(record.id);
   }
 
-  //新增事件
-  onAdd = () => {
-    this.setState({
-      visible: true,
-      form:FormSub,
-      record:null,
-      isFooter:false
-    });
-  };
-
-  delete =(record)=> {
+  complete =(record)=> {
     console.log(record)
     alert(record.id);
     /*
-
     const dataSource = [...this.state.dataSource];
     let thiz = this;
     confirm({
@@ -214,13 +201,6 @@ export default class JobPlan extends PureComponent {
 
     })*/
 
-  }
-
-  batchDelete=() => {
-    const {rows , record} = this.state
-    console.log(rows)
-    console.log(record)
-    alert(record.id);
   }
 
   //选中项发生变化时的回调
@@ -330,9 +310,9 @@ export default class JobPlan extends PureComponent {
       <Layout className={styles.application}>
         <div style={{ background: 'white'}}>
           <AdvancedSearchForm/>
-          <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="role:add"/>
+          {/*<ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="role:add"/>*/}
          {/* <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="role:update"/>*/}
-          <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.batchDelete} name="批量删除" authority="role:delete"/>
+          <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.batchComplete} name="完成任务" authority="role:delete"/>
         </div>
         <Content>
           <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}

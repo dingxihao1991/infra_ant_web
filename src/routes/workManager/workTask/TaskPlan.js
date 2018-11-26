@@ -5,14 +5,12 @@ import { Table ,Button ,Layout,Pagination,Form,Input,message,Dropdown,Menu,Icon,
 import {ModalForm,showConfirm}  from 'components/Modal';
 import { POST,GET,PUT,DELETE } from '../../../services/api';
 import Authorized from '../../../utils/Authorized';
-import FormSub from './Form';
-import FormSub2 from "./WorkPlanDetail";
 import AdvancedSearchForm from './SearchForm';
-import{tableData} from '../data';
-
+import FormSub2 from "./TaskPlanDetail";
+import FormSub from './Form';
+import {taskData} from '../data';
 const { ButtonAuthorize } = Authorized;
-const FormItem = Form.Item;
-const { Content, Header, Footer } = Layout;
+const { Content } = Layout;
 const Modal = ModalForm.Modal;
 const confirm = Modal.confirm;
 
@@ -33,7 +31,7 @@ const Paging = ({dataItems, onChange, ...otherProps}) => {
 };
 
 
-export default class JobPlan extends PureComponent {
+export default class TaskPlan extends PureComponent {
 
   static contextTypes = {
     openModal: PropTypes.func,
@@ -71,45 +69,45 @@ export default class JobPlan extends PureComponent {
         key:'gallery_name'
       },
       {
-        title: '计划类型',
-        dataIndex: 'work_type',
-        id: 'work_type',
-        align: 'center',
-        key:'work_type'
-      }, {
-        title: '计划名称',
+        title: '任务名称',
         dataIndex: 'work_name',
         id: 'work_name',
         align: 'center',
         key:'work_name'
-      } ,{
-        title: '计划详细',
+      }, {
+        title: '任务详细',
         dataIndex: 'work_detailed',
         id: 'work_detailed',
         align: 'center',
         key:'work_detailed'
-      },{
-        title: '计划状态',
-        dataIndex: 'work_status',
-        id: 'work_status',
+      } ,{
+        title: '计划类型',
+        dataIndex: 'work_plan_type',
+        id: 'work_plan_type',
         align: 'center',
-        key:'work_status'
+        key:'work_plan_type'
       },{
-        title: '预定路线',
-        dataIndex: 'work_line',
-        id: 'work_line',
+        title: '任务类型',
+        dataIndex: 'work_type',
+        id: 'work_type',
         align: 'center',
-        key:'work_line'
+        key:'work_type'
+      },{
+        title: '任务执行人',
+        dataIndex: 'work_user',
+        id: 'work_user',
+        align: 'center',
+        key:'work_user'
       }, {
-        title: '计划周期',
-        dataIndex: 'work_time',
-        id: 'work_time',
+        title: '预计开始时间',
+        dataIndex: 'startDate',
+        id: 'startDate',
         align: 'center',
       },
       {
-        title: '执行时间',
-        dataIndex: 'startDate',
-        id: 'startDate',
+        title: '预计结束时间',
+        dataIndex: 'endDate',
+        id: 'endDate',
         align: 'center',
       },{ //增加操作栏
         title: '操作',
@@ -138,7 +136,7 @@ export default class JobPlan extends PureComponent {
   init= () =>{
     const thiz = this;
     thiz.setState({
-     dataSource:tableData,
+     dataSource:taskData,
      loading:false,
    })
   /*  GET('/roles',function(result){
@@ -157,7 +155,7 @@ export default class JobPlan extends PureComponent {
   edit =(record)=>{
     console.log(record)
     this.setState({
-      title:'修改工作计划',
+      title:'修改任务',
       record:record,
       visible: true,
       form:FormSub,
@@ -168,6 +166,7 @@ export default class JobPlan extends PureComponent {
   //新增事件
   onAdd = () => {
     this.setState({
+      title:'新增任务',
       visible: true,
       form:FormSub,
       record:null,

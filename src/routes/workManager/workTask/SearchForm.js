@@ -39,17 +39,22 @@ class AdvancedSearchForm extends React.Component {
             <FormItem label='计划类型'>
               {getFieldDecorator(`work_type`)(
                 <Select placeholder="请选择" style={{ width:400 }}>
-                  <Option value="0">养护</Option>
-                  <Option value="1">巡检</Option>
+                  <Option value="计划">计划</Option>
+                  <Option value="临时">临时</Option>
+                  <Option value="已取消">已取消</Option>
                 </Select>
               )}
             </FormItem>
           </Col>
 
-          <Col span={8} key="work_name">
-            <FormItem label='计划名称'>
-              {getFieldDecorator(`work_name`)(
-                <Input placeholder="请输入"  style={{width: 400}}/>
+          <Col span={8} key="work_status">
+            <FormItem label='任务类型'>
+              {getFieldDecorator(`work_status`)(
+                <Select placeholder="请选择" style={{ width:400 }}>
+                  <Option value="巡检">巡检</Option>
+                  <Option value="养护">养护</Option>
+                  <Option value="其他">其他</Option>
+                </Select>
               )}
             </FormItem>
           </Col>
@@ -89,15 +94,28 @@ class AdvancedSearchForm extends React.Component {
             <FormItem label='计划类型'>
               {getFieldDecorator(`work_type`)(
                 <Select placeholder="请选择" style={{ width:400 }}>
-                  <Option value="0">养护</Option>
-                  <Option value="1">巡检</Option>
+                  <Option value="计划">计划</Option>
+                  <Option value="临时">临时</Option>
+                  <Option value="其他">其他</Option>
+                </Select>
+              )}
+            </FormItem>
+          </Col>
+
+          <Col span={8} key="work_status">
+            <FormItem label='任务类型'>
+              {getFieldDecorator(`work_status`)(
+                <Select placeholder="请选择" style={{ width:400 }}>
+                  <Option value="巡检">巡检</Option>
+                  <Option value="养护">养护</Option>
+                  <Option value="其他">其他</Option>
                 </Select>
               )}
             </FormItem>
           </Col>
 
           <Col span={8} key="work_name">
-            <FormItem label='计划名称'>
+            <FormItem label='任务名称'>
               {getFieldDecorator(`work_name`)(
                 <Input placeholder="请输入"  style={{width: 400}}/>
               )}
@@ -105,20 +123,17 @@ class AdvancedSearchForm extends React.Component {
           </Col>
 
           <Col span={8} key="startDate">
-            <FormItem label='执行时间'>
+            <FormItem label='开始时间'>
               {getFieldDecorator(`startDate`)(
                 <DatePicker style={{ width: 400 }} />
               )}
             </FormItem>
           </Col>
 
-          <Col span={8} key="work_status">
-            <FormItem label='计划状态'>
-              {getFieldDecorator(`work_status`)(
-                <Select placeholder="请选择" style={{ width:400 }}>
-                  <Option value="0">启动</Option>
-                  <Option value="1">禁用</Option>
-                </Select>
+          <Col span={8} key="endDate">
+            <FormItem label='结束时间'>
+              {getFieldDecorator(`endDate`)(
+                <DatePicker style={{ width: 400 }} />
               )}
             </FormItem>
           </Col>

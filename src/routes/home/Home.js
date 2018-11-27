@@ -26,7 +26,7 @@ export var option4 = {
   },
   grid: {
     left: '3%',
-    right: '8%',
+    right: '6%',
     bottom: '3%',
     containLabel: true
   },

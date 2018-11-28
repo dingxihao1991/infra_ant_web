@@ -171,6 +171,10 @@ export const getRouterData = app => {
       '/operationMonitoring/monitoringList': {
         component: dynamicWrapper(app, [], () => import('../routes/operationMonitoring/monitoringList/monitoringList.js')),
       },
+      //设备控制
+      '/operationMonitoring/equipmentControl': {
+        component: dynamicWrapper(app, [], () => import('../routes/operationMonitoring/equipmentControl/equipmentControl.js')),
+      },
       //任务计划
       '/job/willdo': {
         component: dynamicWrapper(app, [], () => import('../routes/workManager/workTask/TaskPlan')),

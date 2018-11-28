@@ -56,7 +56,7 @@ const data2 = [
   },
 ];
 
-export default class EchartsTest extends PureComponent {
+export default class assetOverview extends PureComponent {
   componentDidMount() {
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('main'));

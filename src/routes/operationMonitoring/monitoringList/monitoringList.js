@@ -1,118 +1,120 @@
-import React, { Component, PureComponent } from "react";
-
+import React, {PureComponent} from 'react';
+import { Button, Layout, Tabs} from "antd";
+import {ModalForm,showConfirm}  from 'components/Modal';
 // 引入 ECharts 主模块
 import echarts from 'echarts/lib/echarts';
-// 引入柱状图
-import  'echarts/lib/chart/bar';
-// 引入柱状图
-import  'echarts/lib/chart/line';
 // 引入提示框和标题组件
-import 'echarts/lib/component/tooltip';
-import 'echarts/lib/component/title';
+import { Map ,Markers} from 'react-amap';//引入高德地图
+//引入仪表盘组件，缺一不可
+import  'echarts/lib/chart/gauge/GaugeSeries';
+import  'echarts/lib/chart/gauge/GaugeView';
 
-var timeList = ['15:01','15:02','15:03','15:04','15:05','15:06','15:07']
-var inData = [100,150,199,300,50,89,60]
-var outData = [300,200,400,70,90,160,230]
-var d1 = [100,150,199,300,50,89,60]
-var d2 = [300,200,400,70,90,160,230]
+/**
+ * 监控列表页面
+ *
+ */
 
-var option = {
-  title: {
-    text: '设备监控 测试页',
-    subtext: '实时刷新(5秒/次)',
-    left: 'center',
+//地图markers随机数据
+const randomMarker = (len) => (//随机makers数据
+  Array(len).fill(true).map(() => ({
+    position: {
+      longitude: 100 + Math.random() * 30,
+      latitude: 30 + Math.random() * 20,
+    },
+  }))
+);
+
+//仪表盘所需数据
+const option = {
+  tooltip : {
+    formatter: "{a} <br/>{b} : {c}%"
   },
-  tooltip: {
-    trigger: 'axis'
-  },
-  legend: {
-    // data:
-  },
-  grid: {
-    left: '3%',
-    right: '4%',
-    bottom: '3%',
-    containLabel: true
-  },
-  xAxis: {
-    type: 'category',
-    boundaryGap: false,
-    data: timeList
-  },
-  yAxis: {
-    type: 'value'
+  toolbox: {
+    feature: {
+      restore: {},
+      saveAsImage: {}
+    }
   },
   series: [
     {
-      name: '通风系统',
-      type: 'line',
-      stack: '总量',
-      data: inData
-    },
-    {
-      name: '排水系统',
-      type: 'line',
-      stack: '总量',
-      data: outData
-    },
-
-    {
-      name: '供电系统',
-      type: 'line',
-      stack: '总量',
-      data: d1
-    },
-
-    {
-      name: '其他系统',
-      type: 'line',
-      stack: '总量',
-      data: d2
+      name: '业务指标',
+      type: 'gauge',
+      detail: {formatter:'0.1%'},
+      data: [{value: 50, name: '二氧化碳浓度'}]
     }
   ]
 };
 
 
-export default class EchartsTest extends PureComponent {
-  componentDidMount() {
-
-    var myChart = echarts.init(document.getElementById('main'));
-    myChart.setOption(option);
+export default class monitoringList extends PureComponent {
 
 
-    // 模拟 ajax 请求
-    setInterval(() => {
+  state = {
+    columns:[],
+    dataSource:[],
+    record: null,
+    visible: false,
+    rows: [],
+   // form: FormSub,
+    title:"资产设备定位"
+  };
 
-      var nowDate = new Date()
-      timeList.push(nowDate.getHours() + ':' + nowDate.getMinutes() + ':' + nowDate.getSeconds())
-      inData.push( Math.ceil(Math.random() * 600) + 100)
-      outData.push( Math.ceil(Math.random() * 400) + 200)
-      d1.push( Math.ceil(Math.random() * 400) + 200)
-      d2.push( Math.ceil(Math.random() * 400) + 200)
+  //props :接收任意的输入值
+  constructor(props,context) {
+    //传递props到基础构造函数中
+    super(props,context);
+    this.markers = randomMarker(1000);
+    this.center = {longitude: 115, latitude: 40};
+    this.state = {
+      useCluster: true,
+    }
+  }
 
-      timeList.shift()
-      inData.shift()
-      outData.shift()
-      d1.shift()
-      d2.shift()
+  componentDidMount(){
+    var myChart = echarts.init(document.getElementById('main1'));
+    option.series[0].data[0].value = 20;//仪表指针
+    option.series[0].detail.formatter = "80%";//仪表百分比显示
+    option.series[0].data[0].name = "二氧化碳浓度";//仪表文字显示
+    myChart.setOption(option,true);
 
+    var myChart2 = echarts.init(document.getElementById('main2'));
+    option.series[0].data[0].value = 5;//仪表指针
+    option.series[0].detail.formatter = "5%";//仪表百分比显示
+    option.series[0].data[0].name = "舱内湿度";//仪表文字显示
+    myChart2.setOption(option,true);
 
-      console.log(timeList);
-      console.log(inData);
-      console.log(outData);
-
-      myChart.setOption(option);
-
-    }, 5000);
+    var myChart3 = echarts.init(document.getElementById('main3'));
+    option.series[0].data[0].value = 0.1;//仪表指针
+    option.series[0].detail.formatter = "0.1%";//仪表百分比显示
+    option.series[0].data[0].name = "甲烷浓度";//仪表文字显示
+    myChart3.setOption(option,true);
 
 
   }
 
   render() {
-    return (
-      <div  id="main"    style={{ width: 1200, height: 700 }}></div>
-    );
+
+    return(
+
+    <div className="row">
+
+      <div align="center" style={{ height: 50,textAlign: 'center',marginTop:10}}><span style={{fontSize:20,fontWeight:800}}>各项子系统监控设备分布图</span></div>
+      <div className="col-md-12" style={{width: "100%", height: 350}}>
+        <Map plugins={['ToolBar']} center={this.center} zoom={5}>
+          <Markers
+            markers={this.markers}
+            useCluster={this.state.useCluster}
+          />
+        </Map>
+      </div>
+
+      <div id="main1"  className="col-md-4" style={{ width: "100%", height: 350 }}/>
+      <div id="main2"  className="col-md-4" style={{ width: "100%", height: 350 }}/>
+      <div id="main3"  className="col-md-4" style={{ width: "100%", height: 350 }}/>
+
+    </div>
+
+        )
 
   }
-
 }

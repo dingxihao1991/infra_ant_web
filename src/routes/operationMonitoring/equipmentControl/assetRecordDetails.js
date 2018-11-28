@@ -3,7 +3,7 @@ import { Form, Input} from 'antd';
 
 
 /**
- * 备品备件详情页面
+ * 资产维保记录详情页面
  *
  * @type {FormItem}
  */
@@ -43,57 +43,74 @@ class FormSub extends Component {
       <Form ref='form'>
 
 
-        <FormItem {...formItemLayout} label="备件编号">
+        <FormItem {...formItemLayout} label="维保单号">
           {getFieldDecorator('applicationId', {
-            initialValue:"BJ-TD-0000001",
+            initialValue:"WB-BG-0000001",
           })(
             <Input
             />
           )}
         </FormItem>
 
-        <FormItem {...formItemLayout} label="备件名称">
+        <FormItem {...formItemLayout} label="资产设备编号">
           {getFieldDecorator('applicationId', {
-            initialValue:"探头",
+            initialValue:"NV-TB9716",
           })(
             <Input
             />
           )}
         </FormItem>
 
-        <FormItem {...formItemLayout} label="备件所属系统">
+        <FormItem {...formItemLayout} label="资产设备名称">
           {getFieldDecorator('applicationId', {
-            initialValue:"其他系统",
+            initialValue:"安科瑞智慧用电在线监控装置",
           })(
             <Input
             />
           )}
         </FormItem>
 
-        <FormItem {...formItemLayout} label="备件数量">
+        <FormItem {...formItemLayout} label="资产设备类型">
           {getFieldDecorator('applicationId', {
-            initialValue:"15",
+            initialValue:"电力系统",
           })(
             <Input
             />
           )}
         </FormItem>
 
-        <FormItem {...formItemLayout} label="最近更新时间">
+        <FormItem {...formItemLayout} label="资设所属系统">
           {getFieldDecorator('applicationId', {
-            initialValue:"2018-11-19 15:03",
+            initialValue:"管廊系统",
           })(
             <Input
             />
           )}
         </FormItem>
 
-        <FormItem {...formItemLayout} label="备注">
+        <FormItem {...formItemLayout} label="维保类型">
           {getFieldDecorator('applicationId', {
+            initialValue:"日常检修",
+          })(
+            <Input
+            />
+          )}
+        </FormItem>
+
+        <FormItem {...formItemLayout} label="维保人员">
+          {getFieldDecorator('applicationId', {
+            initialValue:"李明",
+          })(
+            <Input
+            />
+          )}
+        </FormItem>
+
+        <FormItem {...formItemLayout} label="维保说明" >
+          {getFieldDecorator('orgRemark', {
             initialValue:"/",
           })(
-            <Input
-            />
+            <TextArea  rows={4} />
           )}
         </FormItem>
 

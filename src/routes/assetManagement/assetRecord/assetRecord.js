@@ -101,7 +101,7 @@ const randomMarker = (len) => (//随机makers数据
   }))
 );
 
-export default class userManage extends PureComponent {
+export default class assetRecord extends PureComponent {
 
 
   state = {

@@ -5,7 +5,8 @@ import { ModalForm, showConfirm } from "components/Modal";
 import FormSub from "./assetsLocation"; //资产设备单个定位页面
 import FormSub2 from "./assetChange"; //资产设备变更页面
 import FormSub3 from "./assetsAllLocation"; //所有资产设备定位页面
-import FormSub4 from "./assetDetails"; //资产设备详情页面
+import FormSub4 from "./assetDetails";//资产设备详情页面
+import Authorized from "../../../utils/Authorized";
 
 /**
  * 资产列表页面
@@ -14,6 +15,7 @@ import FormSub4 from "./assetDetails"; //资产设备详情页面
  * @returns {boolean}
  */
 
+const { ButtonAuthorize } = Authorized;
 
 //上传方法
 function beforeUpload(file) {
@@ -102,7 +104,7 @@ const data = [{
 }
 ];
 
-export default class userManage extends PureComponent {
+export default class assetList extends PureComponent {
 
   state = {
     columns:[],
@@ -189,9 +191,9 @@ export default class userManage extends PureComponent {
         width: 150,
         render: () => (
           <Dropdown overlay={<Menu>
-            <Menu.Item key="1"><Button style={{ marginRight: 5 }} icon="form" onClick={this.edit}>定位</Button></Menu.Item>
-            <Menu.Item key="1"><Button style={{ marginRight: 5 }} icon="form" onClick={this.change}>变更</Button></Menu.Item>
-        <Menu.Item key="1"><Button style={{ marginRight: 5 }} icon="form" onClick={this.detail}>详情</Button></Menu.Item>
+            <Menu.Item key="1">  <ButtonAuthorize  icon="form"  onClick={this.edit} name="定位" authority="application:update" /></Menu.Item>
+            <Menu.Item key="1">  <ButtonAuthorize  icon="form"  onClick={this.change} name="变更" authority="application:update" /></Menu.Item>
+            <Menu.Item key="1">  <ButtonAuthorize  icon="form"  onClick={this.detail} name="详情" authority="application:update" /></Menu.Item>
       </Menu>}>
         <Button >
     更多 <Icon type="down" />
@@ -300,6 +302,7 @@ export default class userManage extends PureComponent {
     const modalFormProps = {
       title:title,
       loading: true,
+      isFooter:true,
       record,
       visible,
       Contents:form,
@@ -309,8 +312,8 @@ export default class userManage extends PureComponent {
       onCancel: () => {
         this.setState({
           record: null,
-          visible: false
-        })
+          visible: false,
+      })
       },
       onSubmit: () => {
         this.setState({

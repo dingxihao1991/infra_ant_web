@@ -6,6 +6,7 @@ import {ModalForm,showConfirm}  from 'components/Modal';
 import { POST,GET,PUT,DELETE } from '../../../services/api';
 import Authorized from '../../../utils/Authorized';
 import OrganizationSide from './OrganizationSide';
+import EventSide from './EventSide';
 import FormSub from './Form';
 
 const { ButtonAuthorize } = Authorized;
@@ -152,6 +153,7 @@ export default class workEvent extends PureComponent {
     openSide: true,
     treeData:[],
     treeDataSote:[],
+    content:null
   };
 
   constructor(props,context) {
@@ -163,6 +165,32 @@ export default class workEvent extends PureComponent {
   }
 
   init= () =>{
+    const content =  (<Layout style={{background: '#fff',border:'1px solid #E5E5E5'}}>
+      <div>
+        <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="user:add"/>
+        <Search style={{ margin: 10,width:'20%',float:'right'}} placeholder="搜索" onChange={this.handleSearch} />
+      </div>
+      <Content >
+        <List
+          grid={{ gutter: 16, column: 4 }}
+          dataSource={data}
+          renderItem={item => (
+            <List.Item>
+              <Card title={item.title} actions={[<Icon type="edit" onClick={() => this.edit(item)}/>, <Icon type="close" onClick={() => this.delete(item)}/>]}>
+                <p style={{fontSize:14}}><Icon type="user" style={{color:'#4194ce',marginRight:6}}/>单位人员：jack</p>
+                <p style={{fontSize:14}}><Icon type="unlock" style={{color:'#4194ce',marginRight:6}}/>开始时间：2018-1-2 09：23：44</p>
+                <p style={{fontSize:14}}><Icon type="bars" style={{color:'#4194ce',marginRight:6}}/>所属管廊：彩虹西路(将军岭路~鸡鸣山路)</p>
+                <p style={{fontSize:14}}><Icon type="user" style={{color:'#4194ce',marginRight:6}}/>操作人员：管理员</p>
+              </Card>
+            </List.Item>
+          )}
+        />
+      </Content>
+    </Layout>)
+    this.setState({
+      content:content
+    })
+
     const thiz = this;
     GET('/users',function(data){
       if(data.success){
@@ -176,8 +204,6 @@ export default class workEvent extends PureComponent {
     },function(error){
       console.log(error)
     })
-
-
   }
 
   //编辑
@@ -254,24 +280,37 @@ export default class workEvent extends PureComponent {
     });
   }
 
-  onSelect = (selectedKeys, info) => {
-    let array = []
-
-    array.push(selectedKeys);
-    let recursive = function(node){
-      if(node.key!=undefined){
-        array.push(node.key)
-      }
-      if(node.props['children']){
-        for(var i=0;i<node.props['children'].length;i++){
-          recursive(node.props['children'][i]);
-        }
-      }
+  onSelect = (selectedKey) => {
+    if(selectedKey == 1){
+      this.setState({
+        content:
+          <Layout style={{background: '#fff',border:'1px solid #E5E5E5',height:'100%'}}>
+            <div>
+              <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="user:add"/>
+              <Search style={{ margin: 10,width:'20%',float:'right'}} placeholder="搜索" onChange={this.handleSearch} />
+            </div>
+            <Content >
+              <List
+                grid={{ gutter: 16, column: 4 }}
+                dataSource={data}
+                renderItem={item => (
+                  <List.Item>
+                    <Card title={item.title} actions={[<Icon type="edit" onClick={() => this.edit(item)}/>, <Icon type="close" onClick={() => this.delete(item)}/>]}>
+                      <p style={{fontSize:14}}><Icon type="user" style={{color:'#4194ce',marginRight:6}}/>单位人员：jack</p>
+                      <p style={{fontSize:14}}><Icon type="unlock" style={{color:'#4194ce',marginRight:6}}/>开始时间：2018-1-2 09：23：44</p>
+                      <p style={{fontSize:14}}><Icon type="bars" style={{color:'#4194ce',marginRight:6}}/>所属管廊：彩虹西路(将军岭路~鸡鸣山路)</p>
+                      <p style={{fontSize:14}}><Icon type="user" style={{color:'#4194ce',marginRight:6}}/>操作人员：管理员</p>
+                    </Card>
+                  </List.Item>
+                )}
+              />
+            </Content>
+          </Layout>
+      })
+    }else{
+      this.setState({content:<EventSide/>})
     }
-    //递归获取子集
-    recursive(info.node);
-    const {fileDataSource} = this.state;
-    this.setState({ dataSource: fileDataSource.filter(item => array.some(jtem =>item.departmentId==jtem))});
+
   }
 
   handleSearch = () => {}
@@ -284,33 +323,12 @@ export default class workEvent extends PureComponent {
     };
 
     return(
-      <Layout className={styles.application}>
+      <Layout className={styles.application} style={{ background: '#fff' }}>
         <OrganizationSide
           treeData={treeData}
           onSelect={this.onSelect}
         />
-        <Layout style={{background: '#fff',border:'1px solid #E5E5E5'}}>
-          <div>
-            <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="user:add"/>
-            <Search style={{ margin: 10,width:'20%',float:'right'}} placeholder="搜索" onChange={this.handleSearch} />
-          </div>
-          <Content >
-            <List
-              grid={{ gutter: 16, column: 4 }}
-              dataSource={data}
-              renderItem={item => (
-                <List.Item>
-                  <Card title={item.title} actions={[<Icon type="edit" onClick={() => this.edit(item)}/>, <Icon type="close" onClick={() => this.delete(item)}/>]}>
-                    <p style={{fontSize:14}}><Icon type="user" style={{color:'#4194ce',marginRight:6}}/>单位人员：jack</p>
-                    <p style={{fontSize:14}}><Icon type="unlock" style={{color:'#4194ce',marginRight:6}}/>开始时间：2018-1-2 09：23：44</p>
-                    <p style={{fontSize:14}}><Icon type="bars" style={{color:'#4194ce',marginRight:6}}/>所属管廊：彩虹西路(将军岭路~鸡鸣山路)</p>
-                    <p style={{fontSize:14}}><Icon type="user" style={{color:'#4194ce',marginRight:6}}/>操作人员：管理员</p>
-                  </Card>
-                </List.Item>
-              )}
-            />
-          </Content>
-        </Layout>
+        {this.state.content}
       </Layout>
     )
 

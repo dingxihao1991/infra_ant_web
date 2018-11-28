@@ -22,28 +22,29 @@ export default class OrganizationSide extends PureComponent {
     });
   }
 
-  menus = () => {
+  menus = (onSelect) => {
         return (
-          <Menu>
-            <Menu.Item key="1">
+          <Menu defaultselectedkey={['1']}>
+            <Menu.Item key="1" onClick={()=>onSelect('1')}>
               <Icon type="swap" />
-              <span>出入管理</span>
+              <span >出入管理</span>
             </Menu.Item>
-            <Menu.Item key="2">
+            <Menu.Item key="2" onClick={()=>onSelect('2')}>
               <Icon type="bars" />
-              <span>应急事件</span>
+              <span >应急事件</span>
             </Menu.Item>
           </Menu>
         );
   }
 
     render(){
+      const {onSelect} =this.props;
         return(
             <SideLayout
                 width={230}
                 handleSearch={this.handleSearch}
                 sideContent={
-                    this.menus()
+                    this.menus(onSelect)
                 }
             >
             </SideLayout>

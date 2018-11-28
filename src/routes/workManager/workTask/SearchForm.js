@@ -2,6 +2,7 @@ import { Form, Row, Col, Input, Button, Icon,Select,DatePicker } from 'antd';
 import styles from '../workManage.less';
 const FormItem = Form.Item;
 const createForm = Form.create;
+const Option = Select.Option;
 
 class AdvancedSearchForm extends React.Component {
   state = {

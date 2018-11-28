@@ -5,6 +5,7 @@ import moment from 'moment';
 
 const FormItem = Form.Item;
 const createForm = Form.create;
+const Option = Select.Option;
 
 class FormSub extends Component {
 

@@ -25,31 +25,34 @@ class SideLayout extends Component {
 
 
   render() {
-    const { sideContent, width,handleSearch } = this.props;
+    const { sideContent, width,handleSearch,search,toggle } = this.props;
     const { openSide } = this.state;
     return (
 
         <Sider className={styles.SideLayout}
-               style={{background: '#fff', border: '1px solid #e8e8e8'}}
+               style={{background: '#fff'}}
                trigger={null}
                collapsible
                collapsed={!openSide}
                collapsedWidth={0}
                width={width}
         >
-          <a ref='sideHandle'
-              title={this.state.openSide ? "收起" : "展开"}
-             className="side-handle"
-            onClick={this.toggle}
-          >
-            <Icon type={openSide ? 'caret-left' : 'caret-right'} />
-          </a>
+          {toggle?<a ref='sideHandle'
+                       title={this.state.openSide ? "收起" : "展开"}
+                       className="side-handle"
+                       onClick={this.toggle}
+              >
+                <Icon type={openSide ? 'caret-left' : 'caret-right'} />
+              </a>:null
+          }
           <div className="side-body" style={{width}}>
             <div className="side-panel">
-              <div className={styles.panel_header}>
-                <Search style={{ marginBottom: 8,width:'90%'}} placeholder="搜索" onChange={handleSearch} />
+                {search?
+                    <div className={styles.panel_header}>
+                      <Search style={{ marginBottom: 8,width:'90%'}} placeholder="搜索" onChange={handleSearch} />
 
-              </div>
+                    </div>: null
+                }
               <div className="panel-body">{sideContent}</div>
             </div>
           </div>

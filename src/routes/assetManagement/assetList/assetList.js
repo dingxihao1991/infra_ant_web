@@ -7,7 +7,8 @@ import FormSub2 from "./assetChange"; //资产设备变更页面
 import FormSub3 from "./assetsAllLocation"; //所有资产设备定位页面
 import FormSub4 from "./assetDetails";//资产设备详情页面
 import Authorized from "../../../utils/Authorized";
-
+import PropTypes from 'prop-types';
+import AssetModelInfo from './modal/AssetModelInfo';
 /**
  * 资产列表页面
  *
@@ -106,6 +107,10 @@ const data = [{
 
 export default class assetList extends PureComponent {
 
+    static contextTypes = {
+        openModal: PropTypes.func,
+    };
+
   state = {
     columns:[],
     dataSource:[],
@@ -135,6 +140,16 @@ export default class assetList extends PureComponent {
       align: 'center',
       key:'1'
     }, {
+        title: '模型',
+        dataIndex: '21',
+        id: '21',
+        align: 'center',
+        key:'21',
+        width:'80',
+        render: (text, record) => {
+          return <Icon type="codepen" style={{height:'30px',width:'40px'}} onClick={this.openModel.bind(this,record)}/>
+        }
+    },{
       title: '资产设备名称',
       dataIndex: '2',
       id: '2',
@@ -185,15 +200,15 @@ export default class assetList extends PureComponent {
         width: 150
       },{//增加操作栏
         title: '操作',
-        dataIndex: '9',
-        id: '9',
+        dataIndex: '10',
+        id: '10',
         align: 'center',
         width: 150,
         render: () => (
           <Dropdown overlay={<Menu>
             <Menu.Item key="1">  <ButtonAuthorize  icon="form"  onClick={this.edit} name="定位" authority="application:update" /></Menu.Item>
-            <Menu.Item key="1">  <ButtonAuthorize  icon="form"  onClick={this.change} name="变更" authority="application:update" /></Menu.Item>
-            <Menu.Item key="1">  <ButtonAuthorize  icon="form"  onClick={this.detail} name="详情" authority="application:update" /></Menu.Item>
+            <Menu.Item key="2">  <ButtonAuthorize  icon="form"  onClick={this.change} name="变更" authority="application:update" /></Menu.Item>
+            <Menu.Item key="3">  <ButtonAuthorize  icon="form"  onClick={this.detail} name="详情" authority="application:update" /></Menu.Item>
       </Menu>}>
         <Button >
     更多 <Icon type="down" />
@@ -203,6 +218,22 @@ export default class assetList extends PureComponent {
         ),
       }];
     this.setState({columns:columns})
+  }
+
+
+  openModel = record =>{
+    console.log("---------",record);
+      const modalFormProps = {
+          title:'BIM属性',
+          record:record,
+          isFooter:true,
+          isShow:true,
+          Contents:AssetModelInfo,
+          modalOpts: {
+              width: 1000,
+          },
+      }
+    this.context.openModal(modalFormProps);
   }
 
   init= () =>{

@@ -129,7 +129,7 @@ export default class BasicLayout extends PureComponent {
     }
     constructor(props){
         super(props);
-        this.initWebSocket();
+       // this.initWebSocket();
     }
 
     openModal = modalFormProps =>{
@@ -148,26 +148,26 @@ export default class BasicLayout extends PureComponent {
     }
 
 
-    initWebSocket= () =>{
-        let url = 'ws://192.168.8.70:15674/ws';
-        var stompClient = Stomp.over(new WebSocket(url));
-        var destination = "/exchange/dtExchange/web-queue_12";
-
-        let thiz = this;
-
-        stompClient.connect("guest", "guest", function (data) {
-            stompClient.subscribe(destination, message => {
-                thiz.receiveMessage(message);
-            });
-
-        }, function (err) {
-            console.log("webSocket连接失败，5s后重连", err);
-
-            setTimeout(function () {
-                thiz.initWebSocket();
-            }, 5000);
-        });
-    }
+    // initWebSocket= () =>{
+    //     let url = 'ws://192.168.8.64:15674/ws';
+    //     var stompClient = Stomp.over(new WebSocket(url));
+    //     var destination = "/exchange/dtExchange/web-queue_12";
+    //
+    //     let thiz = this;
+    //
+    //     stompClient.connect("guest", "guest", function (data) {
+    //         stompClient.subscribe(destination, message => {
+    //             thiz.receiveMessage(message);
+    //         });
+    //
+    //     }, function (err) {
+    //         console.log("webSocket连接失败，5s后重连", err);
+    //
+    //         setTimeout(function () {
+    //             thiz.initWebSocket();
+    //         }, 5000);
+    //     });
+    // }
 
     getPageTitle() {
         const {routerData, location} = this.props;

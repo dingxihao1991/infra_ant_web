@@ -187,6 +187,10 @@ export const getRouterData = app => {
       '/job/event': {
         component: dynamicWrapper(app, [], () => import('../routes/workManager/workEvent/workEvent'))
       },
+    //模型预览
+    '/model/index': {
+        component: dynamicWrapper(app, ['model/modelData'], () => import('../routes/model/index')),
+    }
     };
 
     /*  !!!!! Don't  touch  me !!!!! */

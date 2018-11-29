@@ -86,6 +86,8 @@ export default class OrganizationSide extends PureComponent{
                 title="组织机构"
                 width={230}
                 handleSearch={this.handleSearch}
+                search={true}
+                toggle={true}
                 sideContent={
                     treeData.length>0?
                         <Tree

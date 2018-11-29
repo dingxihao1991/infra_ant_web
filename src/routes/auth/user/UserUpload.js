@@ -1,3 +1,4 @@
+import React, {PureComponent} from 'react';
 import { Upload, Icon, message } from 'antd';
 import {getToken} from '../../../utils/authority';
 

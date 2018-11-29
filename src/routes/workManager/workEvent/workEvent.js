@@ -6,6 +6,8 @@ import {ModalForm,showConfirm}  from 'components/Modal';
 import { POST,GET,PUT,DELETE } from '../../../services/api';
 import Authorized from '../../../utils/Authorized';
 import OrganizationSide from './OrganizationSide';
+import EventSide from './EventSide';
+import FormSub from './Form';
 
 const { ButtonAuthorize } = Authorized;
 const { Content} = Layout;
@@ -15,16 +17,52 @@ const Search = Input.Search;
 
 const data = [
   {
+    id:1,
     title: '合肥管廊运营处_紧急巡视',
+    unitName:'合肥管廊运营管理处',
+    name:'周福',
+    reasons:'临时任务',
+    workType:'紧急巡视',
+    startDate:'2018-03-13 08：30：00',
+    endDate:'2018-03-13 17：30：00',
+    gallery_name:'彩虹西路(将军岭路~鸡鸣山路)',
+    ops:'系统管理员'
   },
   {
-    title: 'Title 2',
+    id:2,
+    title: '合肥管廊运营处_紧急巡视',
+    unitName:'合肥管廊运营管理处',
+    name:'周福',
+    reasons:'临时任务',
+    workType:'紧急巡视',
+    startDate:'2018-03-13 08：30：00',
+    endDate:'2018-03-13 17：30：00',
+    gallery_name:'彩虹西路(将军岭路~鸡鸣山路)',
+    ops:'系统管理员'
   },
   {
-    title: 'Title 3',
+    id:3,
+    title: '合肥管廊运营处_紧急巡视',
+    unitName:'合肥管廊运营管理处',
+    name:'周福',
+    reasons:'临时任务',
+    workType:'紧急巡视',
+    startDate:'2018-03-13 08：30：00',
+    endDate:'2018-03-13 17：30：00',
+    gallery_name:'彩虹西路(将军岭路~鸡鸣山路)',
+    ops:'系统管理员'
   },
   {
-    title: 'Title 4',
+    id:4,
+    title: '合肥管廊运营处_紧急巡视',
+    unitName:'合肥管廊运营管理处',
+    name:'周福',
+    reasons:'临时任务',
+    workType:'紧急巡视',
+    startDate:'2018-03-13 08：30：00',
+    endDate:'2018-03-13 17：30：00',
+    gallery_name:'彩虹西路(将军岭路~鸡鸣山路)',
+    ops:'系统管理员'
   },
 ];
 const columns = [
@@ -115,6 +153,7 @@ export default class workEvent extends PureComponent {
     openSide: true,
     treeData:[],
     treeDataSote:[],
+    content:null
   };
 
   constructor(props,context) {
@@ -126,6 +165,32 @@ export default class workEvent extends PureComponent {
   }
 
   init= () =>{
+    const content =  (<Layout style={{background: '#fff',border:'1px solid #E5E5E5'}}>
+      <div>
+        <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="user:add"/>
+        <Search style={{ margin: 10,width:'20%',float:'right'}} placeholder="搜索" onChange={this.handleSearch} />
+      </div>
+      <Content >
+        <List
+          grid={{ gutter: 16, column: 4 }}
+          dataSource={data}
+          renderItem={item => (
+            <List.Item>
+              <Card title={item.title} actions={[<Icon type="edit" onClick={() => this.edit(item)}/>, <Icon type="close" onClick={() => this.delete(item)}/>]}>
+                <p style={{fontSize:14}}><Icon type="user" style={{color:'#4194ce',marginRight:6}}/>单位人员：jack</p>
+                <p style={{fontSize:14}}><Icon type="unlock" style={{color:'#4194ce',marginRight:6}}/>开始时间：2018-1-2 09：23：44</p>
+                <p style={{fontSize:14}}><Icon type="bars" style={{color:'#4194ce',marginRight:6}}/>所属管廊：彩虹西路(将军岭路~鸡鸣山路)</p>
+                <p style={{fontSize:14}}><Icon type="user" style={{color:'#4194ce',marginRight:6}}/>操作人员：管理员</p>
+              </Card>
+            </List.Item>
+          )}
+        />
+      </Content>
+    </Layout>)
+    this.setState({
+      content:content
+    })
+
     const thiz = this;
     GET('/users',function(data){
       if(data.success){
@@ -139,21 +204,11 @@ export default class workEvent extends PureComponent {
     },function(error){
       console.log(error)
     })
-
-
   }
 
   //编辑
-  edit =()=>{
-    const {rows,record} = this.state
-    if(rows.length>1){
-      Modal.warning({
-        title: '警告信息',
-        content: '请选中一行数据',
-      });
-      return;
-    }
-    this.openModal(record);
+  edit =(item)=>{
+    this.openModal(item);
   }
 
   //新增事件
@@ -175,45 +230,9 @@ export default class workEvent extends PureComponent {
     this.context.openModal(modalFormProps);
   }
 
-  delete =()=> {
+  delete =(item)=> {
     const {rows,record} = this.state;
-    const dataSource = [...this.state.dataSource];
-    let thiz = this;
-    if(rows.length > 1 || rows.length == 0){
-      Modal.warning({
-        title: '警告信息',
-        content: '请选中一行数据',
-      });
-      return;
-    }
-    confirm({
-      title: '提示信息',
-      content: '确定删除【'+rows.length+'】行数据吗?',
-      okText: '确定',
-      okType: 'danger',
-      cancelText: '取消',
-      onOk() {
-        let params = []
-        rows.map(value=>{
-          params.push(value.id);
-        });
-        DELETE('/users/delete', params , function(result){
-          if(result.success){
-            thiz.setState({ dataSource: dataSource.filter(item => !rows.some(jtem=>jtem.id == item.id))});
-          }else{
-            alert(result.message);
-          }
-
-        },function(error){
-          console.log(error)
-        })
-      },
-      onCancel() {
-
-      },
-
-    })
-
+    alert(item.id);
   }
 
   //选中项发生变化时的回调
@@ -261,70 +280,40 @@ export default class workEvent extends PureComponent {
     });
   }
 
-  // 重置密码
-  resetPassword = ()=> {
-    const thiz = this;
-    const {rows} = this.state
-    if(rows.length > 1 || rows.length == 0){
-      Modal.warning({
-        title: '警告信息',
-        content: '请选中一行数据',
-      });
-      return;
+  onSelect = (selectedKey) => {
+    if(selectedKey == 1){
+      this.setState({
+        content:
+          <Layout style={{background: '#fff',border:'1px solid #E5E5E5',height:'100%'}}>
+            <div>
+              <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="user:add"/>
+              <Search style={{ margin: 10,width:'20%',float:'right'}} placeholder="搜索" onChange={this.handleSearch} />
+            </div>
+            <Content >
+              <List
+                grid={{ gutter: 16, column: 4 }}
+                dataSource={data}
+                renderItem={item => (
+                  <List.Item>
+                    <Card title={item.title} actions={[<Icon type="edit" onClick={() => this.edit(item)}/>, <Icon type="close" onClick={() => this.delete(item)}/>]}>
+                      <p style={{fontSize:14}}><Icon type="user" style={{color:'#4194ce',marginRight:6}}/>单位人员：jack</p>
+                      <p style={{fontSize:14}}><Icon type="unlock" style={{color:'#4194ce',marginRight:6}}/>开始时间：2018-1-2 09：23：44</p>
+                      <p style={{fontSize:14}}><Icon type="bars" style={{color:'#4194ce',marginRight:6}}/>所属管廊：彩虹西路(将军岭路~鸡鸣山路)</p>
+                      <p style={{fontSize:14}}><Icon type="user" style={{color:'#4194ce',marginRight:6}}/>操作人员：管理员</p>
+                    </Card>
+                  </List.Item>
+                )}
+              />
+            </Content>
+          </Layout>
+      })
+    }else{
+      this.setState({content:<EventSide/>})
     }
-    confirm({
-      title: '提示信息',
-      content: '确定重置密码吗?',
-      okText: '确定',
-      okType: 'danger',
-      cancelText: '取消',
-      onOk() {
-        let params = []
-        rows.map(value=>{
-          params.push(value.id);
-        });
-        PUT('/users/resetPassword', params , function(result){
-          console.log(result);
-          if(result.success){
-            message.success("更新成功");
-            thiz.closeModal();
-            thiz.init();
-          }else{
-            message.success("更新失败，请联系管理员")
-          }
-        },function(error){
-          console.log(error)
-        })
-      },
-      onCancel() {
 
-      },
-
-    })
-  }
-
-  onSelect = (selectedKeys, info) => {
-    let array = []
-
-    array.push(selectedKeys);
-    let recursive = function(node){
-      if(node.key!=undefined){
-        array.push(node.key)
-      }
-      if(node.props['children']){
-        for(var i=0;i<node.props['children'].length;i++){
-          recursive(node.props['children'][i]);
-        }
-      }
-    }
-    //递归获取子集
-    recursive(info.node);
-    const {fileDataSource} = this.state;
-    this.setState({ dataSource: fileDataSource.filter(item => array.some(jtem =>item.departmentId==jtem))});
   }
 
   handleSearch = () => {}
-
 
 
   render() {
@@ -333,48 +322,13 @@ export default class workEvent extends PureComponent {
       onChange: this.onSelectChange,
     };
 
-    const menu = (
-      <Menu>
-        <Menu.Item >
-          <a target="_blank" rel="noopener noreferrer" href="javascript:void(0)" onClick={this.edit}>修改</a>
-        </Menu.Item>
-        <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="javascript:void(0)" onClick={this.delete}>删除</a>
-        </Menu.Item>
-        <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="javascript:void(0)" onClick={this.resetPassword}>重置密码</a>
-        </Menu.Item>
-      </Menu>
-    );
-
     return(
-      <Layout className={styles.application}>
+      <Layout className={styles.application} style={{ background: '#fff' }}>
         <OrganizationSide
           treeData={treeData}
           onSelect={this.onSelect}
         />
-        <Layout style={{background: '#fff',border:'1px solid #E5E5E5'}}>
-          <div>
-            <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="user:add"/>
-            <Search style={{ margin: 10,width:'20%',float:'right'}} placeholder="搜索" onChange={this.handleSearch} />
-          </div>
-          <Content  >
-            <List
-              grid={{ gutter: 16, column: 4 }}
-              dataSource={data}
-              renderItem={item => (
-                <List.Item>
-                  <Card title={item.title} actions={[<Icon type="edit" />, <Icon type="close" />]}>
-                    <p style={{fontSize:14}}><Icon type="reload" style={{color:'#4194ce',marginRight:6}}/>单位人员：jack</p>
-                    <p style={{fontSize:14}}><Icon type="unlock" style={{color:'#4194ce',marginRight:6}}/>开始时间：2018-1-2 09：23：44</p>
-                    <p style={{fontSize:14}}><Icon type="bars" style={{color:'#4194ce',marginRight:6}}/>所属管廊：彩虹西路(将军岭路~鸡鸣山路)</p>
-                    <p style={{fontSize:14}}><Icon type="clock-circle" style={{color:'#4194ce',marginRight:6}}/>操作人员：管理员</p>
-                  </Card>
-                </List.Item>
-              )}
-            />
-          </Content>
-        </Layout>
+        {this.state.content}
       </Layout>
     )
 

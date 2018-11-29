@@ -1,9 +1,10 @@
-import { Layout, Menu, Icon ,Input ,Row,Col,Card,List} from 'antd';
+import { Layout, Menu, Icon ,Input ,Row,Col,Card,List,Divider,Button} from 'antd';
 import Authorized from '../../../utils/Authorized';
 import PropTypes from 'prop-types';
 import { POST,GET,PUT,DELETE } from '../../../services/api';
 import {ModalForm,showConfirm}  from 'components/Modal';
 import FormSub from './FormEvent';
+import FormSub2 from "./FormLabel";
 
 const Modal = ModalForm.Modal;
 const { ButtonAuthorize } = Authorized;
@@ -39,12 +40,16 @@ export default  class EventSide extends React.Component {
 
   state = {
     record:undefined,
-    dataArray:undefined
+    dataArray:undefined,
+    form:undefined,
+    visible:false,
+    title:null
   };
 
   init= () =>{
     this.setState({
-      dataArray: data
+      dataArray: data,
+      form:FormSub
     })
   }
 
@@ -92,7 +97,7 @@ export default  class EventSide extends React.Component {
     const modalFormProps = {
       record:record,
       isShow:true,
-      Contents:FormSub,
+      Contents:this.state.form,
       modalOpts: {
         width: 700,
       },
@@ -103,9 +108,22 @@ export default  class EventSide extends React.Component {
 
   //新增事件
   onAdd = () => {
-    this.setState({record:null});
-    this.openModal(null);
+    this.setState({
+      title:'新增事件',
+      visible: true,
+      record:null,
+      form:FormSub
+    });
   };
+
+  onAddLabel = () => {
+    this.setState({
+      title:'新增标签',
+      visible: true,
+      record:null,
+      form:FormSub2
+    });
+  }
 
   //编辑
   edit =(item)=>{
@@ -168,6 +186,20 @@ export default  class EventSide extends React.Component {
 
   render() {
     const {dataArray} = this.state;
+    let { columns,visible,record,rows,dataSource,loading,form,title} = this.state;
+    const modalFormProps = {
+      title:title,
+      loading: true,
+      record,
+      visible,
+      Contents:form,
+      modalOpts: {
+        width: 700,
+      },
+      onCancel: () => this.closeModal(),
+      onSubmit: (values) => this.onSubmit(values)
+    }
+
     return (
       <Layout style={{background: '#fff',height:'100%'}}>
         <div>
@@ -175,7 +207,7 @@ export default  class EventSide extends React.Component {
           <Search style={{ margin: 10,width:'20%',float:'right'}} placeholder="搜索" onChange={this.handleSearch} />
         </div>
         <Content >
-          <Layout style={{ background: '#fff' }}>
+          <Layout style={{ background: '#fff' ,borderTop:'1px solid rgb(240, 242, 245)'}}>
 
             <Sider style={{ background: '#fff' }}>
               <Menu mode="inline" defaultSelectedKeys={['1']}>
@@ -192,6 +224,7 @@ export default  class EventSide extends React.Component {
                   <span>其它</span>
                 </Menu.Item>
               </Menu>
+              <ButtonAuthorize  icon="plus" onClick={this.onAddLabel} name="新增标签" authority="user:add">新增标签</ButtonAuthorize>
             </Sider>
 
             <Content >
@@ -213,6 +246,7 @@ export default  class EventSide extends React.Component {
 
           </Layout>
         </Content>
+        <ModalForm {...modalFormProps}/>
       </Layout>
     );
   }

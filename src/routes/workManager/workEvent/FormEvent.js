@@ -55,93 +55,109 @@ class FormEvent extends Component {
         return (
             <Form ref='form'>
                 <FormItem
-                    label="单位名称："
+                    label="标题："
                     {...formItemLayout}>
-                    {getFieldDecorator('unitName', {
-                        initialValue:record?record['unitName']:null,
+                    {getFieldDecorator('eventName', {
+                        initialValue:record?record['eventName']:null,
                         rules: [{
                             required: true,
-                            message: '请输入单位名称',
+                            message: '请输入标题',
                         }],
                     })(
-                        <Input placeholder="请输入单位名称" />
+                        <Input placeholder="请输入标题" />
                     )}
                 </FormItem>
 
-                <FormItem {...formItemLayout} label="人员">
-                    {getFieldDecorator('name', {
-                        initialValue:record?record['name']:null,
+                <FormItem {...formItemLayout} label="内容">
+                    {getFieldDecorator('eventContent', {
+                        initialValue:record?record['eventContent']:null,
                       rules: [{
                         required: true,
-                        message: '请输入人员',
+                        message: '请输入内容',
                       }],
 
                     })(
-                         <Input placeholder="请输入人员" />
+                         <Input placeholder="请输入内容" />
                     )}
                 </FormItem>
 
-              <FormItem {...formItemLayout} label="事由">
-                {getFieldDecorator('reasons', {
-                  initialValue:record?record['reasons']:null,
+              <FormItem {...formItemLayout} label="任务等级">
+                {getFieldDecorator('workLevel', {
+                  initialValue:record?record['workLevel']:undefined ,
+                  rules: [{
+                    required: true,
+                    message: '请输入任务等级',
+                  }],
+
                 })(
-                  <Input placeholder="请输入事由" />
+                  <Select  placeholder="请选择任务等级">
+                    <Option value="一级">一级</Option>
+                    <Option value="二级">二级</Option>
+                    <Option value="三级">三级</Option>
+                  </Select>
                 )}
               </FormItem>
 
-              <FormItem {...formItemLayout} label="作业类型">
+              <FormItem {...formItemLayout} label="管廊">
+                {getFieldDecorator('gallery_name', {
+                  initialValue:record?record['gallery_name']:null,
+                  rules: [{
+                    required: true,
+                    message: '请输入管廊',
+                  }],
+                })(
+                  <Input placeholder="请输入管廊" />
+                )}
+              </FormItem>
+
+              <FormItem {...formItemLayout} label="开始时间">
+                {getFieldDecorator('startDate', {
+                  initialValue:record?moment(record['startDate'],'YYYY/MM/DD'):null,
+                  rules: [{
+                    required: true,
+                    message: '请输入开始时间',
+                  }],
+                })(
+                  <DatePicker style={{width:'33em'}}/>
+                )}
+              </FormItem>
+
+              <FormItem {...formItemLayout} label="结束时间">
+                {getFieldDecorator('endDate', {
+                  initialValue:record?moment(record['endDate'],'YYYY/MM/DD'):null,
+                  rules: [{
+                    required: true,
+                    message: '请输入结束时间',
+                  }],
+                })(
+                  <DatePicker style={{width:'33em'}}/>
+                )}
+              </FormItem>
+
+              <FormItem {...formItemLayout} label="任务类型">
                 {getFieldDecorator('workType', {
                   initialValue:record?record['workType']:undefined ,
                   rules: [{
                     required: true,
-                    message: '请输入作业类型',
+                    message: '请输入任务类型',
                   }],
 
                 })(
-                  <Select  placeholder="请选择作业类型">
-                    <Option value="日常巡检">日常巡检</Option>
-                    <Option value="紧急巡视">紧急巡视</Option>
+                  <Select  placeholder="请选择任务类型">
+                    <Option value="突发事件">突发事件</Option>
+                    <Option value="设备故障">设备故障</Option>
                     <Option value="其他">其他</Option>
                   </Select>
                 )}
               </FormItem>
 
-              <FormItem {...formItemLayout} label="进入时间">
-                {getFieldDecorator('startDate', {
-                  initialValue:record?moment(record['startDate'],'YYYY/MM/DD'):null,
-                  rules: [{
-                    required: true,
-                    message: '请输入进入时间',
-                  }],
+              <FormItem {...formItemLayout} label="执行人">
+                {getFieldDecorator('work_user', {
+                  initialValue:record?record['work_user']:null,
                 })(
-                  <DatePicker style={{width:'33em'}}/>
+                  <Input placeholder="请输入执行人" />
                 )}
               </FormItem>
-
-              <FormItem {...formItemLayout} label="离开时间">
-                {getFieldDecorator('endDate', {
-                  initialValue:record?moment(record['endDate'],'YYYY/MM/DD'):null,
-                  rules: [{
-                    required: true,
-                    message: '请输入离开时间',
-                  }],
-                })(
-                  <DatePicker style={{width:'33em'}}/>
-                )}
-              </FormItem>
-
-              <FormItem {...formItemLayout} label="所属管廊">
-                {getFieldDecorator('gallery_name', {
-                  initialValue:record?record['gallery_name']:null,
-                  rules: [{
-                    required: true,
-                    message: '请输入所属管廊',
-                  }],
-                })(
-                  <Input placeholder="请输入所属管廊" />
-                )}
-              </FormItem>
-
             </Form>
         )
     }

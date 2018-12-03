@@ -8,6 +8,10 @@ import {ModalForm,showConfirm}  from 'components/Modal';
 import { POST,GET,PUT,DELETE } from '../../../services/api';
 import Authorized from '../../../utils/Authorized';
 import FormSub from './FormEvent';
+import img4 from '../../../image/4.png'
+import img5 from '../../../image/5.png'
+import img6 from '../../../image/6.png'
+import img7 from '../../../image/7.png'
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -300,12 +304,8 @@ export default class workEvent extends PureComponent {
             <Card>
               <h5>突发事件</h5>
               <div>
-                <div>
-                  <canvas width="67" height="30"
-                          style={{display: 'inline-block', width: 67, height: 30, verticalAlign: 'top'}}></canvas>
-                </div>
-                <div style={{float: 'right'}}>
-                  <h2><Icon type="arrow-up" /><span style={{color:'#00c292'}}>23</span></h2>
+                <div style={{marginTop: 44}}>
+                  <span style={{color:'#00c292',fontSize:36}}><img src={img4} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'#00c292'}} />5</span>
                 </div>
               </div>
             </Card>
@@ -314,12 +314,12 @@ export default class workEvent extends PureComponent {
             <Card>
               <h5>突发事件</h5>
               <div>
-                <div>
+              {/*  <div>
                   <canvas width="67" height="30"
                           style={{display: 'inline-block', width: 67, height: 30, verticalAlign: 'top'}}></canvas>
-                </div>
-                <div style={{float: 'right'}}>
-                  <h2><Icon type="arrow-up" /><span style={{color:'#9674ce'}}>5</span></h2>
+                </div>*/}
+                <div style={{marginTop: 44}}>
+                  <span style={{color:'#ab8ce4',fontSize:36}}><img src={img5} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'#ab8ce4'}} />8</span>
                 </div>
               </div>
             </Card>
@@ -328,12 +328,8 @@ export default class workEvent extends PureComponent {
             <Card>
               <h5>突发事件</h5>
               <div>
-                <div>
-                  <canvas width="67" height="30"
-                          style={{display: 'inline-block', width: 67, height: 30, verticalAlign: 'top'}}></canvas>
-                </div>
-                <div style={{float: 'right'}}>
-                  <h2><Icon type="arrow-up" /><span style={{color:'#02a9f3'}}>5</span></h2>
+                <div style={{marginTop: 44}}>
+                  <span style={{color:'#03a9f3',fontSize:36}}><img src={img6} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'#03a9f3'}} />2</span>
                 </div>
               </div>
             </Card>
@@ -342,12 +338,8 @@ export default class workEvent extends PureComponent {
             <Card>
               <h5>突发事件</h5>
               <div>
-                <div>
-                  <canvas width="67" height="30"
-                          style={{display: 'inline-block', width: 67, height: 30, verticalAlign: 'top'}}></canvas>
-                </div>
-                <div style={{float: 'right'}}>
-                  <h2><Icon type="arrow-up" /><span style={{color:'#f96262'}}>5</span></h2>
+                <div style={{marginTop: 44}}>
+                  <span style={{color:'#e46a76',fontSize:36}}><img src={img7} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'#e46a76'}} />6</span>
                 </div>
               </div>
             </Card>

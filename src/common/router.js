@@ -185,7 +185,7 @@ export const getRouterData = app => {
       },
       //事件记录
       '/job/event': {
-        component: dynamicWrapper(app, [], () => import('../routes/workManager/workEvent/workEvent'))
+        component: dynamicWrapper(app, [], () => import('../routes/workManager/workEvents/WorkEvent'))
       },
     //模型预览
     '/model/index': {

@@ -13,7 +13,7 @@ export var option1 = {
   },
   grid: {
     left: '0%',
-    right: '12%',
+    right: '14%',
     bottom: '3%',
     height:'80%',
     containLabel: true
@@ -41,16 +41,21 @@ export var option1 = {
   },
   yAxis: {
     type: 'value',
-    axisLine: {
+    axisLine: { //坐标轴轴线相关设置
+      show: false,
       lineStyle: {
         color: '#B1B1B1',
         type: 'solid'
       }
     },
-    axisLabel: {
+    axisLabel: { //坐标轴刻度标签的相关设置
+      show:false,
       textStyle: {
         color: '#B1B1B1',
       }
+    },
+    splitLine:{ //坐标轴在 grid 区域中的分隔线。
+      show:false
     }
   },
   series: [
@@ -84,8 +89,8 @@ export var option2 = {
   },
   color:['#FFE083','#4CD0E1'],
   grid: {
-    left: '0%',
-    right: '10%',
+    left: '-4%',
+    right: '8%',
     bottom: '3%',
     height:'80%',
     containLabel: true
@@ -116,15 +121,20 @@ export var option2 = {
     {
       type : 'value',
       axisLine: {
+        show:false,
         lineStyle: {
           color: '#B1B1B1',
           type: 'solid'
         }
       },
       axisLabel: {
+        show:false,
         textStyle: {
           color: '#B1B1B1',
         }
+      },
+      splitLine:{ //坐标轴在 grid 区域中的分隔线。
+        show:false
       }
     }
   ],

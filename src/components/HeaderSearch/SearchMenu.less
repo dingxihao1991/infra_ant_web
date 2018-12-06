@@ -1,0 +1,43 @@
+@import '~antd/lib/style/themes/default.less';
+
+.menu{
+  margin-left: 28px;
+  width: 310px;
+  -webkit-box-shadow: 2px 2px 8px 1px rgba(20, 20, 20, 0.15);
+  -moz-box-shadow: 2px 2px 8px 1px rgba(20, 20, 20, 0.15);
+  box-shadow: 2px 2px 8px 1px rgba(20, 20, 20, 0.15);
+  padding:0px;
+  position: absolute;
+  z-index:9999;
+  max-height:300px;
+  overflow:auto;
+
+  :global{
+
+    .ant-list-item{
+
+      padding-top: 0px;
+      padding-left:30px;
+      padding-bottom:8px;
+    }
+    .ant-card-body{
+        padding:0px;
+      }
+      .ant-divider-horizontal {
+        display: block;
+        height: 1px;
+        width: 100%;
+        margin: 0px;
+        clear: both;
+      }
+
+      .item-content{
+        width:69%;
+        padding-left:10px;
+        &:hover{
+            background-color: @primary-1;
+          }
+        }
+
+    }
+}

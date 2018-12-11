@@ -10,7 +10,6 @@ import { Form, Input} from 'antd';
 
 const FormItem = Form.Item;
 const createForm = Form.create;
-const {TextArea } =Input;
 
 class FormSub extends Component {
 

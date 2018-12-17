@@ -192,6 +192,11 @@ export const getRouterData = app => {
     '/model/index': {
         component: dynamicWrapper(app, ['model/modelData'], () => import('../routes/model/index')),
     }
+      ,
+      //预案管理
+      '/planManagement/emergencyPlanRecord': {
+        component: dynamicWrapper(app, [], () => import('../routes/planManagement/emergencyPlanRecord/emergencyPlanRecord.js')),
+      }
     };
 
     /*  !!!!! Don't  touch  me !!!!! */

@@ -8,7 +8,7 @@ export var option1 = {
   },
   color: ['#F5A459'],
   legend: {
-    data: ['总客流量'],
+    data: ['总车流量'],
     x:'left',
   },
   grid: {
@@ -60,7 +60,7 @@ export var option1 = {
   },
   series: [
     {
-      name: '总客流量',
+      name: '总车流量',
       type: 'line',
       smooth: true,
       areaStyle: {normal: {}},
@@ -82,7 +82,7 @@ export var option2 = {
     trigger: 'axis'
   },
   legend: {
-    data:['进站','出站'],
+    data:['进隧','出隧'],
     align:'left',
     x:'left',
     itemHeight :20
@@ -140,7 +140,7 @@ export var option2 = {
   ],
   series : [
     {
-      name:'进站',
+      name:'进隧',
       type: 'line',
       smooth: true,
       stack: '总量',
@@ -148,7 +148,7 @@ export var option2 = {
       data:[350, 132, 501, 534, 490, 430, 410]
     },
     {
-      name:'出站',
+      name:'出隧',
       type: 'line',
       smooth: true,
       stack: '总量',
@@ -207,8 +207,8 @@ export var option3 = {
 
 
 // 开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-var data5 = [96, 80, 100, 90, 85]
-var titlename5 = ['设备', '能耗', '安全', '消防', '客流'];
+var data5 = [96, 90, 98, 90, 95]
+var titlename5 = ['设备', '能耗', '安全', '消防', '车流'];
 var myColor5 = ['#1089E7', '#1089E7', '#1089E7', '#1089E7', '#1089E7'];
 //健康指数
 export var option5 = {
@@ -277,7 +277,7 @@ export var option5 = {
 export var option6 = {
   series: [{
     type: 'liquidFill',
-    data: [0.89],
+    data: [0.96],
     radius: '80%'
   }]
 };

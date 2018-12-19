@@ -14,7 +14,7 @@ export default class HomeMap extends React.Component{
     super();
     this.state = {
       visible: true,
-      draggable: true,
+      draggable: false,
       path: [
           {longitude:121.493082,latitude:31.222005},
           {longitude:121.499047,latitude:31.220954},

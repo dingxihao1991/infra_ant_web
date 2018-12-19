@@ -246,7 +246,7 @@ export default class BasicLayout extends PureComponent {
                             onCollapse={this.handleMenuCollapse}
                         />
                     </Header>
-                    <Content style={{margin: '24px 24px 0', height: '400px'}}>
+                    <Content className="content" style={{margin: '24px 24px 0', height: '400px'}}>
                         <Switch>
                             {redirectData.map(item => (
                                 <Redirect key={item.from} exact from={item.from} to={item.to}/>

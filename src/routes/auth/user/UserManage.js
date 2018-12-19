@@ -349,7 +349,11 @@ export default class userManage extends PureComponent {
                                 操作 <Icon type="down" />
                             </Button>
                         </Dropdown>
+                        <Button icon="setting"  style={{ margin: 10,float:'right'}}>
+                            高级 <Icon type="primary" />
+                        </Button>
                         <Search style={{ margin: 10,width:'20%',float:'right'}} placeholder="搜索" onChange={this.handleSearch} />
+
                     </div>
                     <Content  >
                         <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}

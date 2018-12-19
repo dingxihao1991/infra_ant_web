@@ -30,7 +30,7 @@ export default class HomeMap extends React.Component{
 
   render(){
     return(
-        <Map plugins={['ToolBar']} center={{longitude:121.493061,latitude:31.221953}} zoom={100}>
+        <Map plugins={['ToolBar']} center={{longitude:121.506566,latitude:31.223001}} zoom={15}>
           <Polyline
             path={ this.state.path }
             events={ this.lineEvents }

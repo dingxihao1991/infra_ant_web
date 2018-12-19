@@ -16,7 +16,7 @@ const { Content} = Layout;
  class model extends Component {
 
     state={
-        src:'http://192.168.200.29/static/webgl_sd/index.html'//'http://localhost/static/webgl/index.html'//'http://139.196.195.214/DEV_sg/webgl/iframe-page'
+        src:'http://localhost/static/webgl/index.html'//'http://localhost/static/webgl/index.html'//'http://139.196.195.214/DEV_sg/webgl/iframe-page'
 
     }
 
@@ -78,27 +78,8 @@ const { Content} = Layout;
             }
         ]
         return(
-            <Layout >
-                <SideLayout
-                    title="文件列表"
-                    width={230}
-                    style={{overflowX: 'hidden'}}
-                    sideContent={
-                        <List
-                            size="small"
-                            className={styles.modelList}
-                            loading={loading}
-                            rowKey="fileId"
-                            dataSource={data}
-                            renderItem={this.getRenderItem}
-                        />
-                    }
-                >
-                </SideLayout>
-                <Content style={{background: '#fff',border:'1px solid #E5E5E5',overflow:'hidden'}} >
-                    <iframe id='webgl_iframe' src={src} width='100%' height='100%' style={{'borderWidth':'0px'}}></iframe>
-                </Content>
-            </Layout>
+
+            <iframe id='webgl_iframe' src={src} width='100%' height='100%' style={{'borderWidth':'0px'}}></iframe>
         )
 
     }

@@ -101,7 +101,7 @@ export default class Home extends PureComponent {
       const topColResponsiveProps = {
         style: { marginBottom: 24 ,width:'100%'},
       };
-      const P1_Html = <p style={{marginBottom: -4}}><span style={{fontSize:22}}>车流总数统计</span><label style={{marginLeft: 208,fontSize: 18}}>总人数：29993</label></p>
+      const P1_Html = <p style={{marginBottom: -4}}><span style={{fontSize:22}}>车流总数统计</span><label style={{marginLeft: 208,fontSize: 18}}>总车辆：57</label></p>
       const P2_Html = <span style={{fontSize:22}}>进、出隧道流量统计</span>
       const P3_Html = <span style={{fontSize:22}}>健康指数</span>
      // const P4_Html = <span style={{fontSize:22}}>实时车流量图</span>

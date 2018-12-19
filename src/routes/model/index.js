@@ -16,7 +16,7 @@ const { Content} = Layout;
  class model extends Component {
 
     state={
-        src:'http://localhost/static/webgl/index.html'//'http://localhost/static/webgl/index.html'//'http://139.196.195.214/DEV_sg/webgl/iframe-page'
+        src:'http://192.168.200.29/static/webgl_sd/index.html'//'http://localhost/static/webgl/index.html'//'http://139.196.195.214/DEV_sg/webgl/iframe-page'
 
     }
 

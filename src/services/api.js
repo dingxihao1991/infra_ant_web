@@ -13,6 +13,11 @@ export async function addCurrentUser(params) {
         }
     });
 }
+export async function queryModelFileList(params) {
+    return request('/api/model/fileList', {
+        method: 'get',
+    });
+}
 
 export async function queryCurrentUser() {
 
@@ -28,6 +33,15 @@ export async function queryTaskList(params) {
     });
 }
 
+export async function querySearch (params) {
+    return request('/api/querySearch', {
+        method: 'POST',
+        body:{
+            ...params,
+            method: 'post',
+        }
+    });
+}
 
 export async function fakeAccountLogin(params,callBack,errorFuc) {
 

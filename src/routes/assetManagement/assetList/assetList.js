@@ -363,6 +363,7 @@ export default class assetList extends PureComponent {
             showUploadList={false}
             beforeUpload={beforeUpload}
             onChange={this.handleChange}
+            style={{margin: '10px'}}
           >
             <Button>
               <Icon type="upload" /> 上传

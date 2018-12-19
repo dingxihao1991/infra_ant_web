@@ -90,6 +90,29 @@ const data = [{
   9: '上海市长江隧道',
   10:'/',
 }
+  , {
+    1: 'WB-BG-0000007',
+    2: 'BG-001009',
+    3: '智能交通指挥系统',
+    4: '交通系统',
+    5: '隧道系统',
+    6: '日常维修',
+    7: '王东进',
+    8: '2018-12-12',
+    9: '上海市大连路隧道',
+    10:'/',
+  }, {
+    1: 'WB-BG-0000008',
+    2: 'BG-ADS080DW',
+    3: '科达中央集成电力控制设备',
+    4: '电力系统',
+    5: '管廊系统',
+    6: '月度检修',
+    7: '李开前',
+    8: '2018-10-5',
+    9: '合肥高新区管廊试验段',
+    10:'/',
+  }
 ];
 
 const randomMarker = (len) => (//随机makers数据
@@ -293,6 +316,7 @@ export default class assetRecord extends PureComponent {
     //增加form变量
     let { columns, visible,record,dataSource,form,title} = this.state;
 
+
     const rowSelection = {
       onChange: this.onSelectChange,
     };
@@ -333,7 +357,7 @@ export default class assetRecord extends PureComponent {
               </Map>
             </div>
         </TabPane>
-       <TabPane tab="表格模式" key="2" >
+       <TabPane tab="列表模式" key="2" >
          <Layout className={styles.application}>
            <Content  >
              <Table rowKey='id' style={{  background: '#ffffff', minHeight: 360}} columns={columns} dataSource={dataSource} onChange={this.handleChange} rowSelection={rowSelection}

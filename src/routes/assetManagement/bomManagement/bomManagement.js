@@ -319,7 +319,7 @@ export default class bomManagement extends PureComponent {
         <TabPane tab="图表模式" key="1" styles>
           <div  id="main"    style={{ width: "100%", height: 700 }}></div>
         </TabPane>
-        <TabPane tab="表格模式" key="2" >
+        <TabPane tab="列表模式" key="2" >
           <Layout className={styles.application}>
             <Content  >
               <Table rowKey='id' style={{  background: '#ffffff', minHeight: 360}} columns={columns} dataSource={dataSource} onChange={this.handleChange} rowSelection={rowSelection}

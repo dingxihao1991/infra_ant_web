@@ -97,7 +97,7 @@ export const getRouterData = app => {
     //!!!! router set data  ....config  add router !!!!
     const routerConfig = {
         '/': {
-            component: dynamicWrapper(app, [], () => import('../layouts/BasicLayout')),
+            component: dynamicWrapper(app, ['search'], () => import('../layouts/BasicLayout')),
         },
         '/index': {
             component: dynamicWrapper(app, [], () => import('../routes/home/Home')),
@@ -124,6 +124,7 @@ export const getRouterData = app => {
         '/auth/application': {
             component: dynamicWrapper(app, [], () => import('../routes/auth/application/Application')),
         },
+    //菜单管理
         '/auth/MenuManage': {
             component: dynamicWrapper(app, [], () => import('../routes/auth/menu/MenuManage')),
         },
@@ -191,6 +192,11 @@ export const getRouterData = app => {
     '/model/index': {
         component: dynamicWrapper(app, ['model/modelData'], () => import('../routes/model/index')),
     }
+      ,
+      //预案管理
+      '/planManagement/emergencyPlanRecord': {
+        component: dynamicWrapper(app, [], () => import('../routes/planManagement/emergencyPlanRecord/emergencyPlanRecord.js')),
+      }
     };
 
     /*  !!!!! Don't  touch  me !!!!! */

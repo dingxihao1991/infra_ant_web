@@ -3,13 +3,14 @@ import { Form, Input} from 'antd';
 
 
 /**
- * 备品备件详情页面
+ * 资产维保记录详情页面
  *
  * @type {FormItem}
  */
 
 const FormItem = Form.Item;
 const createForm = Form.create;
+const {TextArea } =Input;
 
 class FormSub extends Component {
 
@@ -42,54 +43,81 @@ class FormSub extends Component {
       <Form ref='form'>
 
 
-        <FormItem {...formItemLayout} label="备件编号">
+        <FormItem {...formItemLayout} label="预案序号">
           {getFieldDecorator('applicationId', {
-            initialValue:"BJ-TD-0000001",
+            initialValue:"1",
           })(
             <Input
             />
           )}
         </FormItem>
 
-        <FormItem {...formItemLayout} label="备件名称">
+        <FormItem {...formItemLayout} label="预案名称">
           {getFieldDecorator('applicationId', {
-            initialValue:"探头",
+            initialValue:"安检预案",
           })(
             <Input
             />
           )}
         </FormItem>
 
-        <FormItem {...formItemLayout} label="备件所属系统">
+        <FormItem {...formItemLayout} label="预案属性">
           {getFieldDecorator('applicationId', {
-            initialValue:"其他系统",
+            initialValue:"常规预案",
           })(
             <Input
             />
           )}
         </FormItem>
 
-        <FormItem {...formItemLayout} label="备件数量">
+        <FormItem {...formItemLayout} label="预案类型">
           {getFieldDecorator('applicationId', {
-            initialValue:"15",
+            initialValue:"综合预案",
           })(
             <Input
             />
           )}
         </FormItem>
 
-        <FormItem {...formItemLayout} label="最近更新时间">
+        <FormItem {...formItemLayout} label="预案编号">
           {getFieldDecorator('applicationId', {
-            initialValue:"2018-11-19 15:03",
+            initialValue:"YA0000001",
           })(
             <Input
             />
           )}
         </FormItem>
 
-        <FormItem {...formItemLayout} label="备注">
+        <FormItem {...formItemLayout} label="所属部门">
           {getFieldDecorator('applicationId', {
-            initialValue:"/",
+            initialValue:"隧道系统—安防部",
+          })(
+            <Input
+            />
+          )}
+        </FormItem>
+
+        <FormItem {...formItemLayout} label="是否备案">
+          {getFieldDecorator('applicationId', {
+            initialValue:"已备案",
+          })(
+            <Input
+            />
+          )}
+        </FormItem>
+
+        <FormItem {...formItemLayout} label="演练次数">
+          {getFieldDecorator('applicationId', {
+            initialValue:"3",
+          })(
+            <Input
+            />
+          )}
+        </FormItem>
+
+        <FormItem {...formItemLayout} label="最近演练日期">
+          {getFieldDecorator('applicationId', {
+            initialValue:"2018-12-17",
           })(
             <Input
             />

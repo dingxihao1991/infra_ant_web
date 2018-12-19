@@ -274,8 +274,8 @@ export default class Application extends PureComponent {
                     <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="application:update"/>
                     <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="application:delete"/>
                 </div>
-                <Content  >
-                    <Table rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
+                <Content>
+                    <Table rowKey='id' style={{ minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
                            pagination={{
                                showSizeChanger:true,
                                showQuickJumper:true,

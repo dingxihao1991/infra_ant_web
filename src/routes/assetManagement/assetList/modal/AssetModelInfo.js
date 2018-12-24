@@ -8,7 +8,7 @@ const { Content} = Layout;
 class AssetModelInfo extends Component{
 
     state = {
-        src:'http://192.168.8.64:9998/index_layout.html'
+        src:'http://192.168.200.29:9998/index_layout.html'
     }
 
     constructor(props){
@@ -22,8 +22,8 @@ class AssetModelInfo extends Component{
         <Layout style={{'borderBottom': '1px solid #EDF1F2'}}>
             <header className="panel_header" style={{background: '#fff',float:'left'}}>
                 <h2 className="title pull-left">
-                    自动售票机
-                    <small>({123213})</small>
+                    智能照明设备
+                    <small>({"NV-TB9716"})</small>
                 </h2>
             </header>
             <Layout className={styles.modelInfo}  style={{background: '#fff',float:'left',padding:'10px'}}>
@@ -43,35 +43,35 @@ class AssetModelInfo extends Component{
                         </div>
                         <div className="line line-lg b-b b-light"></div>
                         <div className="col-md-6">
-                            <p>型号：123132</p>
+                            <p>编号：NV-TB9716</p>
                         </div>
                         <div className="col-md-6">
-                            <p>产地：</p>
+                            <p>名称：智能照明设备</p>
                         </div>
                         <div className="col-md-6">
-                            <p>当前状态：</p>
+                            <p>类型：照明系统</p>
                         </div>
                         <div className="col-md-6">
-                            <p>使用日期：</p>
+                            <p>使用日期：2018-10-12</p>
                         </div>
                         <div className="col-md-6">
-                            <p>使用年限：</p>
+                            <p>使用年限：1年</p>
                         </div>
                         <div className="col-md-6">
-                            <p>安装地点：</p>
+                            <p>安装地点：上海市青浦区诸光路</p>
                         </div>
                         <div className="col-md-6">
-                            <p>供应日期：</p>
+                            <p>供应日期：2018-10-12</p>
                         </div>
                         <div className="col-md-6">
-                            <p>出厂日期：</p>
+                            <p>出厂日期：2018-10-12</p>
                         </div>
                         <div className="line line-lg b-b b-light"></div>
                         <div className="col-md-12">
-                            <p>供应商：</p>
+                            <p>供应商：/</p>
                         </div>
                         <div className="col-md-12">
-                            <p>生产商：</p>
+                            <p>生产商：/</p>
                         </div>
                     </div>
                 </Content>

@@ -8,6 +8,7 @@ import Authorized from '../../../utils/Authorized';
 import AdvancedSearchForm from './SearchForm';
 import FormSub2 from "./TaskRecordDetail";
 import {taskRecord} from '../data';
+import WorkPlanDetail from "../workPlan/WorkPlanDetail";
 const { ButtonAuthorize } = Authorized;
 const { Content } = Layout;
 const Modal = ModalForm.Modal;
@@ -276,14 +277,19 @@ export default class TaskRecord extends PureComponent {
   }
 
   handlerDoubleClick = (record, index, event) => {
-    console.log(record)
-    this.setState({
-      form:FormSub2,
-      visible: true,
-      record:record,
-      title:'工作计划详情',
-      isFooter:true
-    });
+    const modalFormProps = {
+      title:"详细信息",
+      record,
+      Contents:WorkPlanDetail,
+      maskClosable:true,
+      isShow:true,
+      modalOpts: {
+        style:{ top: 20 ,height:'600px'},
+        width: 1200,
+      },
+      isFooter:true,
+    }
+    this.context.openModal(modalFormProps);
   };
 
   render() {

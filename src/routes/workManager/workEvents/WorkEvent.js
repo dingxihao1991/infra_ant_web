@@ -325,6 +325,7 @@ export default class workEvent extends PureComponent {
     );
 
     return(
+      <Layout className={styles.application} style={{border:"1px red"}}>
       <div>
         <Row gutter={16}>
           <Col className="gutter-row" span={6}>
@@ -414,6 +415,8 @@ export default class workEvent extends PureComponent {
           </Button>*/}
         </Card>
       </div>
+
+      </Layout>
     )
 
   }

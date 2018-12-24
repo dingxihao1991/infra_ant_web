@@ -134,7 +134,7 @@ export default class assetList extends PureComponent {
 
   initColums =() =>{
     const columns = [{
-      title: '资产设备编号',
+      title: '设备编号',
       dataIndex: '1',
       id: '1',
       align: 'center',
@@ -145,30 +145,29 @@ export default class assetList extends PureComponent {
         id: '21',
         align: 'center',
         key:'21',
-        width:'80',
         render: (text, record) => {
           return <Icon type="codepen" style={{height:'30px',width:'40px'}} onClick={this.openModel.bind(this,record)}/>
         }
     },{
-      title: '资产设备名称',
+      title: '设备名称',
       dataIndex: '2',
       id: '2',
       align: 'center',
       key:'2'
     },{
-      title: '资产设备类型',
+      title: '设备类型',
       dataIndex: '3',
       id: '3',
       align: 'center',
       key:'3'
     },{
-      title: '资产设备位置',
+      title: '设备位置',
       dataIndex: '4',
       id: '4',
       align: 'center',
       key:'4'
     }, {
-      title: '资产设备状态',
+      title: '设备状态',
       dataIndex: '5',
       id: '5',
       align: 'center',
@@ -178,32 +177,22 @@ export default class assetList extends PureComponent {
       dataIndex: '6',
       id: '6',
       align: 'center',
-      width: 150
     },
       {
         title: '创建时间',
         dataIndex: '7',
         id: '7',
         align: 'center',
-        width: 150
       }, {
         title: '最后修改人',
         dataIndex: '8',
         id: '8',
         align: 'center',
-        width: 100
-      }, {
-        title: '最后修改时间',
-        dataIndex: '9',
-        id: '9',
-        align: 'center',
-        width: 150
-      },{//增加操作栏
+      }, {//增加操作栏
         title: '操作',
         dataIndex: '10',
         id: '10',
         align: 'center',
-        width: 150,
         render: () => (
           <Dropdown overlay={<Menu>
             <Menu.Item key="1">  <ButtonAuthorize  icon="form"  onClick={this.edit} name="定位" authority="application:update" /></Menu.Item>

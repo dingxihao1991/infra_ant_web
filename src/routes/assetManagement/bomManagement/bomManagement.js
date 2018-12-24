@@ -315,6 +315,7 @@ export default class bomManagement extends PureComponent {
     }
 
     return (
+      <Layout className={styles.application} style={{border:"1px red"}}>
       <Tabs defaultActiveKey="1">
         <TabPane tab="图表模式" key="1" styles>
           <div  id="main"    style={{ width: "100%", height: 700 }}></div>
@@ -337,7 +338,7 @@ export default class bomManagement extends PureComponent {
         </TabPane>
       </Tabs>
 
-
+      </Layout>
     );
 
   }

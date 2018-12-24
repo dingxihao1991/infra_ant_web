@@ -10,11 +10,12 @@ import 'echarts/lib/chart/pie';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 //引入列表
-import { Avatar, List } from "antd";
+import { Avatar, Layout, List } from "antd";
 //引入卡片
 import { Card } from 'antd';
 //引入图标
 import { Icon } from 'antd';
+import styles from "../../auth/organization/organizationManage.less";
 
 
 //数据
@@ -176,6 +177,8 @@ export default class assetOverview extends PureComponent {
 
   render() {
     return (
+
+      <Layout className={styles.application} style={{border:"1px red"}}>
       <div className="row">
 
         <List className="col-md-3"
@@ -223,6 +226,8 @@ export default class assetOverview extends PureComponent {
         <div id="main"  className="col-md-8" style={{ width: 400, height: 400 }}></div>
 
       </div>
+
+      </Layout>
     );
 
   }

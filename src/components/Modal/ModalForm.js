@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { Modal, Button } from 'antd';
-import './index.less';
+import styles from './index.less';
 
 class ModalForm extends Component {
 
@@ -19,8 +19,8 @@ class ModalForm extends Component {
 
 
     closeModal = () =>{
+        alert(123);
         if (this.props.onCancel) {
-            alert("调用")
             this.props.onCancel();
             return;
         }
@@ -51,15 +51,14 @@ class ModalForm extends Component {
     }
 
     render(){
-        const {title, record, className, onCancel, onSubmit, modalOpts, loading,Contents,visible,isFooter} = this.props;
+        const {title, record, className, onCancel, onSubmit, modalOpts, loading,Contents,visible,isFooter,maskClosable} = this.props;
         const modalProps = {
-            className: className,
+            className: cx(className,styles.modalform),
             confirmLoading:loading,
             visible:visible,
-            style:{ top: 20 },
             title: title || (record ? '编辑内容' : '新增内容'),
             destroyOnClose:true,
-            maskClosable: false,
+            maskClosable: !!maskClosable,
             modalOpts,
             onCancel: onCancel,
             footer:!isFooter? [

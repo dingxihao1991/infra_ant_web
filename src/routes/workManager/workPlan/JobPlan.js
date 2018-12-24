@@ -6,7 +6,7 @@ import {ModalForm,showConfirm}  from 'components/Modal';
 import { POST,GET,PUT,DELETE } from '../../../services/api';
 import Authorized from '../../../utils/Authorized';
 import FormSub from './Form';
-import FormSub2 from "./WorkPlanDetail";
+import WorkPlanDetail from "./WorkPlanDetail";
 import AdvancedSearchForm from './SearchForm';
 import{tableData} from '../data';
 
@@ -167,12 +167,16 @@ export default class JobPlan extends PureComponent {
 
   //新增事件
   onAdd = () => {
-    this.setState({
-      visible: true,
-      form:FormSub,
-      record:null,
-      isFooter:false
-    });
+      const modalFormProps = {
+          title:"修改工作计划",
+          Contents:FormSub,
+          maskClosable:true,
+          isShow:true,
+          isFooter:false,
+          onSubmit: (values) => this.onSubmit(values)
+      }
+      this.context.openModal(modalFormProps);
+
   };
 
   delete =(record)=> {
@@ -229,11 +233,7 @@ export default class JobPlan extends PureComponent {
     this.setState({rows:selectedRows,record:selectedRows[0]});
   }
 
-  closeModal = () =>{
-    this.setState({
-      visible: false
-    });
-  }
+
 
   onSubmit= (values ) =>{
     let i = 2
@@ -296,35 +296,47 @@ export default class JobPlan extends PureComponent {
   }
 
   handlerDoubleClick = (record, index, event) => {
-    console.log(record)
-    this.setState({
-      form:FormSub2,
-      visible: true,
-      record:record,
-      title:'工作计划详情',
-      isFooter:true
-    });
+      const modalFormProps = {
+          title:"详细信息",
+          record,
+          Contents:WorkPlanDetail,
+          maskClosable:true,
+          isShow:true,
+          modalOpts: {
+              style:{ top: 20 ,height:'600px'},
+              width: 1200,
+          },
+          isFooter:true,
+      }
+      this.context.openModal(modalFormProps);
+
   };
 
-  render() {
-    let { columns,visible,record,rows,dataSource,loading,form,title,isFooter} = this.state;
+    openModal =(record)=>{
+        const modalFormProps = {
+            title:"详细信息",
+            loading: true,
+            record,
+            visible,
+            Contents:WorkPlanDetail,
+            maskClosable:true,
+            modalOpts: {
+                style:{ top: 20 ,height:'600px'},
+                width: 1200,
+            },
+            isFooter:true,
+            onCancel: () => this.props.closeModal(),
+        }
+        this.context.openModal(modalFormProps);
+    }
+
+
+    render() {
+    let { columns,rows,dataSource,loading} = this.state;
     const rowSelection = {
       onChange: this.onSelectChange,
     };
 
-    const modalFormProps = {
-      title:title,
-      loading: true,
-      record,
-      visible,
-      isFooter,
-      Contents:form,
-      modalOpts: {
-        width: 700,
-      },
-      onCancel: () => this.closeModal(),
-      onSubmit: (values) => this.onSubmit(values)
-    }
 
     return(
       <Layout className={styles.application}>
@@ -346,7 +358,6 @@ export default class JobPlan extends PureComponent {
                   onRowDoubleClick={this.handlerDoubleClick}
           />
         </Content>
-        <ModalForm {...modalFormProps}/>
       </Layout>
     )
 

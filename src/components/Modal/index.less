@@ -1,9 +1,19 @@
-.antui-modalform.ant-modal {
-  & {
-    .ant-modal-body {
+.modalform{
+  :global{
+    .ant-modal-content{
+      height:100%;
+
+      .ant-modal-body {
+        height: 90%;
+        min-height: 418px;
+        overflow: auto;
+      }
 
     }
+
   }
+
+
   &.full-modal {
     position: absolute;
     top: 20px;
@@ -47,18 +57,7 @@
         }
       }
     }
-    .ant-modal-body {
-      padding: 0;
-      max-height: 418px;
-      overflow: auto;
-    }
-    .ant-modal-footer {
-      display: flex;
-      align-items: center;
-      .ant-pagination {
-        flex: auto;
-        text-align: left;
-      }
-    }
+
+
   }
 }

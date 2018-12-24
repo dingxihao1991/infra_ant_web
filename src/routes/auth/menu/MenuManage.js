@@ -312,7 +312,7 @@ export default class MenuManage extends PureComponent {
 
         return(
 
-            <Layout className={styles.application} style={{border:"1px red"}}>
+            <Layout className={styles.application}>
                 <div>
                     <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="menu:add"/>
                     <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="menu:update"/>

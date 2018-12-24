@@ -1,224 +1,121 @@
-import React, {PureComponent} from 'react';
-import styles from './assetRecord.less';
-import { Table,Switch,Button, Layout, Tabs } from "antd";
-import {ModalForm,showConfirm}  from 'components/Modal';
-import FormSub from './assetRecordDetails.js';//资产设备单个定位页面
-//引入折线图
-import 'echarts/lib/chart/line';
-// 引入提示框和标题组件
-import 'echarts/lib/component/tooltip';
-import 'echarts/lib/component/title';
-import 'echarts/lib/component/legend';//折线说明
 
+import React, {PureComponent} from 'react';
+import { Button, Layout, Tabs} from "antd";
+import {ModalForm,showConfirm}  from 'components/Modal';
+// 引入 ECharts 主模块
+import echarts from 'echarts/lib/echarts';
+// 引入提示框和标题组件
+import { Map ,Markers} from 'react-amap';//引入高德地图
+//引入仪表盘组件，缺一不可
+import  'echarts/lib/chart/gauge/GaugeSeries';
+import  'echarts/lib/chart/gauge/GaugeView';
 
 /**
- * 资产维保记录页面
+ * 监控列表页面
  *
  */
 
-
-function onChange(checked) {
-  console.log(`switch to ${checked}`);
-}
-
-const { Content,} = Layout;
-const TabPane = Tabs.TabPane;
-
-//维保数据
-const data = [{
-  1: 'NV-TB9716',
-  2: '安科瑞智慧用电在线监控装置',
-  3: '电力系统',
-  4: '管廊系统',
-  5: '合肥市高新区鸡鸣山路管廊段',
-  6:'/',
-}, {
-  1: 'AD-359916',
-  2: '排水设备',
-  3: '排水系统',
-  4: '车站系统',
-  5: '上海市浦东新区大连路隧道',
-}, {
-  1: 'GD-569ASD',
-  2: '管廊施工机器臂',
-  3: '其他系统',
-  4: '管廊系统',
-  5: '合肥市高新区管廊控制中心',
-}, {
-  1: 'ARCM300T-Z-2G',
-  2: '智能照明设备',
-  3: '电力系统',
-  4: '隧道系统',
-  5: '合肥市新站区管廊控制中心',
-}, {
-  1: 'ASD862O-GB',
-  2: '管廊地下管道甲烷检测器',
-  3: '通风系统',
-  4: '管廊系统',
-  5: '上海市松江南站大型居民区',
-}, {
-  1: 'BG-569ASD',
-  2: '集水坑内液位传感器',
-  3: '供水系统',
-  4: '车站系统',
-  5: '上海市长江隧道',
-}
-];
-
+//地图markers随机数据
 const randomMarker = (len) => (//随机makers数据
-  Array(len).fill(true).map(() => ({
-    position: {
-      longitude: 100 + Math.random() * 30,
-      latitude: 30 + Math.random() * 20,
-    },
-  }))
+    Array(len).fill(true).map(() => ({
+        position: {
+            longitude: 100 + Math.random() * 30,
+            latitude: 30 + Math.random() * 20,
+        },
+    }))
 );
 
-export default class assetRecord extends PureComponent {
-
-
-  state = {
-    columns:[],
-    dataSource:[],
-    record: null,
-    visible: false,
-    rows: [],
-    form: FormSub,
-    title:"资产设备定位"
-  };
-
-  //props :接收任意的输入值
-  constructor(props,context) {
-    //传递props到基础构造函数中
-    super(props,context);
-    this.markers = randomMarker(1000);
-    this.center = {longitude: 115, latitude: 40};
-    this.state = {
-      useCluster: true,
-    }
-  }
-
-  componentDidMount(){
-    //加载折线图
-    // 基于准备好的dom，初始化echarts实例
-
-    this.initColums();
-    this.init();
-  }
-
-  initColums =() =>{
-    const columns = [{
-      title: '设备编号',
-      dataIndex: '1',
-      id: '1',
-      align: 'center',
-      key:'1'
-    },{
-      title: '设备名称',
-      dataIndex: '2',
-      id: '2',
-      align: 'center',
-      key:'2'
-    },{
-      title: '设备类型',
-      dataIndex: '3',
-      id: '3',
-      align: 'center',
-      key:'3'
-    }, {
-      title: '设备所属系统',
-      dataIndex: '4',
-      id: '4',
-      align: 'center',
-      key:'4'
+//仪表盘所需数据
+const option = {
+    tooltip : {
+        formatter: "{a} <br/>{b} : {c}%"
     },
-       {
-        title: '设备地点',
-        dataIndex: '5',
-        id: '5',
-        align: 'center',
-      },
-      {//增加操作栏
-        title: '启停',
-        dataIndex: '6',
-        id: '6',
-        align: 'center',
-        render: () => (
-          <Switch defaultChecked onChange={onChange} />
-        ),
-      }];
-    this.setState({columns:columns})
-  }
-
-  init= () =>{
-    const thiz = this;
-
-    thiz.setState({dataSource:data})
-
-  }
-
-  //编辑
-  edit =()=>{
-    console.log(this.state);
-    let  form = FormSub
-    this.setState({
-      visible: true,
-      form:form
-    });
-  }
+    toolbox: {
+        feature: {
+            restore: {},
+            saveAsImage: {}
+        }
+    },
+    series: [
+        {
+            name: '业务指标',
+            type: 'gauge',
+            detail: {formatter:'0.1%'},
+            data: [{value: 50, name: '二氧化碳浓度'}]
+        }
+    ]
+};
 
 
-  //选中项发生变化时的回调
-  onSelectChange = (selectedRowKeys,selectedRows) => {
-    this.setState({rows:selectedRows,record:selectedRows[0]});
-  }
+export default class monitoringList extends PureComponent {
 
-  render() {
-    //增加form变量
-    let { columns, visible,record,dataSource,form,title} = this.state;
 
-    const rowSelection = {
-      onChange: this.onSelectChange,
+    state = {
+        columns:[],
+        dataSource:[],
+        record: null,
+        visible: false,
+        rows: [],
+        // form: FormSub,
+        title:"资产设备定位"
     };
-    const modalFormProps = {
-      title:title,
-      loading: true,
-      record,
-      visible,
-      Contents:form,
-      modalOpts: {
-        width: 800,
-      },
-      onCancel: () => {
-        this.setState({
-          record: null,
-          visible: false
-        })
-      },
-      onSubmit: () => {
-        this.setState({
-          record: null,
-          visible: false
-        })
-      },
+
+    //props :接收任意的输入值
+    constructor(props,context) {
+        //传递props到基础构造函数中
+        super(props,context);
+        this.markers = randomMarker(1000);
+        this.center = {longitude: 115, latitude: 40};
+        this.state = {
+            useCluster: true,
+        }
     }
 
-    return(
-          <Layout className={styles.application}>
-            <Content  >
-              <Table rowKey='id' style={{  background: '#ffffff', minHeight: 360}} columns={columns} dataSource={dataSource} onChange={this.handleChange} rowSelection={rowSelection}
-                     pagination={{
-                       showSizeChanger:true,
-                       showQuickJumper:true,
-                       total:dataSource?dataSource.length:null,
-                       onChange:this.onChange
-                     }}
-              />
-            </Content>
-            <ModalForm {...modalFormProps}/>
+    componentDidMount(){
+        var myChart = echarts.init(document.getElementById('main1'));
+        option.series[0].data[0].value = 20;//仪表指针
+        option.series[0].detail.formatter = "80%";//仪表百分比显示
+        option.series[0].data[0].name = "二氧化碳浓度";//仪表文字显示
+        myChart.setOption(option,true);
 
-          </Layout>
-    )
+        var myChart2 = echarts.init(document.getElementById('main2'));
+        option.series[0].data[0].value = 5;//仪表指针
+        option.series[0].detail.formatter = "5%";//仪表百分比显示
+        option.series[0].data[0].name = "舱内湿度";//仪表文字显示
+        myChart2.setOption(option,true);
 
-  }
+        var myChart3 = echarts.init(document.getElementById('main3'));
+        option.series[0].data[0].value = 0.1;//仪表指针
+        option.series[0].detail.formatter = "0.1%";//仪表百分比显示
+        option.series[0].data[0].name = "甲烷浓度";//仪表文字显示
+        myChart3.setOption(option,true);
+
+
+    }
+
+    render() {
+
+        return(
+
+            <div className="row">
+
+              <div align="center" style={{ height: 50,textAlign: 'center',marginTop:10}}><span style={{fontSize:20,fontWeight:800}}>各项子系统监控设备分布图</span></div>
+              <div className="col-md-12" style={{width: "100%", height: 350}}>
+                <Map plugins={['ToolBar']} center={this.center} zoom={5}>
+                  <Markers
+                      markers={this.markers}
+                      useCluster={this.state.useCluster}
+                  />
+                </Map>
+              </div>
+
+              <div id="main1"  className="col-md-4" style={{ width: "100%", height: 350 }}/>
+              <div id="main2"  className="col-md-4" style={{ width: "100%", height: 350 }}/>
+              <div id="main3"  className="col-md-4" style={{ width: "100%", height: 350 }}/>
+
+            </div>
+
+        )
+
+    }
 }

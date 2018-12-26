@@ -1,7 +1,10 @@
 const path = require('path');
 
 export default {
-  entry: 'src/index.js',
+ // entry: 'src/index.js',
+   entry:{
+       app: ['react-dev-utils/webpackHotDevClient?http://localhost:8080/',  path.resolve(__dirname, 'src/index.js')]
+   },
   extraBabelPlugins: [['import', { libraryName: 'antd', libraryDirectory: 'es', style: true }]],
   env: {
     development: {
@@ -26,6 +29,8 @@ export default {
     javascriptEnabled: true,
   },
   disableDynamicImport: true,
-  publicPath: '/',
-  hash: true,
+   outputPath:path.join(__dirname, 'web'),
+   publicPath: '/web/',
+
 };
+

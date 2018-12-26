@@ -17,6 +17,7 @@
     "echarts-liquidfill": "^2.0.3",
     "enquire-js": "^0.2.1",
     "history": "latest",
+    "js-pinyin": "^0.1.9",
     "lodash": "^4.17.10",
     "lodash-decorators": "^6.0.0",
     "moment": "^2.19.3",

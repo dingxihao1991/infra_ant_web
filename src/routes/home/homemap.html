@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>覆盖物的添加与移除</title>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script src="https://webapi.amap.com/maps?v=1.4.11"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <style>
+        html,
+        body,
+        #container {
+            width: 100%;
+            height: 100%;
+        }
+
+        label {
+            width: 55px;
+            height: 26px;
+            line-height: 26px;
+            margin-bottom: 0;
+        }
+        button.btn {
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<div class="input-card" style="width:31rem;">
+    <div class="input-item">
+        <label>隧道：</label>
+        <button class="btn" id="marker1" style="margin-right:1rem;">复兴东路</button>
+        <button class="btn" id="marker2" style="margin-right:1rem;">西藏南路</button>
+        <button class="btn" id="marker3" style="margin-right:1rem;">上中路</button>
+    </div>
+</div>
+
+<script>
+  var map = new AMap.Map('container', {
+    resizeEnable: true,
+    zoom:11,
+    center: [121.499465, 31.221035]
+  });
+
+  // 构造点标记
+  var marker1 = new AMap.Marker({
+    position: [121.504314,31.222655]
+  });
+  // 构造点标记
+  var marker2 = new AMap.Marker({
+    position: [121.491827,31.192452]
+  });
+  // 构造点标记
+  var marker3 = new AMap.Marker({
+    position: [121.454971,31.143335]
+  });
+
+  //事件绑定
+  document.querySelector("#marker1").onclick = function() {
+    map.remove(marker2);
+    map.remove(marker3);
+    map.add(marker1);
+    map.setFitView();
+  }
+  document.querySelector("#marker2").onclick = function() {
+    map.remove(marker1);
+    map.remove(marker3);
+    map.add(marker2);
+    map.setFitView();
+  }
+  document.querySelector("#marker3").onclick = function() {
+    map.remove(marker2);
+    map.remove(marker1);
+    map.add(marker3);
+    map.setFitView();
+  }
+
+  var path1 = [
+    [121.499486,31.220893],
+    [121.504314,31.222655],
+    [121.506985,31.223049],
+    [121.513262,31.225884]
+  ];
+
+  var polyline1 = new AMap.Polyline({
+    path: path1,
+    isOutline: true,
+    outlineColor: '#ffeeff',
+    borderWeight: 3,
+    strokeColor: "#3366FF",
+    strokeOpacity: 1,
+    strokeWeight: 6,
+    // 折线样式还支持 'dashed'
+    strokeStyle: "solid",
+    // strokeStyle是dashed时有效
+    strokeDasharray: [10, 5],
+    lineJoin: 'round',
+    lineCap: 'round',
+    zIndex: 50,
+  })
+  polyline1.setMap(map)
+  // 缩放地图到合适的视野级别
+  map.setFitView([ polyline1 ])
+
+  var path2 = [
+    [121.490819,31.194526],
+    [121.491827,31.192452],
+    [121.493008,31.191222],
+    [121.498072,31.187899]
+  ];
+
+  var polyline2 = new AMap.Polyline({
+    path: path2,
+    isOutline: true,
+    outlineColor: '#ffeeff',
+    borderWeight: 3,
+    strokeColor: "#3366FF",
+    strokeOpacity: 1,
+    strokeWeight: 6,
+    // 折线样式还支持 'dashed'
+    strokeStyle: "solid",
+    // strokeStyle是dashed时有效
+    strokeDasharray: [10, 5],
+    lineJoin: 'round',
+    lineCap: 'round',
+    zIndex: 50,
+  })
+  polyline2.setMap(map)
+  // 缩放地图到合适的视野级别
+  map.setFitView([ polyline2 ])
+
+  var path3 = [//每个弧线段有两种描述方式
+    [121.450915,31.142784],
+    [121.454971,31.143335],
+    [121.465206,31.144547]
+  ];
+
+  var polyline3 = new AMap.Polyline({
+    path: path3,
+    isOutline: true,
+    outlineColor: '#ffeeff',
+    borderWeight: 3,
+    strokeColor: "#3366FF",
+    strokeOpacity: 1,
+    strokeWeight: 6,
+    // 折线样式还支持 'dashed'
+    strokeStyle: "solid",
+    // strokeStyle是dashed时有效
+    strokeDasharray: [10, 5],
+    lineJoin: 'round',
+    lineCap: 'round',
+    zIndex: 50,
+  })
+  polyline3.setMap(map)
+  // 缩放地图到合适的视野级别
+  map.setFitView([ polyline3 ])
+</script>
+</body>
+</html>

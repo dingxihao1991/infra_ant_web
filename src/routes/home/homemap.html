@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>覆盖物的添加与移除</title>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script src="https://webapi.amap.com/maps?v=1.4.11"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <style>
+        html,
+        body,
+        #container {
+            width: 100%;
+            height: 100%;
+        }
+
+        label {
+            width: 55px;
+            height: 26px;
+            line-height: 26px;
+            margin-bottom: 0;
+        }
+        button.btn {
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<div class="input-card" style="width:31rem;">
+    <div class="input-item">
+        <label>隧道：</label>
+        <button class="btn" id="marker1" style="margin-right:1rem;">复兴东路</button>
+        <button class="btn" id="marker2" style="margin-right:1rem;">西藏南路</button>
+        <button class="btn" id="marker3" style="margin-right:1rem;">上中路</button>
+    </div>
+</div>
+
+<script>
+  var map = new AMap.Map('container', {
+    resizeEnable: true,
+    zoom:11,
+    center: [121.499465, 31.221035]
+  });
+
+  // 构造点标记
+  var marker1 = new AMap.Marker({
+    icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+    position: [121.499465, 31.221035]
+  });
+  // 构造点标记
+  var marker2 = new AMap.Marker({
+    icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+    position: [121.490851, 31.19793]
+  });
+  // 构造点标记
+  var marker3 = new AMap.Marker({
+    icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+    position: [121.447709, 31.141687]
+  });
+
+  //事件绑定
+  document.querySelector("#marker1").onclick = function() {
+    map.remove(marker2);
+    map.remove(marker3);
+    map.add(marker1);
+    map.setFitView();
+  }
+  document.querySelector("#marker2").onclick = function() {
+    map.remove(marker1);
+    map.remove(marker3);
+    map.add(marker2);
+    map.setFitView();
+  }
+  document.querySelector("#marker3").onclick = function() {
+    map.remove(marker2);
+    map.remove(marker1);
+    map.add(marker3);
+    map.setFitView();
+  }
+
+  var path = [//每个弧线段有两种描述方式
+    [116.39, 39.91, 116.37, 39.91],//起点
+    //第一段弧线
+    [116.380298, 39.907771, 116.38, 39.90],//控制点，途经点
+    //第二段弧线
+    [116.385298, 39.907771, 116.40, 39.90],//控制点，途经点//弧线段有两种描述方式1
+    //第三段弧线
+    [//弧线段有两种描述方式2
+      [116.392872, 39.887391],//控制点
+      [116.40772, 39.909252],//控制点
+      [116.41, 39.89]//途经点
+    ],
+    //第四段弧线
+    [116.423857, 39.889498, 116.422312, 39.899639, 116.425273, 39.902273]
+    //控制点，控制点，途经点，每段最多两个控制点
+  ];
+
+  var bezierCurve = new AMap.BezierCurve({
+    path: path,
+    isOutline: true,
+    outlineColor: '#ffeeff',
+    borderWeight: 3,
+    strokeColor: "#3366FF",
+    strokeOpacity: 1,
+    strokeWeight: 6,
+    // 线样式还支持 'dashed'
+    strokeStyle: "solid",
+    // strokeStyle是dashed时有效
+    strokeDasharray: [10, 10],
+    lineJoin: 'round',
+    lineCap: 'round',
+    zIndex: 50,
+  })
+
+</script>
+</body>
+</html>

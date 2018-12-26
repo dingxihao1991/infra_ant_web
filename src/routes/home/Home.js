@@ -105,7 +105,7 @@ export default class Home extends PureComponent {
       const P2_Html = <span style={{fontSize:22}}>进、出隧道流量统计</span>
       const P3_Html = <span style={{fontSize:22}}>健康指数</span>
      // const P4_Html = <span style={{fontSize:22}}>实时车流量图</span>
-      const P4_Html = <span style={{fontSize:22}}>隧道分布图</span>
+     // const P4_Html = <span style={{fontSize:22}}>隧道分布图</span>
       const P5_Html = <span style={{fontSize:22}}>设备专业统计</span>
       const P6_Html = <span style={{fontSize:22}}>设备产地比例</span>
       const P7_Html = <span style={{fontSize:22}}>设备故障情况统计</span>
@@ -143,7 +143,7 @@ export default class Home extends PureComponent {
               </Col>
             </Row>
 
-            <Row>
+         {/*   <Row>
               <Col style={{marginBottom: 24}}>
                 <Card title={P4_Html} bordered={false} >
                     <div id='main4' style={{ height: 500 }}>
@@ -151,7 +151,143 @@ export default class Home extends PureComponent {
                     </div>
                 </Card>
               </Col>
-            </Row>
+            </Row>*/}
+
+          {/*  <Row>
+              <Col style={{marginBottom: 24}}>
+                <Card bordered={false} >
+                  <div className="col-md-12" style={{height: '48px'}}>
+                    <div className="row" style={{height: '48px'}}>
+                  <div className="col-xs-2" style={{height: '48px'}}>
+                    <i className="fa fa-wind-icon"></i>
+                    <span style={SpanStyle}>通风：<span style={{color: '#5cb85c'}}
+                                                     id='status_TF'> 正常</span></span>
+                  </div>
+                  <div className="col-xs-2" style={{height: '48px'}}>
+                    <i className="fa fa-water2-icon"></i>
+                    <span style={SpanStyle}>排水：<span
+                      style={{color: '#5cb85c'}}> 正常</span></span>
+                  </div>
+                  <div className="col-xs-2" style={{height: '48px'}}>
+                    <i className="fa fa-power-icon"></i>
+                    <span
+                      style={{
+                        position: 'absolute',
+                        top: '15px',
+                        left: '90px',
+                        fontSize: '18px'
+                      }}>电力：<span
+                      style={{color: '#5cb85c'}}> 正常</span></span>
+                  </div>
+                  <div className="col-xs-2" style={{height: '48px'}}>
+                    <i className="fa fa-doorStop-icon"></i>
+                    <span style={SpanStyle}>门禁：<span
+                      style={{color: '#5cb85c'}}> 正常</span></span>
+                  </div>
+                  <div className="col-xs-2" style={{height: '48px'}}>
+                    <i className="fa fa-light-icon"></i>
+                    <span style={SpanStyle}>照明：<span
+                      style={{color: '#5cb85c'}}> 正常</span></span>
+                  </div>
+                  <div className="col-xs-2" style={{height: '48px'}}>
+                    <i className="fa fa-cctv-icon"></i>
+                    <span style={SpanStyle}>CCTV：<span
+                      style={{color: '#5cb85c'}}> 正常</span></span>
+                  </div>
+                    </div>
+                  </div>
+
+                  <div className="row m-t">
+
+                    <div className="col-md-12">
+                      <div className="row">
+
+                        <div className="col-xs-3">
+                          <div style={FontPanelStyle}>
+                            <div className="col-xs-3 text-center">
+                              <i className="fa fa-plus-square-o" style={FontStyle}></i>
+                            </div>
+                            <div className="col-xs-9 text-right"
+                                 style={{height: "95px", lineHeight: "42px"}}>
+                              <div style={GalleryNumber}>
+                                {"111"} 条
+                              </div>
+                              <div style={GalleryDiv}>
+                                已入廊管线
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="col-xs-3">
+                          <div style={FontPanelStyle}>
+                            <div className="col-xs-3 text-center">
+                              <i className="fa fa-signal" style={FontStyle}></i>
+                            </div>
+                            <div className="col-xs-9 text-right"
+                                 style={{height: "95px", lineHeight: "42px"}}>
+                              <div style={GalleryNumber}>
+                                {"134"} 米
+                              </div>
+                              <div style={GalleryDiv}>
+                                已入廊管线总长度
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="col-xs-3">
+                          <div style={FontPanelStyle}>
+                            <div className="col-xs-3 text-center">
+                              <i className="fa fa-plus-square-o"
+                                 style={{
+                                   fontSize: '50px',
+                                   lineHeight: '95px',
+                                   color: '#FFDB5C'
+                                 }}></i>
+                            </div>
+                            <div className="col-xs-9 text-right"
+                                 style={{height: "95px", lineHeight: "42px",}}>
+                              <div style={GalleryNumber}>
+                                {"13"} 条
+                              </div>
+                              <div style={GalleryDiv}>
+                                <h4>待入廊管线</h4>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="col-xs-3">
+                          <div style={FontPanelStyle}>
+                            <div className="col-xs-3 text-center">
+                              <i className="fa fa-signal"
+                                 style={{
+                                   fontSize: '50px',
+                                   lineHeight: '95px',
+                                   color: '#FFDB5C'
+                                 }}></i>
+                            </div>
+                            <div className="col-xs-9 text-right"
+                                 style={{height: "95px", lineHeight: "42px"}}>
+                              <div style={GalleryNumber}>
+                                {"123"} 米
+                              </div>
+                              <div style={GalleryDiv}>
+                                待入廊管线总长度
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                </Card>
+              </Col>
+          </Row>*/}
+
 
             <Row gutter={16} style={{marginBottom:24}}>
               <Col className="gutter-row" span={8}>

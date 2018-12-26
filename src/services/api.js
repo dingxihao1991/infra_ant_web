@@ -13,11 +13,11 @@ export async function addCurrentUser(params) {
         }
     });
 }
-export async function queryModelFileList(params) {
+/*export async function queryModelFileList(params) {
     return request('/api/model/fileList', {
         method: 'get',
     });
-}
+}*/
 
 export async function queryCurrentUser() {
 

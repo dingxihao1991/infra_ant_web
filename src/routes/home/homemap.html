@@ -48,18 +48,15 @@
 
   // 构造点标记
   var marker1 = new AMap.Marker({
-    icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
-    position: [121.499465, 31.221035]
+    position: [121.504314,31.222655]
   });
   // 构造点标记
   var marker2 = new AMap.Marker({
-    icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
-    position: [121.490851, 31.19793]
+    position: [121.491827,31.192452]
   });
   // 构造点标记
   var marker3 = new AMap.Marker({
-    icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
-    position: [121.447709, 31.141687]
+    position: [121.454971,31.143335]
   });
 
   //事件绑定
@@ -82,40 +79,85 @@
     map.setFitView();
   }
 
-  var path = [//每个弧线段有两种描述方式
-    [116.39, 39.91, 116.37, 39.91],//起点
-    //第一段弧线
-    [116.380298, 39.907771, 116.38, 39.90],//控制点，途经点
-    //第二段弧线
-    [116.385298, 39.907771, 116.40, 39.90],//控制点，途经点//弧线段有两种描述方式1
-    //第三段弧线
-    [//弧线段有两种描述方式2
-      [116.392872, 39.887391],//控制点
-      [116.40772, 39.909252],//控制点
-      [116.41, 39.89]//途经点
-    ],
-    //第四段弧线
-    [116.423857, 39.889498, 116.422312, 39.899639, 116.425273, 39.902273]
-    //控制点，控制点，途经点，每段最多两个控制点
+  var path1 = [
+    [121.499486,31.220893],
+    [121.504314,31.222655],
+    [121.506985,31.223049],
+    [121.513262,31.225884]
   ];
 
-  var bezierCurve = new AMap.BezierCurve({
-    path: path,
+  var polyline1 = new AMap.Polyline({
+    path: path1,
     isOutline: true,
     outlineColor: '#ffeeff',
     borderWeight: 3,
     strokeColor: "#3366FF",
     strokeOpacity: 1,
     strokeWeight: 6,
-    // 线样式还支持 'dashed'
+    // 折线样式还支持 'dashed'
     strokeStyle: "solid",
     // strokeStyle是dashed时有效
-    strokeDasharray: [10, 10],
+    strokeDasharray: [10, 5],
     lineJoin: 'round',
     lineCap: 'round',
     zIndex: 50,
   })
+  polyline1.setMap(map)
+  // 缩放地图到合适的视野级别
+  map.setFitView([ polyline1 ])
 
+  var path2 = [
+    [121.490819,31.194526],
+    [121.491827,31.192452],
+    [121.493008,31.191222],
+    [121.498072,31.187899]
+  ];
+
+  var polyline2 = new AMap.Polyline({
+    path: path2,
+    isOutline: true,
+    outlineColor: '#ffeeff',
+    borderWeight: 3,
+    strokeColor: "#3366FF",
+    strokeOpacity: 1,
+    strokeWeight: 6,
+    // 折线样式还支持 'dashed'
+    strokeStyle: "solid",
+    // strokeStyle是dashed时有效
+    strokeDasharray: [10, 5],
+    lineJoin: 'round',
+    lineCap: 'round',
+    zIndex: 50,
+  })
+  polyline2.setMap(map)
+  // 缩放地图到合适的视野级别
+  map.setFitView([ polyline2 ])
+
+  var path3 = [//每个弧线段有两种描述方式
+    [121.450915,31.142784],
+    [121.454971,31.143335],
+    [121.465206,31.144547]
+  ];
+
+  var polyline3 = new AMap.Polyline({
+    path: path3,
+    isOutline: true,
+    outlineColor: '#ffeeff',
+    borderWeight: 3,
+    strokeColor: "#3366FF",
+    strokeOpacity: 1,
+    strokeWeight: 6,
+    // 折线样式还支持 'dashed'
+    strokeStyle: "solid",
+    // strokeStyle是dashed时有效
+    strokeDasharray: [10, 5],
+    lineJoin: 'round',
+    lineCap: 'round',
+    zIndex: 50,
+  })
+  polyline3.setMap(map)
+  // 缩放地图到合适的视野级别
+  map.setFitView([ polyline3 ])
 </script>
 </body>
 </html>

@@ -10,29 +10,92 @@
     <script src="https://webapi.amap.com/maps?v=1.4.11"></script>
     <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
     <style>
-        html,
-        body,
-        #container {
-            width: 100%;
+        html, body, #container {
             height: 100%;
+            width: 100%;
+            font-size: 16px;
         }
 
-        label {
-            width: 55px;
-            height: 26px;
-            line-height: 26px;
-            margin-bottom: 0;
+        .content-window-card {
+            position: relative;
+            box-shadow: none;
+            bottom: 0;
+            left: 0;
+            padding: 0;
         }
-        button.btn {
-            width: 80px;
+
+        .content-window-card p {
+            height: 2rem;
+        }
+
+        .custom-info {
+            border: solid 1px silver;
+        }
+
+        div.info-top {
+            position: relative;
+            background: none repeat scroll 0 0 #F9F9F9;
+            border-bottom: 1px solid #CCC;
+            border-radius: 5px 5px 0 0;
+        }
+
+        div.info-top div {
+            display: inline-block;
+            color: #333333;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 31px;
+            padding: 0 10px;
+        }
+
+        div.info-top img {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            transition-duration: 0.25s;
+        }
+
+        div.info-top img:hover {
+            box-shadow: 0px 0px 5px #000;
+        }
+
+        div.info-middle {
+            font-size: 12px;
+            padding: 10px 6px;
+            line-height: 20px;
+        }
+
+        div.info-bottom {
+            height: 0px;
+            width: 100%;
+            clear: both;
+            text-align: center;
+        }
+
+        div.info-bottom img {
+            position: relative;
+            z-index: 104;
+        }
+
+        span {
+            margin-left: 5px;
+            font-size: 11px;
+        }
+
+        .info-middle img {
+            float: left;
+            margin-right: 6px;
+        }
+        .card_div{
+            bottom: 88%;
         }
     </style>
 </head>
 <body>
 <div id="container"></div>
-<div class="input-card" style="width:31rem;">
+<div class="input-card card_div" style="width:24rem;">
     <div class="input-item">
-        <label>隧道：</label>
+        <label style="font-size: 20px;">隧道：</label>
         <button class="btn" id="marker1" style="margin-right:1rem;">复兴东路</button>
         <button class="btn" id="marker2" style="margin-right:1rem;">西藏南路</button>
         <button class="btn" id="marker3" style="margin-right:1rem;">上中路</button>
@@ -42,42 +105,23 @@
 <script>
   var map = new AMap.Map('container', {
     resizeEnable: true,
-    zoom:11,
-    center: [121.499465, 31.221035]
+    zoom:12,
+    features:['bg', 'road'],
+    mapStyle: "amap://styles/graffiti"
+    //center: [121.499465, 31.221035]
   });
 
-  // 构造点标记
   var marker1 = new AMap.Marker({
-    position: [121.504314,31.222655]
+    position: [121.507077,31.223281]
   });
-  // 构造点标记
+
   var marker2 = new AMap.Marker({
     position: [121.491827,31.192452]
   });
-  // 构造点标记
   var marker3 = new AMap.Marker({
-    position: [121.454971,31.143335]
+    position: [121.457397,31.14361]
   });
 
-  //事件绑定
-  document.querySelector("#marker1").onclick = function() {
-    map.remove(marker2);
-    map.remove(marker3);
-    map.add(marker1);
-    map.setFitView();
-  }
-  document.querySelector("#marker2").onclick = function() {
-    map.remove(marker1);
-    map.remove(marker3);
-    map.add(marker2);
-    map.setFitView();
-  }
-  document.querySelector("#marker3").onclick = function() {
-    map.remove(marker2);
-    map.remove(marker1);
-    map.add(marker3);
-    map.setFitView();
-  }
 
   var path1 = [
     [121.499486,31.220893],
@@ -85,7 +129,6 @@
     [121.506985,31.223049],
     [121.513262,31.225884]
   ];
-
   var polyline1 = new AMap.Polyline({
     path: path1,
     isOutline: true,
@@ -104,7 +147,7 @@
   })
   polyline1.setMap(map)
   // 缩放地图到合适的视野级别
-  map.setFitView([ polyline1 ])
+  // map.setFitView([ polyline1 ])
 
   var path2 = [
     [121.490819,31.194526],
@@ -131,7 +174,7 @@
   })
   polyline2.setMap(map)
   // 缩放地图到合适的视野级别
-  map.setFitView([ polyline2 ])
+  //map.setFitView([ polyline2 ])
 
   var path3 = [//每个弧线段有两种描述方式
     [121.450915,31.142784],
@@ -157,7 +200,174 @@
   })
   polyline3.setMap(map)
   // 缩放地图到合适的视野级别
-  map.setFitView([ polyline3 ])
+  // map.setFitView([ polyline3 ])
+
+
+
+
+  //事件绑定
+  document.querySelector("#marker1").onclick = function() {
+    closeInfoWindow();
+    map.remove(marker2);
+    map.remove(marker3);
+    map.add(marker1);
+    // 缩放地图到合适的视野级别
+    map.setFitView([polyline1]);
+    closeInfoWindow();
+    //实例化信息窗体
+    var title = '复兴东路隧道',
+      content = [];
+    content.push("<img src='http://tpc.googlesyndication.com/simgad/5843493769827749134'>地址：复兴东路");
+    content.push("电话：010-64733333");
+    content.push("<a href='https://ditu.amap.com/detail/B000A8URXB?citycode=110105'>详细信息</a>");
+    var infoWindow = new AMap.InfoWindow({
+      isCustom: true,  //使用自定义窗体
+      content: createInfoWindow(title, content.join("<br/>")),
+      offset: new AMap.Pixel(16, -45)
+    });
+    infoWindow.open(map, marker1.getPosition());
+
+  }
+
+  document.querySelector("#marker2").onclick = function() {
+    closeInfoWindow();
+    map.remove(marker1);
+    map.remove(marker3);
+    map.add(marker2);
+    map.setFitView([polyline2]);
+    closeInfoWindow();
+    //实例化信息窗体
+    var title = '西藏南路隧道',
+      content = [];
+    content.push("<img src='http://tpc.googlesyndication.com/simgad/5843493769827749134'>地址：西藏南路");
+    content.push("电话：010-64733333");
+    content.push("<a href='https://ditu.amap.com/detail/B000A8URXB?citycode=110105'>详细信息</a>");
+    var infoWindow = new AMap.InfoWindow({
+      isCustom: true,  //使用自定义窗体
+      content: createInfoWindow(title, content.join("<br/>")),
+      offset: new AMap.Pixel(16, -45)
+    });
+    infoWindow.open(map, marker2.getPosition());
+  }
+
+  document.querySelector("#marker3").onclick = function() {
+    closeInfoWindow();
+    map.remove(marker2);
+    map.remove(marker1);
+    map.add(marker3);
+    map.setFitView([polyline3]);
+    closeInfoWindow();
+    //实例化信息窗体
+    var title = '上中路隧道',
+      content = [];
+    content.push("<img src='http://tpc.googlesyndication.com/simgad/5843493769827749134'>地址：上中路");
+    content.push("电话：010-64733333");
+    content.push("<a href='https://ditu.amap.com/detail/B000A8URXB?citycode=110105'>详细信息</a>");
+    var infoWindow = new AMap.InfoWindow({
+      isCustom: true,  //使用自定义窗体
+      content: createInfoWindow(title, content.join("<br/>")),
+      offset: new AMap.Pixel(16, -45)
+    });
+    infoWindow.open(map, marker3.getPosition());
+  }
+
+
+
+
+
+
+  //构建自定义信息窗体
+  function createInfoWindow(title, content) {
+    var info = document.createElement("div");
+    info.className = "custom-info input-card content-window-card";
+    //可以通过下面的方式修改自定义窗体的宽高
+    //info.style.width = "400px";
+    // 定义顶部标题
+    var top = document.createElement("div");
+    var titleD = document.createElement("div");
+    var closeX = document.createElement("img");
+    top.className = "info-top";
+    titleD.innerHTML = title;
+    closeX.src = "https://webapi.amap.com/images/close2.gif";
+    closeX.onclick = closeInfoWindow;
+
+    top.appendChild(titleD);
+    top.appendChild(closeX);
+    info.appendChild(top);
+
+    // 定义中部内容
+    var middle = document.createElement("div");
+    middle.className = "info-middle";
+    middle.style.backgroundColor = 'white';
+    middle.innerHTML = content;
+    info.appendChild(middle);
+
+    // 定义底部内容
+    var bottom = document.createElement("div");
+    bottom.className = "info-bottom";
+    bottom.style.position = 'relative';
+    bottom.style.top = '0px';
+    bottom.style.margin = '0 auto';
+    var sharp = document.createElement("img");
+    sharp.src = "https://webapi.amap.com/images/sharp.png";
+    bottom.appendChild(sharp);
+    info.appendChild(bottom);
+    return info;
+  }
+
+  //鼠标点击marker弹出自定义的信息窗体
+  AMap.event.addListener(marker1, 'click', function () {
+    closeInfoWindow();
+    //实例化信息窗体
+    var title = '复兴东路隧道',
+      content = [];
+    content.push("<img src='http://tpc.googlesyndication.com/simgad/5843493769827749134'>地址：复兴东路");
+    content.push("电话：010-64733333");
+    content.push("<a href='https://ditu.amap.com/detail/B000A8URXB?citycode=110105'>详细信息</a>");
+    var infoWindow = new AMap.InfoWindow({
+      isCustom: true,  //使用自定义窗体
+      content: createInfoWindow(title, content.join("<br/>")),
+      offset: new AMap.Pixel(16, -45)
+    });
+    infoWindow.open(map, marker1.getPosition());
+  });
+
+  AMap.event.addListener(marker2, 'click', function () {
+    closeInfoWindow();
+    //实例化信息窗体
+    var title = '西藏南路隧道',
+      content = [];
+    content.push("<img src='http://tpc.googlesyndication.com/simgad/5843493769827749134'>地址：西藏南路");
+    content.push("电话：010-64733333");
+    content.push("<a href='https://ditu.amap.com/detail/B000A8URXB?citycode=110105'>详细信息</a>");
+    var infoWindow = new AMap.InfoWindow({
+      isCustom: true,  //使用自定义窗体
+      content: createInfoWindow(title, content.join("<br/>")),
+      offset: new AMap.Pixel(16, -45)
+    });
+    infoWindow.open(map, marker2.getPosition());
+  });
+
+  AMap.event.addListener(marker3, 'click', function () {
+    closeInfoWindow();
+    //实例化信息窗体
+    var title = '上中路隧道',
+      content = [];
+    content.push("<img src='http://tpc.googlesyndication.com/simgad/5843493769827749134'>地址：上中路");
+    content.push("电话：010-64733333");
+    content.push("<a href='https://ditu.amap.com/detail/B000A8URXB?citycode=110105'>详细信息</a>");
+    var infoWindow = new AMap.InfoWindow({
+      isCustom: true,  //使用自定义窗体
+      content: createInfoWindow(title, content.join("<br/>")),
+      offset: new AMap.Pixel(16, -45)
+    });
+    infoWindow.open(map, marker3.getPosition());
+  });
+
+  //关闭信息窗体
+  function closeInfoWindow() {
+    map.clearInfoWindow();
+  }
 </script>
 </body>
 </html>

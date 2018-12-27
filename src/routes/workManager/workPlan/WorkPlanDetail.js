@@ -98,8 +98,8 @@ export default class WorkPlanDetail extends Component {
     const span6 =  <div style={{background: '#EEEEEE',fontSize:16,marginTop: '20px'}}>
                       <div style={{padding:'6px'}}>
                         <h5 style={{color:'#575191'}}>A-001-B-01</h5>
-                        <p><span>描述：</span>UPS蓄电检查</p>
-                        <p><i className="iconfont icon-shijian"></i><span>完成时间：</span><span style={{marginLeft:10}}>{record.endDate}</span></p>
+                        <p><span>描述：</span><span>UPS蓄电检查</span></p>
+                        <p><i className="iconfont icon-time"></i><span>完成时间：</span><span style={{marginLeft:10}}>{record.endDate}</span></p>
                         <p><span>当前状态：</span><span style={{marginLeft:10}}>待执行</span></p>
                       </div>
                     </div>

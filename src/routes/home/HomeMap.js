@@ -4,7 +4,7 @@ import { Map, Polyline } from 'react-amap';
 export default class HomeMap extends React.Component{
 
   state={
-    src:'http://192.168.200.29/static/homemap.html'
+    src:'http://192.168.200.29/static/homemap/homemap.html'
   }
 
   constructor(){

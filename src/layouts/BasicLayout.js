@@ -253,7 +253,7 @@ export default class BasicLayout extends PureComponent {
                             onCollapse={this.handleMenuCollapse}
                         />
                     </Header>
-                    <Content className="content" style={{height: '400px',overflow: 'auto'}}>
+                    <Content id="123" className="content" style={{overflow: 'auto',height:'500px'}}>
                         {/*<Route path="/index" component={Model}/>*/}
                         <Switch>
                             {redirectData.map(item => (

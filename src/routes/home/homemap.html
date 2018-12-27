@@ -383,7 +383,11 @@
 
 <script type="text/javascript">
   function initView(){
-    map.setZoomAndCenter(13, [121.480776,31.209654]);
+    map.setZoomAndCenter(12, [121.480776,31.209654]);
+    map.remove(marker2);
+    map.remove(marker3);
+    map.remove(marker1);
+    closeInfoWindow();
   }
 </script>
 

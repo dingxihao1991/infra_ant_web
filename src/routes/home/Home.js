@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import { Row, Col ,Tooltip ,Icon,Card } from 'antd';
+import { Row, Col ,Tooltip ,Icon,Card ,Layout} from 'antd';
 import echarts from 'echarts/lib/echarts';// 引入 ECharts 主模块
 import 'echarts/lib/chart/line';//引入折线图
 import 'echarts/lib/chart/pie';//引入饼图
@@ -111,19 +111,19 @@ export default class Home extends PureComponent {
       const P7_Html = <span style={{fontSize:22}}>设备故障情况统计</span>
 
         return (
-          <div className="gutter-example" >
+          <Layout className="gutter-example" style={{background:"#E5E5E5"}} >
             <Row gutter={16} style={{marginBottom:24}}>
               <Col className="gutter-row" span={8}>
                 <div className="gutter-box">
                   <Card title={P1_Html} bordered={false} >
-                    <div id="main1" style={{ height: 258,marginTop: 10 }}></div>
+                    <div id="main1" style={{ height: 258,marginTop: 10 , width:492 ,left: 30}}></div>
                   </Card>
                 </div>
               </Col>
               <Col className="gutter-row" span={8}>
                 <div className="gutter-box">
                   <Card title={P2_Html} bordered={false} >
-                    <div id="main2" style={{ height: 261,marginTop: 10 }}></div>
+                    <div id="main2" style={{ height: 261,marginTop: 10, width:492 ,left: 28}}></div>
                   </Card>
                 </div>
               </Col>
@@ -132,9 +132,9 @@ export default class Home extends PureComponent {
                   <Card title={P3_Html} bordered={false} >
                     <Row style={{height: 271}}>
                       <Col span={10}>
-                        <div id="main5" style={{ height: 260,marginTop: 10 }}  />
+                        <div id="main5" style={{ height: 261,marginTop: 10, width:380}}  />
                       </Col>
-                      <Col span={14}><div id="main3" style={{ height: 260,marginTop: 10 }} /></Col>
+                      <Col span={14}><div id="main3" style={{ height: 258,marginTop: 10,width:340 }} /></Col>
                     </Row>
                       {/*<div style={{width:12}}/>
                       </div>*/}
@@ -143,7 +143,7 @@ export default class Home extends PureComponent {
               </Col>
             </Row>
 
-            <Row>
+{/*            <Row>
               <Col style={{marginBottom: 24}}>
                 <Card title={P4_Html} bordered={false} >
                     <div id='main4' style={{ height: 500 }}>
@@ -151,32 +151,32 @@ export default class Home extends PureComponent {
                     </div>
                 </Card>
               </Col>
-            </Row>
+            </Row>*/}
 
             <Row gutter={16} style={{marginBottom:24}}>
               <Col className="gutter-row" span={8}>
                 <div className="gutter-box">
                   <Card title={P5_Html} bordered={false} >
-                    <div id="main6" style={{ height: 260,marginTop: 10 }}></div>
+                    <div id="main6" style={{ height: 258,marginTop: 10 , width:492}}></div>
                   </Card>
                 </div>
               </Col>
               <Col className="gutter-row" span={8}>
                 <div className="gutter-box">
                   <Card title={P6_Html} bordered={false} >
-                    <div id="main7" style={{ height: 260,marginTop: 10 }}></div>
+                    <div id="main7" style={{ height: 258,marginTop: 10 , width:492}}></div>
                   </Card>
                 </div>
               </Col>
               <Col className="gutter-row" span={8}>
                 <div className="gutter-box">
                   <Card title={P7_Html} bordered={false} >
-                    <div id="main8" style={{height: 260,marginTop: 10}}></div>
+                    <div id="main8" style={{ height: 258,marginTop: 10 , width:492}}></div>
                   </Card>
                 </div>
               </Col>
             </Row>
-          </div>
+          </Layout>
         )
     }
 }

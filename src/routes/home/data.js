@@ -12,7 +12,7 @@ export var option1 = {
     x:'left',
   },
   grid: {
-    left: '0%',
+    left: '2%',
     right: '14%',
     bottom: '3%',
     height:'80%',
@@ -55,6 +55,9 @@ export var option1 = {
       }
     },
     splitLine:{ //坐标轴在 grid 区域中的分隔线。
+      show:false
+    },
+    axisTick:{
       show:false
     }
   },

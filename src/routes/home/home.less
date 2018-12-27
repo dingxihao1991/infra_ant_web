@@ -3,3 +3,22 @@
   font-size: 22px;
   margin-bottom: 0px;
 }
+.home{
+  :global{
+    .svg{
+      width:40px;
+      height:40px;
+      text-align: center;
+      line-height: 52px;
+      background: #00000052;
+      border-radius: 50%;
+      &:hover{
+        cursor:pointer;
+      }
+    }
+  }
+}
+.homeMap{
+  border-width:0px;
+  height: calc(~"100% - 5px");
+}

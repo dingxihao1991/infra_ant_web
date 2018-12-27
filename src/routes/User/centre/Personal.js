@@ -4,7 +4,7 @@
  * @CreateDate: 2018/11/11 10:30
  */
 import React, {Component,PureComponent} from 'react';
-import { Card, Row, Col, Icon, Avatar, Tag, Divider, Spin, Input } from 'antd';
+import { Card, Row, Col, Icon, Avatar, Tag, Divider, Spin, Input,Layout } from 'antd';
 import styles from './PersonalCentre.less';
 import PropTypes from 'prop-types';
 import { push } from 'react-router-redux'
@@ -187,7 +187,7 @@ export default class PersonalCentre extends  PureComponent {
         ];
 
         return(
-            <div>
+            <Layout>
                 <Row gutter={24}>
                     <Col lg={7} md={24}>
                         <Card bordered={false} style={{ marginBottom: 24 }} >
@@ -263,7 +263,7 @@ export default class PersonalCentre extends  PureComponent {
                         </Card>
                     </Col>
                 </Row>
-            </div>
+            </Layout>
         )
     }
 }

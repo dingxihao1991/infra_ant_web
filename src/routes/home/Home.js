@@ -111,7 +111,7 @@ export default class Home extends PureComponent {
       const P7_Html = <span style={{fontSize:22}}>设备故障情况统计</span>
 
         return (
-          <div className="gutter-example">
+          <div className="gutter-example" >
             <Row gutter={16} style={{marginBottom:24}}>
               <Col className="gutter-row" span={8}>
                 <div className="gutter-box">

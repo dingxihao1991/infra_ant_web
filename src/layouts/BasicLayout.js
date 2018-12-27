@@ -22,6 +22,7 @@ import Authorized from '../utils/Authorized';
 import {getAuthority} from '../utils/authority';
 import exception from '../routes/exception/404';
 import {ModalForm}  from 'components/Modal';
+import Model from  '../routes/model/index'
 
 const {Content, Header} = Layout;
 const {AuthorizedRoute, check} = Authorized;
@@ -187,9 +188,11 @@ export default class BasicLayout extends PureComponent {
     }
 
     getBaseRedirect = () => {
+
         const urlParams = new URL(window.location.href);
 
         const redirect = urlParams.searchParams.get('redirect');
+        console.log('111111111111111111',redirect);
         if (redirect) {
             urlParams.searchParams.delete('redirect');
             window.history.replaceState(null, 'redirect', urlParams.href);
@@ -198,8 +201,10 @@ export default class BasicLayout extends PureComponent {
             const authorizedPath = Object.keys(routerData).find(
                 item => check(routerData[item].authority, item) && item !== '/'
             );
+            console.log('22222',authorizedPath);
             return authorizedPath;
         }
+
         return redirect;
     };
 
@@ -221,8 +226,10 @@ export default class BasicLayout extends PureComponent {
             match,
             location,
         } = this.props;
+
         const {message ,visible ,modalFormProps} = this.state;
-        const baseRedirect = this.getBaseRedirect();
+       // const baseRedirect = this.getBaseRedirect();
+        console.log(document.documentElement.clientHeight);
         const layout = (
             <Layout>
                 <ModalForm visible={visible} onCancel={this.onCancel} {...modalFormProps}/>
@@ -246,7 +253,8 @@ export default class BasicLayout extends PureComponent {
                             onCollapse={this.handleMenuCollapse}
                         />
                     </Header>
-                    <Content className="content" style={{margin: '24px 24px 0', height: '400px'}}>
+                    <Content className="content" style={{height: '400px',overflow: 'auto'}}>
+                        {/*<Route path="/index" component={Model}/>*/}
                         <Switch>
                             {redirectData.map(item => (
                                 <Redirect key={item.from} exact from={item.from} to={item.to}/>
@@ -261,7 +269,7 @@ export default class BasicLayout extends PureComponent {
                                     redirectPath="/exception/403"
                                 />
                             ))}
-                            <Redirect exact from="/" to={baseRedirect}/>
+
                             <Route component={exception}/>
                         </Switch>
                     </Content>

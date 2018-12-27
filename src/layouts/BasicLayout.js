@@ -269,7 +269,7 @@ export default class BasicLayout extends PureComponent {
                                     redirectPath="/exception/403"
                                 />
                             ))}
-
+                            <Redirect exact from="/" to={baseRedirect}/>
                             <Route component={exception}/>
                         </Switch>
                     </Content>

@@ -48,7 +48,7 @@ export default class HomeIndex extends PureComponent{
                 </div>
 
                 {tabsPanel.map(panel => (
-                    <div id={panel.id} key={panel.id} className={activeTab == panel.id ? 'show-active' : 'hide-active'} style={{height: '100%'}}>
+                    <div id={panel.id} key={panel.id} className={activeTab == panel.id ? 'show-active' : 'hide-active'} style={{height: '100%',minHeight:400}}>
                         <panel.component/>
                     </div>
                 ))}

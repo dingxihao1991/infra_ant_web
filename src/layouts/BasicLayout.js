@@ -228,8 +228,8 @@ export default class BasicLayout extends PureComponent {
         } = this.props;
 
         const {message ,visible ,modalFormProps} = this.state;
-       // const baseRedirect = this.getBaseRedirect();
-        console.log(document.documentElement.clientHeight);
+        const baseRedirect = this.getBaseRedirect();
+
         const layout = (
             <Layout>
                 <ModalForm visible={visible} onCancel={this.onCancel} {...modalFormProps}/>
@@ -269,7 +269,7 @@ export default class BasicLayout extends PureComponent {
                                     redirectPath="/exception/403"
                                 />
                             ))}
-
+                            <Redirect exact from="/" to={baseRedirect}/>
                             <Route component={exception}/>
                         </Switch>
                     </Content>

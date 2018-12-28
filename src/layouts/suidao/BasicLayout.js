@@ -10,19 +10,20 @@ import DocumentTitle from 'react-document-title';
 import {connect} from 'dva';
 import {Route, Redirect, Switch, routerRedux} from 'dva/router';
 import {ContainerQuery} from "react-container-query";
-import GlobalHeader from '../components/GlobalHeader';
-import SiderMenu from '../components/SiderMenu';
+import GlobalHeader from '../../components/GlobalHeader';
+import SiderMenu from '../../components/SiderMenu';
 import classNames from 'classnames';
-import logo from '../logo.svg';
-import {getMenuData} from "../common/menu";
+import logo from '../../logo.svg';
 import pathToRegexp from "path-to-regexp";
 import {enquireScreen, unenquireScreen} from "enquire-js";
-import {getRoutes} from '../utils/utils';
-import Authorized from '../utils/Authorized';
-import {getAuthority} from '../utils/authority';
-import exception from '../routes/exception/404';
+
+import {getMenuData} from "../../common/menu";
+import {getRoutes} from '../../utils/utils';
+import Authorized from '../../utils/Authorized';
+import {getAuthority} from '../../utils/authority';
+import exception from '../../routes/exception/404';
 import {ModalForm}  from 'components/Modal';
-import Model from  '../routes/model/index'
+import Model from  '../../routes/model/index'
 
 const {Content, Header} = Layout;
 const {AuthorizedRoute, check} = Authorized;
@@ -124,6 +125,7 @@ export default class BasicLayout extends PureComponent {
     state = {
         message:null,
         visible:false,
+        activeTab:'/personal/centre',
         modalFormProps:{
             visible:false
         }
@@ -133,8 +135,15 @@ export default class BasicLayout extends PureComponent {
        // this.initWebSocket();
     }
 
+    componentWillReceiveProps(nextProps) {
+
+         const {location} = nextProps;
+         this.setState({activeTab:location.pathname})
+
+    }
+
     openModal = modalFormProps =>{
-        console.log("modalFormProps----",modalFormProps)
+
         this.setState({visible:modalFormProps?modalFormProps.isShow:false,modalFormProps:modalFormProps});
     }
 
@@ -172,12 +181,10 @@ export default class BasicLayout extends PureComponent {
 
     getPageTitle() {
         const {routerData, location} = this.props;
-
         const {pathname} = location;
-        console.log("----",pathname)
         let title = '运维管理';
         let currRouterData = null;
-        console.log("routerData：---->",routerData)
+
         for (const key in Object.keys(routerData)) {
             if (pathToRegexp(key).test(pathname)) {
                 currRouterData = routerData[key];
@@ -187,7 +194,6 @@ export default class BasicLayout extends PureComponent {
         if (currRouterData && currRouterData.name) {
             title = `${currRouterData.name} - 运维管理`;
         }
-        console.log("title--",title)
         return title;
     }
 
@@ -196,7 +202,6 @@ export default class BasicLayout extends PureComponent {
         const urlParams = new URL(window.location.href);
 
         const redirect = urlParams.searchParams.get('redirect');
-        console.log('111111111111111111',redirect);
         if (redirect) {
             urlParams.searchParams.delete('redirect');
             window.history.replaceState(null, 'redirect', urlParams.href);
@@ -205,7 +210,6 @@ export default class BasicLayout extends PureComponent {
             const authorizedPath = Object.keys(routerData).find(
                 item => check(routerData[item].authority, item) && item !== '/'
             );
-            console.log('22222',authorizedPath);
             return authorizedPath;
         }
 
@@ -231,8 +235,7 @@ export default class BasicLayout extends PureComponent {
             location,
         } = this.props;
 
-
-        const {message ,visible ,modalFormProps} = this.state;
+        const {message ,visible ,modalFormProps,activeTab} = this.state;
         const baseRedirect = this.getBaseRedirect();
 
         const layout = (
@@ -259,24 +262,28 @@ export default class BasicLayout extends PureComponent {
                         />
                     </Header>
                     <Content id="123" className="content" style={{overflow: 'auto',height:'500px'}}>
-                        {/*<Route path="/index" component={Model}/>*/}
-                        <Switch>
-                            {redirectData.map(item => (
-                                <Redirect key={item.from} exact from={item.from} to={item.to}/>
-                            ))}
-                            {getRoutes(match.path, routerData).map(item => (
-                                <AuthorizedRoute
-                                    key={item.key}
-                                    path={item.path}
-                                    component={item.component}
-                                    exact={item.exact}
-                                    authority={item.authority}
-                                    redirectPath="/exception/403"
-                                />
-                            ))}
-                            <Redirect exact from="/" to={baseRedirect}/>
-                            <Route component={exception}/>
-                        </Switch>
+                        {getRoutes(match.path, routerData).map(panel => (
+                            <div key={panel.key} className={location.pathname == panel.key ? 'show-active' : 'hide-active'} style={{height: '100%',minHeight:400}}>
+                                <panel.component location={location} match={match}/>
+                            </div>
+                        ))}
+                        {/*<Switch>*/}
+                            {/*{redirectData.map(item => (*/}
+                                {/*<Redirect key={item.from} exact from={item.from} to={item.to}/>*/}
+                            {/*))}*/}
+                            {/*{getRoutes(match.path, routerData).map(item => (*/}
+                                {/*<AuthorizedRoute*/}
+                                    {/*key={item.key}*/}
+                                    {/*path={item.path}*/}
+                                    {/*component={item.component}*/}
+                                    {/*exact={item.exact}*/}
+                                    {/*authority={item.authority}*/}
+                                    {/*redirectPath="/exception/403"*/}
+                                {/*/>*/}
+                            {/*))}*/}
+                            {/*<Redirect exact from="/" to={baseRedirect}/>*/}
+                            {/*<Route component={exception}/>*/}
+                        {/*</Switch>*/}
                     </Content>
                 </Layout>
             </Layout>

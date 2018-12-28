@@ -202,10 +202,6 @@ export default class bomManagement extends PureComponent {
       d2.shift()
 
 
-      console.log(timeList);
-      console.log(inData);
-      console.log(outData);
-
       myChart.setOption(option);
 
     }, 5000);

@@ -16,7 +16,9 @@ function getLoginPathWithRedirectPath() {
 class UserLayout extends PureComponent {
     getPageTitle() {
         const {routerData, location} = this.props;
+
         const {pathname} = location;
+
         let title = '运维管理平台';
         if (routerData[pathname] && routerData[pathname].name) {
             title = `${routerData[pathname].name} - 运维管理平台`;
@@ -26,6 +28,7 @@ class UserLayout extends PureComponent {
 
     render() {
         const {routerData, match} = this.props;
+
         return (
             <DocumentTitle title={this.getPageTitle()}>
                 <div className={styles.container}>

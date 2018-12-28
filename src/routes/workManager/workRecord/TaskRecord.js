@@ -217,7 +217,7 @@ export default class TaskRecord extends PureComponent {
   }
 
   onSubmit= (values ) =>{
-    let i = 2
+    let i = 100
     console.log("submit:" + JSON.stringify(values))
     tableData.push({
       "id":++i,

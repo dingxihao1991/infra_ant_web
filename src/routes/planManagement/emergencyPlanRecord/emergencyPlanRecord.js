@@ -27,6 +27,7 @@ const { ButtonAuthorize } = Authorized;
 
 //维保数据
 const data = [{
+  'id':'e1',
   1: '1',
   2: '安检预案',
   3: '常规预案',
@@ -37,6 +38,7 @@ const data = [{
   8: '3',
   9: '2018-12-17',
 }, {
+    'id':'e2',
   1: '1',
   2: '安检预案',
   3: '常规预案',
@@ -47,6 +49,7 @@ const data = [{
   8: '3',
   9: '2018-12-17',
 }, {
+    'id':'e3',
   1: '1',
   2: '安检预案',
   3: '常规预案',
@@ -57,6 +60,7 @@ const data = [{
   8: '3',
   9: '2018-12-17',
 }, {
+    'id':'e4',
   1: '1',
   2: '安检预案',
   3: '常规预案',
@@ -67,6 +71,7 @@ const data = [{
   8: '3',
   9: '2018-12-17',
 }, {
+    'id':'e5',
   1: '1',
   2: '安检预案',
   3: '常规预案',
@@ -77,6 +82,7 @@ const data = [{
   8: '3',
   9: '2018-12-17',
 }, {
+    'id':'e6',
   1: '1',
   2: '安检预案',
   3: '常规预案',
@@ -88,6 +94,7 @@ const data = [{
   9: '2018-12-17',
 }
   , {
+        'id':'e7',
     1: '1',
     2: '安检预案',
     3: '常规预案',
@@ -98,6 +105,7 @@ const data = [{
     8: '3',
     9: '2018-12-17',
   }, {
+        'id':'e8',
     1: '1',
     2: '安检预案',
     3: '常规预案',
@@ -143,59 +151,58 @@ export default class assetRecord extends PureComponent {
     const columns = [{
       title: '预案序号',
       dataIndex: '1',
-      id: '1',
+      id: 'q',
       align: 'center',
       key:'1'
     }, {
       title: '预案名称',
       dataIndex: '2',
-      id: '2',
+      id: 'b',
       align: 'center',
       key:'2'
     },{
       title: '预案属性',
       dataIndex: '3',
-      id: '3',
+      id: 'c',
       align: 'center',
       key:'3'
     },{
       title: '预案类型',
       dataIndex: '4',
-      id: '4',
+      id: 'd',
       align: 'center',
       key:'4'
     }, {
       title: '预案编号',
       dataIndex: '5',
-      id: '5',
+      id: 'e',
       align: 'center',
       key:'5'
     },{
       title: '所属部门',
       dataIndex: '6',
-      id: '6',
+      id: 'f',
       align: 'center',
     },
       {
         title: '是否备案',
         dataIndex: '7',
-        id: '7',
+        id: 'g',
         align: 'center',
       }, {
         title: '演练次数',
         dataIndex: '8',
-        id: '8',
+        id: 'h',
         align: 'center',
       },{
         title: '最近演练日期',
         dataIndex: '9',
-        id: '9',
+        id: 'i',
         align: 'center',
       },
       {//增加操作栏
         title: '操作',
-        dataIndex: '9',
-        id: '9',
+        id: 'j',
         align: 'center',
         render: () => (
           <Button style={{ marginRight: 5 }} icon="form" onClick={this.edit}>详情</Button>

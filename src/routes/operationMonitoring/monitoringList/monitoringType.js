@@ -73,12 +73,12 @@ export default class monitoringType extends PureComponent{
                 ) : <span>{item.title}</span>;
             if (item.children) {
                 return (
-                    <TreeNode key={item.key} title={title}>
+                    <TreeNode key={item.id} title={title}>
                         {loop(item.children)}
                     </TreeNode>
                 );
             }
-            return <TreeNode key={item.key} title={title} />;
+            return <TreeNode key={item.id} title={title} />;
         });
 
         return(

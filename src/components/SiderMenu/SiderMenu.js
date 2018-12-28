@@ -130,6 +130,7 @@ export default class SiderMenu extends PureComponent {
      * get SubMenu or Item
      */
     getSubMenuOrItem = item => {
+
         if (item.children && item.children.some(child => child.name)) {
             const childrenItems = this.getNavMenuItems(item.children);
             // 当无子菜单时就不展示菜单
@@ -185,6 +186,7 @@ export default class SiderMenu extends PureComponent {
             location: {pathname},
         } = this.props;
         console.log(pathname);
+        console.log("--------",urlToList(pathname));
         return getMenuMatchKeys(this.flatMenuKeys, urlToList(pathname));
     };
 

@@ -13,7 +13,7 @@ import styles from './home.less';
 export default class HomeIndex extends PureComponent{
 
     state= {
-        activeTab: "monitorGIS",
+        activeTab: "BIMPage",
         tabsPanel:[
             {id:'monitorGIS',component:HomeMap},
             {id: 'BIMPage', component: Model},

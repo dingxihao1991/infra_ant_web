@@ -236,7 +236,7 @@ export default class JobPlan extends PureComponent {
 
 
   onSubmit= (values ) =>{
-    let i = 2
+    let i = 500
     console.log("submit:" + JSON.stringify(values))
     tableData.push({
       "id":++i,

@@ -236,7 +236,7 @@ export default class TaskPlan extends PureComponent {
   }
 
   onSubmit= (values ) =>{
-    let i = 2
+    let i = 200
     console.log("submit:" + JSON.stringify(values))
     tableData.push({
       "id":++i,

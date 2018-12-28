@@ -97,16 +97,10 @@ export const getRouterData = app => {
     //!!!! router set data  ....config  add router !!!!
     const routerConfig = {
         '/': {
-            component: dynamicWrapper(app, ['search'], () => import('../layouts/BasicLayout')),
+            component: dynamicWrapper(app, ['search'], () => import('../layouts/suidao/BasicLayout')),
         },
         '/index': {
             component: dynamicWrapper(app, [], () => import('../routes/home/HomeIndex')),
-        },
-        '/facility/assets': {
-            component: dynamicWrapper(app, [], () => import('../routes/Facility/Assets')),
-        },
-        '/facility/spare': {
-            component: dynamicWrapper(app, [], () => import('../routes/Facility/Spare')),
         },
         '/user': {
             component: dynamicWrapper(app, [], () => import('../layouts/UserLayout')),
@@ -124,7 +118,7 @@ export const getRouterData = app => {
         '/auth/application': {
             component: dynamicWrapper(app, [], () => import('../routes/auth/application/Application')),
         },
-    //菜单管理
+        //菜单管理
         '/auth/MenuManage': {
             component: dynamicWrapper(app, [], () => import('../routes/auth/menu/MenuManage')),
         },
@@ -157,9 +151,9 @@ export const getRouterData = app => {
         component: dynamicWrapper(app, [], () => import('../routes/assetManagement/bomManagement/bomManagement.js')),
       },
       //个人中心
-        '/personal/centre': {
-            component: dynamicWrapper(app, ['user/personalCentre','user/taskList'], () => import('../routes/User/centre/Personal')),
-        },
+      //   '/personal/centre': {
+      //       component: dynamicWrapper(app, ['user/personalCentre','user/taskList'], () => import('../routes/User/centre/Personal')),
+      //   },
       //操作记录
       '/auth/systemOperationLogs': {
         component: dynamicWrapper(app, [], () => import('../routes/auth/log/LogManage')),
@@ -169,12 +163,12 @@ export const getRouterData = app => {
         component: dynamicWrapper(app, [], () => import('../routes/workManager/workPlan/JobPlan')),
       },
       //监控列表
-      '/operationMonitoring/monitoringList': {
-        component: dynamicWrapper(app, [], () => import('../routes/operationMonitoring/monitoringList/monitoringList.js')),
-      },
+      // '/operationMonitoring/monitoringList': {
+      //   component: dynamicWrapper(app, [], () => import('../routes/operationMonitoring/monitoringList/monitoringList')),
+      // },
       //设备控制
       '/operationMonitoring/equipmentControl': {
-        component: dynamicWrapper(app, [], () => import('../routes/operationMonitoring/equipmentControl/equipmentControl.js')),
+        component: dynamicWrapper(app, [], () => import('../routes/operationMonitoring/equipmentControl/equipmentControl')),
       },
       //任务计划
       '/job/willdo': {
@@ -188,14 +182,10 @@ export const getRouterData = app => {
       '/job/event': {
         component: dynamicWrapper(app, [], () => import('../routes/workManager/workEvents/WorkEvent'))
       },
-    //模型预览
-    '/model/index': {
-        component: dynamicWrapper(app, ['model/modelData'], () => import('../routes/model/index')),
-    }
-      ,
+
       //预案管理
       '/planManagement/emergencyPlanRecord': {
-        component: dynamicWrapper(app, [], () => import('../routes/planManagement/emergencyPlanRecord/emergencyPlanRecord.js')),
+        component: dynamicWrapper(app, [], () => import('../routes/planManagement/emergencyPlanRecord/emergencyPlanRecord')),
       }
     };
 

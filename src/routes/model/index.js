@@ -8,11 +8,11 @@ import styles from './index.less';
 const { Content} = Layout;
 
 
-
-@connect(({modelData,loading})=>({
-    loading:loading.effects['modelData/fetch'],
-    list:modelData.list
-}))
+//
+// @connect(({modelData,loading})=>({
+//     loading:loading.effects['modelData/fetch'],
+//     list:modelData.list
+// }))
  class model extends Component {
 
     state={
@@ -26,11 +26,11 @@ const { Content} = Layout;
 
     componentDidMount(){
         const {dispatch } = this.props;
-        dispatch({
-            type: 'modelData/fetch',
-            payload: {
-            },
-        });
+        // dispatch({
+        //     type: 'modelData/fetch',
+        //     payload: {
+        //     },
+        // });
     }
 
 
@@ -78,8 +78,8 @@ const { Content} = Layout;
             }
         ]
         return(
-
-            <iframe id='webgl_iframe' src={src} width='100%' height='100%' style={{'borderWidth':'0px'}}></iframe>
+            <div style={{height:'400px'}}></div>
+            //<iframe id='webgl_iframe' src={src} width='100%' style={{'borderWidth':'0px',minHeight:400}}></iframe>
         )
 
     }

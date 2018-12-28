@@ -78,8 +78,8 @@ const { Content} = Layout;
             }
         ]
         return(
-            <div style={{height:'400px'}}></div>
-            //<iframe id='webgl_iframe' src={src} width='100%' style={{'borderWidth':'0px',minHeight:400}}></iframe>
+            //<div style={{height:'400px'}}></div>
+            <iframe id='webgl_iframe' src={src} width='100%' style={{'borderWidth':'0px',minHeight:400}}></iframe>
         )
 
     }

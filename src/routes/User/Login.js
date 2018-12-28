@@ -35,8 +35,8 @@ export default class LoginPage extends Component {
                 if(data.success){
                     console.log(data);
                     setAuthority(data.result.tokenObjDTO);
+                    setToken(response.headers.get('token'));
                     dispatch (push("/"));
-                    setToken(response.headers.get('token'))
                     //window.location.href="http://localhost:8000";
                 }else{
                     message.error("用户名或密码错误")

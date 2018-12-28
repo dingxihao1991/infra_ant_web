@@ -13,11 +13,11 @@ export async function addCurrentUser(params) {
         }
     });
 }
-export async function queryModelFileList(params) {
+/*export async function queryModelFileList(params) {
     return request('/api/model/fileList', {
         method: 'get',
     });
-}
+}*/
 
 export async function queryCurrentUser() {
 
@@ -116,7 +116,7 @@ const vif = function(){
         okType: 'danger',
         cancelText: '否',
         onOk() {
-            window.location.href="localhost/web/#/user/login";
+            window.location.href="http://192.168.200.29/web/#/user/login";
         },
         onCancel() {
 

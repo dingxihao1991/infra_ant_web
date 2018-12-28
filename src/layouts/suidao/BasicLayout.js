@@ -267,6 +267,7 @@ export default class BasicLayout extends PureComponent {
                                 <panel.component location={location} match={match}/>
                             </div>
                         ))}
+                        <Redirect exact from="/index" to={baseRedirect}/>
                         {/*<Switch>*/}
                             {/*{redirectData.map(item => (*/}
                                 {/*<Redirect key={item.from} exact from={item.from} to={item.to}/>*/}

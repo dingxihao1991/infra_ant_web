@@ -151,9 +151,9 @@ export const getRouterData = app => {
         component: dynamicWrapper(app, [], () => import('../routes/assetManagement/bomManagement/bomManagement.js')),
       },
       //个人中心
-      //   '/personal/centre': {
-      //       component: dynamicWrapper(app, ['user/personalCentre','user/taskList'], () => import('../routes/User/centre/Personal')),
-      //   },
+        '/personal/centre': {
+            component: dynamicWrapper(app, ['user/personalCentre','user/taskList'], () => import('../routes/User/centre/Personal')),
+        },
       //操作记录
       '/auth/systemOperationLogs': {
         component: dynamicWrapper(app, [], () => import('../routes/auth/log/LogManage')),
@@ -163,9 +163,9 @@ export const getRouterData = app => {
         component: dynamicWrapper(app, [], () => import('../routes/workManager/workPlan/JobPlan')),
       },
       //监控列表
-      // '/operationMonitoring/monitoringList': {
-      //   component: dynamicWrapper(app, [], () => import('../routes/operationMonitoring/monitoringList/monitoringList')),
-      // },
+      '/operationMonitoring/monitoringList': {
+        component: dynamicWrapper(app, [], () => import('../routes/operationMonitoring/monitoringList/monitoringList')),
+      },
       //设备控制
       '/operationMonitoring/equipmentControl': {
         component: dynamicWrapper(app, [], () => import('../routes/operationMonitoring/equipmentControl/equipmentControl')),

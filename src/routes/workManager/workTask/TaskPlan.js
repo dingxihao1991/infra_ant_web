@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import styles from '../workManage.less';
 import { Table ,Button ,Layout,Pagination,Form,Input,message,Dropdown,Menu,Icon,Row,Col} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
-import { POST,GET,PUT,DELETE } from '../../../services/api';
+import { connect } from 'dva';
 import Authorized from '../../../utils/Authorized';
 import AdvancedSearchForm from './SearchForm';
-import FormSub2 from "./TaskPlanDetail";
 import FormSub from './Form';
-import {taskData} from '../data';
 import WorkPlanDetail from "../workPlan/WorkPlanDetail";
 const { ButtonAuthorize } = Authorized;
 const { Content } = Layout;
@@ -31,7 +29,9 @@ const Paging = ({dataItems, onChange, ...otherProps}) => {
   return <Pagination {...paging} />;
 };
 
-
+@connect(({loading, workTask}) => ({
+  workTask
+}))
 export default class TaskPlan extends PureComponent {
 
   static contextTypes = {
@@ -58,6 +58,12 @@ export default class TaskPlan extends PureComponent {
   componentDidMount(){
     this.initColums();
     this.init();
+    const {dispatch } = this.props;
+    dispatch({
+      type: 'workTask/fetch',
+      payload: {
+      },
+    });
   }
 
   initColums = ()=>{
@@ -136,10 +142,10 @@ export default class TaskPlan extends PureComponent {
 
   init= () =>{
     const thiz = this;
-    thiz.setState({
+   /* thiz.setState({
      dataSource:taskData,
      loading:false,
-   })
+   })*/
   /*  GET('/roles',function(result){
       if(result.success){
         thiz.setState({
@@ -238,7 +244,7 @@ export default class TaskPlan extends PureComponent {
   onSubmit= (values ) =>{
     let i = 200
     console.log("submit:" + JSON.stringify(values))
-    tableData.push({
+/*    tableData.push({
       "id":++i,
       "sys_Date":null,
       "lastModifiedDate":null,
@@ -255,7 +261,7 @@ export default class TaskPlan extends PureComponent {
       "work_type":'养护',
       "startDate":"2018-11-03 12:45:00",
       "endDate":"2018-11-03 23:30:00",
-    })
+    })*/
     /*
     const thiz = this;
     if(thiz.state.record!=null){
@@ -312,7 +318,11 @@ export default class TaskPlan extends PureComponent {
   };
 
   render() {
-    let { columns,visible,record,rows,dataSource,loading,form,title,isFooter} = this.state;
+    const {
+      workTask :{list},
+      loading,
+    } = this.props;
+    let { columns,visible,record,rows,form,title,isFooter} = this.state;
     const rowSelection = {
       onChange: this.onSelectChange,
     };
@@ -340,12 +350,12 @@ export default class TaskPlan extends PureComponent {
           <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.batchDelete} name="批量删除" authority="role:delete"/>
         </div>
         <Content>
-          <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
+          <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={list}  onChange={this.handleChange} rowSelection={rowSelection}
                   loading={loading}
                   pagination={{
                     showSizeChanger:true,
                     showQuickJumper:true,
-                    total:dataSource.length,
+                    total:{list}.length,
                     onChange:this.onChange
                   }}
                   onRowDoubleClick={this.handlerDoubleClick}

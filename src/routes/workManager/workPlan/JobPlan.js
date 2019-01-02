@@ -8,8 +8,7 @@ import Authorized from '../../../utils/Authorized';
 import FormSub from './Form';
 import WorkPlanDetail from "./WorkPlanDetail";
 import AdvancedSearchForm from './SearchForm';
-import{tableData} from '../data';
-
+import { connect } from 'dva';
 const { ButtonAuthorize } = Authorized;
 const FormItem = Form.Item;
 const { Content, Header, Footer } = Layout;
@@ -32,7 +31,9 @@ const Paging = ({dataItems, onChange, ...otherProps}) => {
   return <Pagination {...paging} />;
 };
 
-
+@connect(({loading, jobPlan}) => ({
+  jobPlan
+}))
 export default class JobPlan extends PureComponent {
 
   static contextTypes = {
@@ -57,8 +58,14 @@ export default class JobPlan extends PureComponent {
   }
 
   componentDidMount(){
+    const {dispatch } = this.props;
     this.initColums();
     this.init();
+    dispatch({
+      type: 'jobPlan/fetch',
+      payload: {
+      },
+    });
   }
 
   initColums = ()=>{
@@ -137,10 +144,6 @@ export default class JobPlan extends PureComponent {
 
   init= () =>{
     const thiz = this;
-    thiz.setState({
-     dataSource:tableData,
-     loading:false,
-   })
   /*  GET('/roles',function(result){
       if(result.success){
         thiz.setState({
@@ -238,7 +241,7 @@ export default class JobPlan extends PureComponent {
   onSubmit= (values ) =>{
     let i = 500
     console.log("submit:" + JSON.stringify(values))
-    tableData.push({
+/*    tableData.push({
       "id":++i,
       "sys_Date":null,
       "lastModifiedDate":null,
@@ -255,7 +258,7 @@ export default class JobPlan extends PureComponent {
       "work_type":'养护',
       "startDate":"2018-11-03 12:45:00",
       "endDate":"2018-11-03 23:30:00",
-    })
+    })*/
     /*
     const thiz = this;
     if(thiz.state.record!=null){
@@ -332,11 +335,15 @@ export default class JobPlan extends PureComponent {
 
 
     render() {
-    let { columns,rows,dataSource,loading} = this.state;
-    const rowSelection = {
-      onChange: this.onSelectChange,
-    };
+      const {
+        jobPlan :{list},
+        loading,
+      } = this.props;
+      let { columns,rows} = this.state;
 
+      const rowSelection = {
+        onChange: this.onSelectChange,
+      };
 
     return(
       <Layout className={styles.application}>
@@ -347,12 +354,12 @@ export default class JobPlan extends PureComponent {
           <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.batchDelete} name="批量删除" authority="role:delete"/>
         </div>
         <Content>
-          <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
+          <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={list}  onChange={this.handleChange} rowSelection={rowSelection}
                   loading={loading}
                   pagination={{
                     showSizeChanger:true,
                     showQuickJumper:true,
-                    total:dataSource.length,
+                    total:{list}.length,
                     onChange:this.onChange
                   }}
                   onRowDoubleClick={this.handlerDoubleClick}

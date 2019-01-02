@@ -12,6 +12,7 @@ import img4 from '../../../image/4.png'
 import img5 from '../../../image/5.png'
 import img6 from '../../../image/6.png'
 import img7 from '../../../image/7.png'
+import { connect } from 'dva';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -21,68 +22,6 @@ const Modal = ModalForm.Modal;
 const confirm = Modal.confirm;
 const Search = Input.Search;
 
-const dataTest = [
-  {
-    id:1,
-    title: '合肥管廊运营处_紧急巡视',
-    unitName:'合肥管廊运营管理处',
-    work_user:'周福',
-    reasons:'临时任务',
-    workType:'紧急巡视',
-    startDate:'2018-03-13 08：30：00',
-    endDate:'2018-03-13 17：30：00',
-    gallery_name:'彩虹西路(将军岭路~鸡鸣山路)',
-    ops:'系统管理员',
-    eventContent:'彩虹西路管廊发生烟雾报警，彩虹西路管廊发生烟雾报警',
-    workLevel:'一级',
-    status:'进行中'
-  },
-  {
-    id:2,
-    title: '合肥管廊运营处_紧急巡视',
-    unitName:'合肥管廊运营管理处',
-    work_user:'周福',
-    reasons:'临时任务',
-    workType:'紧急巡视',
-    startDate:'2018-03-13 08：30：00',
-    endDate:'2018-03-13 17：30：00',
-    gallery_name:'彩虹西路(将军岭路~鸡鸣山路)',
-    ops:'系统管理员',
-    eventContent:'彩虹西路管廊发生烟雾报警',
-    workLevel:'一级',
-    status:'进行中'
-  },
-  {
-    id:3,
-    title: '合肥管廊运营处_紧急巡视',
-    unitName:'合肥管廊运营管理处',
-    work_user:'周福',
-    reasons:'临时任务',
-    workType:'紧急巡视',
-    startDate:'2018-03-13 08：30：00',
-    endDate:'2018-03-13 17：30：00',
-    gallery_name:'彩虹西路(将军岭路~鸡鸣山路)',
-    ops:'系统管理员',
-    eventContent:'彩虹西路管廊发生烟雾报警',
-    workLevel:'一级',
-    status:'等待中'
-  },
-  {
-    id:4,
-    title: '合肥管廊运营处_紧急巡视',
-    unitName:'合肥管廊运营管理处',
-    work_user:'周福',
-    reasons:'临时任务',
-    workType:'紧急巡视',
-    startDate:'2018-03-13 08：30：00',
-    endDate:'2018-03-13 17：30：00',
-    gallery_name:'彩虹西路(将军岭路~鸡鸣山路)',
-    ops:'系统管理员',
-    eventContent:'彩虹西路管廊发生烟雾报警',
-    workLevel:'一级',
-    status:'等待中'
-  },
-];
 
 const Paging = ({dataItems, onChange, ...otherProps}) => {
   const { total, pageSize, pageNum } = dataItems;
@@ -100,6 +39,9 @@ const Paging = ({dataItems, onChange, ...otherProps}) => {
   return <Pagination {...paging} />;
 };
 
+@connect(({loading, workEvent}) => ({
+  workEvent
+}))
 export default class workEvent extends PureComponent {
 
   static contextTypes = {
@@ -121,13 +63,15 @@ export default class workEvent extends PureComponent {
   }
 
   componentDidMount(){
-    this.init();
+    const {dispatch } = this.props;
+    dispatch({
+      type: 'workEvent/fetch',
+      payload: {
+      },
+    });
   }
 
   init= () =>{
-    this.setState({
-      data:dataTest
-    })
     /*const thiz = this;
     GET('/users',function(data){
       if(data.success){
@@ -304,6 +248,10 @@ export default class workEvent extends PureComponent {
   }
 
   render() {
+    const {
+      workEvent :{list},
+      loading,
+    } = this.props;
     const {data,record,dataSource,treeData} = this.state;
     const rowSelection = {
       onChange: this.onSelectChange,
@@ -386,7 +334,7 @@ export default class workEvent extends PureComponent {
             <List
               rowKey="id"
               grid={{ gutter: 24, lg: 3, md: 2, sm: 1, xs: 1 }}
-              dataSource={data}
+              dataSource={list}
               renderItem={item =>
                 (
                   <List.Item key={item.id}>

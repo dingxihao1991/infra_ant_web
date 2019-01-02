@@ -13,11 +13,11 @@ export async function addCurrentUser(params) {
         }
     });
 }
-/*export async function queryModelFileList(params) {
+export async function queryModelFileList(params) {
     return request('/api/model/fileList', {
         method: 'get',
     });
-}*/
+}
 
 export async function queryCurrentUser() {
 
@@ -42,6 +42,32 @@ export async function querySearch (params) {
         }
     });
 }
+
+export async function queryWorkTaskList(params) {
+  return request('/api/workTask', {
+    method: 'get',
+  });
+}
+
+export async function queryJobPlanList(params) {
+  return request('/api/jobPlan', {
+    method: 'get',
+  });
+}
+
+export async function queryWorkEventList(params) {
+  return request('/api/workEvent', {
+    method: 'get',
+  });
+}
+
+export async function queryWorkRecordList(params) {
+  return request('/api/workRecord', {
+    method: 'get',
+  });
+}
+
+
 
 export async function fakeAccountLogin(params,callBack,errorFuc) {
 
@@ -91,10 +117,11 @@ const ajax = function(url,method,params,callBack,errorFuc){
 
     }
 
-    fetch('http://192.168.200.29:8888'+url,option).then(function(response) {
+    fetch('http://localhost:8888'+url,option).then(function(response) {
         try{
             response.json().then(function(result){
                 if(result.code==-2){
+                    debugger
                     vif()
                 }else{
                     callBack(result,response)
@@ -116,7 +143,7 @@ const vif = function(){
         okType: 'danger',
         cancelText: '否',
         onOk() {
-            window.location.href="http://192.168.200.29/web/#/user/login";
+            window.location.href="http://localhost:8000/#/user/login";
         },
         onCancel() {
 

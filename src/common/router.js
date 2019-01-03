@@ -97,7 +97,7 @@ export const getRouterData = app => {
     //!!!! router set data  ....config  add router !!!!
     const routerConfig = {
         '/': {
-            component: dynamicWrapper(app, ['search'], () => import('../layouts/suidao/BasicLayout')),
+            component: dynamicWrapper(app, ['search'], () => import('../layouts/BasicLayout')),
         },
         '/index': {
             component: dynamicWrapper(app, [], () => import('../routes/home/HomeIndex')),

@@ -10,7 +10,7 @@ import 'echarts/lib/component/title';// 引入提示框和标题组件
 import 'echarts/lib/component/legend';
 import 'echarts-liquidfill/src/liquidFill';
 import styles from './home.less';
-import{option1 , option2 , option3 ,option5 , option6 ,option7 ,option8} from './data';
+import{option11 , option12 , option3 ,option15 , option16 ,option7 ,option8} from './data';
 import HomeMap from './HomeMap';
 
 // 开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
@@ -63,19 +63,19 @@ export default class Home extends PureComponent {
     }
     componentDidMount() {
       // 基于准备好的dom，初始化echarts实例
-      var myChart1 = echarts.init(document.getElementById('main1'));
-      myChart1.setOption(option1);
+      var myChart1 = echarts.init(document.getElementById('main11'));
+      myChart1.setOption(option11);
 
-      var myChart2 = echarts.init(document.getElementById('main2'));
-      myChart2.setOption(option2);
+      var myChart2 = echarts.init(document.getElementById('main12'));
+      myChart2.setOption(option12);
 
-      var myChart3 = echarts.init(document.getElementById('main3'));
-      myChart3.setOption(option6);
+      var myChart3 = echarts.init(document.getElementById('main13'));
+      myChart3.setOption(option16);
 
       //var myChart4 = echarts.init(document.getElementById('main4'));
 
-      var myChart5 = echarts.init(document.getElementById('main5'));
-      myChart5.setOption(option5);
+      var myChart5 = echarts.init(document.getElementById('main15'));
+      myChart5.setOption(option15);
 
       var myChart6 = echarts.init(document.getElementById('main6'));
       myChart6.setOption(option3);
@@ -116,14 +116,14 @@ export default class Home extends PureComponent {
               <Col className="gutter-row" span={8}>
                 <div className="gutter-box">
                   <Card title={P1_Html} bordered={false} >
-                    <div id="main1" style={{ height: 258,marginTop: 10 , width:492 ,left: 30}}></div>
+                    <div id="main11" style={{ height: 258,marginTop: 10 , width:492 }}></div>
                   </Card>
                 </div>
               </Col>
               <Col className="gutter-row" span={8}>
                 <div className="gutter-box">
                   <Card title={P2_Html} bordered={false} >
-                    <div id="main2" style={{ height: 261,marginTop: 10, width:492 ,left: 28}}></div>
+                    <div id="main12" style={{ height: 261,marginTop: 10, width:492 ,left: 28}}></div>
                   </Card>
                 </div>
               </Col>
@@ -132,9 +132,9 @@ export default class Home extends PureComponent {
                   <Card title={P3_Html} bordered={false} >
                     <Row style={{height: 271}}>
                       <Col span={10}>
-                        <div id="main5" style={{ height: 261,marginTop: 10, width:380}}  />
+                        <div id="main15" style={{ height: 261,marginTop: 10, width:380}}  />
                       </Col>
-                      <Col span={14}><div id="main3" style={{ height: 258,marginTop: 10,width:340 }} /></Col>
+                      <Col span={14}><div id="main13" style={{ height: 258,marginTop: 10,width:340 }} /></Col>
                     </Row>
                       {/*<div style={{width:12}}/>
                       </div>*/}

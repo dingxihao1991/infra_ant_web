@@ -2,7 +2,7 @@ import echarts from 'echarts/lib/echarts';// 引入 ECharts 主模块
 import React, {PureComponent} from 'react';
 // 开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 //客流总数统计
-export var option1 = {
+export var option11 = {
   tooltip: {
     trigger: 'axis'
   },
@@ -80,7 +80,7 @@ export var option1 = {
 
 // 开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 //进、出站流量统计
-export var option2 = {
+export var option12 = {
   tooltip: {
     trigger: 'axis'
   },
@@ -214,7 +214,7 @@ var data5 = [96, 90, 98, 90, 95]
 var titlename5 = ['设备', '能耗', '安全', '消防', '车流'];
 var myColor5 = ['#1089E7', '#1089E7', '#1089E7', '#1089E7', '#1089E7'];
 //健康指数
-export var option5 = {
+export var option15 = {
   grid:{
     left:'18%',
     top: '10%',
@@ -277,7 +277,7 @@ export var option5 = {
 
 // 开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 // 水球图
-export var option6 = {
+export var option16 = {
   series: [{
     type: 'liquidFill',
     data: [0.96],

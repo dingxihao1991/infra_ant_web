@@ -14,6 +14,7 @@ const FormItem = Form.Item;
 const { Content, Header, Footer } = Layout;
 const Modal = ModalForm.Modal;
 const confirm = Modal.confirm;
+const Search = Input.Search;
 
 const Paging = ({dataItems, onChange, ...otherProps}) => {
   const { total, pageSize, pageNum } = dataItems;
@@ -347,11 +348,13 @@ export default class JobPlan extends PureComponent {
 
     return(
       <Layout className={styles.application}>
-        <div style={{ background: 'white'}}>
+        <div style={{ background: 'white' , float:'right'}} id="jobPlanId">
           <AdvancedSearchForm/>
-          <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="role:add"/>
-         {/* <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="role:update"/>*/}
-          <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.batchDelete} name="批量删除" authority="role:delete"/>
+          <div style={{float: 'left'}}>
+            <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="role:add"/>
+            {/* <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="role:update"/>*/}
+            <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.batchDelete} name="批量删除" authority="role:delete"/>
+          </div>
         </div>
         <Content>
           <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={list}  onChange={this.handleChange} rowSelection={rowSelection}

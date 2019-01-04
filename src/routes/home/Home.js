@@ -10,7 +10,7 @@ import 'echarts/lib/component/title';// 引入提示框和标题组件
 import 'echarts/lib/component/legend';
 import 'echarts-liquidfill/src/liquidFill';
 import styles from './home.less';
-import{option11 , option12 , option3 ,option15 , option16 ,option7 ,option8} from './data';
+import{option11 , option12 , option13 ,option15 , option16 ,option17 ,option18} from './data';
 import HomeMap from './HomeMap';
 
 // 开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
@@ -63,30 +63,30 @@ export default class Home extends PureComponent {
     }
     componentDidMount() {
       // 基于准备好的dom，初始化echarts实例
-      var myChart1 = echarts.init(document.getElementById('main11'));
-      myChart1.setOption(option11);
+      var myChart11 = echarts.init(document.getElementById('main11'));
+      myChart11.setOption(option11);
 
-      var myChart2 = echarts.init(document.getElementById('main12'));
-      myChart2.setOption(option12);
+      var myChart12 = echarts.init(document.getElementById('main12'));
+      myChart12.setOption(option12);
 
-      var myChart3 = echarts.init(document.getElementById('main13'));
-      myChart3.setOption(option16);
+      var myChart13 = echarts.init(document.getElementById('main13'));
+      myChart13.setOption(option16);
 
       //var myChart4 = echarts.init(document.getElementById('main4'));
 
-      var myChart5 = echarts.init(document.getElementById('main15'));
-      myChart5.setOption(option15);
+      var myChart15 = echarts.init(document.getElementById('main15'));
+      myChart15.setOption(option15);
 
-      var myChart6 = echarts.init(document.getElementById('main6'));
-      myChart6.setOption(option3);
+      var myChart16 = echarts.init(document.getElementById('main16'));
+      myChart16.setOption(option13);
 
-      var myChart7 = echarts.init(document.getElementById('main7'));
-      myChart7.setOption(option7);
+      var myChart17 = echarts.init(document.getElementById('main17'));
+      myChart17.setOption(option17);
 
-      var myChart8 = echarts.init(document.getElementById('main8'));
-      myChart8.setOption(option8);
+      var myChart18 = echarts.init(document.getElementById('main18'));
+      myChart18.setOption(option18);
 
-      setInterval(() => {
+      /*setInterval(() => {
         var nowDate = new Date()
         timeList4.push(nowDate.getHours() + ':' + nowDate.getMinutes() + ':' + nowDate.getSeconds())
         inData4.push( Math.ceil(Math.random() * 70))
@@ -95,7 +95,7 @@ export default class Home extends PureComponent {
         inData4.shift()
         outData4.shift()
         //myChart4.setOption(option4);
-      }, 2000);
+      }, 2000);*/
     }
     render() {
       const topColResponsiveProps = {
@@ -157,21 +157,21 @@ export default class Home extends PureComponent {
               <Col className="gutter-row" span={8}>
                 <div className="gutter-box">
                   <Card title={P5_Html} bordered={false} >
-                    <div id="main6" style={{ height: 258,marginTop: 10 , width:492}}></div>
+                    <div id="main16" style={{ height: 258,marginTop: 10 , width:492}}></div>
                   </Card>
                 </div>
               </Col>
               <Col className="gutter-row" span={8}>
                 <div className="gutter-box">
                   <Card title={P6_Html} bordered={false} >
-                    <div id="main7" style={{ height: 258,marginTop: 10 , width:492}}></div>
+                    <div id="main17" style={{ height: 258,marginTop: 10 , width:492}}></div>
                   </Card>
                 </div>
               </Col>
               <Col className="gutter-row" span={8}>
                 <div className="gutter-box">
                   <Card title={P7_Html} bordered={false} >
-                    <div id="main8" style={{ height: 258,marginTop: 10 , width:492}}></div>
+                    <div id="main18" style={{ height: 258,marginTop: 10 , width:492}}></div>
                   </Card>
                 </div>
               </Col>

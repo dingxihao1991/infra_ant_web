@@ -168,7 +168,7 @@ export var option12 = {
 
 // 开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 //设备专业统计
-export var option3 = {
+export var option13 = {
   tooltip: {
     trigger: 'item',
     formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -289,7 +289,7 @@ export var option16 = {
 
 // 开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 //设备产地比例
-export var option7 = {
+export var option17 = {
     tooltip: {
       trigger: 'item',
       formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -327,7 +327,7 @@ export var option7 = {
 
 
 // 开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-export var option8 = {
+export var option18 = {
   tooltip: {
     trigger: 'axis'
   },

@@ -29,7 +29,7 @@ class AdvancedSearchForm extends React.Component {
     const { getFieldDecorator } = this.props.form;
     return(
       <div style={{float: 'right', paddingTop: 10  ,    width: '24%' }}>
-        <Search onSearch={()=>alert(1)} style={{width: 302}}/>
+        <Search onSearch={()=>alert(1)} style={{width: 302}} placeholder="请输入"/>
         <a style={{ marginLeft: 8, fontSize: 12 }} onClick={this.toggle}>
           展开 <Icon type={this.state.expand ? 'up' : 'down'} />
         </a>

@@ -186,8 +186,15 @@ export const getRouterData = app => {
       //预案管理
       '/planManagement/emergencyPlanRecord': {
         component: dynamicWrapper(app, [], () => import('../routes/planManagement/emergencyPlanRecord/emergencyPlanRecord')),
+      },
+
+      //文档管理
+      '/dataManagement/docManagement': {
+        component: dynamicWrapper(app, [], () => import('../routes/dataManagement/docManagement')),
       }
-    };
+    }
+
+    ;
 
     /*  !!!!! Don't  touch  me !!!!! */
     // menu.js  getData router

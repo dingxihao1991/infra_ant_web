@@ -45,7 +45,7 @@ class SideLayout extends Component {
                 <Icon type={openSide ? 'caret-left' : 'caret-right'} />
               </a>:null
           }
-          <div className="side-body" style={{width}}>
+          <div className="side-body" style={{height: '100%',overflow: 'auto'}}>
             <div className="side-panel">
                 {search?
                     <div className={styles.panel_header}>

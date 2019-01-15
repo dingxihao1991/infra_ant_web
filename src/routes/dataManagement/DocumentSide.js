@@ -60,20 +60,19 @@ export default class OrganizationSide extends PureComponent{
 
         //搜索到的设置为红色
         const loop = data => data.map((item) => {
-
             const index = item.title.indexOf(searchValue);
             const beforeStr = item.title.substr(0, index);
             const afterStr = item.title.substr(index + searchValue.length);
             const title = index > -1 ? (
-                    <span>
+                    <div>
                       {beforeStr}
-                        <span style={{ color: '#f50' }}>{searchValue}</span>
+                        <div style={{ color: '#f50' }}>{searchValue}</div>
                         {afterStr}
-                    </span>
-                ) : <span>{item.title}</span>;
+                    </div>
+                ) : <div>{item.title}</div>;
             if (item.children) {
                 return (
-                    <TreeNode key={item.key} title={title}>
+                    <TreeNode key={item.key} title={title} style={{}}>
                         {loop(item.children)}
                     </TreeNode>
                 );
@@ -91,6 +90,7 @@ export default class OrganizationSide extends PureComponent{
                 sideContent={
                     treeData.length>0?
                         <Tree
+
                             onExpand={this.onExpand}
                             expandedKeys={expandedKeys}
                             autoExpandParent={autoExpandParent}

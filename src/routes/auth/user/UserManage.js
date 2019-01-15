@@ -294,7 +294,7 @@ export default class userManage extends PureComponent {
     onSelect = (selectedKeys, info) => {
         let array = []
 
-        array.push(selectedKeys);
+        array.push(selectedKeys[0]);
         let recursive = function(node){
             if(node.key!=undefined){
                 array.push(node.key)
@@ -305,6 +305,7 @@ export default class userManage extends PureComponent {
                 }
             }
         }
+
         //递归获取子集
         recursive(info.node);
         const {fileDataSource} = this.state;

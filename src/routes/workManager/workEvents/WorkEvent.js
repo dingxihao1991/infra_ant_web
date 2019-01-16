@@ -278,7 +278,7 @@ export default class workEvent extends PureComponent {
         <Row gutter={16}>
           <Col className="gutter-row" span={6}>
             <Card>
-              <h5>突发事件</h5>
+              <h5>设备故障</h5>
               <div>
                 <div style={{marginTop: 44}}>
                   <span style={{color:'#00c292',fontSize:36}}><img src={img4} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'#00c292'}} />5</span>
@@ -302,7 +302,7 @@ export default class workEvent extends PureComponent {
           </Col>
           <Col className="gutter-row" span={6}>
             <Card>
-              <h5>突发事件</h5>
+              <h5>紧急情况</h5>
               <div>
                 <div style={{marginTop: 44}}>
                   <span style={{color:'#03a9f3',fontSize:36}}><img src={img6} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'#03a9f3'}} />2</span>
@@ -312,7 +312,7 @@ export default class workEvent extends PureComponent {
           </Col>
           <Col className="gutter-row" span={6}>
             <Card>
-              <h5>突发事件</h5>
+              <h5>其它事件</h5>
               <div>
                 <div style={{marginTop: 44}}>
                   <span style={{color:'#e46a76',fontSize:36}}><img src={img7} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'#e46a76'}} />6</span>

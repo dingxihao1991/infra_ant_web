@@ -1,8 +1,11 @@
 import React, {PureComponent} from 'react';
-import { Table,Switch,Button, Layout, Tabs,List } from "antd";
+import { Table, Switch, Button, Layout, Tabs, List, Icon } from "antd";
 import MonitoringType from './monitoringType';
 const { Content} = Layout;
 import styles from './monitoringType.less';
+import AssetModelInfo from "../../assetManagement/assetList/modal/AssetModelInfo";
+import FormSub from "./assetRecordDetails";
+import PropTypes from "prop-types";
 
 //维保数据
 const data = [
@@ -29,6 +32,13 @@ const data = [
     4: '管廊系统',
     5: '合肥市高新区管廊控制中心',
 }, {
+    'id':'199',
+    1: 'CCTV-A-001',
+    2: '上中路隧道闭路电视监控',
+    3: '其它系统',
+    4: '隧道系统',
+    5: '上海市上中路隧道',
+  },{
         'id':'107',
     1: 'ARCM300T-Z-2G',
     2: '智能照明设备',
@@ -219,12 +229,26 @@ const type=[
 
 export default class assetRecord extends PureComponent {
 
+  static contextTypes = {
+    openModal: PropTypes.func,
+  };
 
-    state = {
+   /* state = {
         columns:[],
         dataSource:[],
         treeData:[],
-    };
+    };*/
+
+
+  state = {
+    columns:[],
+    dataSource:[],
+    record: null,
+    visible: false,
+    rows: [],
+    form: FormSub,
+    title:"资产设备定位"
+  };
 
     //props :接收任意的输入值
     constructor(props,context) {
@@ -252,7 +276,15 @@ export default class assetRecord extends PureComponent {
             id: '1',
             align: 'center',
             key:'1'
-        },{
+        },
+          {//增加操作栏
+            title: '操作',
+            id: 'j',
+            align: 'center',
+            render: (text, record) => {
+              return <Icon  type="video-camera" style={{height:'30px',width:'40px'}} onClick={this.edit}/>
+            }
+          },{
             title: '设备名称',
             dataIndex: '2',
             id: '2',
@@ -288,6 +320,39 @@ export default class assetRecord extends PureComponent {
             }];
         this.setState({columns:columns})
     }
+
+  openModel = record =>{
+    console.log("---------",record);
+    const modalFormProps = {
+      title:'BIM属性',
+      record:record,
+      isFooter:true,
+      isShow:true,
+      Contents:AssetModelInfo,
+      modalOpts: {
+        width: 1000,
+      },
+    }
+    this.context.openModal(modalFormProps);
+  }
+
+  //编辑
+  edit =()=>{
+    console.log(this.state);
+    let  form = FormSub
+    const modalFormProps = {
+        title:'CCTV监控',
+      isFooter:true,
+      isShow:true,
+      Contents:form,
+      modalOpts: {
+        width: 690,
+        height:480
+      },
+    }
+    this.context.openModal(modalFormProps);
+  }
+
 
     init= () =>{
         const thiz = this;

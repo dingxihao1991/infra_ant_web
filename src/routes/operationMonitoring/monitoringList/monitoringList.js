@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 const data = [
     {
         'id':'105',
-    1: 'NV-TB9716',
+    name: 'NV-TB9716',
     2: '安科瑞智慧用电在线监控装置',
     3: '电力系统',
     4: '管廊系统',
@@ -19,42 +19,42 @@ const data = [
     6:'/',
 }, {
         'id':'1010',
-    1: 'AD-359916',
+    name: 'AD-359916',
     2: '排水设备',
     3: '排水系统',
     4: '车站系统',
     5: '上海市浦东新区大连路隧道',
 }, {
         'id':'106',
-    1: 'GD-569ASD',
+    name: 'GD-569ASD',
     2: '管廊施工机器臂',
     3: '其他系统',
     4: '管廊系统',
     5: '合肥市高新区管廊控制中心',
 }, {
     'id':'199',
-    1: 'CCTV-A-001',
+    name: 'CCTV-A-001',
     2: '上中路隧道闭路电视监控',
     3: '其它系统',
     4: '隧道系统',
     5: '上海市上中路隧道',
   },{
         'id':'107',
-    1: 'ARCM300T-Z-2G',
+    name: 'ARCM300T-Z-2G',
     2: '智能照明设备',
     3: '电力系统',
     4: '隧道系统',
     5: '合肥市新站区管廊控制中心',
 }, {
         'id':'108',
-    1: 'ASD862O-GB',
+    name: 'ASD862O-GB',
     2: '管廊地下管道甲烷检测器',
     3: '通风系统',
     4: '管廊系统',
     5: '上海市松江南站大型居民区',
 }, {
         'id':'109',
-    1: 'BG-569ASD',
+    name: 'BG-569ASD',
     2: '集水坑内液位传感器',
     3: '供水系统',
     4: '车站系统',
@@ -272,17 +272,20 @@ export default class assetRecord extends PureComponent {
     initColums =() =>{
         const columns = [{
             title: '设备编号',
-            dataIndex: '1',
-            id: '1',
+            dataIndex: 'name',
+            id: 'name',
             align: 'center',
-            key:'1'
+            key:'name'
         },
           {//增加操作栏
             title: '操作',
             id: 'j',
             align: 'center',
             render: (text, record) => {
-              return <Icon  type="video-camera" style={{height:'30px',width:'40px'}} onClick={this.edit}/>
+              if(record.name=="CCTV-A-001"){
+                return <Icon  type="video-camera" style={{height:'30px',width:'40px'}} onClick={this.edit}/>
+              }else {
+              }
             }
           },{
             title: '设备名称',
@@ -318,6 +321,7 @@ export default class assetRecord extends PureComponent {
                     <Switch defaultChecked />
                 ),
             }];
+
         this.setState({columns:columns})
     }
 

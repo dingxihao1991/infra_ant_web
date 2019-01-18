@@ -40,7 +40,7 @@ class FormSub extends Component {
     }
     return (
 
-      <video  controls autoplay="autoplay">
+      <video   autoplay="autoplay">
 
         <source src="http://192.168.200.29/static/video/suidao.MP4" type="video/mp4"/>
 

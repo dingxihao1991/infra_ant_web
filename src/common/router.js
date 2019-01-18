@@ -191,6 +191,11 @@ export const getRouterData = app => {
       //文档管理
       '/dataManagement/docManagement': {
         component: dynamicWrapper(app, [], () => import('../routes/dataManagement/docManagement')),
+      },
+
+      //巡检配置
+      '/system/perambulate': {
+        component: dynamicWrapper(app, ['sysconfig/perambulate/perambulate'], () => import('../routes/systemConfigManagement/perambulate/perambulate')),
       }
     }
 

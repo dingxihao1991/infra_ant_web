@@ -119,7 +119,7 @@ export const getRouterData = app => {
         },
         //权限菜单
         '/auth/application': {
-            component: dynamicWrapper(app, [], () => import('../routes/auth/application/Application')),
+            component: dynamicWrapper(app, ['routes/auth/application/model/applicationModel'], () => import('../routes/auth/application/components/Application')),
         },
         //菜单管理
         '/auth/MenuManage': {

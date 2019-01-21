@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import { push } from 'react-router-redux'
-import { setAuthority,setToken} from '../../utils/authority';
+import { setAuthority,setToken} from '../../../../utils/authority';
 
 import {connect} from 'dva';
 import {Link} from 'dva/router';
 import {Checkbox, Alert, Icon,message} from 'antd';
-import Login from '../../components/Login';
-import styles from './Login.less';
-import { POST,GET,PUT,DELETE } from '../../services/api';
+import Login from 'components/Login';
+import styles from '../style/Login.less';
+import { POST,GET,PUT,DELETE } from '../../../../services/api';
 const {Tab, UserName, Password, Mobile, Captcha, Submit} = Login;
 
 @connect(({login, loading}) => ({
@@ -55,7 +55,7 @@ export default class LoginPage extends Component {
     };
 
     changeAutoLogin = e => {
-        this.setState({
+        this.setState({git
             autoLogin: e.target.checked,
         });
     };

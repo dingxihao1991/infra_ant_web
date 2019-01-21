@@ -109,13 +109,13 @@ export const getRouterData = app => {
         component: dynamicWrapper(app, [], () => import('../layouts/UserLayout')),
     },
     '/user/login': {
-        component: dynamicWrapper(app, ['models/login'], () => import('../routes/User/Login')),
+        component: dynamicWrapper(app, ['routes/User/login/model/login'], () => import('../routes/User/login/components/Login')),
     },
     '/user/register': {
-        component: dynamicWrapper(app, [], () => import('../routes/User/Register')),
+        component: dynamicWrapper(app, [], () => import('../routes/User/login/components/Register')),
     },
     '/user/register-result': {
-        component: dynamicWrapper(app, [], () => import('../routes/User/RegisterResult')),
+        component: dynamicWrapper(app, [], () => import('../routes/User/login/components/RegisterResult')),
     },
     //权限菜单
     '/auth/application': {
@@ -155,7 +155,7 @@ export const getRouterData = app => {
     },
     //个人中心
     '/personal/centre': {
-        component: dynamicWrapper(app, ['models/user/personalCentre','models/user/taskList'], () => import('../routes/User/centre/Personal')),
+        component: dynamicWrapper(app, ['routes/User/centre/model/personalCentre','routes/User/centre/model/taskList'], () => import('../routes/User/centre/components/Personal')),
     },
     //操作记录
     '/auth/systemOperationLogs': {

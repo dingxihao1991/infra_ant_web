@@ -1,4 +1,4 @@
-import { queryTaskList, addTaskList} from 'services/api';
+import { queryTaskList, addTaskList} from '../service/api';
 
 export default {
     namespace: 'taskList',

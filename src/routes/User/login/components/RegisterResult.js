@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'antd';
 import { Link } from 'dva/router';
 import Result from 'components/Result';
-import styles from './RegisterResult.less';
+import styles from '../style/RegisterResult.less';
 
 const actions = (
   <div className={styles.actions}>

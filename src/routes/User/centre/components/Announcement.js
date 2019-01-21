@@ -1,7 +1,7 @@
 import React ,{PureComponent} from 'react';
 import {List,Card,Layout } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
-import stylesProjects from './Announcement.less';
+import stylesProjects from '../style/Announcement.less';
 import ArticleListContent from 'components/ArticleListContent';
 import AvatarList from 'components/AvatarList';
 import moment from 'moment';

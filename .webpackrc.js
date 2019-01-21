@@ -18,7 +18,8 @@ export default {
   alias: {
     components: path.resolve(__dirname, 'src/components/'),
     services: path.resolve(__dirname, 'src/services/'),
-    models: path.resolve(__dirname,'src/models')
+    models: path.resolve(__dirname,'src/models'),
+      utils: path.resolve(__dirname,'src/utils')
   },
   ignoreMomentLocale: true,
   theme: './src/theme.js',

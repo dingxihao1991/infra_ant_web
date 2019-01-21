@@ -407,7 +407,6 @@ export default {
             }
             for(var i=0;i<12;i++){
                 data['id']='ec2fc85f2f844145b25642d5d499d32c43'+i;
-                console.log("list..........",list)
                 list.push(data);
             }
 

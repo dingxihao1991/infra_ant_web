@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { List, Icon, Tag } from 'antd';
 import { connect } from 'dva';
-import styles from './Task.less';
+import styles from '../style/Task.less';
 import ArticleListContent from 'components/ArticleListContent';
 import logo from '../../../../logo.svg';
 

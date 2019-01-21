@@ -1,4 +1,4 @@
-import { queryCurrentUser, addCurrentUser} from 'services/api';
+import { queryCurrentUser, addCurrentUser} from '../service/api';
 
 export default {
     namespace: 'personalCentre',

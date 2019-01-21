@@ -19,19 +19,8 @@ export async function queryModelFileList(params) {
     });
 }
 
-export async function queryCurrentUser() {
 
-    return request('/api/currentUser', {
-        method: 'GET',
-    });
-}
 
-export async function queryTaskList(params) {
-    console.log("查询任务------")
-    return request('/api/task', {
-        method: 'get',
-    });
-}
 
 export async function querySearch (params) {
     return request('/api/querySearch', {

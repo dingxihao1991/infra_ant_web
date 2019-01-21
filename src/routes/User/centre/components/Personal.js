@@ -5,13 +5,13 @@
  */
 import React, {Component,PureComponent} from 'react';
 import { Card, Row, Col, Icon, Avatar, Tag, Divider, Spin, Input,Layout } from 'antd';
-import styles from './PersonalCentre.less';
+import styles from '../style/PersonalCentre.less';
 import PropTypes from 'prop-types';
 import { push } from 'react-router-redux'
 import { connect } from 'dva';
-import Task from './task/Task';
-import WorkingCalendar from './calendar/WorkingCalendar';
-import Announcement from './announcement/Announcement';
+import Task from './Task';
+import WorkingCalendar from './WorkingCalendar';
+import Announcement from './Announcement';
 import moment from 'moment';
 
 import FormSub from './MemoForm';

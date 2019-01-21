@@ -9,7 +9,7 @@ function collect(props) {
 }
 
 const MENU_TYPE = 'MULTI';
-export default class OrganizationSide extends PureComponent{
+export default class DocumentSide extends PureComponent{
 
     state = {
         expandedKeys: [],

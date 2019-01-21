@@ -55,7 +55,7 @@ export default class LoginPage extends Component {
     };
 
     changeAutoLogin = e => {
-        this.setState({git
+        this.setState({
             autoLogin: e.target.checked,
         });
     };

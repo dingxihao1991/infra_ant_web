@@ -195,9 +195,7 @@ export const getRouterData = app => {
     '/dataManagement/docManagement': {
         component: dynamicWrapper(app, ['routes/documentManagement/model/documentModel'], () => import('../routes/documentManagement/components/DocumentManagement')),
     }
-}
-
-    ;
+};
 
     /*  !!!!! Don't  touch  me !!!!! */
     // menu.js  getData router

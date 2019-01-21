@@ -27,7 +27,9 @@ const modelNotExisted = (app, model) => {
 // 面包屑组件控制  控制路由
 const dynamicWrapper = (app, models, component) => {
     // register models
+
     models.forEach(model => {
+
         if (modelNotExisted(app, model)) {
             console.log("-------"+`${model}`)
             app.model(require(`../${model}`).default);
@@ -98,102 +100,102 @@ export const getRouterData = app => {
     //!!!! router set data  ....config  add router !!!!
     const routerConfig = {
         '/': {
-            component: dynamicWrapper(app, ['search'], () => import('../layouts/BasicLayout')),
-        },
-        '/index': {
-            component: dynamicWrapper(app, [], () => import('../routes/home/HomeIndex')),
-        },
-        '/user': {
-            component: dynamicWrapper(app, [], () => import('../layouts/UserLayout')),
-        },
-        '/user/login': {
-            component: dynamicWrapper(app, ['login'], () => import('../routes/User/Login')),
-        },
-        '/user/register': {
-            component: dynamicWrapper(app, [], () => import('../routes/User/Register')),
-        },
-        '/user/register-result': {
-            component: dynamicWrapper(app, [], () => import('../routes/User/RegisterResult')),
-        },
-        //权限菜单
-        '/auth/application': {
-            component: dynamicWrapper(app, [], () => import('../routes/auth/application/Application')),
-        },
-        //菜单管理
-        '/auth/MenuManage': {
-            component: dynamicWrapper(app, [], () => import('../routes/auth/menu/MenuManage')),
-        },
-        //用户管理
-        '/auth/userManage': {
-            component: dynamicWrapper(app, [], () => import('../routes/auth/user/UserManage')),
-        },
-        //角色管理
-        '/auth/roleManage': {
-            component: dynamicWrapper(app, [], () => import('../routes/auth/role/RoleManage')),
-        },
-        //机构管理
-        '/auth/organizationManage': {
-            component: dynamicWrapper(app, [], () => import('../routes/auth/organization/organizationManage')),
-        },
-      //资产列表
-      '/assetManagement/assetList': {
+            component: dynamicWrapper(app, ['models/search'], () => import('../layouts/BasicLayout')),
+},
+    '/index': {
+        component: dynamicWrapper(app, [], () => import('../routes/home/HomeIndex')),
+    },
+    '/user': {
+        component: dynamicWrapper(app, [], () => import('../layouts/UserLayout')),
+    },
+    '/user/login': {
+        component: dynamicWrapper(app, ['models/login'], () => import('../routes/User/Login')),
+    },
+    '/user/register': {
+        component: dynamicWrapper(app, [], () => import('../routes/User/Register')),
+    },
+    '/user/register-result': {
+        component: dynamicWrapper(app, [], () => import('../routes/User/RegisterResult')),
+    },
+    //权限菜单
+    '/auth/application': {
+        component: dynamicWrapper(app, ['routes/auth/application/model/applicationModel'], () => import('../routes/auth/application/components/Application')),
+    },
+    //菜单管理
+    '/auth/MenuManage': {
+        component: dynamicWrapper(app, [], () => import('../routes/auth/menu/MenuManage')),
+    },
+    //用户管理
+    '/auth/userManage': {
+        component: dynamicWrapper(app, [], () => import('../routes/auth/user/UserManage')),
+    },
+    //角色管理
+    '/auth/roleManage': {
+        component: dynamicWrapper(app, [], () => import('../routes/auth/role/RoleManage')),
+    },
+    //机构管理
+    '/auth/organizationManage': {
+        component: dynamicWrapper(app, [], () => import('../routes/auth/organization/organizationManage')),
+    },
+    //资产列表
+    '/assetManagement/assetList': {
         component: dynamicWrapper(app, [], () => import('../routes/assetManagement/assetList/assetList')),
-      },
-      //资产概览
-      '/assetManagement/assetOverview': {
+    },
+    //资产概览
+    '/assetManagement/assetOverview': {
         component: dynamicWrapper(app, [], () => import('../routes/assetManagement/assetOverview/assetOverview.js')),
-      },
-      //资产维保记录
-      '/assetManagement/assetRecord': {
+    },
+    //资产维保记录
+    '/assetManagement/assetRecord': {
         component: dynamicWrapper(app, [], () => import('../routes/assetManagement/assetRecord/assetRecord.js')),
-      },
-      //资产备品备件
-      '/assetManagement/bomManagement': {
+    },
+    //资产备品备件
+    '/assetManagement/bomManagement': {
         component: dynamicWrapper(app, [], () => import('../routes/assetManagement/bomManagement/bomManagement.js')),
-      },
-      //个人中心
-        '/personal/centre': {
-            component: dynamicWrapper(app, ['user/personalCentre','user/taskList'], () => import('../routes/User/centre/Personal')),
-        },
-      //操作记录
-      '/auth/systemOperationLogs': {
+    },
+    //个人中心
+    '/personal/centre': {
+        component: dynamicWrapper(app, ['models/user/personalCentre','models/user/taskList'], () => import('../routes/User/centre/Personal')),
+    },
+    //操作记录
+    '/auth/systemOperationLogs': {
         component: dynamicWrapper(app, [], () => import('../routes/auth/log/LogManage')),
-      },
-      //工作计划
-      '/job/plan': {
-        component: dynamicWrapper(app, ['work/jobPlan/jobPlan'], () => import('../routes/workManager/workPlan/JobPlan')),
-      },
-      //监控列表
-      '/operationMonitoring/monitoringList': {
+    },
+    //工作计划
+    '/job/plan': {
+        component: dynamicWrapper(app, ['models/work/jobPlan/jobPlan'], () => import('../routes/workManager/workPlan/JobPlan')),
+    },
+    //监控列表
+    '/operationMonitoring/monitoringList': {
         component: dynamicWrapper(app, [], () => import('../routes/operationMonitoring/monitoringList/monitoringList')),
-      },
-      //设备控制
-      '/operationMonitoring/equipmentControl': {
+    },
+    //设备控制
+    '/operationMonitoring/equipmentControl': {
         component: dynamicWrapper(app, [], () => import('../routes/operationMonitoring/equipmentControl/equipmentControl')),
-      },
-      //待办任务
-      '/job/willdo': {
-        component: dynamicWrapper(app, ['work/workTask/workTask'], () => import('../routes/workManager/workTask/TaskPlan')),
-      },
-      //工作记录
-      '/job/record': {
-        component: dynamicWrapper(app, ['work/workRecord/workRecord'], () => import('../routes/workManager/workRecord/TaskRecord')),
-      },
-      //事件记录
-      '/job/event': {
-        component: dynamicWrapper(app, ['work/workEvent/workEvent'], () => import('../routes/workManager/workEvents/WorkEvent'))
-      },
+    },
+    //待办任务
+    '/job/willdo': {
+        component: dynamicWrapper(app, ['models/work/workTask/workTask'], () => import('../routes/workManager/workTask/TaskPlan')),
+    },
+    //工作记录
+    '/job/record': {
+        component: dynamicWrapper(app, ['models/work/workRecord/workRecord'], () => import('../routes/workManager/workRecord/TaskRecord')),
+    },
+    //事件记录
+    '/job/event': {
+        component: dynamicWrapper(app, ['models/work/workEvent/workEvent'], () => import('../routes/workManager/workEvents/WorkEvent'))
+    },
 
-      //预案管理
-      '/planManagement/emergencyPlanRecord': {
+    //预案管理
+    '/planManagement/emergencyPlanRecord': {
         component: dynamicWrapper(app, [], () => import('../routes/planManagement/emergencyPlanRecord/emergencyPlanRecord')),
-      },
+    },
 
-      //文档管理
-      '/dataManagement/docManagement': {
-        component: dynamicWrapper(app, [], () => import('../routes/dataManagement/docManagement')),
-      }
+    //文档管理
+    '/dataManagement/docManagement': {
+        component: dynamicWrapper(app, ['routes/documentManagement/model/documentModel'], () => import('../routes/documentManagement/components/DocumentManagement')),
     }
+}
 
     ;
 

@@ -307,7 +307,7 @@ export default class JobPlan extends PureComponent {
           maskClosable:true,
           isShow:true,
           modalOpts: {
-              style:{ top: 20 ,height:'600px'},
+              style:{ top: 20 ,height:'700px'},
               width: 1200,
           },
           isFooter:true,

@@ -67,6 +67,27 @@ export async function queryWorkRecordList(params) {
   });
 }
 
+export async function queryPerambulateList(params) {
+  return request('/api/perambulate', {
+    method: 'get',
+  });
+}
+
+export async function addPerambulate(params) {
+  return request('/api/addPerambulate', {
+    method: 'POST',
+    body:{
+      ...params,
+      method: 'post',
+    }
+  });
+}
+export async function queryAssetData(params) {
+  return request('/api/assetData', {
+    method: 'get',
+  });
+}
+
 
 
 export async function fakeAccountLogin(params,callBack,errorFuc) {

@@ -7,6 +7,7 @@ import fetch from 'dva/fetch';
 import { notification } from 'antd';
 import { routerRedux } from 'dva/router';
 import store from '../index';
+import { getToken } from '../utils/authority';
 
 const codeMessage = {
     200: '服务器成功返回请求的数据。',
@@ -54,15 +55,19 @@ export default function request(url, options) {
         credentials: 'include',
     };
     const newOptions = { ...defaultOptions, ...options };
+
     if (
-        newOptions.method === 'POST' ||
-        newOptions.method === 'PUT' ||
-        newOptions.method === 'DELETE'
+        newOptions.method.toUpperCase() === 'GET' ||
+        newOptions.method.toUpperCase() === 'POST' ||
+        newOptions.method.toUpperCase() === 'PUT' ||
+        newOptions.method.toUpperCase() === 'DELETE'
     ) {
+        console.log("(newOptions.body instanceof FormData)",);
         if (!(newOptions.body instanceof FormData)) {
             newOptions.headers = {
                 Accept: 'application/json',
                 'Content-Type': 'application/json; charset=utf-8',
+                'token':getToken(),
                 ...newOptions.headers,
             };
             newOptions.body = JSON.stringify(newOptions.body);
@@ -70,6 +75,7 @@ export default function request(url, options) {
             // newOptions.body is FormData
             newOptions.headers = {
                 Accept: 'application/json',
+                'token':getToken(),
                 ...newOptions.headers,
             };
         }
@@ -100,5 +106,6 @@ export default function request(url, options) {
             if (status >= 404 && status < 422) {
 
             }
+            console.error(e)
         });
 }

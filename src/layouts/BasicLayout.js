@@ -134,7 +134,7 @@ export default class BasicLayout extends PureComponent {
     }
 
     openModal = modalFormProps =>{
-        console.log("modalFormProps----",modalFormProps)
+
         this.setState({visible:modalFormProps?modalFormProps.isShow:false,modalFormProps:modalFormProps});
     }
 
@@ -177,7 +177,7 @@ export default class BasicLayout extends PureComponent {
         console.log("----",pathname)
         let title = '运维管理';
         let currRouterData = null;
-        console.log("routerData：---->",routerData)
+
         for (const key in Object.keys(routerData)) {
             if (pathToRegexp(key).test(pathname)) {
                 currRouterData = routerData[key];
@@ -187,7 +187,6 @@ export default class BasicLayout extends PureComponent {
         if (currRouterData && currRouterData.name) {
             title = `${currRouterData.name} - 运维管理`;
         }
-        console.log("title--",title)
         return title;
     }
 
@@ -196,7 +195,6 @@ export default class BasicLayout extends PureComponent {
         const urlParams = new URL(window.location.href);
 
         const redirect = urlParams.searchParams.get('redirect');
-        console.log('111111111111111111',redirect);
         if (redirect) {
             urlParams.searchParams.delete('redirect');
             window.history.replaceState(null, 'redirect', urlParams.href);
@@ -205,7 +203,6 @@ export default class BasicLayout extends PureComponent {
             const authorizedPath = Object.keys(routerData).find(
                 item => check(routerData[item].authority, item) && item !== '/'
             );
-            console.log('22222',authorizedPath);
             return authorizedPath;
         }
 
@@ -236,7 +233,7 @@ export default class BasicLayout extends PureComponent {
         const baseRedirect = this.getBaseRedirect();
 
         const layout = (
-            <Layout>
+            <Layout style={{height:'100vh',overflow: 'hidden'}}>
                 <ModalForm visible={visible} onCancel={this.onCancel} {...modalFormProps}/>
                 <SiderMenu
                     logo={logo}
@@ -258,7 +255,7 @@ export default class BasicLayout extends PureComponent {
                             onCollapse={this.handleMenuCollapse}
                         />
                     </Header>
-                    <Content id="123" className="content" style={{overflow: 'auto',height:'500px'}}>
+                    <Content className="content" style={{overflow: 'auto',maxHeight:'93vh',border:'1px solid red',padding: '15px'}}>
                         {/*<Route path="/index" component={Model}/>*/}
                         <Switch>
                             {redirectData.map(item => (

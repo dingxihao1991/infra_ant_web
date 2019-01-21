@@ -316,6 +316,9 @@ export default class GlobalHeader extends PureComponent {
 
         const noticeData = this.getNoticeData();
 
+        const {messageArray} = this.state;
+        const count =  noticeData["待办"].length+messageArray.length;
+
         const menu = (
             <Menu className={styles.menu} selectedKeys={[]} onClick={this.onMenuClick}>
                 <Menu.Item key="user">
@@ -363,19 +366,20 @@ export default class GlobalHeader extends PureComponent {
                         onPopupVisibleChange={onNoticeVisibleChange}
                         loading={fetchingNotices}
                         popupAlign={{ offset: [20, -16] }}
+                        count={count}
                     >
-                        <NoticeIcon.Tab
-                            list={noticeData["通知"]}
-                            title="通知"
-                            emptyText="你已查看所有通知"
-                            emptyImage="https://gw.alipayobjects.com/zos/rmsportal/wAhyIChODzsoKIOBHcBk.svg"
-                        />
                         <NoticeIcon.Tab
                             list={this.getMessageData()}
                             title="消息"
-                            emptyText="您已读完所有消息"
-                            emptyImage="https://gw.alipayobjects.com/zos/rmsportal/sAuJeJzSKbUmHfBQRzmZ.svg"
+                            emptyText="你已读完所有消息"
+                            emptyImage="https://gw.alipayobjects.com/zos/rmsportal/wAhyIChODzsoKIOBHcBk.svg"
                         />
+                        {/*<NoticeIcon.Tab*/}
+                            {/*list={noticeData["通知"]}*/}
+                            {/*title="通知"*/}
+                            {/*emptyText="您已查看所有通知"*/}
+                            {/*emptyImage="https://gw.alipayobjects.com/zos/rmsportal/sAuJeJzSKbUmHfBQRzmZ.svg"*/}
+                        {/*/>*/}
                         <NoticeIcon.Tab
                             list={noticeData["待办"]}
                             title="待办"

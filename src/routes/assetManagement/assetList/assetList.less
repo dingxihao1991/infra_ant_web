@@ -1,86 +1,73 @@
+@import '~antd/lib/style/themes/default.less';
+
 .application{
-  //background: #fff;
+
   .ant-table-tbody > tr {
     height: 30px;
   }
-
   //地图div布局
   .amap {
     width: 600px;
     height: 400px;
   }
-
   .demoLoadMoreList {
     min-height: 350px;
   }
 
   .tableOperations > button {
-
     margin: 10px;
   }
+
+
+
+
 }
 
-/* 应用布局&布局设置 */
-&.full-layout {
-  // 固定所有元素，经典管理界面样式，即固定头，侧栏，面包屑
-  &.fixed.ant-layout,
-  &.fixed .full-layout.ant-layout {
-    position: absolute !important;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    .ant-layout-sider > .ant-layout-sider-children {
-      overflow-y: auto;
-      overflow-x: hidden;
+// DataTable styles
+// -----------------------------
+.antui_datatable {
+  :global {
+
+
+    table {
+      background: #fff;
+      width: 100%;
+      tr:nth-child(odd) {
+        background: #f6f6f6;
+      }
+      tr:nth-child(even) {
+        background: #fff;
+      }
+      tr:hover {
+        background: rgba(45, 183, 245, 0.2);
+      }
     }
+  .ant-table-small .ant-table-tbody > tr > td {
+    padding: 3px 8px;
+    height: 35px;
   }
-  // 只固定头部
-  &:not(.fixed)&.fixed-header {
-    > .ant-layout-header {
-      position: fixed;
-      z-index: 200;
-      left: 0;
-      right: 0;
-    }
-    > .ant-layout {
-      padding-top: 60px;
-      overflow: auto;
-    }
-    .ant-layout.ant-layout-has-sider > .ant-layout,
-    .ant-layout.ant-layout-has-sider > .ant-layout-content {
-      overflow-x: visible;
+  .ant-table-small .ant-table-thead > tr > th {
+    font-weight: 700;
+    height: 45px;
+    color: #666;
+    // 表头不换行
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .ant-table-footer {
+    padding: 8px;
+  }
+  .ant-table-tbody > tr.ant-table-row-selected td {
+    background: #fffde7;
+  }
+  .ant-table-tbody > tr {
+    &.disabled > td {
+      color: rgba(0, 0, 0, 0.25);
+      background-color: #f5f5f5;
+      cursor: not-allowed;
     }
   }
 
-  // 只固定面包屑，必需要先固定头部后才可生效
-  &.fixed-breadcrumbs {
-    & > .ant-layout-header {
-      box-shadow: none;
-      z-index: 2;
-    }
-    & > .ant-layout > .ant-layout-content > .ant-layout {
-      > .ant-layout-content {
-        overflow: auto;
-      }
-      > .ant-layout-header {
-        z-index: 2;
-        box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
-      }
-    }
-  }
-  // 隐藏面包屑
-  &.hided-breadcrumbs .topbar-content {
-    display: none;
-  }
-  &.hided-breadcrumbs {
-    .router-page,
-    .router-page > .ant-layout {
-      min-height: ~'calc(100vh - 62px)'; // 排除顶部
-    }
-  }
-  .router-page,
-  .router-page > .ant-layout {
-    min-height: ~'calc(100vh - 110px)'; // 排除顶部和面包屑
   }
 }

@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import styles from "./assetList.less"; //引入样式
-import { Button, Dropdown, Icon, Layout, Menu, message, Table, Upload } from "antd"; //引入上传
+import { Button, Dropdown, Icon, Layout, Menu, message, Table, Upload,Pagination  } from "antd"; //引入上传
 import { ModalForm, showConfirm } from "components/Modal";
 import FormSub from "./assetsLocation"; //资产设备单个定位页面
 import FormSub2 from "./assetChange"; //资产设备变更页面
@@ -9,6 +9,7 @@ import FormSub4 from "./assetDetails";//资产设备详情页面
 import Authorized from "../../../utils/Authorized";
 import PropTypes from 'prop-types';
 import AssetModelInfo from './modal/AssetModelInfo';
+import cx from 'classnames';
 /**
  * 资产列表页面
  *
@@ -39,7 +40,7 @@ function beforeUpload(file) {
   return isXls && isLt2M;
 }
 
-const { Content,} = Layout;
+const { Content,Footer} = Layout;
 const Modal = ModalForm.Modal;
 
 const data = [{
@@ -140,13 +141,29 @@ export default class assetList extends PureComponent {
 
   initColums =() =>{
     const columns = [{
+        title: '设备编号',
+        dataIndex: '1',
+        id: '1',
+        align: 'center',
+        width:550,
+        key:'1'
+    }, {
+        title: '设备编号',
+        dataIndex: '1',
+        id: '1',
+        align: 'center',
+        width:550,
+        key:'1'
+    }, {
       title: '设备编号',
       dataIndex: '1',
       id: '1',
       align: 'center',
+        width:550,
       key:'1'
     }, {
         title: '模型',
+        width:550,
         dataIndex: '21',
         id: '21',
         align: 'center',
@@ -156,46 +173,54 @@ export default class assetList extends PureComponent {
         }
     },{
       title: '设备名称',
+        width:550,
       dataIndex: '2',
       id: '2',
       align: 'center',
       key:'2'
     },{
       title: '设备类型',
+        width:550,
       dataIndex: '3',
       id: '3',
       align: 'center',
       key:'3'
     },{
       title: '设备位置',
+        width:550,
       dataIndex: '4',
       id: '4',
       align: 'center',
       key:'4'
     }, {
       title: '设备状态',
+        width:550,
       dataIndex: '5',
       id: '5',
       align: 'center',
       key:'5'
     },{
       title: '描述',
+        width:550,
       dataIndex: '6',
       id: '6',
       align: 'center',
     },
       {
         title: '创建时间',
+          width:550,
         dataIndex: '7',
         id: '7',
         align: 'center',
       }, {
         title: '最后修改人',
+            width:550,
         dataIndex: '8',
         id: '8',
         align: 'center',
       }, {//增加操作栏
         title: '操作',
+            width:550,
         dataIndex: '10',
         id: '10',
         align: 'center',
@@ -232,9 +257,24 @@ export default class assetList extends PureComponent {
   }
 
   init= () =>{
-    const thiz = this;
-
-        thiz.setState({dataSource:data})
+      const thiz = this;
+      let dataArray = data
+      for(var i=0;i<10;i++){
+          let arr = {
+              'id':'1026'+i,
+              1: 'BG-569ASD'+i,
+              2: '集水坑内液位传感器',
+              3: '供水系统',
+              4: '上海市长江隧道',
+              5: '正常',
+              6: '/',
+              7: '2018-5-8',
+              8: 'admin',
+              9: '2018-10-12',
+          }
+          dataArray.push(arr);
+      }
+      thiz.setState({dataSource:dataArray})
 
   }
 
@@ -291,12 +331,17 @@ export default class assetList extends PureComponent {
     }
     console.log("资产详情...");
     let  form4 = FormSub4
-    this.setState({
-      form: form4,
-      record:rows[0],
-      visible: true,
-      title:"详细信息",
-    });
+      const modalFormProps = {
+          title:'详细信息',
+          record:rows[0],
+          isFooter:true,
+          isShow:true,
+          Contents:form4,
+          modalOpts: {
+              width: 1000,
+          },
+      }
+      this.context.openModal(modalFormProps);
   }
 
   //获取所有设备位置
@@ -304,12 +349,18 @@ export default class assetList extends PureComponent {
     const {rows} = this.state
     console.log(rows)
     let  form = FormSub3
-    this.setState({
-      record:rows[0],
-      visible: true,
-      form:form,
-      title:"资产设备位置",
-    });
+
+    const modalFormProps = {
+        title:'资产设备位置',
+        record:rows[0],
+        isFooter:true,
+        isShow:true,
+        Contents:form,
+        modalOpts: {
+            width: 1000,
+        },
+    }
+    this.context.openModal(modalFormProps);
   }
 
   //选中项发生变化时的回调
@@ -322,31 +373,22 @@ export default class assetList extends PureComponent {
     //增加form变量
     let { columns, visible,record,dataSource,form,title} = this.state;
 
+      let classname = cx(
+          "antui-datatable",
+          {'table-row-alternate-color': true},
+      );
+
     const rowSelection = {
       onChange: this.onSelectChange,
     };
-    const modalFormProps = {
-      title:title,
-      loading: true,
-      isFooter:true,
-      record,
-      visible,
-      Contents:form,
-      modalOpts: {
-        width: 800,
-      },
-      onCancel: () => {
-        this.setState({
-          record: null,
-          visible: false,
-      })
-      },
-      onSubmit: () => {
-        this.setState({
-          record: null,
-          visible: false
-        })
-      },
+    let dataTableProps ={
+        total: dataSource?dataSource.length:null,
+        pageSize: 10,
+        current: 1,
+        showSizeChanger: true,
+        showQuickJumper: true,
+        showTotal: total => `共 ${dataSource.length} 条`,
+
     }
 
     return(
@@ -366,17 +408,13 @@ export default class assetList extends PureComponent {
           </Upload>
           <Button icon="search"  onClick={this.getAll}>查看所有设备位置</Button>
         </div>
-        <Content  >
-          <Table rowKey='id' style={{  background: '#ffffff', minHeight: 360}} columns={columns} dataSource={dataSource} onChange={this.handleChange} rowSelection={rowSelection}
-                 pagination={{
-                    showSizeChanger:true,
-                    showQuickJumper:true,
-                    total:dataSource?dataSource.length:null,
-                    onChange:this.onChange
-                  }}
+        <Content   className={styles.antui_datatable} >
+          <Table size="middle " rowKey='id' style={{  background: '#ffffff', minHeight: 360}} columns={columns} dataSource={dataSource} onChange={this.handleChange} rowSelection={rowSelection}
+                 pagination={dataTableProps}
+                 scroll={{x: '130%', y: '73vh'  }}
           />
         </Content>
-        <ModalForm {...modalFormProps}/>
+
 
       </Layout>
     )

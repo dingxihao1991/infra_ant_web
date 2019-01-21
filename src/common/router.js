@@ -27,9 +27,7 @@ const modelNotExisted = (app, model) => {
 // 面包屑组件控制  控制路由
 const dynamicWrapper = (app, models, component) => {
     // register models
-
     models.forEach(model => {
-
         if (modelNotExisted(app, model)) {
             console.log("-------"+`${model}`)
             app.model(require(`../${model}`).default);
@@ -100,7 +98,7 @@ export const getRouterData = app => {
     //!!!! router set data  ....config  add router !!!!
     const routerConfig = {
         '/': {
-            component: dynamicWrapper(app, ['models/search'], () => import('../layouts/BasicLayout')),
+            component: dynamicWrapper(app, ['search'], () => import('../layouts/BasicLayout')),
         },
         '/index': {
             component: dynamicWrapper(app, [], () => import('../routes/home/HomeIndex')),
@@ -109,7 +107,7 @@ export const getRouterData = app => {
             component: dynamicWrapper(app, [], () => import('../layouts/UserLayout')),
         },
         '/user/login': {
-            component: dynamicWrapper(app, ['models/login'], () => import('../routes/User/Login')),
+            component: dynamicWrapper(app, ['login'], () => import('../routes/User/Login')),
         },
         '/user/register': {
             component: dynamicWrapper(app, [], () => import('../routes/User/Register')),
@@ -119,7 +117,7 @@ export const getRouterData = app => {
         },
         //权限菜单
         '/auth/application': {
-            component: dynamicWrapper(app, ['routes/auth/application/model/applicationModel'], () => import('../routes/auth/application/components/Application')),
+            component: dynamicWrapper(app, [], () => import('../routes/auth/application/Application')),
         },
         //菜单管理
         '/auth/MenuManage': {
@@ -155,7 +153,7 @@ export const getRouterData = app => {
       },
       //个人中心
         '/personal/centre': {
-            component: dynamicWrapper(app, ['models/user/personalCentre','models/user/taskList'], () => import('../routes/User/centre/Personal')),
+            component: dynamicWrapper(app, ['user/personalCentre','user/taskList'], () => import('../routes/User/centre/Personal')),
         },
       //操作记录
       '/auth/systemOperationLogs': {
@@ -163,7 +161,7 @@ export const getRouterData = app => {
       },
       //工作计划
       '/job/plan': {
-        component: dynamicWrapper(app, ['models/work/jobPlan/jobPlan'], () => import('../routes/workManager/workPlan/JobPlan')),
+        component: dynamicWrapper(app, ['work/jobPlan/jobPlan'], () => import('../routes/workManager/workPlan/JobPlan')),
       },
       //监控列表
       '/operationMonitoring/monitoringList': {
@@ -175,15 +173,15 @@ export const getRouterData = app => {
       },
       //待办任务
       '/job/willdo': {
-        component: dynamicWrapper(app, ['models/work/workTask/workTask'], () => import('../routes/workManager/workTask/TaskPlan')),
+        component: dynamicWrapper(app, ['work/workTask/workTask'], () => import('../routes/workManager/workTask/TaskPlan')),
       },
       //工作记录
       '/job/record': {
-        component: dynamicWrapper(app, ['models/work/workRecord/workRecord'], () => import('../routes/workManager/workRecord/TaskRecord')),
+        component: dynamicWrapper(app, ['work/workRecord/workRecord'], () => import('../routes/workManager/workRecord/TaskRecord')),
       },
       //事件记录
       '/job/event': {
-        component: dynamicWrapper(app, ['models/work/workEvent/workEvent'], () => import('../routes/workManager/workEvents/WorkEvent'))
+        component: dynamicWrapper(app, ['work/workEvent/workEvent'], () => import('../routes/workManager/workEvents/WorkEvent'))
       },
 
       //预案管理
@@ -193,7 +191,7 @@ export const getRouterData = app => {
 
       //文档管理
       '/dataManagement/docManagement': {
-        component: dynamicWrapper(app, ['routes/documentManagement/model/documentModel'], () => import('../routes/documentManagement/components/DocumentManagement')),
+        component: dynamicWrapper(app, [], () => import('../routes/dataManagement/docManagement')),
       }
     }
 

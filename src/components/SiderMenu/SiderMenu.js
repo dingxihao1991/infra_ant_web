@@ -185,8 +185,6 @@ export default class SiderMenu extends PureComponent {
         const {
             location: {pathname},
         } = this.props;
-        console.log(pathname);
-        console.log("--------",urlToList(pathname));
         return getMenuMatchKeys(this.flatMenuKeys, urlToList(pathname));
     };
 

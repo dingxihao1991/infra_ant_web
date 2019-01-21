@@ -3,9 +3,10 @@ import styles from './Application.less';
 import { Table ,Button ,Layout,Pagination,Form,Input,message} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
 import FormSub from './Form';
-import { POST,GET,PUT,DELETE } from '../../../services/api';
-import Authorized from '../../../utils/Authorized';
+import { POST,GET,PUT,DELETE } from '../../../../services/api';
+import Authorized from '../../../../utils/Authorized';
 import PropTypes from 'prop-types';
+import { connect } from 'dva';
 
 const { ButtonAuthorize } = Authorized;
 const { Content} = Layout;
@@ -69,6 +70,9 @@ const Paging = ({dataItems, onChange, ...otherProps}) => {
 };
 
 
+// @connect(({loading, applicationModel}) => ({
+//     list:applicationModel.list,
+// }))
 export default class Application extends PureComponent {
 
     static contextTypes = {
@@ -89,6 +93,12 @@ export default class Application extends PureComponent {
 
     }
     componentDidMount(){
+        // const {dispatch } = this.props;
+        // dispatch({
+        //     type: 'applicationModel/fetch',
+        //     payload: {
+        //     },
+        // });
         this.init();
     }
 
@@ -259,7 +269,9 @@ export default class Application extends PureComponent {
     }
 
     render() {
-        let { rows,dataSource,selectedRowKeys} = this.state;
+        const { rows,dataSource,selectedRowKeys} = this.state;
+
+        const {list} =this.props;
 
         const rowSelection = {
             onChange: this.onSelectChange,

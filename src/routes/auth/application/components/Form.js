@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Button, Input} from 'antd';
-import { POST,GET,PUT,DELETE } from '../../../services/api';
+import { POST,GET,PUT,DELETE } from '../../../../services/api';
 
 import {TreeCheck} from 'components/Tree';
 const FormItem = Form.Item;

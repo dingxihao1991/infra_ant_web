@@ -1,8 +1,14 @@
 import React, {PureComponent} from 'react';
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import SideLayout from 'components/SideLayout';
-import {Tree} from 'antd';
+import {Tree, Menu, Dropdown } from 'antd';
 const TreeNode = Tree.TreeNode;
 
+function collect(props) {
+    return props.name ;
+}
+
+const MENU_TYPE = 'MULTI';
 export default class OrganizationSide extends PureComponent{
 
     state = {
@@ -56,7 +62,11 @@ export default class OrganizationSide extends PureComponent{
 
     render(){
         const {searchValue,expandedKeys, autoExpandParent} = this.state;
-        const {onSelect,treeData} =this.props;
+        const {onSelect,treeData,onRightClick} =this.props;
+        const attributes = {
+            className: 'example-multiple-targets well'
+        };
+
 
         //搜索到的设置为红色
         const loop = data => data.map((item) => {
@@ -64,20 +74,30 @@ export default class OrganizationSide extends PureComponent{
             const beforeStr = item.title.substr(0, index);
             const afterStr = item.title.substr(index + searchValue.length);
             const title = index > -1 ? (
-                    <div>
+                    <ContextMenuTrigger
+                        id={MENU_TYPE} name={item}
+                        holdToDisplay={1000}
+                        collect={collect} attributes={attributes}>
+
                       {beforeStr}
                         <div style={{ color: '#f50' }}>{searchValue}</div>
                         {afterStr}
-                    </div>
-                ) : <div>{item.title}</div>;
+                    </ContextMenuTrigger>
+                ) :
+                <ContextMenuTrigger
+                    id={MENU_TYPE} name={item}
+                    holdToDisplay={1000}
+                    collect={collect} attributes={attributes}>
+                    {item.title}
+                </ContextMenuTrigger>;
             if (item.children) {
                 return (
-                    <TreeNode key={item.key} title={title} style={{}}>
+                    <TreeNode key={item.key} title={title} item={item}>
                         {loop(item.children)}
                     </TreeNode>
                 );
             }
-            return <TreeNode key={item.key} title={title} />;
+            return <TreeNode key={item.key} title={title} item={item}/>;
         });
 
         return(
@@ -89,14 +109,17 @@ export default class OrganizationSide extends PureComponent{
                 toggle={true}
                 sideContent={
                     treeData.length>0?
-                        <Tree
+                        <div>
+                            <Tree
+                                onExpand={this.onExpand}
+                                expandedKeys={expandedKeys}
+                                autoExpandParent={autoExpandParent}
+                                onSelect={onSelect}>
+                                {loop(treeData)}
+                            </Tree>
 
-                            onExpand={this.onExpand}
-                            expandedKeys={expandedKeys}
-                            autoExpandParent={autoExpandParent}
-                            onSelect={onSelect}>
-                            {loop(treeData)}
-                        </Tree>:null
+                        </div>
+                            :null
                 }
             >
             </SideLayout>

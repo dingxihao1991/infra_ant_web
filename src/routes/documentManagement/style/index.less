@@ -1,4 +1,24 @@
-@import '~antd/lib/style/themes/default.less';
+@import '../../../../node_modules/antd/lib/style/themes/default.less';
+
+.documnet{
+
+
+  :global{
+    .ant-menu{
+      border-radius: 5px;
+      border:1px;
+      webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+      border-color: rgba(0, 0, 0, 0.09);
+    }
+    .ant-menu-item{
+      &:hover {
+        background-color: #f0fbff
+      }
+
+    }
+  }
+}
 
 .coverCardList {
 

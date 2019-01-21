@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import { Upload, Icon, message } from 'antd';
-import {getToken} from '../../utils/authority';
+import {getToken} from '../../../utils/authority';
 
 function getBase64(img, callback) {
     const reader = new FileReader();

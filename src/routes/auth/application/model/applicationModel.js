@@ -1,4 +1,4 @@
-import {queryApplication} from 'services/api';
+import {queryApplication} from '../service/api';
 
 export default {
     namespace: 'applicationModel',

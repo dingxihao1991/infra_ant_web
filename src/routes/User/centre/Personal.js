@@ -188,7 +188,7 @@ export default class PersonalCentre extends  PureComponent {
 
         return(
             <Layout>
-                <Row gutter={24}>
+                <Row gutter={24} style={{height:'100%'}}>
                     <Col lg={7} md={24}>
                         <Card bordered={false} style={{ marginBottom: 24 }} >
                             {currentUser && Object.keys(currentUser).length ? (
@@ -251,7 +251,7 @@ export default class PersonalCentre extends  PureComponent {
                                 )}
                         </Card>
                     </Col>
-                    <Col lg={17} md={24}>
+                    <Col lg={17} md={24} style={{height:'100%'}}>
                         <Card
                             className={styles.tabsCard}
                             bordered={false}

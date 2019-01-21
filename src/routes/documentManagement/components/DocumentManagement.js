@@ -276,13 +276,13 @@ export default class DocumentManagement extends PureComponent {
                     onSelect={this.onSelect}
 
                 />
-                <Layout style={{background: '#fff',border:'1px solid #E5E5E5'}}>
+                <div style={{background: '#fff',borderLeft:'1px solid #E5E5E5'}}>
                     <div>
                         <ButtonAuthorize icon="plus" type="primary" onClick={this.onAddFolder} name="新建文件夹" authority="user:add"/>
                         <ButtonAuthorize icon="cloud-upload" type="primary" onClick={this.onUploadFile} name="上传文件" authority="user:add"/>
                         <Search style={{ margin: 10,width:'20%',float:'right'}} placeholder="搜索" onChange={this.handleSearch} />
                     </div>
-                    <Content  style={{borderTop:'1px solid #E5E5E5',padding: '15px'}}>
+                    <Content  style={{borderTop:'1px solid #E5E5E5',padding: '15px',height:'93%',overflow: 'auto'}}>
                       <List
                           className={styles.coverCardList}
                           rowKey="id"
@@ -295,7 +295,7 @@ export default class DocumentManagement extends PureComponent {
                       </List>
 
                     </Content>
-                </Layout>
+                </div>
                 <ContextMenu id={MENU_TYPE}>
                     <MenuItem onClick={this.handleClick} data={{action:'add'}}> <Icon type="plus" style={{marginRight:'8px'}}/>添加文件夹</MenuItem>
                     <MenuItem onClick={this.handleClick} data={{action:'edit'}} > <Icon type="edit" style={{marginRight:'8px'}}/>修改文件夹</MenuItem>

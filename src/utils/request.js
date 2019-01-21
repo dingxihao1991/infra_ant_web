@@ -62,7 +62,6 @@ export default function request(url, options) {
         newOptions.method.toUpperCase() === 'PUT' ||
         newOptions.method.toUpperCase() === 'DELETE'
     ) {
-        console.log("(newOptions.body instanceof FormData)",);
         if (!(newOptions.body instanceof FormData)) {
             newOptions.headers = {
                 Accept: 'application/json',

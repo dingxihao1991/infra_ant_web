@@ -45,6 +45,17 @@ const list = [
         type: '临时任务',
         avatar:'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
 
+    }, {
+        id: '100000012',
+        title: 'ABCD 版本发布',
+        content: '冠霖提交于 2018-01-06，需在 2018-01-07 前完成代码变更任务',
+        extra: '进行中',
+        updatedAt:'2018-01-11 15:46',
+        status: 'processing',
+        owner:'管理员',
+        type: '临时任务',
+        avatar:'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
+
     }];
 
 function addTask(req, res, u, b){

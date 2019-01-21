@@ -1,6 +1,6 @@
 
 
-const list = [
+let list = [
     {
     id: "ec2fc85f2f844145b25642d5d499d32c1",
     sysDate: "2019-01-09 11:18:43",
@@ -12,15 +12,6 @@ const list = [
     lastModifiedUserName: "黄磊",
     userName: "PDF",
     loginName: "上中路隧道2017-2018运维管理手册.pdf",
-    password: "系统管理员",
-    card: "2019-1-10",
-    departmentId: "2019-1-10",
-    phone: 1,
-    mobilePhone: "正常",
-    email: "3",
-    qq: null,
-    imgDir: null,
-    fileId: null,
     roleId: "bf33446058cb40f5bb3c2793e7a892c8",
     roleName: "综合运维系统管理员",
     orgName: "综合运维系统",
@@ -88,28 +79,12 @@ const list = [
 }, {
     id: "ec2fc85f2f844145b25642d5d499d32c4",
     sysDate: "2019-01-09 11:18:43",
-    sysUserId: "4c5f2a01f5414089be76ea98be4d94be",
     sysUserName: "黄磊",
     markAsDeleted: false,
     lastModifiedDate: "2019-01-09 11:18:43",
-    lastModifiedUserId: "4c5f2a01f5414089be76ea98be4d94be",
     lastModifiedUserName: "黄磊",
     userName: "PDF",
     loginName: "大连路巡检流程表.pdf",
-    password: "系统管理员",
-    card: "2019-1-10",
-    departmentId: "2019-1-10",
-    phone: 1,
-    mobilePhone: "正常",
-    email: "3",
-    qq: null,
-    imgDir: null,
-    fileId: null,
-    roleId: "bf33446058cb40f5bb3c2793e7a892c8",
-    roleName: "综合运维系统管理员",
-    orgName: "综合运维系统",
-    deviceSign: null,
-    departmentPid: "-9999",
     owner:'管理员',
     avatar:'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
     parentId:'f047c4fd08634148aad7877202234af51'
@@ -225,7 +200,43 @@ const list = [
     deviceSign: null,
     departmentPid: "-9999",
     parentId:'f047c4fd08634148aad7877202234af5'
-}];
+}, {
+        id: "ec2fc85f2f844145b25642d5d499d32c41",
+        sysDate: "2019-01-09 11:18:43",
+        sysUserName: "黄磊",
+        markAsDeleted: false,
+        lastModifiedDate: "2019-01-09 11:18:43",
+        lastModifiedUserName: "黄磊",
+        userName: "PDF",
+        loginName: "大连路巡检流程表.pdf",
+        owner:'管理员',
+        avatar:'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
+        parentId:'f047c4fd08634148aad7877202234af51'
+    }, {
+        id: "ec2fc85f2f844145b25642d5d499d32c42",
+        sysDate: "2019-01-09 11:18:43",
+        sysUserName: "黄磊",
+        markAsDeleted: false,
+        lastModifiedDate: "2019-01-09 11:18:43",
+        lastModifiedUserName: "黄磊",
+        userName: "PDF",
+        loginName: "大连路巡检流程表.pdf",
+        owner:'管理员',
+        avatar:'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
+        parentId:'f047c4fd08634148aad7877202234af51'
+    }, {
+        id: "ec2fc85f2f844145b25642d5d499d32c43",
+        sysDate: "2019-01-09 11:18:43",
+        sysUserName: "黄磊",
+        markAsDeleted: false,
+        lastModifiedDate: "2019-01-09 11:18:43",
+        lastModifiedUserName: "黄磊",
+        userName: "PDF",
+        loginName: "大连路巡检流程表.pdf",
+        owner:'管理员',
+        avatar:'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
+        parentId:'f047c4fd08634148aad7877202234af51'
+    }];
 
 const folderList = [{
         sysDate: "2018-10-24 09:43:48",
@@ -382,6 +393,24 @@ export default {
             var data = list.filter(item =>  params.some(jtem =>item.parentId==jtem));
             res.send(data)
         }else{
+            let data = {
+                sysDate: "2019-01-09 11:18:43",
+                sysUserName: "黄磊",
+                markAsDeleted: false,
+                lastModifiedDate: "2019-01-09 11:18:43",
+                lastModifiedUserName: "黄磊",
+                userName: "PDF",
+                loginName: "大连路巡检流程表.pdf",
+                owner:'管理员',
+                avatar:'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
+                parentId:'f047c4fd08634148aad7877202234af51'
+            }
+            for(var i=0;i<12;i++){
+                data['id']='ec2fc85f2f844145b25642d5d499d32c43'+i;
+                console.log("list..........",list)
+                list.push(data);
+            }
+
             res.send(list)
         }
 

@@ -42,7 +42,6 @@ class AddFloder extends Component {
                         <Input placeholder="请输入文件夹名称" />
                     )}
                 </FormItem>
-
             </Form>
         )
     }

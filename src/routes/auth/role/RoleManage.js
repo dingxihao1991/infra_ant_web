@@ -52,21 +52,6 @@ const columns = [
             align: 'center',
     }];
 
-const Paging = ({dataItems, onChange, ...otherProps}) => {
-    const { total, pageSize, pageNum } = dataItems;
-    const paging = {
-        total: total,
-        pageSize: pageSize,
-        current: pageNum,
-        showSizeChanger: true,
-        showQuickJumper: true,
-        showTotal: total => `共 ${total} 条`,
-        onShowSizeChange: (pageNum, pageSize) => onChange({pageNum, pageSize}),
-        onChange: (pageNum) => onChange({pageNum}),
-        ...otherProps
-    };
-    return <Pagination {...paging} />;
-};
 
 export default class roleManage extends PureComponent {
 
@@ -78,8 +63,8 @@ export default class roleManage extends PureComponent {
         columns:[],
         dataSource:[],
         record: null,
-        visible: false,
         rows: [],
+        current:1
     };
 
     constructor(props,context) {
@@ -180,10 +165,9 @@ export default class roleManage extends PureComponent {
         this.setState({rows:selectedRows,record:selectedRows[0]});
     }
 
-    closeModal = () =>{
-        this.setState({
-            visible: false
-        });
+    handleChange = (pagination, filters, sorter, extra) =>{
+        this.setState({current:pagination.current});
+
     }
 
     onSubmit= (values ) =>{
@@ -194,7 +178,6 @@ export default class roleManage extends PureComponent {
                 console.log(data);
                 if(data.success){
                     message.success('修改成功');
-                    thiz.closeModal();
                     thiz.init();
                 }else{
                     Modal.error({
@@ -210,7 +193,6 @@ export default class roleManage extends PureComponent {
                 console.log(data);
                 if(data.success){
                     message.success('新增成功');
-                    thiz.closeModal();
                     thiz.init();
                 }else{
                     Modal.error({
@@ -226,11 +208,20 @@ export default class roleManage extends PureComponent {
     }
 
     render() {
-        let { visible,record,rows,dataSource} = this.state;
+        let { current,record,rows,dataSource} = this.state;
 
         const rowSelection = {
             onChange: this.onSelectChange,
         };
+        let dataTableProps ={
+            total: dataSource?dataSource.length:null,
+            pageSize: 10,
+            current:current,
+            showSizeChanger: true,
+            showQuickJumper: true,
+            showTotal: total => `共 ${dataSource.length} 条`,
+
+        }
 
         return(
             <Layout className={styles.application}>
@@ -239,14 +230,9 @@ export default class roleManage extends PureComponent {
                     <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="role:update"/>
                     <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="role:delete"/>
                 </div>
-                <Content>
-                    <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
-                            pagination={{
-                               showSizeChanger:true,
-                               showQuickJumper:true,
-                               total:dataSource.length,
-                               onChange:this.onChange
-                           }}
+                <Content className='ant_table_ui' >
+                    <Table  rowKey='id' style={{minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
+                            pagination={dataTableProps}
                     />
                 </Content>
             </Layout>

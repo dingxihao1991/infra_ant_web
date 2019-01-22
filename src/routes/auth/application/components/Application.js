@@ -85,7 +85,8 @@ export default class Application extends PureComponent {
         record: null,
         visible: false,
         rows: [],
-        selectedRowKeys:[]
+        selectedRowKeys:[],
+        current:1
     };
 
     constructor(props,context) {
@@ -114,17 +115,6 @@ export default class Application extends PureComponent {
         })
 
     }
-
-
-    handleChange = (pagination, filters, sorter) => {
-        console.log('Various parameters', pagination, filters, sorter);
-        this.setState({
-            filteredInfo: filters,
-            sortedInfo: sorter,
-        });
-    }
-
-
 
 
     //选中项发生变化时的回调
@@ -218,10 +208,9 @@ export default class Application extends PureComponent {
 
     }
 
-    closeModal = () =>{
-        this.setState({
-            visible: false
-        });
+    handleChange = (pagination, filters, sorter, extra) =>{
+        this.setState({current:pagination.current});
+
     }
 
     onSubmit= (values) =>{
@@ -269,7 +258,7 @@ export default class Application extends PureComponent {
     }
 
     render() {
-        const { rows,dataSource,selectedRowKeys} = this.state;
+        const { current,rows,dataSource,selectedRowKeys} = this.state;
 
         const {list} =this.props;
 
@@ -278,6 +267,15 @@ export default class Application extends PureComponent {
             //onSelect: this.onSelect,
             selectedRowKeys:selectedRowKeys
         };
+        let dataTableProps ={
+            total: dataSource?dataSource.length:null,
+            pageSize: 10,
+            current: current,
+            showSizeChanger: true,
+            showQuickJumper: true,
+            showTotal: total => `共 ${dataSource.length} 条`,
+
+        }
 
         return(
             <Layout className={styles.application}>
@@ -286,14 +284,9 @@ export default class Application extends PureComponent {
                     <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="application:update"/>
                     <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="application:delete"/>
                 </div>
-                <Content>
+                <Content className='ant_table_ui' >
                     <Table rowKey='id' style={{ minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
-                           pagination={{
-                               showSizeChanger:true,
-                               showQuickJumper:true,
-                               total:dataSource.length,
-                               onChange:this.onChange
-                           }}
+                           pagination={dataTableProps}
                     />
                 </Content>
             </Layout>

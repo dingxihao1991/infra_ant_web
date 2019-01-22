@@ -47,6 +47,7 @@ export async function queryJobPlanList(params) {
 export async function queryWorkEventList(params) {
   return request('/api/workEvent', {
     method: 'get',
+
   });
 }
 

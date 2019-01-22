@@ -125,6 +125,7 @@ export default class assetList extends PureComponent {
     visible: false,
     rows: [],
     form: FormSub,
+    current:1,
     title:"资产设备定位"
   };
 
@@ -145,25 +146,11 @@ export default class assetList extends PureComponent {
         dataIndex: '1',
         id: '1',
         align: 'center',
-        width:550,
+        width:150,
         key:'1'
-    }, {
-        title: '设备编号',
-        dataIndex: '1',
-        id: '1',
-        align: 'center',
-        width:550,
-        key:'1'
-    }, {
-      title: '设备编号',
-      dataIndex: '1',
-      id: '1',
-      align: 'center',
-        width:550,
-      key:'1'
     }, {
         title: '模型',
-        width:550,
+        width:150,
         dataIndex: '21',
         id: '21',
         align: 'center',
@@ -173,54 +160,47 @@ export default class assetList extends PureComponent {
         }
     },{
       title: '设备名称',
-        width:550,
+        width:150,
       dataIndex: '2',
       id: '2',
       align: 'center',
       key:'2'
     },{
       title: '设备类型',
-        width:550,
+        width:150,
       dataIndex: '3',
       id: '3',
       align: 'center',
       key:'3'
     },{
       title: '设备位置',
-        width:550,
+        width:150,
       dataIndex: '4',
       id: '4',
       align: 'center',
       key:'4'
     }, {
       title: '设备状态',
-        width:550,
+        width:150,
       dataIndex: '5',
       id: '5',
       align: 'center',
       key:'5'
-    },{
-      title: '描述',
-        width:550,
-      dataIndex: '6',
-      id: '6',
-      align: 'center',
-    },
-      {
+    }, {
         title: '创建时间',
-          width:550,
+          width:150,
         dataIndex: '7',
         id: '7',
         align: 'center',
       }, {
         title: '最后修改人',
-            width:550,
+            width:150,
         dataIndex: '8',
         id: '8',
         align: 'center',
       }, {//增加操作栏
         title: '操作',
-            width:550,
+        width:150,
         dataIndex: '10',
         id: '10',
         align: 'center',
@@ -363,6 +343,10 @@ export default class assetList extends PureComponent {
     this.context.openModal(modalFormProps);
   }
 
+    handleChange = (pagination, filters, sorter, extra) =>{
+        this.setState({current:pagination.current});
+
+    }
   //选中项发生变化时的回调
   onSelectChange = (selectedRowKeys,selectedRows) => {
     console.log('selectedRowKeys changed: ', selectedRowKeys);
@@ -371,7 +355,7 @@ export default class assetList extends PureComponent {
 
   render() {
     //增加form变量
-    let { columns, visible,record,dataSource,form,title} = this.state;
+    let { columns, visible,record,dataSource,current} = this.state;
 
       let classname = cx(
           "antui-datatable",
@@ -384,7 +368,7 @@ export default class assetList extends PureComponent {
     let dataTableProps ={
         total: dataSource?dataSource.length:null,
         pageSize: 10,
-        current: 1,
+        current: current,
         showSizeChanger: true,
         showQuickJumper: true,
         showTotal: total => `共 ${dataSource.length} 条`,
@@ -399,7 +383,6 @@ export default class assetList extends PureComponent {
             name="userUploadFile"
             showUploadList={false}
             beforeUpload={beforeUpload}
-            onChange={this.handleChange}
             style={{margin: '10px'}}
           >
             <Button>
@@ -408,13 +391,12 @@ export default class assetList extends PureComponent {
           </Upload>
           <Button icon="search"  onClick={this.getAll}>查看所有设备位置</Button>
         </div>
-        <Content   className={styles.antui_datatable} >
-          <Table size="middle " rowKey='id' style={{  background: '#ffffff', minHeight: 360}} columns={columns} dataSource={dataSource} onChange={this.handleChange} rowSelection={rowSelection}
+        <Content   className='ant_table_ui' >
+          <Table size="middle" rowKey='id' style={{  background: '#ffffff', minHeight: 360}} columns={columns} dataSource={dataSource} onChange={this.handleChange} rowSelection={rowSelection}
                  pagination={dataTableProps}
                  scroll={{x: '130%', y: '73vh'  }}
           />
         </Content>
-
 
       </Layout>
     )

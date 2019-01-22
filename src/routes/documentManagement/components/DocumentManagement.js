@@ -276,7 +276,7 @@ export default class DocumentManagement extends PureComponent {
                     onSelect={this.onSelect}
 
                 />
-                <div style={{background: '#fff',borderLeft:'1px solid #E5E5E5'}}>
+                <div style={{background: '#fff',borderLeft:'1px solid #E5E5E5',width: '100%'}}>
                     <div>
                         <ButtonAuthorize icon="plus" type="primary" onClick={this.onAddFolder} name="新建文件夹" authority="user:add"/>
                         <ButtonAuthorize icon="cloud-upload" type="primary" onClick={this.onUploadFile} name="上传文件" authority="user:add"/>

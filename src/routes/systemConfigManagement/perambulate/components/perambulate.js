@@ -1,10 +1,10 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import styles from '../sysConfigManegement.less';
+import styles from '../style/sysConfigManegement.less';
 import { Table ,Button ,Layout,Pagination,Form,Input,message,Dropdown,Menu,Icon,Row,Col} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
-import { POST,GET,PUT,DELETE } from '../../../services/api';
-import Authorized from '../../../utils/Authorized';
+import { POST,GET,PUT,DELETE } from '../../../../services/api';
+import Authorized from '../../../../utils/Authorized';
 import FormSub from './Form';
 import WorkPlanDetail from "./perambulateDetail";
 import AdvancedSearchForm from './SearchForm';

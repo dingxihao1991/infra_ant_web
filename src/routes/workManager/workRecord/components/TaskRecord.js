@@ -1,13 +1,13 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import styles from '../workManage.less';
+import styles from '../../workManage.less';
 import { Table ,Button ,Layout,Pagination,Form,Input,message,Dropdown,Menu,Icon,Row,Col} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
-import { POST,GET,PUT,DELETE } from '../../../services/api';
-import Authorized from '../../../utils/Authorized';
+import { POST,GET,PUT,DELETE } from '../../../../services/api';
+import Authorized from '../../../../utils/Authorized';
 import AdvancedSearchForm from './SearchForm';
-import FormSub2 from "./TaskRecordDetail";
-import WorkPlanDetail from "../workPlan/WorkPlanDetail";
+import WorkPlanDetail from "./TaskRecordDetail";
+import WorkPlanDetailByComp from "./TaskRecordDetailByCompleted";
 import { connect } from 'dva';
 
 const { ButtonAuthorize } = Authorized;
@@ -282,17 +282,34 @@ export default class TaskRecord extends PureComponent {
   }
 
   handlerDoubleClick = (record, index, event) => {
-    const modalFormProps = {
-      title:"详细信息",
-      record,
-      Contents:WorkPlanDetail,
-      maskClosable:true,
-      isShow:true,
-      modalOpts: {
-        style:{ top: 20 ,height:'600px'},
-        width: 1200,
-      },
-      isFooter:true,
+    console.log("record =============",record)
+    let modalFormProps = null;
+    if(record.work_status == '已完成'){
+        modalFormProps = {
+          title:"详细信息",
+          record,
+          Contents:WorkPlanDetailByComp,
+          maskClosable:true,
+          isShow:true,
+          modalOpts: {
+            style:{ top: 20 ,height:'600px'},
+            width: 1200,
+          },
+          isFooter:true,
+        }
+    }else{
+       modalFormProps = {
+        title:"详细信息",
+        record,
+        Contents:WorkPlanDetail,
+        maskClosable:true,
+        isShow:true,
+        modalOpts: {
+          style:{ top: 20 ,height:'600px'},
+          width: 1200,
+        },
+        isFooter:true,
+      }
     }
     this.context.openModal(modalFormProps);
   };

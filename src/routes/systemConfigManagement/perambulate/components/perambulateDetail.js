@@ -2,12 +2,6 @@ import React from "react";
 import { Form } from "antd";
 import { Map, Markers } from "react-amap"; //引入高德地图
 
-/**
- * 资产所有位置页面
- *
- * @type {<TOwnProps>(options?: FormCreateOption<TOwnProps>) => ComponentDecorator}
- */
-
 const createForm = Form.create;
 
 //定义地图坐标

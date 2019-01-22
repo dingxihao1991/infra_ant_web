@@ -179,7 +179,7 @@ export const getRouterData = app => {
     },
     //工作记录
     '/job/record': {
-        component: dynamicWrapper(app, ['models/work/workRecord/workRecord'], () => import('../routes/workManager/workRecord/TaskRecord')),
+        component: dynamicWrapper(app, ['routes/workManager/workRecord/model/workRecord'], () => import('../routes/workManager/workRecord/components/TaskRecord')),
     },
     //事件记录
     '/job/event': {
@@ -194,6 +194,11 @@ export const getRouterData = app => {
     //文档管理
     '/dataManagement/docManagement': {
         component: dynamicWrapper(app, ['routes/documentManagement/model/documentModel'], () => import('../routes/documentManagement/components/DocumentManagement')),
+    },
+
+    //巡检配置
+    '/system/perambulate': {
+        component: dynamicWrapper(app, ['routes/systemConfigManagement/perambulate/model/perambulate'], () => import('../routes/systemConfigManagement/perambulate/components/perambulate')),
     }
 };
 

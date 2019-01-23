@@ -1,6 +1,6 @@
 import { Form, Row, Col, Input, Button, Icon,Select,DatePicker } from 'antd';
-import styles from '../workManage.less';
-import Authorized from '../../../utils/Authorized';
+import styles from '../../workManage.less';
+import Authorized from '../../../../utils/Authorized';
 
 
 const { ButtonAuthorize } = Authorized;

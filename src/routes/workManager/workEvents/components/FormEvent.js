@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { Form, Button, Input, Select ,DatePicker} from 'antd';
-import { POST,GET,PUT,DELETE } from '../../../services/api';
+import {TreeCheck} from 'components/Tree';
+import { POST,GET,PUT,DELETE } from '../../../../services/api';
 import moment from 'moment';
 
 const FormItem = Form.Item;
+const {TextArea } =Input;
 const createForm = Form.create;
 const Option = Select.Option;
 
-class FormSub extends Component {
-
+class FormEvent extends Component {
     constructor(props){
         super(props);
         this.init();
@@ -54,88 +55,58 @@ class FormSub extends Component {
         return (
             <Form ref='form'>
                 <FormItem
-                    label="管廊："
+                    label="标题："
                     {...formItemLayout}>
-                    {getFieldDecorator('gallery_name', {
-                        initialValue:record?record['gallery_name']:null,
+                    {getFieldDecorator('unitName', {
+                        initialValue:record?record['unitName']:null,
                         rules: [{
                             required: true,
-                            message: '请输入管廊名称',
+                            message: '请输入标题',
                         }],
                     })(
-                        <Input placeholder="请输入管廊名称" />
+                        <Input placeholder="请输入标题" />
                     )}
                 </FormItem>
 
-                <FormItem {...formItemLayout} label="任务名称">
-                    {getFieldDecorator('work_name', {
-                        initialValue:record?record['work_name']:null,
+                <FormItem {...formItemLayout} label="内容">
+                    {getFieldDecorator('eventContent', {
+                        initialValue:record?record['eventContent']:null,
                       rules: [{
                         required: true,
-                        message: '请输入任务名称',
+                        message: '请输入内容',
                       }],
 
                     })(
-                         <Input placeholder="请输入计划名称" />
+                         <Input placeholder="请输入内容" />
                     )}
                 </FormItem>
 
-              <FormItem {...formItemLayout} label="任务详细">
-                {getFieldDecorator('work_detailed', {
-                  initialValue:record?record['work_detailed']:null,
+              <FormItem {...formItemLayout} label="任务等级">
+                {getFieldDecorator('workLevel', {
+                  initialValue:record?record['workLevel']:undefined ,
                   rules: [{
                     required: true,
-                    message: '请输入任务详细',
+                    message: '请输入任务等级',
                   }],
 
                 })(
-                  <Input placeholder="请输入任务详细" />
-                )}
-              </FormItem>
-
-              <FormItem {...formItemLayout} label="任务类型">
-                {getFieldDecorator('work_type', {
-                  initialValue:record?record['work_type']:undefined ,
-                  rules: [{
-                    required: true,
-                    message: '请输入任务类型',
-                  }],
-
-                })(
-                  <Select  placeholder="请选择计划类型">
-                    <Option value="巡检">巡检</Option>
-                  <Option value="养护">养护</Option>
-                  <Option value="其他">其他</Option>
+                  <Select  placeholder="请选择任务等级">
+                    <Option value="一级">一级</Option>
+                    <Option value="二级">二级</Option>
+                    <Option value="三级">三级</Option>
                   </Select>
                 )}
               </FormItem>
 
-              <FormItem {...formItemLayout} label="巡检路线">
-                {getFieldDecorator('work_line', {
-                  initialValue:record?record['work_line']:undefined,
+              <FormItem {...formItemLayout} label="管廊">
+                {getFieldDecorator('gallery_name', {
+                  initialValue:record?record['gallery_name']:null,
                   rules: [{
                     required: true,
-                    message: '请选择巡检路线',
+                    message: '请输入管廊',
                   }],
                 })(
-                  <Select  placeholder="请选择巡检路线">
-                    <Option value="防火巡检">防火巡检</Option>
-                    <Option value="水泵巡检">水泵巡检</Option>
-                    <Option value="电力巡检">电力巡检</Option>
-                    <Option value="水泵养护">水泵养护</Option>
-                  </Select>
-                )}
-              </FormItem>
-
-              <FormItem {...formItemLayout} label="执行人">
-                {getFieldDecorator('work_user', {
-                  initialValue:record?record['work_user']:null,
-                  rules: [{
-                    required: true,
-                    message: '请输入执行人',
-                  }],
-                })(
-                  <Input placeholder="请输入执行人" />
+                  <Input placeholder="请输入管廊" />
                 )}
               </FormItem>
 
@@ -163,8 +134,32 @@ class FormSub extends Component {
                 )}
               </FormItem>
 
+              <FormItem {...formItemLayout} label="任务类型">
+                {getFieldDecorator('workType', {
+                  initialValue:record?record['workType']:undefined ,
+                  rules: [{
+                    required: true,
+                    message: '请输入任务类型',
+                  }],
+
+                })(
+                  <Select  placeholder="请选择任务类型">
+                    <Option value="突发事件">突发事件</Option>
+                    <Option value="设备故障">设备故障</Option>
+                    <Option value="其他">其他</Option>
+                  </Select>
+                )}
+              </FormItem>
+
+              <FormItem {...formItemLayout} label="执行人">
+                {getFieldDecorator('work_user', {
+                  initialValue:record?record['work_user']:null,
+                })(
+                  <Input placeholder="请输入执行人" />
+                )}
+              </FormItem>
             </Form>
         )
     }
 }
-export default createForm()(FormSub);
+export default createForm()(FormEvent);

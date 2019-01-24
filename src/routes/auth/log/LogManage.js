@@ -1,16 +1,15 @@
 import React, {PureComponent} from 'react';
 import styles from './RoleManage.less';
-import {Button, Form, Input, Layout, message, Pagination, Table} from 'antd';
+import {Button, Form, Input, Layout, message, Pagination, Table,Icon} from 'antd';
 import {ModalForm, showConfirm} from 'components/Modal';
 import {GET, POST, PUT} from '../../../services/api';
 import Authorized from '../../../utils/Authorized';
+import cx from 'classnames';
 
-
+const Search = Input.Search;
 const { ButtonAuthorize } = Authorized;
-const FormItem = Form.Item;
-const { Content, Header, Footer } = Layout;
+const { Content} = Layout;
 const Modal = ModalForm.Modal;
-const confirm = Modal.confirm;
 
 const columns = [
     {
@@ -69,6 +68,8 @@ export default class logManage extends PureComponent {
         record: null,
         visible: false,
         rows: [],
+        current:1,
+        pageSize:10,
     };
 
     constructor(props,context) {
@@ -91,10 +92,9 @@ export default class logManage extends PureComponent {
         })
     }
 
-    closeModal = () =>{
-        this.setState({
-            visible: false
-        });
+    handleChange = (pagination, filters, sorter, extra) =>{
+        this.setState({current:pagination.current,pageSize:pagination.pageSize});
+
     }
 
     onSubmit= (values ) =>{
@@ -137,21 +137,34 @@ export default class logManage extends PureComponent {
     }
 
     render() {
-        let { visible,record,rows,dataSource} = this.state;
+        let { current,pageSize,record,rows,dataSource} = this.state;
 
-        const rowSelection = {
-            onChange: this.onSelectChange,
-        };
+        let classname = cx(
+            {'ant_table_ui':dataSource.length>0?true:false},
+        );
+
+        const dataTableProps ={
+            total: dataSource?dataSource.length:null,
+            pageSize: pageSize,
+            current:current,
+            showSizeChanger: true,
+            showQuickJumper: true,
+            showTotal: total => `共 ${dataSource.length} 条`,
+
+        }
+
         return(
             <Layout className={styles.application}>
-                <Content  >
-                    <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
-                           pagination={{
-                               showSizeChanger:true,
-                               showQuickJumper:true,
-                               total:dataSource.length,
-                               onChange:this.onChange
-                           }}
+                <div>
+                    <Button icon="setting"  style={{ margin: 10,float:'right'}}>
+                        高级 <Icon type="primary" />
+                    </Button>
+                    <Search style={{ margin: 10,width:'20%',float:'right'}} placeholder="搜索" onChange={this.handleSearch} />
+                </div>
+                <Content className={classname} >
+                    <Table  rowKey='id' style={{minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange}
+                            pagination={dataTableProps}
+                            scroll={{ y: '72vh'  }}
                     />
                 </Content>
             </Layout>

@@ -1,5 +1,4 @@
 import React, {PureComponent} from 'react';
-import styles from './MenuManage.less';
 import PropTypes from 'prop-types';
 import { Table ,Button ,Layout,Pagination,Form,Input,message} from 'antd';
 import {ModalForm}  from 'components/Modal';
@@ -65,22 +64,6 @@ const columns = [
 ];
 
 
-const Paging = ({dataItems, onChange, ...otherProps}) => {
-    const { total, pageSize, pageNum } = dataItems;
-    const paging = {
-        total: total,
-        pageSize: pageSize,
-        current: pageNum,
-        showSizeChanger: true,
-        showQuickJumper: true,
-        showTotal: total => `共 ${total} 条`,
-        onShowSizeChange: (pageNum, pageSize) => onChange({pageNum, pageSize}),
-        onChange: (pageNum) => onChange({pageNum}),
-        ...otherProps
-    };
-    return <Pagination {...paging} />;
-};
-
 export default class MenuManage extends PureComponent {
 
     static contextTypes = {
@@ -90,10 +73,11 @@ export default class MenuManage extends PureComponent {
     state = {
         columns:[],
         record: null,
-        visible: false,
         dataSource: [],
         rows: [],
         selectedRowKeys:[],
+        current:1,
+        pageSize:10,
 
     };
 
@@ -118,8 +102,8 @@ export default class MenuManage extends PureComponent {
     }
 
 
-    handleChange = (pagination, filters, sorter) => {
-        console.log('Various parameters', pagination, filters, sorter);
+    handleChange = (pagination, filters, sorter, extra) =>{
+        this.setState({current:pagination.current,pageSize:pagination.pageSize});
 
     }
 
@@ -288,37 +272,40 @@ export default class MenuManage extends PureComponent {
         this.state.rows.map(item => item.rowKey)
     }
 
-    closeModal = () =>{
-        this.setState({
-            visible: false
-        });
-    }
-
 
     render() {
-        let {rows,dataSource} = this.state;
+        let {current,pageSize,rows,dataSource} = this.state;
         const {prefixCls, className,alternateColor} = this.props;
 
         let classname = cx(
-            prefixCls,
-            className,
-            {'table-row-alternate-color': alternateColor},
+            {'ant_table_ui_tree':dataSource.length>0?true:false},
         );
+
         const rowSelection = {
             selectedRowKeys: rows,
             onChange: this.onSelectChange,
             onSelect: this.onSelect,
         };
 
+        const dataTableProps ={
+            total: dataSource?dataSource.length:null,
+            pageSize: pageSize,
+            current:current,
+            showSizeChanger: true,
+            showQuickJumper: true,
+            showTotal: total => `共 ${dataSource.length} 条`,
+
+        }
+
         return(
 
-            <Layout className={styles.application}>
+            <Layout>
                 <div>
                     <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="menu:add"/>
                     <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="menu:update"/>
                     <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="menu:delete"/>
                 </div>
-                <Content  className={classname}>
+                <Content  className={classname} >
                     <Table ref="tab" style={{background: '#fff'}}
                            height='80%'
                            rowKey='id'
@@ -328,13 +315,7 @@ export default class MenuManage extends PureComponent {
                            defaultExpandAllRows={true}
                            onChange={this.handleChange}
                            rowSelection={rowSelection}
-                           pagination={dataSource.length<10?false:{
-                               showSizeChanger:true,
-                               showQuickJumper:true,
-                               total:dataSource.length,
-                               onChange:this.onChange
-                           }
-                           }
+                           pagination={dataTableProps}
 
                     />
                 </Content>

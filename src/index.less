@@ -165,21 +165,32 @@ body {
   /************右键菜单 end**************/
 
   /************table start**************/
-  .ant_table_ui {
+  .ant_table_ui_tree{
+    .ant-table-body{
+      height: 77vh;
+      border-bottom:1px solid #E5E5E5;
+    }
 
-    border-top: 1px solid #E5E5E5;
-    :global {
-      .ant-table-fixed-header .ant-table-scroll .ant-table-header{
-        overflow: hidden;
-      }
-      .ant-table-body{
-        height: 77vh;
-        border-bottom:1px solid #E5E5E5;
-      }
-      .ant-table-scroll{
+  }
+  .ant-table-fixed-header{
+    .ant-table-content{
+      border-top: 1px solid #E5E5E5;
+      .ant-table-scroll {
+        .ant-table-header{
+          overflow: hidden;
+        }
         .ant-table-body{
           margin-top: 22px;
         }
+      }
+    }
+  }
+
+  .ant_table_ui {
+    :global {
+      .ant-table-body{
+        height: 77vh;
+        border-bottom:1px solid #E5E5E5;
       }
 
       table {

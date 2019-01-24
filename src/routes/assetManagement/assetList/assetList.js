@@ -122,10 +122,10 @@ export default class assetList extends PureComponent {
     columns:[],
     dataSource:[],
     record: null,
-    visible: false,
     rows: [],
     form: FormSub,
     current:1,
+    pageSize:10,
     title:"资产设备定位"
   };
 
@@ -222,7 +222,6 @@ export default class assetList extends PureComponent {
 
 
   openModel = record =>{
-    console.log("---------",record);
       const modalFormProps = {
           title:'BIM属性',
           record:record,
@@ -344,7 +343,7 @@ export default class assetList extends PureComponent {
   }
 
     handleChange = (pagination, filters, sorter, extra) =>{
-        this.setState({current:pagination.current});
+        this.setState({current:pagination.current,pageSize:pagination.pageSize});
 
     }
   //选中项发生变化时的回调
@@ -355,7 +354,7 @@ export default class assetList extends PureComponent {
 
   render() {
     //增加form变量
-    let { columns, visible,record,dataSource,current} = this.state;
+    let { columns, pageSize,record,dataSource,current} = this.state;
 
       let classname = cx(
           "antui-datatable",
@@ -365,15 +364,15 @@ export default class assetList extends PureComponent {
     const rowSelection = {
       onChange: this.onSelectChange,
     };
-    let dataTableProps ={
-        total: dataSource?dataSource.length:null,
-        pageSize: 10,
-        current: current,
-        showSizeChanger: true,
-        showQuickJumper: true,
-        showTotal: total => `共 ${dataSource.length} 条`,
+      const dataTableProps ={
+          total: dataSource?dataSource.length:null,
+          pageSize: pageSize,
+          current:current,
+          showSizeChanger: true,
+          showQuickJumper: true,
+          showTotal: total => `共 ${dataSource.length} 条`,
 
-    }
+      }
 
     return(
       <Layout className={styles.application}>

@@ -6,7 +6,7 @@ import {ModalForm,showConfirm}  from 'components/Modal';
 import { POST,GET,PUT,DELETE } from '../../../services/api';
 import Authorized from '../../../utils/Authorized';
 import FormSub from './Form';
-
+import cx from 'classnames';
 
 const { ButtonAuthorize } = Authorized;
 const FormItem = Form.Item;
@@ -64,7 +64,8 @@ export default class roleManage extends PureComponent {
         dataSource:[],
         record: null,
         rows: [],
-        current:1
+        current:1,
+        pageSize:10
     };
 
     constructor(props,context) {
@@ -166,7 +167,7 @@ export default class roleManage extends PureComponent {
     }
 
     handleChange = (pagination, filters, sorter, extra) =>{
-        this.setState({current:pagination.current});
+        this.setState({current:pagination.current,pageSize:pagination.pageSize});
 
     }
 
@@ -208,14 +209,19 @@ export default class roleManage extends PureComponent {
     }
 
     render() {
-        let { current,record,rows,dataSource} = this.state;
+        let { current,pageSize,record,rows,dataSource} = this.state;
 
         const rowSelection = {
             onChange: this.onSelectChange,
         };
+
+        let classname = cx(
+            {'ant_table_ui':dataSource.length>0?true:false},
+        );
+
         let dataTableProps ={
             total: dataSource?dataSource.length:null,
-            pageSize: 10,
+            pageSize: pageSize,
             current:current,
             showSizeChanger: true,
             showQuickJumper: true,
@@ -230,9 +236,10 @@ export default class roleManage extends PureComponent {
                     <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="role:update"/>
                     <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="role:delete"/>
                 </div>
-                <Content className='ant_table_ui' >
+                <Content className={classname} >
                     <Table  rowKey='id' style={{minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
                             pagination={dataTableProps}
+                            scroll={{ y: '72vh'  }}
                     />
                 </Content>
             </Layout>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Button, Input, Select,TreeSelect,InputNumber} from 'antd';
 import { POST,GET,PUT,DELETE } from '../../../services/api';
-import styles from './MenuManage.less';
 
 const Option = Select.Option;
 const FormItem = Form.Item;

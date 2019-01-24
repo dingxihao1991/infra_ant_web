@@ -1,17 +1,20 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import styles from '../workManage.less';
+import styles from '../../workManage.less';
 import { Table ,Button ,Layout,Pagination,Form,Input,message,Dropdown,Menu,Icon,Row,Col} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
-import { connect } from 'dva';
-import Authorized from '../../../utils/Authorized';
-import AdvancedSearchForm from './SearchForm';
+import { POST,GET,PUT,DELETE } from '../../../../services/api';
+import Authorized from '../../../../utils/Authorized';
 import FormSub from './Form';
-import WorkPlanDetail from "../workPlan/WorkPlanDetail";
+import WorkPlanDetail from "./WorkPlanDetail";
+import AdvancedSearchForm from './SearchForm';
+import { connect } from 'dva';
 const { ButtonAuthorize } = Authorized;
-const { Content } = Layout;
+const FormItem = Form.Item;
+const { Content, Header, Footer } = Layout;
 const Modal = ModalForm.Modal;
 const confirm = Modal.confirm;
+const Search = Input.Search;
 
 const Paging = ({dataItems, onChange, ...otherProps}) => {
   const { total, pageSize, pageNum } = dataItems;
@@ -29,10 +32,10 @@ const Paging = ({dataItems, onChange, ...otherProps}) => {
   return <Pagination {...paging} />;
 };
 
-@connect(({loading, workTask}) => ({
-  workTask
+@connect(({loading, jobPlan}) => ({
+  jobPlan
 }))
-export default class TaskPlan extends PureComponent {
+export default class JobPlan extends PureComponent {
 
   static contextTypes = {
     openModal: PropTypes.func,
@@ -56,11 +59,11 @@ export default class TaskPlan extends PureComponent {
   }
 
   componentDidMount(){
+    const {dispatch } = this.props;
     this.initColums();
     this.init();
-    const {dispatch } = this.props;
     dispatch({
-      type: 'workTask/fetch',
+      type: 'jobPlan/fetch',
       payload: {
       },
     });
@@ -76,45 +79,45 @@ export default class TaskPlan extends PureComponent {
         key:'gallery_name'
       },
       {
-        title: '任务名称',
-        dataIndex: 'work_name',
-        id: 'work_name',
-        align: 'center',
-        key:'work_name'
-      }, {
-        title: '任务详细',
-        dataIndex: 'work_detailed',
-        id: 'work_detailed',
-        align: 'center',
-        key:'work_detailed'
-      } ,{
         title: '计划类型',
-        dataIndex: 'work_plan_type',
-        id: 'work_plan_type',
-        align: 'center',
-        key:'work_plan_type'
-      },{
-        title: '任务类型',
         dataIndex: 'work_type',
         id: 'work_type',
         align: 'center',
         key:'work_type'
-      },{
-        title: '任务执行人',
-        dataIndex: 'work_user',
-        id: 'work_user',
-        align: 'center',
-        key:'work_user'
       }, {
-        title: '预计开始时间',
-        dataIndex: 'startDate',
-        id: 'startDate',
+        title: '计划名称',
+        dataIndex: 'work_name',
+        id: 'work_name',
+        align: 'center',
+        key:'work_name'
+      } ,{
+        title: '计划详细',
+        dataIndex: 'work_detailed',
+        id: 'work_detailed',
+        align: 'center',
+        key:'work_detailed'
+      },{
+        title: '计划状态',
+        dataIndex: 'work_status',
+        id: 'work_status',
+        align: 'center',
+        key:'work_status'
+      },{
+        title: '预定路线',
+        dataIndex: 'work_line',
+        id: 'work_line',
+        align: 'center',
+        key:'work_line'
+      }, {
+        title: '计划周期',
+        dataIndex: 'work_time',
+        id: 'work_time',
         align: 'center',
       },
       {
-        title: '预计结束时间',
-        dataIndex: 'endDate',
-        id: 'endDate',
+        title: '执行时间',
+        dataIndex: 'startDate',
+        id: 'startDate',
         align: 'center',
       },{ //增加操作栏
         title: '操作',
@@ -142,10 +145,6 @@ export default class TaskPlan extends PureComponent {
 
   init= () =>{
     const thiz = this;
-   /* thiz.setState({
-     dataSource:taskData,
-     loading:false,
-   })*/
   /*  GET('/roles',function(result){
       if(result.success){
         thiz.setState({
@@ -162,7 +161,7 @@ export default class TaskPlan extends PureComponent {
   edit =(record)=>{
     console.log(record)
     this.setState({
-      title:'修改任务',
+      title:'修改工作计划',
       record:record,
       visible: true,
       form:FormSub,
@@ -172,13 +171,16 @@ export default class TaskPlan extends PureComponent {
 
   //新增事件
   onAdd = () => {
-    this.setState({
-      title:'新增任务',
-      visible: true,
-      form:FormSub,
-      record:null,
-      isFooter:false
-    });
+      const modalFormProps = {
+          title:"修改工作计划",
+          Contents:FormSub,
+          maskClosable:true,
+          isShow:true,
+          isFooter:false,
+          onSubmit: (values) => this.onSubmit(values)
+      }
+      this.context.openModal(modalFormProps);
+
   };
 
   delete =(record)=> {
@@ -235,14 +237,10 @@ export default class TaskPlan extends PureComponent {
     this.setState({rows:selectedRows,record:selectedRows[0]});
   }
 
-  closeModal = () =>{
-    this.setState({
-      visible: false
-    });
-  }
+
 
   onSubmit= (values ) =>{
-    let i = 200
+    let i = 500
     console.log("submit:" + JSON.stringify(values))
 /*    tableData.push({
       "id":++i,
@@ -302,52 +300,61 @@ export default class TaskPlan extends PureComponent {
   }
 
   handlerDoubleClick = (record, index, event) => {
-    const modalFormProps = {
-      title:"详细信息",
-      record,
-      Contents:WorkPlanDetail,
-      maskClosable:true,
-      isShow:true,
-      modalOpts: {
-        style:{ top: 20 ,height:'600px'},
-        width: 1200,
-      },
-      isFooter:true,
-    }
-    this.context.openModal(modalFormProps);
+      const modalFormProps = {
+          title:"详细信息",
+          record,
+          Contents:WorkPlanDetail,
+          maskClosable:true,
+          isShow:true,
+          modalOpts: {
+              style:{ top: 20 ,height:'700px'},
+              width: 1200,
+          },
+          isFooter:true,
+      }
+      this.context.openModal(modalFormProps);
+
   };
 
-  render() {
-    const {
-      workTask :{list},
-      loading,
-    } = this.props;
-    let { columns,visible,record,rows,form,title,isFooter} = this.state;
-    const rowSelection = {
-      onChange: this.onSelectChange,
-    };
-
-    const modalFormProps = {
-      title:title,
-      loading: true,
-      record,
-      visible,
-      isFooter,
-      Contents:form,
-      modalOpts: {
-        width: 700,
-      },
-      onCancel: () => this.closeModal(),
-      onSubmit: (values) => this.onSubmit(values)
+    openModal =(record)=>{
+        const modalFormProps = {
+            title:"详细信息",
+            loading: true,
+            record,
+            visible,
+            Contents:WorkPlanDetail,
+            maskClosable:true,
+            modalOpts: {
+                style:{ top: 20 ,height:'600px'},
+                width: 1200,
+            },
+            isFooter:true,
+            onCancel: () => this.props.closeModal(),
+        }
+        this.context.openModal(modalFormProps);
     }
+
+
+    render() {
+      const {
+        jobPlan :{list},
+        loading,
+      } = this.props;
+      let { columns,rows} = this.state;
+
+      const rowSelection = {
+        onChange: this.onSelectChange,
+      };
 
     return(
       <Layout className={styles.application}>
-        <div style={{ background: 'white'}}>
+        <div style={{ background: 'white' , float:'right'}} id="jobPlanId">
           <AdvancedSearchForm/>
-          <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="role:add"/>
-         {/* <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="role:update"/>*/}
-          <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.batchDelete} name="批量删除" authority="role:delete"/>
+          <div style={{float: 'left'}}>
+            <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="role:add"/>
+            {/* <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="role:update"/>*/}
+            <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.batchDelete} name="批量删除" authority="role:delete"/>
+          </div>
         </div>
         <Content>
           <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={list}  onChange={this.handleChange} rowSelection={rowSelection}
@@ -361,7 +368,6 @@ export default class TaskPlan extends PureComponent {
                   onRowDoubleClick={this.handlerDoubleClick}
           />
         </Content>
-        <ModalForm {...modalFormProps}/>
       </Layout>
     )
 

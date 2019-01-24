@@ -32,25 +32,6 @@ export async function querySearch (params) {
     });
 }
 
-export async function queryWorkTaskList(params) {
-  return request('/api/workTask', {
-    method: 'get',
-  });
-}
-
-export async function queryJobPlanList(params) {
-  return request('/api/jobPlan', {
-    method: 'get',
-  });
-}
-
-export async function queryWorkEventList(params) {
-  return request('/api/workEvent', {
-    method: 'get',
-
-  });
-}
-
 export async function fakeAccountLogin(params,callBack,errorFuc) {
 
   return request('/infraops/login', {

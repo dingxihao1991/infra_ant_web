@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { Form, Button, Input, Select ,DatePicker} from 'antd';
-import {TreeCheck} from 'components/Tree';
-import { POST,GET,PUT,DELETE } from '../../../services/api';
+import { POST,GET,PUT,DELETE } from '../../../../services/api';
 import moment from 'moment';
 
 const FormItem = Form.Item;
-const {TextArea } =Input;
 const createForm = Form.create;
 const Option = Select.Option;
 
 class FormSub extends Component {
+
     constructor(props){
         super(props);
         this.init();
@@ -68,12 +67,12 @@ class FormSub extends Component {
                     )}
                 </FormItem>
 
-                <FormItem {...formItemLayout} label="计划名称">
+                <FormItem {...formItemLayout} label="任务名称">
                     {getFieldDecorator('work_name', {
                         initialValue:record?record['work_name']:null,
                       rules: [{
                         required: true,
-                        message: '请输入计划名称',
+                        message: '请输入任务名称',
                       }],
 
                     })(
@@ -81,62 +80,83 @@ class FormSub extends Component {
                     )}
                 </FormItem>
 
-              <FormItem {...formItemLayout} label="计划详细">
+              <FormItem {...formItemLayout} label="任务详细">
                 {getFieldDecorator('work_detailed', {
                   initialValue:record?record['work_detailed']:null,
                   rules: [{
                     required: true,
-                    message: '请输入计划详细',
+                    message: '请输入任务详细',
                   }],
 
                 })(
-                  <Input placeholder="请输入计划详细" />
+                  <Input placeholder="请输入任务详细" />
                 )}
               </FormItem>
 
-              <FormItem {...formItemLayout} label="计划类型">
+              <FormItem {...formItemLayout} label="任务类型">
                 {getFieldDecorator('work_type', {
                   initialValue:record?record['work_type']:undefined ,
                   rules: [{
                     required: true,
-                    message: '请输入计划类型',
+                    message: '请输入任务类型',
                   }],
 
                 })(
                   <Select  placeholder="请选择计划类型">
                     <Option value="巡检">巡检</Option>
-                    <Option value="养护">养护</Option>
-                    <Option value="其他">其他</Option>
+                  <Option value="养护">养护</Option>
+                  <Option value="其他">其他</Option>
                   </Select>
                 )}
               </FormItem>
 
-              <FormItem {...formItemLayout} label="计划路线">
+              <FormItem {...formItemLayout} label="巡检路线">
                 {getFieldDecorator('work_line', {
-                  initialValue:record?record['work_line']:null,
-                })(
-                  <Input placeholder="请输入计划路线" />
-                )}
-              </FormItem>
-
-              <FormItem {...formItemLayout} label="计划周期">
-                {getFieldDecorator('work_time', {
-                  initialValue:record?record['work_time']:null,
+                  initialValue:record?record['work_line']:undefined,
                   rules: [{
                     required: true,
-                    message: '请输入计划周期',
+                    message: '请选择巡检路线',
                   }],
                 })(
-                  <Input placeholder="请输入计划周期" />
+                  <Select  placeholder="请选择巡检路线">
+                    <Option value="防火巡检">防火巡检</Option>
+                    <Option value="水泵巡检">水泵巡检</Option>
+                    <Option value="电力巡检">电力巡检</Option>
+                    <Option value="水泵养护">水泵养护</Option>
+                  </Select>
                 )}
               </FormItem>
 
-              <FormItem {...formItemLayout} label="执行时间">
+              <FormItem {...formItemLayout} label="执行人">
+                {getFieldDecorator('work_user', {
+                  initialValue:record?record['work_user']:null,
+                  rules: [{
+                    required: true,
+                    message: '请输入执行人',
+                  }],
+                })(
+                  <Input placeholder="请输入执行人" />
+                )}
+              </FormItem>
+
+              <FormItem {...formItemLayout} label="开始时间">
                 {getFieldDecorator('startDate', {
                   initialValue:record?moment(record['startDate'],'YYYY/MM/DD'):null,
                   rules: [{
                     required: true,
-                    message: '请输入执行时间',
+                    message: '请输入开始时间',
+                  }],
+                })(
+                  <DatePicker style={{width:'33em'}}/>
+                )}
+              </FormItem>
+
+              <FormItem {...formItemLayout} label="结束时间">
+                {getFieldDecorator('endDate', {
+                  initialValue:record?moment(record['endDate'],'YYYY/MM/DD'):null,
+                  rules: [{
+                    required: true,
+                    message: '请输入结束时间',
                   }],
                 })(
                   <DatePicker style={{width:'33em'}}/>

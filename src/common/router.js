@@ -163,7 +163,7 @@ export const getRouterData = app => {
     },
     //工作计划
     '/job/plan': {
-        component: dynamicWrapper(app, ['models/work/jobPlan/jobPlan'], () => import('../routes/workManager/workPlan/JobPlan')),
+        component: dynamicWrapper(app, ['routes/workManager/workPlan/model/jobPlan'], () => import('../routes/workManager/workPlan/components/JobPlan')),
     },
     //监控列表
     '/operationMonitoring/monitoringList': {
@@ -175,7 +175,7 @@ export const getRouterData = app => {
     },
     //待办任务
     '/job/willdo': {
-        component: dynamicWrapper(app, ['models/work/workTask/workTask'], () => import('../routes/workManager/workTask/TaskPlan')),
+        component: dynamicWrapper(app, ['routes/workManager/workTask/model/workTask'], () => import('../routes/workManager/workTask/components/TaskPlan')),
     },
     //工作记录
     '/job/record': {
@@ -183,7 +183,7 @@ export const getRouterData = app => {
     },
     //事件记录
     '/job/event': {
-        component: dynamicWrapper(app, ['models/work/workEvent/workEvent'], () => import('../routes/workManager/workEvents/WorkEvent'))
+        component: dynamicWrapper(app, ['routes/workManager/workEvents/model/workEvent'], () => import('../routes/workManager/workEvents/components/WorkEvent'))
     },
 
     //预案管理

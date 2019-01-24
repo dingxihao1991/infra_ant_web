@@ -1,17 +1,17 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import styles from './workEvent.less';
+import styles from '../style/workEvent.less';
 import {
   Table ,Button ,Layout,Pagination,Form,Input , message , Menu , Dropdown,Icon,Tree,List,Card,
   Row,Col ,Radio} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
-import { POST,GET,PUT,DELETE } from '../../../services/api';
-import Authorized from '../../../utils/Authorized';
+import { POST,GET,PUT,DELETE } from '../../../../services/api';
+import Authorized from '../../../../utils/Authorized';
 import FormSub from './FormEvent';
-import img4 from '../../../image/4.png'
-import img5 from '../../../image/5.png'
-import img6 from '../../../image/6.png'
-import img7 from '../../../image/7.png'
+import img4 from '../../../../image/4.png'
+import img5 from '../../../../image/5.png'
+import img6 from '../../../../image/6.png'
+import img7 from '../../../../image/7.png'
 import { connect } from 'dva';
 
 const RadioButton = Radio.Button;

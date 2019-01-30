@@ -7,6 +7,7 @@ import { POST,GET,PUT,DELETE } from '../../../services/api';
 import Authorized from '../../../utils/Authorized';
 import FormSub from './Form';
 import OrganizationSide from './OrganizationSide';
+import cx from 'classnames';
 
 const { ButtonAuthorize } = Authorized;
 const { Content} = Layout;
@@ -71,22 +72,6 @@ const columns = [
     align: 'center',
     key:'qq'
 }];
-const Paging = ({dataItems, onChange, ...otherProps}) => {
-    const { total, pageSize, pageNum } = dataItems;
-    const paging = {
-        total: total,
-        pageSize: pageSize,
-        current: pageNum,
-        showSizeChanger: true,
-        showQuickJumper: true,
-        showTotal: total => `共 ${total} 条`,
-        onShowSizeChange: (pageNum, pageSize) => onChange({pageNum, pageSize}),
-        onChange: (pageNum) => onChange({pageNum}),
-        ...otherProps
-    };
-    return <Pagination {...paging} />;
-};
-
 export default class userManage extends PureComponent {
 
     static contextTypes = {
@@ -98,11 +83,12 @@ export default class userManage extends PureComponent {
         dataSource:[],
         fileDataSource:[],
         record: null,
-        visible: false,
         rows: [],
         openSide: true,
         treeData:[],
         treeDataSote:[],
+        current:1,
+        pageSize:10
     };
 
     constructor(props,context) {
@@ -243,12 +229,6 @@ export default class userManage extends PureComponent {
         }
     }
 
-    closeModal = () =>{
-        this.setState({
-            visible: false
-        });
-    }
-
     // 重置密码
     resetPassword = ()=> {
         const thiz = this;
@@ -317,10 +297,24 @@ export default class userManage extends PureComponent {
 
 
     render() {
-        const {visible,record,dataSource,treeData} = this.state;
+        const {current,pageSize,record,dataSource,treeData} = this.state;
         const rowSelection = {
             onChange: this.onSelectChange,
         };
+
+        const dataTableProps ={
+            total: dataSource?dataSource.length:null,
+            pageSize: pageSize,
+            current:current,
+            showSizeChanger: true,
+            showQuickJumper: true,
+            showTotal: total => `共 ${dataSource.length} 条`,
+
+        }
+
+        let classname = cx(
+            {'ant_table_ui':dataSource.length>0?true:false},
+        );
 
         const menu = (
             <Menu>
@@ -356,14 +350,11 @@ export default class userManage extends PureComponent {
                         <Search style={{ margin: 10,width:'20%',float:'right'}} placeholder="搜索" onChange={this.handleSearch} />
 
                     </div>
-                    <Content  >
-                        <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
-                                pagination={{
-                                   showSizeChanger:true,
-                                   showQuickJumper:true,
-                                   total:dataSource?dataSource.length:null,
-                                   onChange:this.onChange
-                               }}
+
+                    <Content className={classname} >
+                        <Table  rowKey='id' style={{minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
+                                pagination={dataTableProps}
+                                scroll={{ y: '72vh'  }}
                         />
                     </Content>
                 </Layout>

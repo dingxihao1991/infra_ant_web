@@ -54,21 +54,6 @@ const columns = [
 }
 ];
 
-const Paging = ({dataItems, onChange, ...otherProps}) => {
-    const { total, pageSize, pageNum } = dataItems;
-    const paging = {
-        total: total,
-        pageSize: pageSize,
-        current: pageNum,
-        showSizeChanger: true,
-        showQuickJumper: true,
-        showTotal: total => `共 ${total} 条`,
-        onShowSizeChange: (pageNum, pageSize) => onChange({pageNum, pageSize}),
-        onChange: (pageNum) => onChange({pageNum}),
-        ...otherProps
-    };
-    return <Pagination {...paging} />;
-};
 
 export default class OrganizationManage extends PureComponent {
 
@@ -85,11 +70,12 @@ export default class OrganizationManage extends PureComponent {
     state = {
         columns:[],
         record: null,
-        visible: false,
         dataSource: [],
         rows: [],
         selectedRowKeys:[],
-        loading:true
+        loading:true,
+        current:1,
+        pageSize:10,
     };
 
     constructor(props,context) {
@@ -115,8 +101,8 @@ export default class OrganizationManage extends PureComponent {
     }
 
 
-    handleChange = (pagination, filters, sorter) => {
-        console.log('Various parameters', pagination, filters, sorter);
+    handleChange = (pagination, filters, sorter, extra) =>{
+        this.setState({current:pagination.current,pageSize:pagination.pageSize});
 
     }
 
@@ -235,11 +221,6 @@ export default class OrganizationManage extends PureComponent {
 
     }
 
-    closeModal = () =>{
-        this.setState({
-          visible: false
-        });
-    }
 
     onSubmit = (values) =>{
         let thiz = this;
@@ -280,13 +261,13 @@ export default class OrganizationManage extends PureComponent {
 
 
     render() {
-        let {rows,dataSource,loading} = this.state;
+
+        let {current,pageSize,rows,dataSource,loading} = this.state;
         const {prefixCls, className,alternateColor} = this.props;
 
         let classname = cx(
-            prefixCls,
-            className,
-            {'table-row-alternate-color': alternateColor},
+
+            {'ant_table_ui_tree':dataSource.length>0?true:false},
         );
         const rowSelection = {
             selectedRowKeys: rows,
@@ -294,17 +275,15 @@ export default class OrganizationManage extends PureComponent {
             onSelect: this.onSelect,
         };
 
-        const paging = {
-            total: dataSource.length,
-           // pageSize: pageSize,
-            current: 1,
+        const dataTableProps ={
+            total: dataSource?dataSource.length:null,
+            pageSize: pageSize,
+            current:current,
             showSizeChanger: true,
             showQuickJumper: true,
-            showTotal: total => `共 ${total} 条`,
-            onShowSizeChange: (pageNum, pageSize) => this.onChange({pageNum, pageSize}),
-            onChange: (pageNum) => this.onChange({pageNum}),
+            showTotal: total => `共 ${dataSource.length} 条`,
 
-        };
+        }
 
         return(
 
@@ -319,20 +298,13 @@ export default class OrganizationManage extends PureComponent {
                         <Table ref="tab" style={{background: '#fff',minHeight: 320,maxHeight:'100%'}}
                                height='80%'
                                rowKey='id'
-                               scroll={{  y: 450 }}
                                columns={columns}
                                dataSource={dataSource}
                                defaultExpandAllRows={true}
                                onChange={this.handleChange}
                                rowSelection={rowSelection}
-                               pagination={dataSource.length<10?false:{
-                                   showSizeChanger:true,
-                                   showQuickJumper:true,
-                                   total:dataSource.length,
-                                   onChange:this.onChange
-                               }
-                               }
-
+                               pagination={dataTableProps}
+                               scroll={{ y: '72vh'}}
                         />
                 </Content>
 

@@ -7,6 +7,7 @@ import { POST,GET,PUT,DELETE } from '../../../../services/api';
 import Authorized from '../../../../utils/Authorized';
 import PropTypes from 'prop-types';
 import { connect } from 'dva';
+import cx from 'classnames';
 
 const { ButtonAuthorize } = Authorized;
 const { Content} = Layout;
@@ -86,7 +87,8 @@ export default class Application extends PureComponent {
         visible: false,
         rows: [],
         selectedRowKeys:[],
-        current:1
+        current:1,
+        pageSize:10
     };
 
     constructor(props,context) {
@@ -209,7 +211,7 @@ export default class Application extends PureComponent {
     }
 
     handleChange = (pagination, filters, sorter, extra) =>{
-        this.setState({current:pagination.current});
+        this.setState({current:pagination.current,pageSize:pagination.pageSize});
 
     }
 
@@ -258,19 +260,23 @@ export default class Application extends PureComponent {
     }
 
     render() {
-        const { current,rows,dataSource,selectedRowKeys} = this.state;
+        const { current,pageSize,rows,dataSource,selectedRowKeys} = this.state;
 
         const {list} =this.props;
 
+        let classname = cx(
+            {'ant_table_ui':dataSource.length>0?true:false},
+        );
+
         const rowSelection = {
             onChange: this.onSelectChange,
-            //onSelect: this.onSelect,
             selectedRowKeys:selectedRowKeys
         };
-        let dataTableProps ={
+
+        const dataTableProps ={
             total: dataSource?dataSource.length:null,
-            pageSize: 10,
-            current: current,
+            pageSize: pageSize,
+            current:current,
             showSizeChanger: true,
             showQuickJumper: true,
             showTotal: total => `共 ${dataSource.length} 条`,
@@ -284,9 +290,10 @@ export default class Application extends PureComponent {
                     <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="application:update"/>
                     <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.delete} name="删除" authority="application:delete"/>
                 </div>
-                <Content className='ant_table_ui' >
+                <Content className={classname} >
                     <Table rowKey='id' style={{ minHeight: 360}}  columns={columns} dataSource={dataSource}  onChange={this.handleChange} rowSelection={rowSelection}
                            pagination={dataTableProps}
+                           scroll={{ y: '72vh'  }}
                     />
                 </Content>
             </Layout>

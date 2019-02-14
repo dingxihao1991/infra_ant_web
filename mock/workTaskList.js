@@ -127,7 +127,7 @@ const workEventList = [
     ops:'系统管理员',
     eventContent:'彩虹西路管廊发生烟雾报警',
     workLevel:'一级',
-    status:'等待中'
+    status:'待处理'
   },
   {
     id:4,
@@ -142,8 +142,78 @@ const workEventList = [
     ops:'系统管理员',
     eventContent:'彩虹西路管廊发生烟雾报警',
     workLevel:'一级',
-    status:'等待中'
-  },
+    status:'待处理'
+  },{
+        id:5,
+        title: '合肥管廊运营处_紧急巡视',
+        unitName:'合肥管廊运营管理处',
+        work_user:'周福',
+        reasons:'临时任务',
+        workType:'紧急巡视',
+        startDate:'2018-03-13 08：30：00',
+        endDate:'2018-03-13 17：30：00',
+        gallery_name:'彩虹西路(将军岭路~鸡鸣山路)',
+        ops:'系统管理员',
+        eventContent:'彩虹西路管廊发生烟雾报警',
+        workLevel:'一级',
+        status:'待处理'
+    },{
+        id:6,
+        title: '合肥管廊运营处_紧急巡视',
+        unitName:'合肥管廊运营管理处',
+        work_user:'周福',
+        reasons:'临时任务',
+        workType:'紧急巡视',
+        startDate:'2018-03-13 08：30：00',
+        endDate:'2018-03-13 17：30：00',
+        gallery_name:'彩虹西路(将军岭路~鸡鸣山路)',
+        ops:'系统管理员',
+        eventContent:'彩虹西路管廊发生烟雾报警',
+        workLevel:'一级',
+        status:'待处理'
+    },{
+        id:7,
+        title: '合肥管廊运营处_紧急巡视',
+        unitName:'合肥管廊运营管理处',
+        work_user:'周福',
+        reasons:'临时任务',
+        workType:'紧急巡视',
+        startDate:'2018-03-13 08：30：00',
+        endDate:'2018-03-13 17：30：00',
+        gallery_name:'彩虹西路(将军岭路~鸡鸣山路)',
+        ops:'系统管理员',
+        eventContent:'彩虹西路管廊发生烟雾报警',
+        workLevel:'一级',
+        status:'待处理'
+    },{
+        id:8,
+        title: '合肥管廊运营处_紧急巡视',
+        unitName:'合肥管廊运营管理处',
+        work_user:'周福',
+        reasons:'临时任务',
+        workType:'紧急巡视',
+        startDate:'2018-03-13 08：30：00',
+        endDate:'2018-03-13 17：30：00',
+        gallery_name:'彩虹西路(将军岭路~鸡鸣山路)',
+        ops:'系统管理员',
+        eventContent:'彩虹西路管廊发生烟雾报警',
+        workLevel:'一级',
+        status:'待处理'
+    },{
+        id:9,
+        title: '合肥管廊运营处_紧急巡视',
+        unitName:'合肥管廊运营管理处',
+        work_user:'周福',
+        reasons:'临时任务',
+        workType:'紧急巡视',
+        startDate:'2018-03-13 08：30：00',
+        endDate:'2018-03-13 17：30：00',
+        gallery_name:'彩虹西路(将军岭路~鸡鸣山路)',
+        ops:'系统管理员',
+        eventContent:'彩虹西路管廊发生烟雾报警',
+        workLevel:'一级',
+        status:'待处理'
+    },
 ];
 const taskRecordList = [
   {

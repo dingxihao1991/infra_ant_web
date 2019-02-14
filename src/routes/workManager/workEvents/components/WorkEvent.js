@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from '../style/workEvent.less';
 import {
   Table ,Button ,Layout,Pagination,Form,Input , message , Menu , Dropdown,Icon,Tree,List,Card,
-  Row,Col ,Radio} from 'antd';
+  Row,Col ,Radio,Tag} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
 import { POST,GET,PUT,DELETE } from '../../../../services/api';
 import Authorized from '../../../../utils/Authorized';
@@ -14,10 +14,10 @@ import img6 from '../../../../image/6.png'
 import img7 from '../../../../image/7.png'
 import { connect } from 'dva';
 
+const { Header, Footer, Sider, Content } = Layout;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { ButtonAuthorize } = Authorized;
-const { Content} = Layout;
 const Modal = ModalForm.Modal;
 const confirm = Modal.confirm;
 const Search = Input.Search;
@@ -205,7 +205,7 @@ export default class workEvent extends PureComponent {
             },
           ]
         })
-    }else if(flag == '等待中'){
+    }else if(flag == '待处理'){
       this.setState({
         data:[
           {
@@ -221,7 +221,7 @@ export default class workEvent extends PureComponent {
             ops:'系统管理员',
             eventContent:'彩虹西路管廊发生烟雾报警，彩虹西路管廊发生烟雾报警',
             workLevel:'一级',
-            status:'等待中'
+            status:'待处理'
           },
           {
             id:4,
@@ -236,46 +236,100 @@ export default class workEvent extends PureComponent {
             ops:'系统管理员',
             eventContent:'彩虹西路管廊发生烟雾报警',
             workLevel:'一级',
-            status:'等待中'
+            status:'待处理'
           },
         ]
       })
-    }else{
-      this.setState({
-        data:dataTest
-      })
     }
   }
+  //                actions={[<Icon type="edit" onClick={() => this.edit(item)}/>, <Icon type="close" onClick={() => this.delete(item)}/>]}
+
+    MouseEnter =(id)=>{
+        var elem = document.getElementById(id);
+        elem.classList.remove('hide-active');
+        elem.classList.add('show-active');
+
+    }
+    MouseLeave= (id)=>{
+        var elem = document.getElementById(id);
+        elem.classList.remove('show-active');
+        elem.classList.add('hide-active');
+
+    }
+
+    renderItem = (item) =>{
+
+        let title = <h5>{item.title} <span style={{marginLeft:'10%' , color:'#1890ff'}} >{item.status}</span></h5>;
+
+        let color = '';
+        if(item.status=='进行中'){
+            color = 'blue'
+        }
+        return(
+            <List.Item>
+              <Card hoverable className={styles.card}
+                    onMouseEnter={this.MouseEnter.bind(this,item.id)}
+                    onMouseLeave={this.MouseLeave.bind(this,item.id)}
+              >
+
+                <Content>
+                  <Card.Meta title={<a style={{fontSize: '18px',fontWeight: 'bold'}}>{item.title}</a>} description={item.eventContent} style={{}} />
+                  <Tag color={color} style={{   top: '18px',left: '250px', position: 'absolute'}}>{item.status}</Tag>
+                  {/*<h5>{item.title} <span style={{marginLeft:'10%' , color:'#1890ff'}} >{item.status}</span></h5>*/}
+                  {/*<p style={{fontSize:16 ,color:'#9674ce',height: '40px'}}>{item.eventContent}</p>*/}
+                  <p style={{fontSize:14}}><Icon type="clock-circle" style={{color:'#4194ce'}}/>提醒时间：<span>2018-1-1 09:23:44</span></p>
+                  <p style={{fontSize:14}}><Icon type="clock-circle" style={{color:'#4194ce'}}/>开始时间：<span>2018-1-2 09:23:44</span>
+                  </p>
+                  <p style={{fontSize:14}}><Icon type="user" style={{color:'#4194ce',marginRight:6}}/>执行人：<span>{item.work_user}</span>
+                  </p>
+                </Content>
+
+                <div>
+                  <div id={item.id} style={{textAlign: 'right',marginTop: '-28px'}} className="hide-active">
+                    <div className="btn-group" title="编辑" >
+                      <svg className="icon" aria-hidden="true">
+                        <use href='#icon-preview-line'></use>
+                      </svg>
+                    </div>
+                    <div className="btn-group" title="删除">
+                      <svg className="icon" aria-hidden="true">
+                        <use href='#icon-shanchu'></use>
+                      </svg>
+                    </div>
+                    <div className="btn-group" title="下载">
+                      <svg className="icon" aria-hidden="true">
+                        <use href='#icon-ziyuanldpi'></use>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </List.Item>
+        )
+    }
 
   render() {
+
     const {
       workEvent :{list},
       loading,
     } = this.props;
-    const {data,record,dataSource,treeData} = this.state;
-    const rowSelection = {
-      onChange: this.onSelectChange,
-    };
 
     const extraContent = (
       <div>
         <RadioGroup defaultValue="all">
           <RadioButton value="all" onClick={()=>this.filter('全部')}>全部</RadioButton>
           <RadioButton value="progress" onClick={()=>this.filter('进行中')}>进行中</RadioButton>
-          <RadioButton value="waiting" onClick={()=>this.filter('等待中')}>等待中</RadioButton>
+          <RadioButton value="waiting" onClick={()=>this.filter('待处理')}>待处理</RadioButton>
         </RadioGroup>
         <Search style={{marginLeft: 16,width: 272}} placeholder="请输入" onSearch={() => ({})} />
       </div>
     );
 
-    const tittleContent = (
-        <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="role:add" style={{margin:'0px'}}/>
-    );
-
     return(
-      <Layout className={styles.application} style={{border:"1px red"}}>
+      <Layout className={styles.workEvent} >
       <div>
-        <Row gutter={16}>
+        <Row gutter={16} style={{marginLeft:'5px', marginRight: '0px', marginTop:'10px'}}>
           <Col className="gutter-row" span={6}>
             <Card>
               <h5>设备故障</h5>
@@ -290,10 +344,6 @@ export default class workEvent extends PureComponent {
             <Card>
               <h5>突发事件</h5>
               <div>
-              {/*  <div>
-                  <canvas width="67" height="30"
-                          style={{display: 'inline-block', width: 67, height: 30, verticalAlign: 'top'}}></canvas>
-                </div>*/}
                 <div style={{marginTop: 44}}>
                   <span style={{color:'#ab8ce4',fontSize:36}}><img src={img5} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'#ab8ce4'}} />8</span>
                 </div>
@@ -321,48 +371,25 @@ export default class workEvent extends PureComponent {
             </Card>
           </Col>
         </Row>
-
-        <Card
-          className={styles.listCard}
-          bordered={true}
-          style={{ marginTop: 24 }}
-          bodyStyle={{ padding: '0 32px 40px 32px' }}
-          extra={extraContent}
-          title={tittleContent}
-        >
-          <div>
+      </div>
+        <Content style={{height:'100%'}}>
+          <Header className="header">
+              <div>
+                <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="role:add" style={{margin:'0px'}}/>
+                <div style={{float:'right'}}>
+                    {extraContent}
+                </div>
+              </div>
+          </Header>
+          <div className="list-body">
             <List
-              rowKey="id"
-              grid={{ gutter: 24, lg: 3, md: 2, sm: 1, xs: 1 }}
-              dataSource={list}
-              renderItem={item =>
-                (
-                  <List.Item key={item.id}>
-                    <Card hoverable  title={<h5>{item.title}<span style={{marginLeft:'32%' , color:'#1890ff'}} >{item.status}</span></h5>}
-                          actions={[<Icon type="edit" onClick={() => this.edit(item)}/>, <Icon type="close" onClick={() => this.delete(item)}/>]}
-                          style={{background: '#f3f3f3'}}>
-                      <p style={{fontSize:14 ,color:'#9674ce'}}>{item.eventContent}</p>
-                      <p style={{fontSize:14}}><Icon type="clock-circle" style={{color:'#4194ce'}}/>提醒时间：<span>2018-1-1 09：23：44</span></p>
-                      <p style={{fontSize:14}}><Icon type="user" style={{color:'#4194ce',marginRight:6}}/>
-                        <span>执行人：<span>{item.work_user}</span></span>
-                        <span style={{marginLeft:'22%'}}><Icon type="clock-circle" style={{color:'#4194ce'}}/>开始时间：<span>2018-1-2 09：23：44</span></span>
-                      </p>
-                    </Card>
-                  </List.Item>
-                )
-              }
+                rowKey="id"
+                grid={{ gutter: 16,column:4}}
+                dataSource={list}
+                renderItem={this.renderItem}
             />
           </div>
-     {/*     <Button
-            type="dashed"
-            style={{ width: '100%', marginBottom: 8 }}
-            icon="plus"
-            onClick={this.showModal}
-          >
-            添加
-          </Button>*/}
-        </Card>
-      </div>
+        </Content>
 
       </Layout>
     )

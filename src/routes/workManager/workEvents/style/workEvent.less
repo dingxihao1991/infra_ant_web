@@ -1,3 +1,67 @@
+@import '../../../../../node_modules/antd/lib/style/themes/default.less';
+.workEvent{
+  overflow:hidden;
+
+  :global{
+    .ant-row{
+      margin-left:0px;
+      margin-right: 0px;
+      margin-top:10px;
+    }
+    .header{
+      background: #fff;
+      padding: 0px;
+      border: 1px solid #E5E5E5;
+      border-left: 0px;
+      border-right: 0px;
+      margin-top: 20px;
+    }
+    .list-body{
+      padding: 20px;
+      height: 83.8%;
+      overflow: auto;
+      width: 100%;
+      padding: 20px;
+    }
+    .ant-card-bordered{
+      border-radius: 8px;
+    }
+  }
+}
+.card {
+  :global {
+    .ant-card-wider-padding .ant-card-body{
+      padding: 0px;
+    }
+    .ant-card-body{
+      padding: 0px;
+      margin: 20px
+    }
+
+    .ant-card-meta-title {
+      margin-bottom: 4px;
+      & > a {
+        color: @heading-color;
+        display: inline-block;
+        max-width: 100%;
+      }
+    }
+    .ant-card-meta-description {
+      height: 44px;
+      line-height: 22px;
+      overflow: hidden;
+    }
+  }
+
+  &:hover {
+    :global {
+      .ant-card-meta-title > a {
+        color: @primary-color;
+      }
+    }
+  }
+}
+
 .listCard {
   :global {
     .ant-card-head {

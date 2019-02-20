@@ -105,7 +105,7 @@ export default class WorkPlanDetail extends Component {
                     </div>
 
     return (
-      <div style={{height: 750}}>
+      <div style={{height: '646px',padding: '10px'}}>
         <div >
           <Row style={{padding:10,borderBottom: '1px solid #E8E8E8'}}>
             <Col>{span1}</Col>
@@ -137,7 +137,7 @@ export default class WorkPlanDetail extends Component {
             <Col style={{fontSize:18}}><Icon type="clock-circle" style={{marginRight:6}}/>历史记录</Col>
           </Row>
         </div>
-        <div style={{paddingLeft: '30%'}}>
+        <div style={{paddingLeft: '20%'}}>
           <Steps direction="vertical" current={1}>
             <Step description={span6} icon='tool'/>
             <Step description={span6} status="wait"/>

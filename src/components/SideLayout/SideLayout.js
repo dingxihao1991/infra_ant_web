@@ -46,14 +46,14 @@ class SideLayout extends Component {
               </a>:null
           }
           <div className="side-body" style={{height: '100%',overflow: 'auto'}}>
-            <div className="side-panel">
+            <div className="side-panel" style={{width:'100%'}}>
                 {search?
                     <div className={styles.panel_header}>
                       <Search style={{ marginBottom: 8,width:'90%'}} placeholder="搜索" onChange={handleSearch} />
 
                     </div>: null
                 }
-              <div className="panel-body">{sideContent}</div>
+              <div className="panel-body" style={{width:'100%'}}>{sideContent}</div>
             </div>
           </div>
         </Sider>

@@ -97,6 +97,7 @@ function findMenuKey(menuData, path) {
 }
 
 export const getRouterData = app => {
+
     //!!!! router set data  ....config  add router !!!!
     const routerConfig = {
         '/': {
@@ -139,11 +140,11 @@ export const getRouterData = app => {
     },
     //资产列表
     '/assetManagement/assetList': {
-        component: dynamicWrapper(app, [], () => import('../routes/assetManagement/assetList/assetList')),
+        component: dynamicWrapper(app, [], () => import('../routes/assetManagement/assetList/components/AssetList')),
     },
     //资产概览
     '/assetManagement/assetOverview': {
-        component: dynamicWrapper(app, [], () => import('../routes/assetManagement/assetOverview/assetOverview.js')),
+        component: dynamicWrapper(app, [], () => import('../routes/assetManagement/assetOverview/components/AssetOverview')),
     },
     //资产维保记录
     '/assetManagement/assetRecord': {

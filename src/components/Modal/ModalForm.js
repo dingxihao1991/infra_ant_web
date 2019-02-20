@@ -19,7 +19,6 @@ class ModalForm extends Component {
 
 
     closeModal = () =>{
-        alert(123);
         if (this.props.onCancel) {
             this.props.onCancel();
             return;
@@ -51,9 +50,10 @@ class ModalForm extends Component {
     }
 
     render(){
-        const {title, record, className, onCancel, onSubmit, modalOpts, loading,Contents,visible,isFooter,maskClosable} = this.props;
+        const {title, record, className, onCancel, onSubmit, modalOpts,full, loading,Contents,visible,isFooter,maskClosable} = this.props;
+
         const modalProps = {
-            className: cx(className,styles.modalform),
+            className: cx(className,styles.modalform,{ 'full-modal': full }),
             confirmLoading:loading,
             visible:visible,
             title: title || (record ? '编辑内容' : '新增内容'),
@@ -78,7 +78,7 @@ class ModalForm extends Component {
 
         return (
             <Modal {...modalProps}>
-                {Contents?<Contents ref='form' record={record}/>:<div/>}
+                {Contents?<Contents ref='form'  record={record}/>:<div/>}
             </Modal>
         )
     }

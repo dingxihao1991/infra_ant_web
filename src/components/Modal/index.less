@@ -1,37 +1,26 @@
 .modalform{
+  overflow: hidden;
   :global{
     .ant-modal-content{
       height:100%;
-
       .ant-modal-body {
-        height: 90%;
+        //height: 90%;
         //min-height: 418px;
         overflow: auto;
       }
 
     }
-
   }
+}
 
-
-  &.full-modal {
-    position: absolute;
-    top: 20px;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
-    padding: 0;
-    width: auto !important;
+:global(.full-modal) {
+  padding: 0;
+  :global{
     .ant-modal-content {
       height: 100%;
       position: relative;
       .ant-modal-body {
         padding: 0;
-        position: absolute;
-        top: 55px;
-        bottom: 53px;
-        left: 0;
-        right: 0;
         overflow-x: hidden;
         overflow-y: auto;
       }
@@ -44,20 +33,5 @@
       }
     }
   }
-  &.antui-table-modal {
-    .ant-modal-header {
-      .with-search-title {
-        display: flex;
-        align-items: center;
-        .left-title {
-          flex: auto;
-        }
-        .antui-searchbar {
-          margin-right: 25px;
-        }
-      }
-    }
 
-
-  }
 }

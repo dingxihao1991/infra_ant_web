@@ -4,7 +4,7 @@ import MonitoringType from './monitoringType';
 const { Content} = Layout;
 import styles from './monitoringType.less';
 import AssetModelInfo from "../../assetManagement/assetList/modal/AssetModelInfo";
-import FormSub from "./assetRecordDetails";
+import CCTVPlay from "./CCTVPlay";
 import PropTypes from "prop-types";
 
 //维保数据
@@ -227,17 +227,11 @@ const type=[
 ]
 
 
-export default class assetRecord extends PureComponent {
+export default class monitoringList extends PureComponent {
 
   static contextTypes = {
     openModal: PropTypes.func,
   };
-
-   /* state = {
-        columns:[],
-        dataSource:[],
-        treeData:[],
-    };*/
 
 
   state = {
@@ -246,8 +240,6 @@ export default class assetRecord extends PureComponent {
     record: null,
     visible: false,
     rows: [],
-    form: FormSub,
-    title:"资产设备定位"
   };
 
     //props :接收任意的输入值
@@ -342,17 +334,17 @@ export default class assetRecord extends PureComponent {
 
   //编辑
   edit =()=>{
-    console.log(this.state);
-    let  form = FormSub
+
     const modalFormProps = {
         title:'CCTV监控',
       isFooter:true,
       isShow:true,
-      Contents:form,
+      Contents:CCTVPlay,
       modalOpts: {
         width: 690,
         height:480
       },
+      full:true,
     }
     this.context.openModal(modalFormProps);
   }

@@ -59,13 +59,13 @@ export default class TaskRecord extends PureComponent {
 
   componentDidMount(){
     this.initColums();
-    this.init();
     const {dispatch } = this.props;
     dispatch({
       type: 'workRecord/fetch',
       payload: {
       },
     });
+    this.init();
   }
 
   initColums = ()=>{
@@ -150,6 +150,10 @@ export default class TaskRecord extends PureComponent {
 
   init= () =>{
     const thiz = this;
+    const {
+      workRecord :{list},
+    } = this.props;
+    console.log("-----------",list)
   /*  GET('/roles',function(result){
       if(result.success){
         thiz.setState({
@@ -314,11 +318,24 @@ export default class TaskRecord extends PureComponent {
     this.context.openModal(modalFormProps);
   };
 
+  filter = (flag) => {
+    const {dispatch } = this.props;
+    dispatch({
+      type: 'workRecord/filter',
+      payload: {
+        tags:{
+          data:flag
+        }
+      },
+    });
+  }
+
   render() {
     const {
       workRecord :{list},
       loading,
     } = this.props;
+
     let { columns,visible,record,rows,form,title,isFooter} = this.state;
     const rowSelection = {
       onChange: this.onSelectChange,
@@ -338,10 +355,15 @@ export default class TaskRecord extends PureComponent {
       onSubmit: (values) => this.onSubmit(values)
     }
 
+
+    const event = {
+      filter: this.filter,
+    }
+
     return(
       <Layout className={styles.application}>
         <div style={{ background: 'white'}}>
-          <AdvancedSearchForm/>
+          <AdvancedSearchForm {...event}/>
           {/*<ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="role:add"/>*/}
          {/* <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="role:update"/>*/}
           <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.batchComplete} name="完成任务" authority="role:delete"/>

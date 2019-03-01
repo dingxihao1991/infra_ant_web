@@ -139,7 +139,7 @@ class FormSub extends Component {
                     message: '请输入执行时间',
                   }],
                 })(
-                  <DatePicker style={{width:'33em'}}/>
+                  <DatePicker style={{width:'100%'}}/>
                 )}
               </FormItem>
 

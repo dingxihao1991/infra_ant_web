@@ -1,9 +1,11 @@
-import { Form, Row, Col, Input, Button, Icon,Select,DatePicker } from 'antd';
+import { Form, Row, Col, Input, Button, Icon,Select,DatePicker ,Radio} from 'antd';
 import styles from '../../workManage.less';
 const FormItem = Form.Item;
 const createForm = Form.create;
 const Option = Select.Option;
 const Search = Input.Search;
+const RadioButton = Radio.Button;
+const RadioGroup = Radio.Group;
 
 class AdvancedSearchForm extends React.Component {
   state = {
@@ -17,6 +19,11 @@ class AdvancedSearchForm extends React.Component {
     });
   }
 
+  subFilter = (flag) => {
+    const {filter} = this.props;
+    filter(flag);
+  }
+
   handleReset = () => {
     this.props.form.resetFields();
   }
@@ -24,7 +31,13 @@ class AdvancedSearchForm extends React.Component {
   renderSimpleForm(){
     const { getFieldDecorator } = this.props.form;
     return(
-      <div style={{float: 'right', paddingTop: 10  ,    width: '24%' }}>
+      <div style={{float: 'right', paddingTop: 10   }}>
+        <RadioGroup defaultValue="all" style={{marginRight:10}}>
+          <RadioButton value="all" onClick={()=>this.subFilter('全部')}>全部</RadioButton>
+          <RadioButton value="progress" onClick={()=>this.subFilter('进行中')}>进行中</RadioButton>
+          <RadioButton value="waiting" onClick={()=>this.subFilter('待处理')}>待处理</RadioButton>
+          <RadioButton value="complete" onClick={()=>this.subFilter('已完成')}>已完成</RadioButton>
+        </RadioGroup>
         <Search onSearch={()=>alert(1)} style={{width: 302}} placeholder="请输入"/>
         <a style={{ marginLeft: 8, fontSize: 12 }} onClick={this.toggle}>
           展开 <Icon type={this.state.expand ? 'up' : 'down'} />
@@ -87,6 +100,7 @@ class AdvancedSearchForm extends React.Component {
                 <Select placeholder="请选择" style={{ width:400 }}>
                   <Option value="进行中">进行中</Option>
                   <Option value="已完成">已完成</Option>
+                  <Option value="待处理">待处理</Option>
                 </Select>
               )}
             </FormItem>

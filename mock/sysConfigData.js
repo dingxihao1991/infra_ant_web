@@ -1,18 +1,18 @@
 let list = [
   {
     "id":"1",
-    "template_name": 'template_name',
-    "template_type":'template_type',
-    "template_description":'template_description',
-    "work_name":"work_name",
-    "work_description":"work_description",
+    "template_name": '电力巡检',
+    "template_type":'巡检',
+    "template_description":'电力巡检',
+    "work_name":"A-001",
+    "work_description":"UPS蓄电检查",
   },{
     "id":"2",
-    "template_name": 'template_name',
-    "template_type":'template_type',
-    "template_description":'template_description',
-    "work_name":"work_name",
-    "work_description":"work_description",
+    "template_name": '水泵养护',
+    "template_type":'养护',
+    "template_description":'水泵养护',
+    "work_name":"B-002",
+    "work_description":"廊内水泵养护",
   }
 ];
 

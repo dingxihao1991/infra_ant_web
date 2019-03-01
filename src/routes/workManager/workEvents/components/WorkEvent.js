@@ -170,94 +170,29 @@ export default class workEvent extends PureComponent {
   };
 
   filter = (flag) => {
-    if(flag == '进行中'){
-        this.setState({
-          data:[
-            {
-              id:1,
-              title: '合肥管廊运营处_紧急巡视',
-              unitName:'合肥管廊运营管理处',
-              work_user:'周福',
-              reasons:'临时任务',
-              workType:'紧急巡视',
-              startDate:'2018-03-13 08：30：00',
-              endDate:'2018-03-13 17：30：00',
-              gallery_name:'彩虹西路(将军岭路~鸡鸣山路)',
-              ops:'系统管理员',
-              eventContent:'彩虹西路管廊发生烟雾报警，彩虹西路管廊发生烟雾报警',
-              workLevel:'一级',
-              status:'进行中'
-            },
-            {
-              id:2,
-              title: '合肥管廊运营处_紧急巡视',
-              unitName:'合肥管廊运营管理处',
-              work_user:'周福',
-              reasons:'临时任务',
-              workType:'紧急巡视',
-              startDate:'2018-03-13 08：30：00',
-              endDate:'2018-03-13 17：30：00',
-              gallery_name:'彩虹西路(将军岭路~鸡鸣山路)',
-              ops:'系统管理员',
-              eventContent:'彩虹西路管廊发生烟雾报警',
-              workLevel:'一级',
-              status:'进行中'
-            },
-          ]
-        })
-    }else if(flag == '待处理'){
-      this.setState({
-        data:[
-          {
-            id:3,
-            title: '合肥管廊运营处_紧急巡视',
-            unitName:'合肥管廊运营管理处',
-            work_user:'周福',
-            reasons:'临时任务',
-            workType:'紧急巡视',
-            startDate:'2018-03-13 08：30：00',
-            endDate:'2018-03-13 17：30：00',
-            gallery_name:'彩虹西路(将军岭路~鸡鸣山路)',
-            ops:'系统管理员',
-            eventContent:'彩虹西路管廊发生烟雾报警，彩虹西路管廊发生烟雾报警',
-            workLevel:'一级',
-            status:'待处理'
-          },
-          {
-            id:4,
-            title: '合肥管廊运营处_紧急巡视',
-            unitName:'合肥管廊运营管理处',
-            work_user:'周福',
-            reasons:'临时任务',
-            workType:'紧急巡视',
-            startDate:'2018-03-13 08：30：00',
-            endDate:'2018-03-13 17：30：00',
-            gallery_name:'彩虹西路(将军岭路~鸡鸣山路)',
-            ops:'系统管理员',
-            eventContent:'彩虹西路管廊发生烟雾报警',
-            workLevel:'一级',
-            status:'待处理'
-          },
-        ]
-      })
-    }
+    const {dispatch } = this.props;
+    dispatch({
+      type: 'workEvent/filter',
+      payload: {
+        tags:{
+          data:flag
+        }
+      },
+    });
   }
-  //                actions={[<Icon type="edit" onClick={() => this.edit(item)}/>, <Icon type="close" onClick={() => this.delete(item)}/>]}
 
-    MouseEnter =(id)=>{
+  MouseEnter =(id)=>{
         var elem = document.getElementById(id);
         elem.classList.remove('hide-active');
         elem.classList.add('show-active');
-
-    }
-    MouseLeave= (id)=>{
+  }
+  MouseLeave= (id)=>{
         var elem = document.getElementById(id);
         elem.classList.remove('show-active');
         elem.classList.add('hide-active');
+  }
 
-    }
-
-    renderItem = (item) =>{
+  renderItem = (item) =>{
 
         let title = <h5>{item.title} <span style={{marginLeft:'10%' , color:'#1890ff'}} >{item.status}</span></h5>;
 
@@ -312,7 +247,6 @@ export default class workEvent extends PureComponent {
 
     const {
       workEvent :{list},
-      loading,
     } = this.props;
 
     const extraContent = (
@@ -321,6 +255,7 @@ export default class workEvent extends PureComponent {
           <RadioButton value="all" onClick={()=>this.filter('全部')}>全部</RadioButton>
           <RadioButton value="progress" onClick={()=>this.filter('进行中')}>进行中</RadioButton>
           <RadioButton value="waiting" onClick={()=>this.filter('待处理')}>待处理</RadioButton>
+          <RadioButton value="complete" onClick={()=>this.filter('已完成')}>已完成</RadioButton>
         </RadioGroup>
         <Search style={{marginLeft: 16,width: 272}} placeholder="请输入" onSearch={() => ({})} />
       </div>

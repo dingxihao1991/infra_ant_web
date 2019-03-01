@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import { Table, Switch, Button, Layout, Tabs, List, Icon } from "antd";
+import { Table, Switch, Button, Layout, Tabs, List, Icon ,Spin,message } from "antd";
 import MonitoringType from './monitoringType';
 const { Content} = Layout;
 import styles from './monitoringType.less';
@@ -227,18 +227,11 @@ const type=[
 ]
 
 
-export default class assetRecord extends PureComponent {
+export default class MonitoringList extends PureComponent {
 
   static contextTypes = {
     openModal: PropTypes.func,
   };
-
-   /* state = {
-        columns:[],
-        dataSource:[],
-        treeData:[],
-    };*/
-
 
   state = {
     columns:[],
@@ -247,7 +240,9 @@ export default class assetRecord extends PureComponent {
     visible: false,
     rows: [],
     form: FormSub,
-    title:"资产设备定位"
+    title:"资产设备定位",
+    switchLoading: false,
+    useCluster:false
   };
 
     //props :接收任意的输入值
@@ -256,18 +251,34 @@ export default class assetRecord extends PureComponent {
         super(props,context);
         this.markers = randomMarker(1000);
         this.center = {longitude: 115, latitude: 40};
-        this.state = {
+        this.setState({
             useCluster: true,
-        }
+        })
     }
 
     componentDidMount(){
         //加载折线图
         // 基于准备好的dom，初始化echarts实例
-
         this.initColums();
         this.init();
+        this.timerID = setInterval(
+          () => this.tick(),
+          3000
+        );
     }
+
+    componentWillUnmount() {
+      console.log("销毁")
+      clearInterval(this.timerID);
+    }
+
+  tick = () =>{
+    console.log("进来")
+    this.setState({
+      switchLoading: false
+
+    });
+  }
 
     initColums =() =>{
         const columns = [{
@@ -318,14 +329,20 @@ export default class assetRecord extends PureComponent {
                 id: '6',
                 align: 'center',
                 render: () => (
-                    <Switch defaultChecked />
+                    <Switch defaultChecked onChange={this.toggle}/>
                 ),
             }];
 
         this.setState({columns:columns})
     }
 
-  openModel = record =>{
+    toggle = (value) => {
+      this.setState({
+        switchLoading: true
+      });
+    }
+
+    openModel = record =>{
     console.log("---------",record);
     const modalFormProps = {
       title:'BIM属性',
@@ -340,8 +357,8 @@ export default class assetRecord extends PureComponent {
     this.context.openModal(modalFormProps);
   }
 
-  //编辑
-  edit =()=>{
+    //编辑
+    edit =()=>{
     console.log(this.state);
     let  form = FormSub
     const modalFormProps = {
@@ -356,7 +373,6 @@ export default class assetRecord extends PureComponent {
     }
     this.context.openModal(modalFormProps);
   }
-
 
     init= () =>{
         const thiz = this;
@@ -385,15 +401,12 @@ export default class assetRecord extends PureComponent {
         // this.setState({ dataSource: fileDataSource.filter(item => array.some(jtem =>item.departmentId==jtem))});
     }
 
-
     render() {
         //增加form变量
-        let { columns, dataSource,treeData} = this.state;
-
+        let { columns, dataSource,treeData,switchLoading} = this.state;
         const rowSelection = {
             onChange: this.onSelectChange,
         };
-
         return(
             <Layout className={styles.application}>
               <MonitoringType
@@ -401,13 +414,15 @@ export default class assetRecord extends PureComponent {
                   onSelect={this.onSelect}
               />
               <Content style={{borderLeft:'1px solid #E5E5E5'}}>
-                <Table rowKey='id' style={{  background: '#ffffff', minHeight: 360}} columns={columns} dataSource={dataSource}
-                       pagination={{
+                <Spin spinning={switchLoading} tip="Loading...">
+                  <Table rowKey='id' style={{  background: '#ffffff', minHeight: 360}} columns={columns} dataSource={dataSource}
+                         pagination={{
                            showSizeChanger:true,
                            showQuickJumper:true,
                            total:dataSource?dataSource.length:null,
-                       }}
-                />
+                         }}
+                  />
+                </Spin>
               </Content>
 
             </Layout>

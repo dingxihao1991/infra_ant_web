@@ -6,3 +6,12 @@ export async function queryWorkEventList(params) {
 
   });
 }
+export async function filterList(params) {
+  return request('/api/workEventFilterList', {
+    method: 'POST',
+    body:{
+      ...params,
+      method: 'post',
+    }
+  });
+}

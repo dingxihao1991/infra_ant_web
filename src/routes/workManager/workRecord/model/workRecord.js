@@ -1,4 +1,5 @@
-import { queryWorkRecordList} from '../service/api';
+import { queryWorkRecordList , filterList} from '../service/api';
+import { addPerambulate } from "../../../systemConfigManagement/perambulate/service/api";
 
 export default {
     namespace: 'workRecord',
@@ -14,7 +15,14 @@ export default {
                 type: 'queryList',
                 payload: response,
             });
-        }
+        },
+      *filter({ payload }, { call, put }) {
+        const response = yield call(filterList, payload);
+        yield put({
+          type: 'filterList',
+          payload: response? response : {},
+        });
+      },
     },
 
     reducers: {
@@ -22,6 +30,13 @@ export default {
             return {
                 ...state,
               list: action.payload,
+            };
+        },
+        filterList(state, action) {
+            return {
+              ...state,
+              tags: action.payload.tags,
+              list:action.payload,
             };
         },
     },

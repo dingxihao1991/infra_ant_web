@@ -1,8 +1,8 @@
 import React, {PureComponent} from 'react';
-import styles from './assetRecord.less';
+import styles from '../assetRecord.less';
 import { Table, Button, Layout, Tabs, Upload, Icon, message } from "antd";
 import {ModalForm,showConfirm}  from 'components/Modal';
-import FormSub from './assetRecordDetails.js';//资产设备单个定位页面
+import FormSub from '../assetRecordDetails.js';//资产设备单个定位页面
 // 引入 ECharts 主模块
 import echarts from 'echarts/lib/echarts';
 //引入折线图
@@ -12,114 +12,19 @@ import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import { Map ,Markers} from 'react-amap';//引入高德地图
 import 'echarts/lib/component/legend';
-import Authorized from "../../../utils/Authorized";
+import Authorized from "../../../../utils/Authorized";
+import { connect } from 'dva';
 //折线说明
-
-
-/**
- * 资产维保记录页面
- *
- */
 
 const { Content,} = Layout;
 const TabPane = Tabs.TabPane;
 const { ButtonAuthorize } = Authorized;
 
 //维保数据
-const data = [{
-  'id':'e1',
-  1: '1',
-  2: '安检预案',
-  3: '常规预案',
-  4: '综合预案',
-  5: 'YA0000001',
-  6: '隧道系统—安防部',
-  7: '已备案',
-  8: '3',
-  9: '2018-12-17',
-}, {
-    'id':'e2',
-  1: '1',
-  2: '安检预案',
-  3: '常规预案',
-  4: '综合预案',
-  5: 'YA0000001',
-  6: '隧道系统—安防部',
-  7: '已备案',
-  8: '3',
-  9: '2018-12-17',
-}, {
-    'id':'e3',
-  1: '1',
-  2: '安检预案',
-  3: '常规预案',
-  4: '综合预案',
-  5: 'YA0000001',
-  6: '隧道系统—安防部',
-  7: '已备案',
-  8: '3',
-  9: '2018-12-17',
-}, {
-    'id':'e4',
-  1: '1',
-  2: '安检预案',
-  3: '常规预案',
-  4: '综合预案',
-  5: 'YA0000001',
-  6: '隧道系统—安防部',
-  7: '已备案',
-  8: '3',
-  9: '2018-12-17',
-}, {
-    'id':'e5',
-  1: '1',
-  2: '安检预案',
-  3: '常规预案',
-  4: '综合预案',
-  5: 'YA0000001',
-  6: '隧道系统—安防部',
-  7: '已备案',
-  8: '3',
-  9: '2018-12-17',
-}, {
-    'id':'e6',
-  1: '1',
-  2: '安检预案',
-  3: '常规预案',
-  4: '综合预案',
-  5: 'YA0000001',
-  6: '隧道系统—安防部',
-  7: '已备案',
-  8: '3',
-  9: '2018-12-17',
-}
-  , {
-        'id':'e7',
-    1: '1',
-    2: '安检预案',
-    3: '常规预案',
-    4: '综合预案',
-    5: 'YA0000001',
-    6: '隧道系统—安防部',
-    7: '已备案',
-    8: '3',
-    9: '2018-12-17',
-  }, {
-        'id':'e8',
-    1: '1',
-    2: '安检预案',
-    3: '常规预案',
-    4: '综合预案',
-    5: 'YA0000001',
-    6: '隧道系统—安防部',
-    7: '已备案',
-    8: '3',
-    9: '2018-12-17',
-  }
-];
-
-export default class assetRecord extends PureComponent {
-
+@connect(({loading, emergencyPlanRecord}) => ({
+  emergencyPlanRecord
+}))
+export default class emergencyPlanRecord extends PureComponent {
 
   state = {
     columns:[],
@@ -142,7 +47,12 @@ export default class assetRecord extends PureComponent {
   }
 
   componentDidMount(){
-
+    const {dispatch } = this.props;
+    dispatch({
+      type: 'emergencyPlanRecord/fetch',
+      payload: {
+      },
+    });
     this.initColums();
     this.init();
   }
@@ -212,9 +122,6 @@ export default class assetRecord extends PureComponent {
   }
 
   init= () =>{
-    const thiz = this;
-
-    thiz.setState({dataSource:data})
 
   }
 
@@ -239,6 +146,11 @@ export default class assetRecord extends PureComponent {
   }
 
   render() {
+    const {
+      emergencyPlanRecord :{list},
+      loading,
+    } = this.props;
+
     //增加form变量
     let { columns, visible,record,dataSource,form,title} = this.state;
 
@@ -280,7 +192,8 @@ export default class assetRecord extends PureComponent {
             </div>
 
             <Content  >
-              <Table rowKey='id' style={{  background: '#ffffff', minHeight: 360}} columns={columns} dataSource={dataSource} onChange={this.handleChange} rowSelection={rowSelection}
+              <Table rowKey='id' style={{  background: '#ffffff', minHeight: 360}} columns={columns} dataSource={list} onChange={this.handleChange} rowSelection={rowSelection}
+                     loading={loading}
                      pagination={{
                        showSizeChanger:true,
                        showQuickJumper:true,

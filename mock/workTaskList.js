@@ -83,7 +83,7 @@ const jobPlanList=[
   }
 
 ]
-const workEventList = [
+let workEventList = [
   {
     id:1,
     title: '合肥管廊运营处_紧急巡视',
@@ -215,7 +215,7 @@ const workEventList = [
         status:'待处理'
     },
 ];
-const taskRecordList = [
+let taskRecordList = [
   {
     "id":"1",
     "sys_Date":null,
@@ -261,6 +261,29 @@ const taskRecordList = [
     "work_user_id":"402880e662948ec5016294907df60000",
     "startDateTime":null,
     "startDateDate":null
+  },
+  {
+    "id":"3",
+    "sys_Date":null,
+    "lastModifiedDate":null,
+    "markAsDeleted":false,
+    "gallery_name_id":"2",
+    "gallery_name":"彩虹西路(将军岭路~鸡鸣山路)",
+    "work_name":"彩虹西路发生烟雾报警",
+    "work_detailed":"彩虹西路发生烟雾报警",
+    "work_type":"其它",
+    "work_admin_user":null,
+    "work_line":null,
+    "work_line_id":null,
+    "work_plan_type":"临时",
+    "work_status":"待处理",
+    "work_user":"王强",
+    "startDate":"2018-11-03 12:45:00",
+    "endDate":"2018-11-03 23:30:00",
+    "work_admin_user_id":null,
+    "work_user_id":"402880e662948ec5016294907df60000",
+    "startDateTime":null,
+    "startDateDate":null
   }
 ]
 function addTask(req, res, u, b){
@@ -269,10 +292,64 @@ function addTask(req, res, u, b){
     res.send(list.concat(params));
 }
 
+function filterList(req, res, u, b){
+  const body = (b && b.body) || req.body;
+  const { tags } = body;
+  let newArray = null;
+  switch (tags.data) {
+    case '进行中':
+      newArray = taskRecordList.filter(function(item,index,array){
+        return (item.work_status == tags.data);
+      })
+      break;
+    case '待处理':
+      newArray = taskRecordList.filter(function(item,index,array){
+        return (item.work_status == tags.data);
+      })
+      break;
+    case '已完成' :
+      newArray = taskRecordList.filter(function(item,index,array){
+        return (item.work_status == tags.data);
+      })
+      break;
+    default:
+      newArray = taskRecordList;
+  }
+  res.send(newArray);
+}
+
+function workEventFilterList(req, res, u, b){
+  const body = (b && b.body) || req.body;
+  const { tags } = body;
+  let newArray = null;
+  switch (tags.data) {
+    case '进行中':
+      newArray = workEventList.filter(function(item,index,array){
+            return (item.status == tags.data);
+      })
+      break;
+    case '待处理':
+      newArray = workEventList.filter(function(item,index,array){
+        return (item.status == tags.data);
+      })
+      break;
+    case '已完成' :
+      newArray = workEventList.filter(function(item,index,array){
+        return (item.status == tags.data);
+      })
+      break;
+    default:
+      newArray = workEventList;
+  }
+  res.send(newArray);
+}
+
 export default {
   // 支持值为 Object 和 Array
   'GET /api/workTask': list,
   'GET /api/jobPlan': jobPlanList,
   'GET /api/workEvent': workEventList,
-  'GET /api/workRecord': taskRecordList
+  'GET /api/workRecord': taskRecordList,
+  'POST /api/filterList': filterList,
+  'POST /api/workEventFilterList': workEventFilterList
 }

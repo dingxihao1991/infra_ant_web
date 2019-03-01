@@ -6,7 +6,7 @@ import {ModalForm,showConfirm}  from 'components/Modal';
 import { POST,GET,PUT,DELETE } from '../../../../services/api';
 import Authorized from '../../../../utils/Authorized';
 import FormSub from './Form';
-import WorkPlanDetail from "./perambulateDetail";
+import PerambulateDetail from "./PerambulateDetail";
 import AdvancedSearchForm from './SearchForm';
 import { connect } from 'dva';
 const { ButtonAuthorize } = Authorized;
@@ -86,13 +86,6 @@ export default class perambulate extends PureComponent {
         key:'template_name'
       },
       {
-        title: '计划类型',
-        dataIndex: 'template_type',
-        id: 'template_type',
-        align: 'center',
-        key:'template_type'
-      },
-      {
         title: '模板描述',
         dataIndex: 'template_description',
         id: 'template_description',
@@ -100,6 +93,13 @@ export default class perambulate extends PureComponent {
         key:'template_description'
       },
       {
+        title: '计划类型',
+        dataIndex: 'template_type',
+        id: 'template_type',
+        align: 'center',
+        key:'template_type'
+      },
+      /*{
         title: '任务名称',
         dataIndex: 'work_name',
         id: 'work_name',
@@ -111,7 +111,7 @@ export default class perambulate extends PureComponent {
         id: 'work_description',
         align: 'center',
         key:'work_description'
-      } ,{ //增加操作栏
+      } ,*/{ //增加操作栏
         title: '操作',
         dataIndex: '9',
         id: '9',
@@ -170,14 +170,14 @@ export default class perambulate extends PureComponent {
 
   delete =(record)=> {
     console.log(record)
-    alert(record.id);
+    //alert(record.id);
   }
 
   batchDelete=() => {
     const {rows , record} = this.state
     console.log(rows)
     console.log(record)
-    alert(record.id);
+    //alert(record.id);
   }
 
   //选中项发生变化时的回调
@@ -206,10 +206,20 @@ export default class perambulate extends PureComponent {
   }
 
   handlerDoubleClick = (record, index, event) => {
+    console.log(">>>>>>>>>>>++++",record)
+    record = [{
+      "id":"1",
+      "work_name":"A-001",
+      "work_description":"UPS蓄电检查",
+    },{
+      "id":"2",
+      "work_name":"B-002",
+      "work_description":"廊内水泵养护",
+    }];
     const modalFormProps = {
       title:"详细信息",
       record,
-      Contents:WorkPlanDetail,
+      Contents:PerambulateDetail,
       maskClosable:true,
       isShow:true,
       modalOpts: {

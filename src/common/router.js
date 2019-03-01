@@ -168,7 +168,7 @@ export const getRouterData = app => {
     },
     //监控列表
     '/operationMonitoring/monitoringList': {
-        component: dynamicWrapper(app, [], () => import('../routes/operationMonitoring/monitoringList/monitoringList')),
+        component: dynamicWrapper(app, [], () => import('../routes/operationMonitoring/monitoringList/MonitoringList')),
     },
     //设备控制
     '/operationMonitoring/equipmentControl': {
@@ -189,7 +189,7 @@ export const getRouterData = app => {
 
     //预案管理
     '/planManagement/emergencyPlanRecord': {
-        component: dynamicWrapper(app, [], () => import('../routes/planManagement/emergencyPlanRecord/emergencyPlanRecord')),
+        component: dynamicWrapper(app, ['routes/planManagement/emergencyPlanRecord/model/emergencyPlanRecord'], () => import('../routes/planManagement/emergencyPlanRecord/components/emergencyPlanRecord')),
     },
 
     //文档管理
@@ -199,7 +199,7 @@ export const getRouterData = app => {
 
     //巡检配置
     '/system/perambulate': {
-        component: dynamicWrapper(app, ['routes/systemConfigManagement/perambulate/model/perambulate'], () => import('../routes/systemConfigManagement/perambulate/components/perambulate')),
+        component: dynamicWrapper(app, ['routes/systemConfigManagement/perambulate/model/perambulate'], () => import('../routes/systemConfigManagement/perambulate/components/Perambulate')),
     }
 };
 

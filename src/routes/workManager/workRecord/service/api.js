@@ -5,3 +5,13 @@ export async function queryWorkRecordList(params) {
     method: 'get',
   });
 }
+
+export async function filterList(params) {
+  return request('/api/filterList', {
+    method: 'POST',
+    body:{
+      ...params,
+      method: 'post',
+    }
+  });
+}

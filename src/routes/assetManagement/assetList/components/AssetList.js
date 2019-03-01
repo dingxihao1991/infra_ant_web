@@ -1,9 +1,9 @@
 import React, { PureComponent } from "react";
 import styles from "../style/assetList.less"; //引入样式
-import { Button, Dropdown, Icon, Layout, Menu, message, Table, Upload,Pagination  } from "antd"; //引入上传
+import { Button, Dropdown, Icon,Tooltip, Layout, Menu, message, Table, Upload,Pagination  } from "antd"; //引入上传
 import { ModalForm, showConfirm } from "components/Modal";
 import FormSub from "../assetsLocation"; //资产设备单个定位页面
-import FormSub2 from "../assetChange"; //资产设备变更页面
+import FormSub2 from "./AssetChange"; //资产设备变更页面
 import FormSub3 from "../assetsAllLocation"; //所有资产设备定位页面
 import AssetDetails from "./info/AssetDetails";//资产设备详情页面
 import Authorized from "../../../../utils/Authorized";
@@ -43,7 +43,8 @@ function beforeUpload(file) {
 const { Content,Footer} = Layout;
 const Modal = ModalForm.Modal;
 
-const data = [{
+const data = [
+    {
     'id':'101',
     1: 'NV-TB9716',
     2: '智能照明设备',
@@ -123,10 +124,8 @@ export default class assetList extends PureComponent {
         dataSource:[],
         record: null,
         rows: [],
-        form: FormSub,
         current:1,
         pageSize:10,
-        title:"资产设备定位"
     };
 
     //props :接收任意的输入值
@@ -140,83 +139,64 @@ export default class assetList extends PureComponent {
         this.init();
     }
 
+
     initColums =() =>{
         const columns = [{
             title: '设备编号',
             dataIndex: '1',
             id: '1',
-            align: 'center',
-            width:150,
             key:'1'
-        }, {
-            title: '模型',
-            width:150,
-            dataIndex: '21',
-            id: '21',
-            align: 'center',
-            key:'21',
-            render: (text, record) => {
-                return <Icon type="codepen" style={{height:'30px',width:'40px'}} onClick={this.openModel.bind(this,record)}/>
-            }
         },{
             title: '设备名称',
-            width:150,
             dataIndex: '2',
             id: '2',
-            align: 'center',
             key:'2'
         },{
             title: '设备类型',
-            width:150,
             dataIndex: '3',
             id: '3',
-            align: 'center',
             key:'3'
         },{
             title: '设备位置',
-            width:150,
             dataIndex: '4',
             id: '4',
-            align: 'center',
             key:'4'
         }, {
             title: '设备状态',
-            width:150,
             dataIndex: '5',
             id: '5',
-            align: 'center',
             key:'5'
         }, {
             title: '创建时间',
-            width:150,
             dataIndex: '7',
             id: '7',
-            align: 'center',
         }, {
             title: '最后修改人',
-            width:150,
             dataIndex: '8',
             id: '8',
-            align: 'center',
-        }, {//增加操作栏
+        },{
             title: '操作',
+            key: 'operation',
+            fixed: 'right',
             width:150,
-            dataIndex: '10',
-            id: '10',
-            align: 'center',
-            render: () => (
-                <Dropdown overlay={<Menu>
-                    <Menu.Item key="1">  <ButtonAuthorize  icon="form"  onClick={this.edit} name="定位" authority="application:update" /></Menu.Item>
-                    <Menu.Item key="2">  <ButtonAuthorize  icon="form"  onClick={this.change} name="变更" authority="application:update" /></Menu.Item>
-                    <Menu.Item key="3">  <ButtonAuthorize  icon="form"  onClick={this.detail} name="详情" authority="application:update" /></Menu.Item>
-                </Menu>}>
-                    <Button >
-                        更多 <Icon type="down" />
-                    </Button>
-                </Dropdown>
+            render: (text, record) => {
+                return (
+                    <div className="table-row-button">
+                        <Tooltip placement="topLeft" title='设备定位'>
+                            <Button onClick={this.edit.bind(this,record)}>
+                                <Icon type="environment" />
+                            </Button>
+                        </Tooltip>
+                        <Tooltip placement="topLeft" title='模型信息'>
+                            <Button onClick={this.openModel.bind(this,record)}>
+                                <Icon type="codepen" />
+                            </Button>
+                        </Tooltip>
 
-            ),
-        }];
+                    </div>
+                )
+            }
+        },];
         this.setState({columns:columns})
     }
 
@@ -257,44 +237,38 @@ export default class assetList extends PureComponent {
 
     }
 
-    //编辑
-    edit =()=>{
-        const {rows} = this.state
-        if(rows.length>1){
-            Modal.warning({
-                title: '警告信息',
-                content: '请选中一行数据',
-            });
-            return;
+    //定位
+    edit =(record)=>{
+
+        const modalFormProps = {
+            title:'设备位置',
+            record:record,
+            isFooter:false,
+            isShow:true,
+            Contents:FormSub,
         }
-        let  form = FormSub
-        this.setState({
-            record:rows[0],
-            visible: true,
-            form:form
-        });
+        this.context.openModal(modalFormProps);
     }
 
     //变更
     change =()=>{
         const {rows} = this.state
-        console.log(rows)
-        if(rows.length>1){
+        if(rows.length!=1){
             Modal.warning({
                 title: '警告信息',
                 content: '请选中一行数据',
             });
             return;
         }
-        console.log("变更...");
-        let  form2 = FormSub2
-        this.setState({
-            form: form2,
-            record:rows[0],
-            visible: true,
-            title:"资产设备变更",
 
-        });
+        const modalFormProps = {
+            title:'资产变更',
+            record:rows[0],
+            isFooter:false,
+            isShow:true,
+            Contents:FormSub2,
+        }
+        this.context.openModal(modalFormProps);
     }
 
     //资产详情页
@@ -382,6 +356,9 @@ export default class assetList extends PureComponent {
                             <Icon type="upload" /> 上传
                         </Button>
                     </Upload>
+                    <Button onClick={this.change}>
+                        <Icon type="edit" />变更
+                    </Button>
                     <Button icon="search"  onClick={this.getAll}>查看所有设备位置</Button>
                 </div>
                 <Content   className='ant_table_ui' >
@@ -391,7 +368,6 @@ export default class assetList extends PureComponent {
                            onRowDoubleClick={this.handlerDoubleClick}
                     />
                 </Content>
-
             </Layout>
         )
 

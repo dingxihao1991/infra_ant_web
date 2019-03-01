@@ -2,17 +2,9 @@ import React, { Component } from 'react';
 import { Form, Input} from 'antd';
 
 
-/**
- * 资产维保记录详情页面
- *
- * @type {FormItem}
- */
-
-const FormItem = Form.Item;
 const createForm = Form.create;
-const {TextArea } =Input;
 
-class FormSub extends Component {
+class CCTVPlay extends Component {
 
   state = {
     checkNick: false,
@@ -40,14 +32,12 @@ class FormSub extends Component {
     }
     return (
 
-      <video   autoplay="autoplay">
-
+      <video   autoplay="autoplay" style={{objectFit: 'fill'}} width="100%" height="426px">
         <source src="http://192.168.200.29/static/video/suidao.MP4" type="video/mp4"/>
-
       </video>
 
 
     )
   }
 }
-export default createForm()(FormSub);
+export default createForm()(CCTVPlay);

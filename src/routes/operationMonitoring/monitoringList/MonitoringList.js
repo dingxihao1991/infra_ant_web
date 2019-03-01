@@ -4,7 +4,7 @@ import MonitoringType from './monitoringType';
 const { Content} = Layout;
 import styles from './monitoringType.less';
 import AssetModelInfo from "../../assetManagement/assetList/modal/AssetModelInfo";
-import FormSub from "./assetRecordDetails";
+import CCTVPlay from "./CCTVPlay";
 import PropTypes from "prop-types";
 
 //维保数据
@@ -228,7 +228,6 @@ const type=[
 
 
 export default class MonitoringList extends PureComponent {
-
   static contextTypes = {
     openModal: PropTypes.func,
   };
@@ -358,18 +357,18 @@ export default class MonitoringList extends PureComponent {
   }
 
     //编辑
-    edit =()=>{
-    console.log(this.state);
+    edit = ()=>{
     let  form = FormSub
     const modalFormProps = {
         title:'CCTV监控',
       isFooter:true,
       isShow:true,
-      Contents:form,
+      Contents:CCTVPlay,
       modalOpts: {
         width: 690,
         height:480
       },
+      full:true,
     }
     this.context.openModal(modalFormProps);
   }

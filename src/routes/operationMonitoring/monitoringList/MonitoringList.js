@@ -238,7 +238,7 @@ export default class MonitoringList extends PureComponent {
     record: null,
     visible: false,
     rows: [],
-    form: FormSub,
+   // form: FormSub,
     title:"资产设备定位",
     switchLoading: false,
     useCluster:false
@@ -358,9 +358,9 @@ export default class MonitoringList extends PureComponent {
 
     //编辑
     edit = ()=>{
-    let  form = FormSub
+   // let  form = FormSub
     const modalFormProps = {
-        title:'CCTV监控',
+      title:'CCTV监控',
       isFooter:true,
       isShow:true,
       Contents:CCTVPlay,

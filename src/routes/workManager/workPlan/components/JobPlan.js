@@ -6,7 +6,7 @@ import {ModalForm,showConfirm}  from 'components/Modal';
 import { POST,GET,PUT,DELETE } from '../../../../services/api';
 import Authorized from '../../../../utils/Authorized';
 import FormSub from './Form';
-import WorkPlanDetail from "./WorkPlanDetail";
+import WorkPlanDetail from "../../public/WorkDetail";
 import AdvancedSearchForm from './SearchForm';
 import { connect } from 'dva';
 const { ButtonAuthorize } = Authorized;

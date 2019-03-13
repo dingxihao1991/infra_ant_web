@@ -109,7 +109,7 @@ export default class TaskRecordDetailByCompleted extends Component {
 
 
     return (
-      <div style={{height: 750}}>
+      <div style={{height: 750,overflow: 'auto'}}>
         <div >
           <Row style={{padding:10,borderBottom: '1px solid #E8E8E8'}}>
             <Col>
@@ -118,7 +118,7 @@ export default class TaskRecordDetailByCompleted extends Component {
           </Row>
         </div>
         <div style={{paddingLeft: '30%'}}>
-          <Steps direction="vertical" current={1}>
+          <Steps direction="vertical" current={1} style={{width: '80%'}}>
             <Step description={span1} icon='tool'/>
             <Step description={span2} status="wait"/>
             <Step description={span3} />

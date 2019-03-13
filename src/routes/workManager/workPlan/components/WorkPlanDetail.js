@@ -105,7 +105,7 @@ export default class WorkPlanDetail extends Component {
                     </div>
 
     return (
-      <div style={{height: '646px',padding: '10px'}}>
+      <div style={{height: '646px',padding: '10px',overflow:' auto'}}>
         <div >
           <Row style={{padding:10,borderBottom: '1px solid #E8E8E8'}}>
             <Col>{span1}</Col>

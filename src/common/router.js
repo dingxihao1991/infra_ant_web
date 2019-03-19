@@ -200,7 +200,12 @@ export const getRouterData = app => {
     //巡检配置
     '/system/perambulate': {
         component: dynamicWrapper(app, ['routes/systemConfigManagement/perambulate/model/perambulate'], () => import('../routes/systemConfigManagement/perambulate/components/Perambulate')),
-    }
+    },
+
+      //巡检配置
+      '/maintenance/costManager': {
+        component: dynamicWrapper(app, ['routes/systemConfigManagement/perambulate/model/perambulate'], () => import('../routes/maintenance/costManager/components/CostManager')),
+      }
 };
 
     /*  !!!!! Don't  touch  me !!!!! */

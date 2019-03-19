@@ -106,7 +106,7 @@ const vif = function(){
         okType: 'danger',
         cancelText: '否',
         onOk() {
-            window.location.href="http://localhost:8000/#/user/login";
+            window.location.href="http://192.168.200.29:8888/#/user/login";
         },
         onCancel() {
 

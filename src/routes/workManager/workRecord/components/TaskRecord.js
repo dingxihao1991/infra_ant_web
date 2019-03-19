@@ -6,7 +6,7 @@ import {ModalForm,showConfirm}  from 'components/Modal';
 import { POST,GET,PUT,DELETE } from '../../../../services/api';
 import Authorized from '../../../../utils/Authorized';
 import AdvancedSearchForm from './SearchForm';
-import WorkPlanDetail from "./TaskRecordDetail";
+import WorkPlanDetail from "../../public/WorkDetail";
 import WorkPlanDetailByComp from "./TaskRecordDetailByCompleted";
 import { connect } from 'dva';
 
@@ -296,10 +296,11 @@ export default class TaskRecord extends PureComponent {
           maskClosable:true,
           isShow:true,
           modalOpts: {
-            style:{ top: 20 ,height:'600px'},
+            style:{ top: 20 },
             width: 1200,
           },
           isFooter:true,
+          full:true,
         }
     }else{
        modalFormProps = {
@@ -309,7 +310,7 @@ export default class TaskRecord extends PureComponent {
         maskClosable:true,
         isShow:true,
         modalOpts: {
-          style:{ top: 20 ,height:'600px'},
+          style:{ top: 20 },
           width: 1200,
         },
         isFooter:true,

@@ -204,7 +204,7 @@ export const getRouterData = app => {
 
       //巡检配置
       '/maintenance/costManager': {
-        component: dynamicWrapper(app, ['routes/systemConfigManagement/perambulate/model/perambulate'], () => import('../routes/maintenance/costManager/components/CostManager')),
+        component: dynamicWrapper(app, ['routes/maintenance/costManager/model/costManager'], () => import('../routes/maintenance/costManager/components/CostManager')),
       }
 };
 

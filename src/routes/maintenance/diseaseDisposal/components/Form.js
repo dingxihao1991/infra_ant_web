@@ -81,8 +81,8 @@ class FormSub extends Component {
                   }],
                 })(
                   <Select  placeholder="是否沉降">
-                    <Option value="yes">是</Option>
-                    <Option value="no">否</Option>
+                    <Option value="yes">发生沉降</Option>
+                    <Option value="no">未发生沉降</Option>
                   </Select>,
                 )}
               </FormItem>
@@ -96,8 +96,8 @@ class FormSub extends Component {
                   }],
                 })(
                   <Select  placeholder="是否渗漏">
-                    <Option value="yes">是</Option>
-                    <Option value="no">否</Option>
+                    <Option value="yes">发生渗漏</Option>
+                    <Option value="no">未发生渗漏</Option>
                   </Select>,
                 )}
               </FormItem>
@@ -111,8 +111,8 @@ class FormSub extends Component {
                   }],
                 })(
                   <Select  placeholder="是否环片收敛">
-                    <Option value="yes">是</Option>
-                    <Option value="no">否</Option>
+                    <Option value="yes">发生环片收敛</Option>
+                    <Option value="no">未发生环片收敛</Option>
                   </Select>,
                 )}
               </FormItem>

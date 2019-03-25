@@ -207,6 +207,11 @@ export const getRouterData = app => {
         component: dynamicWrapper(app, ['routes/maintenance/costManager/model/costManager'], () => import('../routes/maintenance/costManager/components/CostManager')),
       },
 
+      //病害处置
+      '/maintenance/diseaseDisposal': {
+        component: dynamicWrapper(app, ['routes/maintenance/diseaseDisposal/model/diseaseDisposal'], () => import('../routes/maintenance/diseaseDisposal/components/diseaseDisposal')),
+      },
+
       //工程管理
       '/maintenance/projectManager': {
         component: dynamicWrapper(app, ['routes/maintenance/projectManager/model/projectManager'], () => import('../routes/maintenance/projectManager/components/ProjectManager')),

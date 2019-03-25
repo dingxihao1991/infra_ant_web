@@ -216,6 +216,10 @@ export const getRouterData = app => {
       '/statistics/conserveManager': {
         component: dynamicWrapper(app, ['routes/statistics/conserveManager/model/conserveManager'], () => import('../routes/statistics/conserveManager/components/ConserveManager')),
       },
+      //费用核算
+      '/maintenance/costCheck': {
+        component: dynamicWrapper(app, ['routes/maintenance/costCheck/model/costCheck'], () => import('../routes/maintenance/costCheck/components/CostCheck')),
+      },
 };
 
     /*  !!!!! Don't  touch  me !!!!! */

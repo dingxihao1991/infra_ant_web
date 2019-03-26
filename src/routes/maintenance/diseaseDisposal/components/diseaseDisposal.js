@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import styles from '../../maintenance.less';
-import { Table ,Button ,Layout,Pagination,Form,Input,message,Dropdown,Menu,Icon,Row,Col} from 'antd';
+import { Table ,Button ,Layout,Pagination,Dropdown,Menu,Icon} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
 import { connect } from 'dva';
 import Authorized from '../../../../utils/Authorized';
@@ -9,8 +9,6 @@ import AdvancedSearchForm from './SearchForm';
 import FormSub from './Form';
 const { ButtonAuthorize } = Authorized;
 const { Content } = Layout;
-const Modal = ModalForm.Modal;
-const confirm = Modal.confirm;
 
 const Paging = ({dataItems, onChange, ...otherProps}) => {
   const { total, pageSize, pageNum } = dataItems;

@@ -13,7 +13,7 @@ export  var option1 = {
     right: '14%',
     bottom: '7%',
   },
-  toolbox: {
+/*  toolbox: { //切换图标
     show : true,
     feature : {
       dataView : {show: true, readOnly: false},
@@ -21,7 +21,7 @@ export  var option1 = {
       restore : {show: true},
       saveAsImage : {show: true}
     }
-  },
+  },*/
   calculable : true,
   xAxis : [
     {

@@ -225,6 +225,10 @@ export const getRouterData = app => {
       '/maintenance/costCheck': {
         component: dynamicWrapper(app, ['routes/maintenance/costCheck/model/costCheck'], () => import('../routes/maintenance/costCheck/components/CostCheck')),
       },
+      //结构安全
+      '/model/index': {
+        component: dynamicWrapper(app, [], () => import('../routes/model/index')),
+      },
 };
 
     /*  !!!!! Don't  touch  me !!!!! */

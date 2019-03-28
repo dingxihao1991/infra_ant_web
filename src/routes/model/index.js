@@ -16,7 +16,7 @@ const { Content} = Layout;
  class model extends Component {
 
     state={
-      src:'http://192.168.200.29/static/threeJs/shangzhongRoadTunnel.html'//'http://localhost/static/webgl/index.html'//'http://139.196.195.214/DEV_sg/webgl/iframe-page' http://192.168.200.29/static/webgl/index.html
+      src:'http://192.168.200.29/static/webgl_suidao/iframe_page.html'//'http://localhost/static/webgl/index.html'//'http://139.196.195.214/DEV_sg/webgl/iframe-page' http://192.168.200.29/static/webgl/index.html
 
     }
 
@@ -78,8 +78,8 @@ const { Content} = Layout;
             }
         ]
         return(
-            <div style={{height:'400px'}}></div>
-          //<iframe id='webgl_iframe' src={src} width='100%' style={{'borderWidth':'0px',minHeight:400}}></iframe>
+          //<div style={{height:'400px'}}></div>
+          <iframe id='webgl_iframe' src={src} width='100%' style={{'borderWidth':'0px',minHeight:'100%'}}></iframe>
         )
 
     }

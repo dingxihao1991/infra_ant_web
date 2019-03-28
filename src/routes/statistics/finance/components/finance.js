@@ -44,7 +44,7 @@ export default class Finance extends PureComponent {
     render() {
       return(
         <Layout>
-          <Content>
+          <Content style={{overflow: 'hidden'}}>
             <div className={styles.r_finance}>
               <Row gutter={20} >
                 <Col span={6}>

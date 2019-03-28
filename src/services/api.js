@@ -84,7 +84,6 @@ const ajax = function(url,method,params,callBack,errorFuc){
         try{
             response.json().then(function(result){
                 if(result.code==-2){
-                    debugger
                     vif()
                 }else{
                     callBack(result,response)

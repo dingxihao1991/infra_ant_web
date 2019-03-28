@@ -220,6 +220,10 @@ export const getRouterData = app => {
       '/maintenance/costCheck': {
         component: dynamicWrapper(app, ['routes/maintenance/costCheck/model/costCheck'], () => import('../routes/maintenance/costCheck/components/CostCheck')),
       },
+      //财务统计分析
+      '/statistics/finance': {
+        component: dynamicWrapper(app, [], () => import('../routes/statistics/finance/components/finance')),
+      },
 };
 
     /*  !!!!! Don't  touch  me !!!!! */

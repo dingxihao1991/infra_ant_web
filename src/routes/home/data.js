@@ -11,13 +11,11 @@ export var option11 = {
     data: ['总车流量'],
     x:'left',
   },
-  grid: {
-    left: '2%',
+/*  grid: {
+    left: '10%',
     right: '14%',
-    bottom: '3%',
-    height:'80%',
-    containLabel: true
-  },
+    bottom: '10%',
+  },*/
   xAxis: {
     type: 'category',
     boundaryGap: false,

@@ -22,8 +22,8 @@ class App extends React.Component{
   }
 
   render(){
-    this.markerPosition = {longitude: 121.2932245, latitude: 31.1925968};
-    this.mapCenter = {longitude: 121.2932245, latitude: 31.1925968};
+    this.markerPosition = {longitude: 121.507077, latitude: 31.223281};
+    this.mapCenter = {longitude: 121.507077, latitude: 31.223281};
     return <div>
       <div style={{width: '100%', height: 400}}>
         <Map

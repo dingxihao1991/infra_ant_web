@@ -229,7 +229,6 @@ export default class OrganizationManage extends PureComponent {
             PUT('/organization/update',values,function(data){
 
                 if(data.success){
-                  thiz.closeModal();
                   thiz.init();
                 }else{
 

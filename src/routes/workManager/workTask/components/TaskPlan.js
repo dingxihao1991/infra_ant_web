@@ -69,7 +69,7 @@ export default class TaskPlan extends PureComponent {
   initColums = ()=>{
     const columns = [
       {
-        title: '管廊名称',
+        title: '隧道名称',
         dataIndex: 'gallery_name',
         id: 'gallery_name',
         align: 'center',

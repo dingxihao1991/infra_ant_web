@@ -243,7 +243,6 @@ export default class Application extends PureComponent {
                 console.log(data);
                 if(data.success){
                     message.success('新增成功')
-                    thiz.closeModal();
                     thiz.init();
                 }else{
                     Modal.error({

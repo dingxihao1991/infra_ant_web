@@ -57,10 +57,261 @@ export var option4 = {
   ]
 };
 // 结束↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+//地质沉降
+function geologicalSedimentation(){
+    var facilityChangeContainer = document.getElementById('main16');
+    var facilityChangeChart = echarts.init(facilityChangeContainer);
+
+    var facilityChangeOption = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        color: ['#4CD0E1', '#F08175'],
+        legend: {
+            data: ['地表沉降','拱顶沉降']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            name:'时间',
+            nameLocation:'center',
+            nameGap: 35,
+            type: 'category',
+            boundaryGap: false,
+            data: ['2019-02-06', '2019-02-14', '2019-02-27', '2019-03-10', '2019-03-18', '2019-03-30', '2019-04-14'],
+            axisLine: {
+                lineStyle: {
+                    color: '#48b',
+                    type: 'solid'
+                }
+            },
+            axisLabel: {
+                textStyle: {
+                    color: '#B1B1B1',
+                }
+            }
+        },
+        yAxis: {
+            name:'沉降值',
+            type: 'value',
+            axisLine: {
+                lineStyle: {
+                    color: '#48b',
+                    type: 'solid'
+                }
+            },
+            axisLabel: {
+                textStyle: {
+                    color: '#B1B1B1',
+                }
+            }
+        },
+        series: [
+            {
+                name:'地表沉降',
+                type: 'line',
+                stack: '总量',
+                smooth: true,
+                data: [-1.5, -2.0, -2.5, -2.7, -3.0, -3.2, -4.0],
+                markPoint: {
+                    data: [
+                        {type: 'max', name: '最大值'},
+                        {type: 'min', name: '最小值'}
+                    ]
+                },
+            },{
+                name: '拱顶沉降',
+                type: 'line',
+                stack: '总量',
+                smooth: true,
+                data: [-0.5, -1.5, -3.0, -3.4, -3.8, -4.0, -4.5],
+                markPoint: {
+                    data: [
+                        {type: 'max', name: '最大值'},
+                        {type: 'min', name: '最小值'}
+                    ]
+                },
+            }
+        ]
+    };
+
+    facilityChangeChart.setOption(facilityChangeOption, true);
+}
+//地质沉降
+function structuralStress(){
+    var facilityChangeContainer = document.getElementById('main18');
+    var facilityChangeChart = echarts.init(facilityChangeContainer);
+
+    var facilityChangeOption = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        color: ['#4CD0E1', '#F08175'],
+        legend: {
+            data: ['混凝土结构','钢构支撑']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            name:'strain(x10-³)',
+            nameLocation:'center',
+            type: 'category',
+            boundaryGap: false,
+            data: ['0', '10000', '20000', '30000','40000','50000','60000'],
+            axisLine: {
+                lineStyle: {
+                    color: '#48b',
+                    type: 'solid'
+                }
+            },
+            axisLabel: {
+                textStyle: {
+                    color: '#B1B1B1',
+                }
+            }
+        },
+        yAxis: {
+            name:'Stress(MPa)',
+            type: 'value',
+            axisLine: {
+                lineStyle: {
+                    color: '#48b',
+                    type: 'solid'
+                }
+            },
+            axisLabel: {
+                textStyle: {
+                    color: '#B1B1B1',
+                }
+            }
+        },
+        series: [
+            {
+                name:'混凝土结构',
+                type: 'line',
+                stack: '总量',
+                smooth: true,
+                data: [0, 3, 5, 6, 10, 15, 20],
+                markPoint: {
+                    data: [
+                        {type: 'max', name: '最大值'},
+                        {type: 'min', name: '最小值'}
+                    ]
+                },
+            },{
+                name: '钢构支撑',
+                type: 'line',
+                stack: '总量',
+                smooth: true,
+                data: [0, 2, 4, 5, 8, 10, 15],
+                markPoint: {
+                    data: [
+                        {type: 'max', name: '最大值'},
+                        {type: 'min', name: '最小值'}
+                    ]
+                },
+            }
+        ]
+    };
+
+    facilityChangeChart.setOption(facilityChangeOption, true);
+}
+//设备专业统计
+function facilityProfession(){
+    var Container = document.getElementById("main17")
+    var Chart = echarts.init(Container);
+    Chart.showLoading({
+        text: '正在努力的读取数据中...'//loading话术
+    });
+
+    var facilityProfessionOption = {
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        grid: {
+            left: '1%',
+            right: '1%',
+            bottom: '3%',
+            containLabel: true
+        },
+        color: ['#A3DE83', '#F2E394', '#F2AE72', '#D96459', '#38817A'],
+        legend: {
+            orient: 'vertical',
+            x: 'right',
+            data: ["风阀", "排风机", "照明", "门禁", "水泵", "控制柜"]
+        },
+        series: [{
+            name: "设备专业",
+            type: "pie",
+            radius: "65%",
+            center: [
+                "50%",
+                "50%"
+            ],
+            itemStyle:{
+                normal: {
+                    label: {
+                        textStyle: {
+                            color: '#777'
+                        },
+                        formatter: "{b} ({c}台)"
+                    },
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            },
+            data: [
+                {
+                    name: "风阀",
+                    value: "8"
+                },
+                {
+                    name: "排风机",
+                    value: "5"
+                },
+                {
+                    name: "照明",
+                    value: "2"
+                },
+                {
+                    name: "门禁",
+                    value: "3"
+                },
+                {
+                    name: "水泵",
+                    value: "7"
+                },
+                {
+                    name: "控制柜",
+                    value: "2"
+                }
+            ]
+        }]
+
+    };
+    Chart.hideLoading();
+    Chart.setOption(facilityProfessionOption);
+
+}
+
 export default class Home extends PureComponent {
     state={
 
     }
+
     componentDidMount() {
       // 基于准备好的dom，初始化echarts实例
       var myChart11 = echarts.init(document.getElementById('main11'));
@@ -77,14 +328,13 @@ export default class Home extends PureComponent {
       var myChart15 = echarts.init(document.getElementById('main15'));
       myChart15.setOption(option15);
 
-      var myChart16 = echarts.init(document.getElementById('main16'));
-      myChart16.setOption(option13);
+        //地质沉降
+        geologicalSedimentation();
+        //结构应力
+        structuralStress();
+        facilityProfession();
 
-      var myChart17 = echarts.init(document.getElementById('main17'));
-      myChart17.setOption(option17);
 
-      var myChart18 = echarts.init(document.getElementById('main18'));
-      myChart18.setOption(option18);
 
       /*setInterval(() => {
         var nowDate = new Date()
@@ -106,9 +356,9 @@ export default class Home extends PureComponent {
       const P3_Html = <span style={{fontSize:22}}>健康指数</span>
      // const P4_Html = <span style={{fontSize:22}}>实时车流量图</span>
       const P4_Html = <span style={{fontSize:22}}>隧道分布图</span>
-      const P5_Html = <span style={{fontSize:22}}>设备专业统计</span>
-      const P6_Html = <span style={{fontSize:22}}>设备产地比例</span>
-      const P7_Html = <span style={{fontSize:22}}>设备故障情况统计</span>
+      const P5_Html = <span style={{fontSize:22}}>地质沉降</span>
+      const P6_Html = <span style={{fontSize:22}}>设备专业统计</span>
+      const P7_Html = <span style={{fontSize:22}}>结构应力</span>
 
         return (
           <Layout className="gutter-example" style={{background:"#E5E5E5"}} >

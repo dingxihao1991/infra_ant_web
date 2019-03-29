@@ -145,31 +145,37 @@ export default class assetList extends PureComponent {
             title: '设备编号',
             dataIndex: '1',
             id: '1',
-            key:'1'
-        },{
-            title: '设备名称',
-            dataIndex: '2',
-            id: '2',
-            key:'2'
-        },{
-            title: '设备类型',
-            dataIndex: '3',
-            id: '3',
-            key:'3'
-        },{
-            title: '设备位置',
-            dataIndex: '4',
-            id: '4',
-            key:'4'
+            key:'1',
+            width:150
         }, {
             title: '设备状态',
             dataIndex: '5',
             id: '5',
-            key:'5'
+            key:'5',
+            width:150
         }, {
+            title: '设备名称',
+            dataIndex: '2',
+            id: '2',
+            key:'2',
+            width:300
+        },{
+            title: '设备类型',
+            dataIndex: '3',
+            id: '3',
+            key:'3',
+            width:200
+        },{
+            title: '设备位置',
+            dataIndex: '4',
+            id: '4',
+            key:'4',
+            width:400
+        },{
             title: '创建时间',
             dataIndex: '7',
             id: '7',
+            width:200
         }, {
             title: '最后修改人',
             dataIndex: '8',
@@ -364,7 +370,7 @@ export default class assetList extends PureComponent {
                 <Content   className='ant_table_ui' >
                     <Table size="middle" rowKey='id' style={{  background: '#ffffff', minHeight: 360}} columns={columns} dataSource={dataSource} onChange={this.handleChange} rowSelection={rowSelection}
                            pagination={dataTableProps}
-                           scroll={{x: '130%', y: '73vh'  }}
+                           scroll={{x: '110%', y: '73vh'  }}
                            onRowDoubleClick={this.handlerDoubleClick}
                     />
                 </Content>

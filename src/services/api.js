@@ -84,7 +84,6 @@ const ajax = function(url,method,params,callBack,errorFuc){
         try{
             response.json().then(function(result){
                 if(result.code==-2){
-                    debugger
                     vif()
                 }else{
                     callBack(result,response)
@@ -106,7 +105,7 @@ const vif = function(){
         okType: 'danger',
         cancelText: '否',
         onOk() {
-            window.location.href="http://localhost:8000/#/user/login";
+            window.location.href="http://192.168.200.29:8888/#/user/login";
         },
         onCancel() {
 

@@ -255,7 +255,6 @@ export default class userManage extends PureComponent {
                     console.log(result);
                     if(result.success){
                         message.success("更新成功");
-                        thiz.closeModal();
                         thiz.init();
                     }else{
                         message.success("更新失败，请联系管理员")

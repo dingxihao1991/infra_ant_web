@@ -5,9 +5,9 @@ import 'echarts/lib/chart/line';//引入折线图
 import 'echarts/lib/chart/pie';//引入饼图
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/radar';
-import 'echarts/lib/component/tooltip';// 引入提示框和标题组件
+import 'echarts/lib/component/tooltip';// 鼠标移上去效果
 import 'echarts/lib/component/title';// 引入提示框和标题组件
-import 'echarts/lib/component/legend';
+import 'echarts/lib/component/legend'; // 标记
 import 'echarts-liquidfill/src/liquidFill';
 import styles from './home.less';
 import{option11 , option12 , option13 ,option15 , option16 ,option17 ,option18} from './data';

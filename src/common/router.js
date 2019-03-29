@@ -200,7 +200,39 @@ export const getRouterData = app => {
     //巡检配置
     '/system/perambulate': {
         component: dynamicWrapper(app, ['routes/systemConfigManagement/perambulate/model/perambulate'], () => import('../routes/systemConfigManagement/perambulate/components/Perambulate')),
-    }
+    },
+
+      //费用管理
+      '/maintenance/costManager': {
+        component: dynamicWrapper(app, ['routes/maintenance/costManager/model/costManager'], () => import('../routes/maintenance/costManager/components/CostManager')),
+      },
+
+      //病害处置
+      '/maintenance/diseaseDisposal': {
+        component: dynamicWrapper(app, ['routes/maintenance/diseaseDisposal/model/diseaseDisposal'], () => import('../routes/maintenance/diseaseDisposal/components/diseaseDisposal')),
+      },
+
+      //工程管理
+      '/maintenance/projectManager': {
+        component: dynamicWrapper(app, ['routes/maintenance/projectManager/model/projectManager'], () => import('../routes/maintenance/projectManager/components/ProjectManager')),
+      },
+
+      //运维养护管理
+      '/statistics/conserveManager': {
+        component: dynamicWrapper(app, ['routes/statistics/conserveManager/model/conserveManager'], () => import('../routes/statistics/conserveManager/components/ConserveManager')),
+      },
+      //费用核算
+      '/maintenance/costCheck': {
+        component: dynamicWrapper(app, ['routes/maintenance/costCheck/model/costCheck'], () => import('../routes/maintenance/costCheck/components/CostCheck')),
+      },
+      //财务统计分析
+      '/statistics/finance': {
+        component: dynamicWrapper(app, [], () => import('../routes/statistics/finance/components/finance')),
+      },
+      //结构安全
+      '/model/index': {
+        component: dynamicWrapper(app, [], () => import('../routes/model/index')),
+      },
 };
 
     /*  !!!!! Don't  touch  me !!!!! */

@@ -234,7 +234,7 @@ export default class MenuManage extends PureComponent {
                 console.log(data);
                 if(data.success){
                     message.success('修改成功');
-                    thiz.closeModal();
+                    //thiz.closeModal();
                     thiz.init();
                 }else{
                     Modal.error({
@@ -252,7 +252,7 @@ export default class MenuManage extends PureComponent {
 
                 if(data.success){
                     message.success('新增成功');
-                    thiz.closeModal();
+                   // thiz.closeModal();
                     thiz.init();
                 }else{
                     Modal.error({

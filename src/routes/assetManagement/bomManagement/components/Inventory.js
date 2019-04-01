@@ -12,77 +12,66 @@ const data = [
         itemType: '其他系统',
         num: '15',
         inventoryTime: '2018-11-19 15:03',
-        describe: '设备过期',
     }, {
         code: 'BJ-TD-0000002',
         name: '调高垫板',
         itemType: '其他系统',
         num: '200',
         inventoryTime: '2018-11-20 16:23',
-        describe: '设备过期',
     }, {
         code: 'BJ-TD-0000003',
         name: '通风管',
         itemType: '通风系统',
         num: '10',
         inventoryTime: '2018-11-20 16:23',
-        describe: '设备过期',
     }, {
         code: 'BJ-TD-0000004',
         name: '排水管',
         itemType: '排水系统',
         num: '5',
         inventoryTime: '2018-11-20 16:23',
-        describe: '设备过期',
     }, {
         code: 'BJ-TD-0000005',
         name: '小型发电机',
         itemType: '供电系统',
         num: '2',
         inventoryTime: '2018-11-20 16:23',
-        describe: '设备过期',
     }, {
         code: 'BJ-TD-0000006',
         name: 'LED显示屏',
         itemType: '其他系统',
         num: '1',
         inventoryTime: '2018-11-20 16:23',
-        describe: '设备损坏，需要更换',
     }, {
         code: 'BJ-ZZ-0000007',
         name: '支柱绝缘子及其附件',
         itemType: '供电系统',
         num: '19',
         inventoryTime: '2018-11-21 9:52',
-        describe: '设备损坏，需要更换',
     }, {
         code: 'BJ-JY-0000008',
         name: '绝缘密封套管',
         itemType: '供电系统',
         num: '7',
         inventoryTime: '2018-11-19 16:27',
-        describe: '设备损坏，需要更换',
     }, {
         code: 'BJ-SD-0000009',
         name: '湿度传感器',
         itemType: '排水系统',
         num: '0',
         inventoryTime: '2018-11-20 10:43',
-        describe: '设备损坏，需要更换',
     }, {
         code: 'BJ-GX-0000010',
         name: '光学配件',
         itemType: '其他系统',
         num: '80',
         inventoryTime: '2018-11-19 13:15',
-        describe: '设备损坏，需要更换',
     }, {
         code: 'BJ-GB-0000011',
         name: '隔离变压器',
         itemType: '供电系统',
         num: '5',
         inventoryTime: '2018-11-20 15:29',
-        describe: '设备损坏，需要更换',
     }
 ];
 
@@ -112,16 +101,11 @@ const columns = [
         key: '4',
         width: 150
     }, {
-        title: '出库时间',
-        dataIndex: 'inventoryTime:',
-        id: 'inventoryTime:',
+        title: '更新时间',
+        dataIndex: 'inventoryTime',
+        id: 'inventoryTime',
         key: '5',
         width:200
-    }, {
-        title: '备注',
-        dataIndex: 'describe',
-        id: 'describe',
-        width:250
     }];
 
 

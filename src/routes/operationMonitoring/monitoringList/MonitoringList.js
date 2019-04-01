@@ -234,7 +234,9 @@ export default class MonitoringList extends PureComponent {
    // form: FormSub,
     title:"资产设备定位",
     switchLoading: false,
-    useCluster:false
+    useCluster:false,
+    current:1,
+    pageSize:10,
   };
 
     //props :接收任意的输入值
@@ -395,7 +397,17 @@ export default class MonitoringList extends PureComponent {
 
     render() {
         //增加form变量
-        let { columns, dataSource,treeData,switchLoading} = this.state;
+        let { columns, dataSource,treeData,switchLoading,pageSize,current} = this.state;
+
+      const dataTableProps ={
+        total: data?data.length:null,
+        pageSize: pageSize,
+        current:current,
+        showSizeChanger: true,
+        showQuickJumper: true,
+        showTotal: total => `共 ${data.length} 条`,
+      }
+
         const rowSelection = {
             onChange: this.onSelectChange,
         };
@@ -405,14 +417,11 @@ export default class MonitoringList extends PureComponent {
                   treeData={type}
                   onSelect={this.onSelect}
               />
-              <Content style={{borderLeft:'1px solid #E5E5E5'}}>
+              <Content style={{borderLeft:'1px solid #E5E5E5'}} className='ant_table_ui'>
                 <Spin spinning={switchLoading} tip="Loading...">
                   <Table rowKey='id' style={{  background: '#ffffff', minHeight: 360}} columns={columns} dataSource={dataSource}
-                         pagination={{
-                           showSizeChanger:true,
-                           showQuickJumper:true,
-                           total:dataSource?dataSource.length:null,
-                         }}
+                         pagination={dataTableProps}
+                         scroll={{y: '73vh'  }}
                   />
                 </Spin>
               </Content>

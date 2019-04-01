@@ -33,7 +33,9 @@ export default class emergencyPlanRecord extends PureComponent {
     visible: false,
     rows: [],
     form: FormSub,
-    title:"资产设备定位"
+    title:"资产设备定位",
+    current:1,
+    pageSize:10,
   };
 
   //props :接收任意的输入值
@@ -152,7 +154,16 @@ export default class emergencyPlanRecord extends PureComponent {
     } = this.props;
 
     //增加form变量
-    let { columns, visible,record,dataSource,form,title} = this.state;
+    let { columns, visible,record,dataSource,form,title,pageSize,current} = this.state;
+
+    const dataTableProps ={
+      total: list?list.length:null,
+      pageSize: pageSize,
+      current:current,
+      showSizeChanger: true,
+      showQuickJumper: true,
+      showTotal: total => `共 ${list.length} 条`,
+    }
 
 
     const rowSelection = {
@@ -191,15 +202,11 @@ export default class emergencyPlanRecord extends PureComponent {
 
             </div>
 
-            <Content  >
+            <Content  className='ant_table_ui'>
               <Table rowKey='id' style={{  background: '#ffffff', minHeight: 360}} columns={columns} dataSource={list} onChange={this.handleChange} rowSelection={rowSelection}
                      loading={loading}
-                     pagination={{
-                       showSizeChanger:true,
-                       showQuickJumper:true,
-                       total:dataSource?dataSource.length:null,
-                       onChange:this.onChange
-                     }}
+                     pagination={dataTableProps}
+                     scroll={{y: '73vh'  }}
               />
             </Content>
             <ModalForm {...modalFormProps}/>

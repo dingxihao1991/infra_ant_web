@@ -50,6 +50,8 @@ export default class TaskRecord extends PureComponent {
     rows: [],
     loading:true,
     isFooter:false,
+    current:1,
+    pageSize:10,
   };
 
   constructor(props,context) {
@@ -332,12 +334,22 @@ export default class TaskRecord extends PureComponent {
   }
 
   render() {
+    let { columns,visible,record,rows,form,title,isFooter,pageSize,current} = this.state;
+
+    const dataTableProps ={
+      total: list?list.length:null,
+      pageSize: pageSize,
+      current:current,
+      showSizeChanger: true,
+      showQuickJumper: true,
+      showTotal: total => `共 ${list.length} 条`,
+    }
+
     const {
       workRecord :{list},
       loading,
     } = this.props;
 
-    let { columns,visible,record,rows,form,title,isFooter} = this.state;
     const rowSelection = {
       onChange: this.onSelectChange,
     };
@@ -369,15 +381,11 @@ export default class TaskRecord extends PureComponent {
          {/* <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="role:update"/>*/}
           <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.batchComplete} name="完成任务" authority="role:delete"/>
         </div>
-        <Content>
+        <Content className='ant_table_ui'>
           <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={list}  onChange={this.handleChange} rowSelection={rowSelection}
                   loading={loading}
-                  pagination={{
-                    showSizeChanger:true,
-                    showQuickJumper:true,
-                    total:{list}.length,
-                    onChange:this.onChange
-                  }}
+                  pagination={dataTableProps}
+                  scroll={{y: '73vh'  }}
                   onRowDoubleClick={this.handlerDoubleClick}
           />
         </Content>

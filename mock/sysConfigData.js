@@ -13,6 +13,34 @@ let list = [
     "template_description":'安全门养护',
     "work_name":"B-002",
     "work_description":"安全门养护",
+  },{
+    "id":"3",
+    "template_name": '照明巡视',
+    "template_type":'巡视',
+    "template_description":'照明巡视',
+    "work_name":"B-002",
+    "work_description":"照明巡视",
+  },{
+    "id":"4",
+    "template_name": '监控巡检',
+    "template_type":'巡检',
+    "template_description":'监控巡检',
+    "work_name":"B-002",
+    "work_description":"监控巡检",
+  },{
+    "id":"5",
+    "template_name": '消防巡检',
+    "template_type":'巡检',
+    "template_description":'消防巡检',
+    "work_name":"B-002",
+    "work_description":"消防巡检",
+  },{
+    "id":"6",
+    "template_name": '信号检测',
+    "template_type":'检测',
+    "template_description":'信号检测',
+    "work_name":"B-002",
+    "work_description":"信号检测",
   }
 ];
 

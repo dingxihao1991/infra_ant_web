@@ -1,18 +1,18 @@
 let list = [
   {
     "id":"1",
-    "template_name": '电力巡检',
+    "template_name": '电线破损巡检',
     "template_type":'巡检',
-    "template_description":'电力巡检',
+    "template_description":'电线破损巡检',
     "work_name":"A-001",
-    "work_description":"UPS蓄电检查",
+    "work_description":"电线破损检查",
   },{
     "id":"2",
-    "template_name": '水泵养护',
+    "template_name": '安全门养护',
     "template_type":'养护',
-    "template_description":'水泵养护',
+    "template_description":'安全门养护',
     "work_name":"B-002",
-    "work_description":"廊内水泵养护",
+    "work_description":"安全门养护",
   }
 ];
 

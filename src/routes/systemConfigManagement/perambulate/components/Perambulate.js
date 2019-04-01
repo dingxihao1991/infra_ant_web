@@ -210,11 +210,11 @@ export default class perambulate extends PureComponent {
     record = [{
       "id":"1",
       "work_name":"A-001",
-      "work_description":"UPS蓄电检查",
+      "work_description":"电线破损巡检",
     },{
       "id":"2",
       "work_name":"B-002",
-      "work_description":"廊内水泵养护",
+      "work_description":"安全门养护",
     }];
     const modalFormProps = {
       title:"详细信息",

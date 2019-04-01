@@ -147,9 +147,9 @@ export const getRouterData = app => {
         component: dynamicWrapper(app, [], () => import('../routes/assetManagement/assetOverview/components/AssetOverview')),
     },
     //资产维保记录
-    '/assetManagement/assetRecord': {
+/*    '/assetManagement/assetRecord': {
         component: dynamicWrapper(app, [], () => import('../routes/assetManagement/assetRecord/assetRecord.js')),
-    },
+    },*/
     //资产备品备件
     '/assetManagement/bomManagement': {
         component: dynamicWrapper(app, [], () => import('../routes/assetManagement/bomManagement/bomManagement.js')),
@@ -179,9 +179,9 @@ export const getRouterData = app => {
         component: dynamicWrapper(app, ['routes/workManager/workTask/model/workTask'], () => import('../routes/workManager/workTask/components/TaskPlan')),
     },
     //工作记录
-/*    '/job/record': {
+    '/job/record': {
         component: dynamicWrapper(app, ['routes/workManager/workRecord/model/workRecord'], () => import('../routes/workManager/workRecord/components/TaskRecord')),
-    },*/
+    },
     //事件记录
     '/job/event': {
         component: dynamicWrapper(app, ['routes/workManager/workEvents/model/workEvent'], () => import('../routes/workManager/workEvents/components/WorkEvent'))

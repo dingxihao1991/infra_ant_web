@@ -147,12 +147,12 @@ export const getRouterData = app => {
         component: dynamicWrapper(app, [], () => import('../routes/assetManagement/assetOverview/components/AssetOverview')),
     },
     //资产维保记录
-/*    '/assetManagement/assetRecord': {
-        component: dynamicWrapper(app, [], () => import('../routes/assetManagement/assetRecord/assetRecord.js')),
-    },*/
+    '/assetManagement/assetRecord': {
+        component: dynamicWrapper(app, [], () => import('../routes/assetManagement/assetRecord/components/MaintenanceRecord')),
+    },
     //资产备品备件
     '/assetManagement/bomManagement': {
-        component: dynamicWrapper(app, [], () => import('../routes/assetManagement/bomManagement/bomManagement.js')),
+        component: dynamicWrapper(app, [], () => import('../routes/assetManagement/bomManagement/components/ReservePart')),
     },
     //个人中心
     '/personal/centre': {
@@ -202,37 +202,37 @@ export const getRouterData = app => {
         component: dynamicWrapper(app, ['routes/systemConfigManagement/perambulate/model/perambulate'], () => import('../routes/systemConfigManagement/perambulate/components/Perambulate')),
     },
 
-      //费用管理
-      '/maintenance/costManager': {
+    //费用管理
+    '/maintenance/costManager': {
         component: dynamicWrapper(app, ['routes/maintenance/costManager/model/costManager'], () => import('../routes/maintenance/costManager/components/CostManager')),
-      },
+    },
 
-      //病害处置
-      '/maintenance/diseaseDisposal': {
+    //病害处置
+    '/maintenance/diseaseDisposal': {
         component: dynamicWrapper(app, ['routes/maintenance/diseaseDisposal/model/diseaseDisposal'], () => import('../routes/maintenance/diseaseDisposal/components/diseaseDisposal')),
-      },
+    },
 
-      //工程管理
-      '/maintenance/projectManager': {
+    //工程管理
+    '/maintenance/projectManager': {
         component: dynamicWrapper(app, ['routes/maintenance/projectManager/model/projectManager'], () => import('../routes/maintenance/projectManager/components/ProjectManager')),
-      },
+    },
 
-      //运维养护管理
-      '/statistics/conserveManager': {
+    //运维养护管理
+    '/statistics/conserveManager': {
         component: dynamicWrapper(app, ['routes/statistics/conserveManager/model/conserveManager'], () => import('../routes/statistics/conserveManager/components/ConserveManager')),
-      },
-      //费用核算
-      '/maintenance/costCheck': {
+    },
+    //费用核算
+    '/maintenance/costCheck': {
         component: dynamicWrapper(app, ['routes/maintenance/costCheck/model/costCheck'], () => import('../routes/maintenance/costCheck/components/CostCheck')),
-      },
-      //财务统计分析
-      '/statistics/finance': {
+    },
+    //财务统计分析
+    '/statistics/finance': {
         component: dynamicWrapper(app, [], () => import('../routes/statistics/finance/components/finance')),
-      },
-      //结构安全
-      '/model/index': {
+    },
+    //结构安全
+    '/model/index': {
         component: dynamicWrapper(app, [], () => import('../routes/model/index')),
-      },
+    },
 };
 
     /*  !!!!! Don't  touch  me !!!!! */

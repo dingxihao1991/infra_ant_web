@@ -15,13 +15,15 @@ const data = [
     num: '15',
     deliveryTime: '2018-11-19 15:03',
     describe: '设备过期',
+    registerUser:'张三峰'
 }, {
     code: 'BJ-TD-0000002',
     name: '调高垫板',
     itemType: '其他系统',
     num: '200',
     deliveryTime: '2018-11-20 16:23',
-    describe: '设备过期',
+    describe: '设备过期', 
+    registerUser:'张三峰'
 }, {
     code: 'BJ-TD-0000003',
     name: '通风管',
@@ -29,6 +31,7 @@ const data = [
     num: '10',
     deliveryTime: '2018-11-20 16:23',
     describe: '设备过期',
+    registerUser:'张三峰'
 }, {
     code: 'BJ-TD-0000004',
     name: '排水管',
@@ -36,6 +39,7 @@ const data = [
     num: '5',
     deliveryTime: '2018-11-20 16:23',
     describe: '设备过期',
+    registerUser:'张三峰'
 }, {
     code: 'BJ-TD-0000005',
     name: '小型发电机',
@@ -43,6 +47,7 @@ const data = [
     num: '2',
     deliveryTime: '2018-11-20 16:23',
     describe: '设备过期',
+    registerUser:'张三峰'
 }, {
     code: 'BJ-TD-0000006',
     name: 'LED显示屏',
@@ -50,6 +55,7 @@ const data = [
     num: '1',
     deliveryTime: '2018-11-20 16:23',
     describe: '设备损坏，需要更换',
+    registerUser:'王朝'
 }, {
     code: 'BJ-ZZ-0000007',
     name: '支柱绝缘子及其附件',
@@ -57,6 +63,7 @@ const data = [
     num: '19',
     deliveryTime: '2018-11-21 9:52',
     describe: '设备损坏，需要更换',
+    registerUser:'王朝'
 }, {
     code: 'BJ-JY-0000008',
     name: '绝缘密封套管',
@@ -64,6 +71,7 @@ const data = [
     num: '7',
     deliveryTime: '2018-11-19 16:27',
     describe: '设备损坏，需要更换',
+    registerUser:'王朝'
 }, {
     code: 'BJ-SD-0000009',
     name: '湿度传感器',
@@ -75,6 +83,7 @@ const data = [
     code: 'BJ-GX-0000010',
     name: '光学配件',
     itemType: '其他系统',
+    registerUser:'王朝',
     num: '80',
     deliveryTime: '2018-11-19 13:15',
     describe: '设备损坏，需要更换',
@@ -85,6 +94,7 @@ const data = [
     num: '5',
     deliveryTime: '2018-11-20 15:29',
     describe: '设备损坏，需要更换',
+    registerUser:'王朝'
 }
 ];
 
@@ -93,37 +103,37 @@ const columns = [
     title: '备件编号',
     dataIndex: 'code',
     id: 'code',
-    key: '1',
     width:200
 }, {
     title: '备件名称',
     dataIndex: 'name',
     id: 'name',
-    key: '2',
     width:200
 }, {
     title: '备件所属系统',
     dataIndex: 'itemType',
     id: 'itemType',
-    key: '3',
     width:250
 }, {
     title: '备件数量',
     dataIndex: 'num',
     id: 'num',
-    key: '4',
     width: 150
 }, {
     title: '出库时间',
     dataIndex: 'deliveryTime',
     id: 'deliveryTime',
-    key: '5',
     width:200
 }, {
     title: '备注',
     dataIndex: 'describe',
     id: 'describe',
     width:250
+},{
+    title: '申领人',
+    dataIndex: 'registerUser',
+    id: 'registerUser',
+    width:150
 }];
 
 
@@ -166,10 +176,13 @@ export default class TakeRecord extends PureComponent {
         console.log(values);
     }
 
-    //定位
     register =()=>{
 
         this.openModel();
+    }
+
+    handleChange = (pagination, filters, sorter, extra) =>{
+        this.setState({current:pagination.current,pageSize:pagination.pageSize});
     }
 
     render() {

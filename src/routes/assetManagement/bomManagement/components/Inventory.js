@@ -80,31 +80,25 @@ const columns = [
         title: '备件编号',
         dataIndex: 'code',
         id: 'code',
-        key: '1',
         width:200
     }, {
         title: '备件名称',
         dataIndex: 'name',
-        id: 'name',
-        key: '2',
         width:200
     }, {
         title: '备件所属系统',
         dataIndex: 'itemType',
         id: 'itemType',
-        key: '3',
         width:250
     }, {
         title: '备件数量',
         dataIndex: 'num',
         id: 'num',
-        key: '4',
         width: 150
     }, {
         title: '更新时间',
         dataIndex: 'inventoryTime',
         id: 'inventoryTime',
-        key: '5',
         width:200
     }];
 
@@ -146,7 +140,6 @@ export default class Inventory extends PureComponent {
     }
 
 
-    //定位
     edit =(record)=>{
 
         const modalFormProps = {
@@ -157,6 +150,10 @@ export default class Inventory extends PureComponent {
             Contents:FormSub,
         }
         this.context.openModal(modalFormProps);
+    }
+
+    handleChange = (pagination, filters, sorter, extra) =>{
+        this.setState({current:pagination.current,pageSize:pagination.pageSize});
     }
 
     render() {
@@ -178,11 +175,6 @@ export default class Inventory extends PureComponent {
 
         return(
             <div>
-                <div className={styles.tableOperations}>
-                    <Button onClick={this.change}>
-                        <Icon type="edit" />入库登记
-                    </Button>
-                </div>
                 <Content className='ant_table_ui' >
                     <Table size="middle" rowKey='id' columns={columns}
                            dataSource={data} onChange={this.handleChange} rowSelection={rowSelection}

@@ -4,13 +4,8 @@ import {ModalForm,showConfirm}  from 'components/Modal';
 const Search = Input.Search;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
-/**
- * 资产维保记录页面
- *
- */
 
 const { Content,} = Layout;
-const TabPane = Tabs.TabPane;
 
 //维保数据
 const data = [{
@@ -173,6 +168,10 @@ export default class MaintenanceRecord extends PureComponent {
 
     }
 
+    handleChange = (pagination, filters, sorter, extra) =>{
+        this.setState({current:pagination.current,pageSize:pagination.pageSize});
+    }
+
     render() {
 
         //增加form变量
@@ -204,11 +203,12 @@ export default class MaintenanceRecord extends PureComponent {
                     </RadioGroup>
 
                 </div>
-                <Content className='ant_table_ui' >
-                    <Table size="middle" rowKey='id' columns={columns} dataSource={dataSource} onChange={this.handleChange} rowSelection={rowSelection}
+                <Content className='ant_table_ui'>
+                    <Table  size="middle" rowKey='id' columns={columns} dataSource={dataSource} onChange={this.handleChange} rowSelection={rowSelection}
                            pagination={dataTableProps}
                            scroll={{y: '73vh'  }}
                     />
+
                 </Content>
             </Layout>
         )

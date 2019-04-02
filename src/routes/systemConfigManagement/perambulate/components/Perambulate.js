@@ -53,6 +53,8 @@ export default class perambulate extends PureComponent {
     rows: [],
     loading:true,
     isFooter:false,
+    current:1,
+    pageSize:10,
   };
 
   constructor(props,context) {
@@ -253,12 +255,21 @@ export default class perambulate extends PureComponent {
 
   render() {
     const {list, loading, tags, assetData} = this.props;
-    let { columns,rows} = this.state;
+    let { columns,rows,pageSize,current} = this.state;
     console.log("assetData------->",assetData);
     console.log("list------->",list);
     const rowSelection = {
       onChange: this.onSelectChange,
     };
+
+    const dataTableProps ={
+      total: list?list.length:null,
+      pageSize: pageSize,
+      current:current,
+      showSizeChanger: true,
+      showQuickJumper: true,
+      showTotal: total => `共 ${list.length} 条`,
+    }
 
     return(
       <Layout className={styles.application}>
@@ -270,15 +281,11 @@ export default class perambulate extends PureComponent {
             <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.batchDelete} name="批量删除" authority="role:delete"/>
           </div>
         </div>
-        <Content>
+        <Content className='ant_table_ui'>
           <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={list}  onChange={this.handleChange} rowSelection={rowSelection}
                   loading={loading}
-                  pagination={{
-                    showSizeChanger:true,
-                    showQuickJumper:true,
-                    total:{list}.length,
-                    onChange:this.onChange
-                  }}
+                  pagination={dataTableProps}
+                  scroll={{y: '73vh'  }}
                   onRowDoubleClick={this.handlerDoubleClick}
           />
         </Content>

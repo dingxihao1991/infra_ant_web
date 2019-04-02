@@ -48,6 +48,8 @@ export default class CostCheck extends PureComponent {
     rows: [],
     loading:true,
     isFooter:false,
+    current:1,
+    pageSize:10,
   };
 
   constructor(props,context) {
@@ -223,7 +225,7 @@ export default class CostCheck extends PureComponent {
       costCheck :{list},
       loading,
     } = this.props;
-    let { columns,visible,record,rows,form,title,isFooter} = this.state;
+    let { columns,visible,record,rows,form,title,isFooter,pageSize,current} = this.state;
     const rowSelection = {
       onChange: this.onSelectChange,
     };
@@ -242,6 +244,15 @@ export default class CostCheck extends PureComponent {
       onSubmit: (values) => this.onSubmit(values)
     }
 
+    const dataTableProps ={
+      total: list?list.length:null,
+      pageSize: pageSize,
+      current:current,
+      showSizeChanger: true,
+      showQuickJumper: true,
+      showTotal: total => `共 ${list.length} 条`,
+    }
+
     return(
       <Layout className={styles.application}>
         <div style={{ background: 'white'}}>
@@ -251,15 +262,11 @@ export default class CostCheck extends PureComponent {
           <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.batchDelete} name="批量删除" authority="role:delete"/>
           <ButtonAuthorize icon="" disabled={!rows.length} onClick={this.handlerCostCheck} name="费用核算" authority="role:add"/>
         </div>
-        <Content>
+        <Content className='ant_table_ui'>
           <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={list}  onChange={this.handleChange} rowSelection={rowSelection}
                   loading={loading}
-                  pagination={{
-                    showSizeChanger:true,
-                    showQuickJumper:true,
-                    total:{list}.length,
-                    onChange:this.onChange
-                  }}
+                  pagination={dataTableProps}
+                  scroll={{y: '73vh'  }}
           />
         </Content>
         <ModalForm {...modalFormProps}/>

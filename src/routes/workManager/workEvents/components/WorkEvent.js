@@ -274,7 +274,7 @@ export default class workEvent extends PureComponent {
               <h5>紧急情况</h5>
               <div>
                 <div style={{marginTop: 44}}>
-                  <span style={{color:'red',fontSize:36}}><img src={img6} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'red'}} />2</span>
+                  <span style={{color:'red',fontSize:36}}><img src={img7} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'red'}} />2</span>
                 </div>
               </div>
             </Card>
@@ -284,14 +284,14 @@ export default class workEvent extends PureComponent {
               <h5>其它事件</h5>
               <div>
                 <div style={{marginTop: 44}}>
-                  <span style={{color:'#03a9f3',fontSize:36}}><img src={img7} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'#03a9f3'}} />6</span>
+                  <span style={{color:'#03a9f3',fontSize:36}}><img src={img6} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'#03a9f3'}} />6</span>
                 </div>
               </div>
             </Card>
           </Col>
         </Row>
       </div>
-        <Content >
+          <Content >
           <Header className="header">
               <div>
                 <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="role:add" style={{margin:'0px'}}/>
@@ -309,7 +309,6 @@ export default class workEvent extends PureComponent {
             />
           </div>
         </Content>
-
       </Layout>
     )
 

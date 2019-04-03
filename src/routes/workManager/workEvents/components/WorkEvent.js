@@ -22,23 +22,6 @@ const Modal = ModalForm.Modal;
 const confirm = Modal.confirm;
 const Search = Input.Search;
 
-
-const Paging = ({dataItems, onChange, ...otherProps}) => {
-  const { total, pageSize, pageNum } = dataItems;
-  const paging = {
-    total: total,
-    pageSize: pageSize,
-    current: pageNum,
-    showSizeChanger: true,
-    showQuickJumper: true,
-    showTotal: total => `共 ${total} 条`,
-    onShowSizeChange: (pageNum, pageSize) => onChange({pageNum, pageSize}),
-    onChange: (pageNum) => onChange({pageNum}),
-    ...otherProps
-  };
-  return <Pagination {...paging} />;
-};
-
 @connect(({loading, workEvent}) => ({
   workEvent
 }))
@@ -202,16 +185,15 @@ export default class workEvent extends PureComponent {
         }
         return(
             <List.Item>
+
               <Card hoverable className={styles.card}
                     onMouseEnter={this.MouseEnter.bind(this,item.id)}
                     onMouseLeave={this.MouseLeave.bind(this,item.id)}
               >
-
                 <Content>
-                  <Card.Meta title={<a style={{fontSize: '18px',fontWeight: 'bold'}}>{item.title}</a>} description={item.eventContent} style={{}} />
+
+                  <Card.Meta title={<a style={{fontSize: '18px',fontWeight: 'bold'}}>{item.title}</a>} description={item.eventContent} />
                   <Tag color={color} style={{   top: '18px',left: '250px', position: 'absolute'}}>{item.status}</Tag>
-                  {/*<h5>{item.title} <span style={{marginLeft:'10%' , color:'#1890ff'}} >{item.status}</span></h5>*/}
-                  {/*<p style={{fontSize:16 ,color:'#9674ce',height: '40px'}}>{item.eventContent}</p>*/}
                   <p style={{fontSize:14}}><Icon type="clock-circle" style={{color:'#4194ce'}}/>提醒时间：<span>2018-1-1 09:23:44</span></p>
                   <p style={{fontSize:14}}><Icon type="clock-circle" style={{color:'#4194ce'}}/>开始时间：<span>2018-1-2 09:23:44</span>
                   </p>
@@ -220,7 +202,7 @@ export default class workEvent extends PureComponent {
                 </Content>
 
                 <div>
-                  <div id={item.id} style={{textAlign: 'right',marginTop: '-28px'}} className="hide-active">
+                  <div id={item.id} style={{textAlign: 'right',marginTop: '-30px'}} className="hide-active">
                     <div className="btn-group" title="编辑" >
                       <svg className="icon" aria-hidden="true">
                         <use href='#icon-preview-line'></use>
@@ -270,7 +252,9 @@ export default class workEvent extends PureComponent {
               <h5>设备故障</h5>
               <div>
                 <div style={{marginTop: 44}}>
-                  <span style={{color:'#00c292',fontSize:36}}><img src={img4} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'#00c292'}} />5</span>
+                  <span style={{color:'#FFDF03',fontSize:36}}>
+                    <img src={img4} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'#FFDF03'}} />5
+                  </span>
                 </div>
               </div>
             </Card>
@@ -280,7 +264,7 @@ export default class workEvent extends PureComponent {
               <h5>突发事件</h5>
               <div>
                 <div style={{marginTop: 44}}>
-                  <span style={{color:'#ab8ce4',fontSize:36}}><img src={img5} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'#ab8ce4'}} />8</span>
+                  <span style={{color:'#FC8505',fontSize:36}}><img src={img5} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'#FC8505'}} />8</span>
                 </div>
               </div>
             </Card>
@@ -290,7 +274,7 @@ export default class workEvent extends PureComponent {
               <h5>紧急情况</h5>
               <div>
                 <div style={{marginTop: 44}}>
-                  <span style={{color:'#03a9f3',fontSize:36}}><img src={img6} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'#03a9f3'}} />2</span>
+                  <span style={{color:'red',fontSize:36}}><img src={img6} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'red'}} />2</span>
                 </div>
               </div>
             </Card>
@@ -300,14 +284,14 @@ export default class workEvent extends PureComponent {
               <h5>其它事件</h5>
               <div>
                 <div style={{marginTop: 44}}>
-                  <span style={{color:'#e46a76',fontSize:36}}><img src={img7} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'#e46a76'}} />6</span>
+                  <span style={{color:'#03a9f3',fontSize:36}}><img src={img7} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'#03a9f3'}} />6</span>
                 </div>
               </div>
             </Card>
           </Col>
         </Row>
       </div>
-        <Content style={{height:'100%'}}>
+        <Content >
           <Header className="header">
               <div>
                 <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="role:add" style={{margin:'0px'}}/>

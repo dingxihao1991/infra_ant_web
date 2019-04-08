@@ -190,11 +190,13 @@ export default class assetList extends PureComponent {
             width:400
         },{
             title: '创建时间',
-            dataIndex: '7',
+            dataIndex: 'device_7',
+            key:'device_7',
             width:200
         }, {
             title: '最后修改人',
-            dataIndex: '8',
+            dataIndex: 'device_8',
+            key:'device_8',
         },{
             title: '操作',
             key: 'operation',

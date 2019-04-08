@@ -242,7 +242,12 @@ export default class PersonalCentre extends  PureComponent {
                                         </div>
                                         <Divider style={{ marginTop: 16 }} dashed />
                                         <div className={styles.team}>
-                                            <div className={styles.teamTitle}>天气</div>
+                                            <div className={styles.teamTitle}>
+                                                <div className={styles.tagsTitle}>天气</div>
+                                                <label><span style={{fontSize:'14px',fontWeight:' 600'}}>今日天气实况：</span>气温：4℃；风向/风力：西风 1级；湿度：86%</label>
+                                                <label><span style={{fontSize:'14px',fontWeight:' 600'}}>空气指数污染：</span>良，气象条件有利于空气污染物扩散。</label>
+                                                <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="//i.tianqi.com/index.php?c=code&id=12&icon=1&py=shanghai&num=5&site=12"></iframe>
+                                            </div>
 
                                         </div>
                                     </div>

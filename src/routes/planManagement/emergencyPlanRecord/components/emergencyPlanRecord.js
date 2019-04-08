@@ -154,7 +154,7 @@ export default class emergencyPlanRecord extends PureComponent {
     } = this.props;
 
     //增加form变量
-    let { columns, visible,record,dataSource,form,title,pageSize,current} = this.state;
+    let { columns, visible,record,rows,form,title,pageSize,current} = this.state;
 
     const dataTableProps ={
       total: list?list.length:null,
@@ -197,7 +197,7 @@ export default class emergencyPlanRecord extends PureComponent {
           <Layout className={styles.application}>
             <div>
               <ButtonAuthorize icon="plus" type="primary" onClick={this.edit}  name="新增" authority="organization:add"/>
-              <ButtonAuthorize icon="edit" name="修改" onClick={this.edit} authority="organization:update"/>
+              <ButtonAuthorize icon="edit"  name="修改" onClick={this.edit} authority="organization:update" />
               <ButtonAuthorize icon="delete"  name="删除" onClick={this.delete} authority="organization:delete"/>
 
             </div>

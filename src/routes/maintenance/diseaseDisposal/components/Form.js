@@ -74,7 +74,7 @@ class FormSub extends Component {
 
               <FormItem {...formItemLayout} label="是否沉降">
                 {getFieldDecorator('menuType', {
-                  initialValue:record?record['menuType']:null,
+                  initialValue:record?record['pro_h']:undefined,
                   rules: [{
                     required: true,
                     message: '请选择是或否',
@@ -89,7 +89,7 @@ class FormSub extends Component {
 
               <FormItem {...formItemLayout} label="是否渗漏">
                 {getFieldDecorator('menuType', {
-                  initialValue:record?record['menuType']:null,
+                  initialValue:record?record['pro_user']:undefined,
                   rules: [{
                     required: true,
                     message: '请选择是或否',
@@ -104,7 +104,7 @@ class FormSub extends Component {
 
               <FormItem {...formItemLayout} label="是否环片收敛">
                 {getFieldDecorator('menuType', {
-                  initialValue:record?record['menuType']:null,
+                  initialValue:record?record['pro_g']:undefined,
                   rules: [{
                     required: true,
                     message: '请选择是或否',

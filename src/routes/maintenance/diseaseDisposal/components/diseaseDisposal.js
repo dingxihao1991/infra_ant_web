@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import styles from '../../maintenance.less';
-import { Table ,Button ,Layout,Pagination,Dropdown,Menu,Icon} from 'antd';
+import { Table ,Button ,Layout,Pagination,Dropdown,Menu,Icon,message} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
 import { connect } from 'dva';
 import Authorized from '../../../../utils/Authorized';
@@ -9,6 +9,9 @@ import AdvancedSearchForm from './SearchForm';
 import FormSub from './Form';
 const { ButtonAuthorize } = Authorized;
 const { Content } = Layout;
+const Modal = ModalForm.Modal;
+const confirm = Modal.confirm;
+
 
 const Paging = ({dataItems, onChange, ...otherProps}) => {
   const { total, pageSize, pageNum } = dataItems;
@@ -157,16 +160,36 @@ export default class DiseaseDisposal extends PureComponent {
   };
 
   delete =(record)=> {
-    console.log(record)
-    alert(record.id);
+    confirm({
+      title: '提示信息',
+      content: '确定删除吗?',
+      okText: '确定',
+      okType: 'danger',
+      cancelText: '取消',
+      onOk() {
+        message.success("删除成功");
+      },
+      onCancel() {
 
+      },
+    })
   }
 
   batchDelete=() => {
-    const {rows , record} = this.state
-    console.log(rows)
-    console.log(record)
-    alert(record.id);
+    const {rows } = this.state
+    confirm({
+      title: '提示信息',
+      content: '确定删除【'+rows.length+'】行数据吗?',
+      okText: '确定',
+      okType: 'danger',
+      cancelText: '取消',
+      onOk() {
+        message.success("删除成功");
+      },
+      onCancel() {
+
+      },
+    })
   }
 
   //选中项发生变化时的回调

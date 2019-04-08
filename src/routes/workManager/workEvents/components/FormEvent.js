@@ -98,15 +98,15 @@ class FormEvent extends Component {
                 )}
               </FormItem>
 
-              <FormItem {...formItemLayout} label="管廊">
+              <FormItem {...formItemLayout} label="隧道名称">
                 {getFieldDecorator('gallery_name', {
                   initialValue:record?record['gallery_name']:null,
                   rules: [{
                     required: true,
-                    message: '请输入管廊',
+                    message: '请输入隧道名称',
                   }],
                 })(
-                  <Input placeholder="请输入管廊" />
+                  <Input placeholder="请输入隧道名称" />
                 )}
               </FormItem>
 

@@ -65,7 +65,6 @@ export default class perambulate extends PureComponent {
   componentDidMount(){
     const {dispatch } = this.props;
     this.initColums();
-    this.init();
     dispatch({
       type: 'perambulate/fetch',
       payload: {
@@ -143,9 +142,8 @@ export default class perambulate extends PureComponent {
 
   //编辑
   edit =(record)=>{
-    console.log(record)
     this.setState({
-      title:'新增巡视模板',
+      title:'编辑巡视模板',
       record:record,
       visible: true,
       form:FormSub,
@@ -155,31 +153,46 @@ export default class perambulate extends PureComponent {
 
   //新增事件
   onAdd = () => {
-    const {assetData} = this.props;
-    let parms = {};
-    parms.assetData = assetData;
-    const modalFormProps = {
-      record : parms,
-      title : "新增巡视模板",
-      Contents : FormSub,
-      maskClosable : true,
-      isShow : true,
-      isFooter : false,
-      onSubmit: (values) => this.onSubmit(values)
-    }
-    this.context.openModal(modalFormProps);
+    this.setState({
+      title:'新增巡视模板',
+      visible: true,
+      form:FormSub,
+      record:null,
+      isFooter:false
+    });
   };
 
   delete =(record)=> {
-    console.log(record)
-    //alert(record.id);
+    confirm({
+      title: '提示信息',
+      content: '确定删除吗?',
+      okText: '确定',
+      okType: 'danger',
+      cancelText: '取消',
+      onOk() {
+        message.success("删除成功");
+      },
+      onCancel() {
+
+      },
+    })
   }
 
   batchDelete=() => {
-    const {rows , record} = this.state
-    console.log(rows)
-    console.log(record)
-    //alert(record.id);
+    const {rows } = this.state
+    confirm({
+      title: '提示信息',
+      content: '确定删除【'+rows.length+'】行数据吗?',
+      okText: '确定',
+      okType: 'danger',
+      cancelText: '取消',
+      onOk() {
+        message.success("删除成功");
+      },
+      onCancel() {
+
+      },
+    })
   }
 
   //选中项发生变化时的回调
@@ -255,7 +268,7 @@ export default class perambulate extends PureComponent {
 
   render() {
     const {list, loading, tags, assetData} = this.props;
-    let { columns,rows,pageSize,current} = this.state;
+    let { columns,rows,pageSize,current,title,record,visible,isFooter,form} = this.state;
     console.log("assetData------->",assetData);
     console.log("list------->",list);
     const rowSelection = {
@@ -270,6 +283,21 @@ export default class perambulate extends PureComponent {
       showQuickJumper: true,
       showTotal: total => `共 ${list.length} 条`,
     }
+
+    const modalFormProps = {
+      title:title,
+      loading: true,
+      record,
+      visible,
+      isFooter,
+      Contents:form,
+      modalOpts: {
+        width: 700,
+      },
+      onCancel: () => this.closeModal(),
+      onSubmit: (values) => this.onSubmit(values)
+    }
+
 
     return(
       <Layout className={styles.application}>
@@ -289,6 +317,7 @@ export default class perambulate extends PureComponent {
                   onRowDoubleClick={this.handlerDoubleClick}
           />
         </Content>
+        <ModalForm {...modalFormProps}/>
       </Layout>
     )
 

@@ -21,11 +21,11 @@ class FormSub extends Component {
     };
 
     componentDidMount(){
-      children.splice(0 , children.length);
+     /* children.splice(0 , children.length);
       const {record} = this.props;
       for (let i = 0 , size = record.assetData.length ; i <  size; i++) {
          children.push(<Option key={record.assetData[i].asset_2} >{record.assetData[i].asset_2}</Option>);
-      }
+      }*/
     }
 
     init = () =>{

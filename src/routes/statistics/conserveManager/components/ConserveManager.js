@@ -74,7 +74,7 @@ export default class ConserveManager extends PureComponent {
   initColums = ()=>{
     const columns = [
       {
-        title: '管廊名称',
+        title: '隧道名称',
         dataIndex: 'gallery_name',
         id: 'gallery_name',
         align: 'center',
@@ -165,27 +165,45 @@ export default class ConserveManager extends PureComponent {
 
   //新增事件
   onAdd = () => {
-      const modalFormProps = {
-          title:"新增任务",
-          Contents:FormSub,
-          maskClosable:true,
-          isShow:true,
-          isFooter:false,
-          onSubmit: (values) => this.onSubmit(values)
-      }
-      this.context.openModal(modalFormProps);
-
+    this.setState({
+      title:'新增任务',
+      visible: true,
+      form:FormSub,
+      isFooter:false
+    });
   };
 
   delete =(record)=> {
-    console.log(record)
+    confirm({
+      title: '提示信息',
+      content: '确定删除吗?',
+      okText: '确定',
+      okType: 'danger',
+      cancelText: '取消',
+      onOk() {
+        message.success("删除成功");
+      },
+      onCancel() {
+
+      },
+    })
   }
 
   batchDelete=() => {
-    const {rows , record} = this.state
-    console.log(rows)
-    console.log(record)
-    alert(record.id);
+    const {rows } = this.state
+    confirm({
+      title: '提示信息',
+      content: '确定删除【'+rows.length+'】行数据吗?',
+      okText: '确定',
+      okType: 'danger',
+      cancelText: '取消',
+      onOk() {
+        message.success("删除成功");
+      },
+      onCancel() {
+
+      },
+    })
   }
 
   //选中项发生变化时的回调
@@ -197,6 +215,12 @@ export default class ConserveManager extends PureComponent {
   onSubmit= (values ) =>{
     let i = 500
     console.log("submit:" + JSON.stringify(values))
+  }
+
+  closeModal = () =>{
+    this.setState({
+      visible: false
+    });
   }
 
   handlerDoubleClick = (record, index, event) => {
@@ -241,7 +265,7 @@ export default class ConserveManager extends PureComponent {
         conserveManager :{list},
         loading,
       } = this.props;
-      let { columns,rows,pageSize,current} = this.state;
+      let { columns,rows,pageSize,current,title,record,visible,isFooter,form} = this.state;
 
       const dataTableProps ={
         total: list?list.length:null,
@@ -250,6 +274,20 @@ export default class ConserveManager extends PureComponent {
         showSizeChanger: true,
         showQuickJumper: true,
         showTotal: total => `共 ${list.length} 条`,
+      }
+
+      const modalFormProps = {
+        title:title,
+        loading: true,
+        record,
+        visible,
+        isFooter,
+        Contents:form,
+        modalOpts: {
+          width: 700,
+        },
+        onCancel: () => this.closeModal(),
+        onSubmit: (values) => this.onSubmit(values)
       }
 
       const rowSelection = {
@@ -274,6 +312,7 @@ export default class ConserveManager extends PureComponent {
                   onRowDoubleClick={this.handlerDoubleClick}
           />
         </Content>
+        <ModalForm {...modalFormProps}/>
       </Layout>
     )
 

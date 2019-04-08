@@ -82,13 +82,7 @@ export default class CostCheck extends PureComponent {
           )
         }
       },
-      {
-        title: '管线类型',
-        dataIndex: 'b',
-        id: 'b',
-        align: 'center',
-        key:'b'
-      }, {
+       {
         title: '权属单位',
         dataIndex: 'c',
         id: 'c',
@@ -182,15 +176,36 @@ export default class CostCheck extends PureComponent {
   };
 
   delete =(record)=> {
-    console.log(record)
-    alert(record.id);
+    confirm({
+      title: '提示信息',
+      content: '确定删除吗?',
+      okText: '确定',
+      okType: 'danger',
+      cancelText: '取消',
+      onOk() {
+        message.success("删除成功");
+      },
+      onCancel() {
 
+      },
+    })
   }
 
   batchDelete=() => {
-    const {rows , record} = this.state
-    console.log(rows)
-    console.log(record)
+    const {rows } = this.state
+    confirm({
+      title: '提示信息',
+      content: '确定删除【'+rows.length+'】行数据吗?',
+      okText: '确定',
+      okType: 'danger',
+      cancelText: '取消',
+      onOk() {
+        message.success("删除成功");
+      },
+      onCancel() {
+
+      },
+    })
   }
 
   //选中项发生变化时的回调

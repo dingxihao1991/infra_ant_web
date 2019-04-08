@@ -256,8 +256,6 @@ export default class perambulate extends PureComponent {
   render() {
     const {list, loading, tags, assetData} = this.props;
     let { columns,rows,pageSize,current} = this.state;
-    console.log("assetData------->",assetData);
-    console.log("list------->",list);
     const rowSelection = {
       onChange: this.onSelectChange,
     };

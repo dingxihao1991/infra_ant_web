@@ -76,7 +76,7 @@ export default class Finance extends PureComponent {
             <div className={styles.t_d_finance}>
               <Row gutter={20}>
                 <Col span={12} className={styles.row_finance}>
-                  <div id="main1" style={{ height:'364px'}}></div>
+                  <div id="main1" style={{ height:'364px',width:'946px'}}></div>
                 </Col>
                 <Col span={10} className={styles.ro_finance}>
                   <div id="main2" style={{ height:'364px'}}></div>

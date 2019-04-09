@@ -54,16 +54,16 @@ class FormSub extends Component {
         return (
             <Form ref='form'>
                 <FormItem
-                    label="管廊："
+                    label="隧道名称："
                     {...formItemLayout}>
                     {getFieldDecorator('gallery_name', {
                         initialValue:record?record['gallery_name']:null,
                         rules: [{
                             required: true,
-                            message: '请输入管廊名称',
+                            message: '请输入隧道名称',
                         }],
                     })(
-                        <Input placeholder="请输入管廊名称" />
+                        <Input placeholder="请输入隧道名称" />
                     )}
                 </FormItem>
 
@@ -104,8 +104,8 @@ class FormSub extends Component {
                 })(
                   <Select  placeholder="请选择计划类型">
                     <Option value="巡检">巡检</Option>
-                  <Option value="养护">养护</Option>
-                  <Option value="其他">其他</Option>
+                    <Option value="养护">养护</Option>
+                    <Option value="其他">其他</Option>
                   </Select>
                 )}
               </FormItem>

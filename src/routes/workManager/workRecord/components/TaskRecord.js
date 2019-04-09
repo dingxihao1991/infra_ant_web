@@ -177,42 +177,19 @@ export default class TaskRecord extends PureComponent {
 
   complete =(record)=> {
     console.log(record)
-    alert(record.id);
-    /*
-    const dataSource = [...this.state.dataSource];
-    let thiz = this;
     confirm({
       title: '提示信息',
-      content: '确定删除【'+rows.length+'】行数据吗?',
+      content: '确定完成任务吗?',
       okText: '确定',
       okType: 'danger',
       cancelText: '取消',
       onOk() {
-        let params = []
-        rows.map(value=>{
-          params.push(value.id);
-        });
-        DELETE('/role/delete', params , function(result){
-          if(result.success){
-            message.success("删除成功");
-            thiz.setState({ dataSource: dataSource.filter(item => !rows.some(jtem=>jtem.id == item.id))});
-          }else{
-            Modal.error({
-              title: '错误信息',
-              content: '删除失败',
-            });
-          }
-
-        },function(error){
-          console.log(error)
-        })
+        message.success("操作成功");
       },
       onCancel() {
 
       },
-
-    })*/
-
+    })
   }
 
   //选中项发生变化时的回调
@@ -230,61 +207,6 @@ export default class TaskRecord extends PureComponent {
   onSubmit= (values ) =>{
     let i = 100
     console.log("submit:" + JSON.stringify(values))
-    /*tableData.push({
-      "id":++i,
-      "sys_Date":null,
-      "lastModifiedDate":null,
-      "markAsDeleted":false,
-      "gallery_name_id":"2",
-      "gallery_name":values.gallery_name,
-      "work_name":values.work_name,
-      "work_detailed":values.work_detailed,
-      "work_line":values.work_line,
-      "work_line_id":null,
-      "work_status":"启动",
-      "work_user":"王强",
-      "work_time":values.work_time,
-      "work_type":'养护',
-      "startDate":"2018-11-03 12:45:00",
-      "endDate":"2018-11-03 23:30:00",
-    })*/
-    /*
-    const thiz = this;
-    if(thiz.state.record!=null){
-      values['id'] = thiz.state.record.id;
-      PUT('/role/update',values,function(data){
-        console.log(data);
-        if(data.success){
-          message.success('修改成功');
-          thiz.closeModal();
-          thiz.init();
-        }else{
-          Modal.error({
-            title: '错误信息',
-            content: '修改失败',
-          });
-        }
-      },function(error){
-        console.log(error);
-      })
-    }else {
-      POST('/role/add',values,function(data){
-        console.log(data);
-        if(data.success){
-          message.success('新增成功');
-          thiz.closeModal();
-          thiz.init();
-        }else{
-          Modal.error({
-            title: '错误信息',
-            content: '新增失败',
-          });
-        }
-      },function(error){
-        console.log(error);
-      })
-
-    }*/
   }
 
   handlerDoubleClick = (record, index, event) => {

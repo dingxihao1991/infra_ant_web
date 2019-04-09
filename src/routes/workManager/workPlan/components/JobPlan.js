@@ -173,25 +173,42 @@ export default class JobPlan extends PureComponent {
 
   //新增事件
   onAdd = () => {
-      const modalFormProps = {
-          title:"修改工作计划",
+    this.setState({
+      title:'新增工作计划',
+      visible: true,
+      form:FormSub,
+      record:null,
+      isFooter:false
+    });
+    /*  const modalFormProps = {
+          title:"新增工作计划",
           Contents:FormSub,
           maskClosable:true,
           isShow:true,
           isFooter:false,
           onSubmit: (values) => this.onSubmit(values)
       }
-      this.context.openModal(modalFormProps);
-
+      this.context.openModal(modalFormProps);*/
   };
 
   delete =(record)=> {
-    console.log(record)
-    alert(record.id);
-    /*
+    confirm({
+      title: '提示信息',
+      content: '确定删除吗?',
+      okText: '确定',
+      okType: 'danger',
+      cancelText: '取消',
+      onOk() {
+        message.success("删除成功");
+      },
+      onCancel() {
 
-    const dataSource = [...this.state.dataSource];
-    let thiz = this;
+      },
+    })
+  }
+
+  batchDelete=() => {
+    const {rows } = this.state
     confirm({
       title: '提示信息',
       content: '确定删除【'+rows.length+'】行数据吗?',
@@ -199,38 +216,12 @@ export default class JobPlan extends PureComponent {
       okType: 'danger',
       cancelText: '取消',
       onOk() {
-        let params = []
-        rows.map(value=>{
-          params.push(value.id);
-        });
-        DELETE('/role/delete', params , function(result){
-          if(result.success){
-            message.success("删除成功");
-            thiz.setState({ dataSource: dataSource.filter(item => !rows.some(jtem=>jtem.id == item.id))});
-          }else{
-            Modal.error({
-              title: '错误信息',
-              content: '删除失败',
-            });
-          }
-
-        },function(error){
-          console.log(error)
-        })
+        message.success("删除成功");
       },
       onCancel() {
 
       },
-
-    })*/
-
-  }
-
-  batchDelete=() => {
-    const {rows , record} = this.state
-    console.log(rows)
-    console.log(record)
-    alert(record.id);
+    })
   }
 
   //选中项发生变化时的回调
@@ -239,66 +230,14 @@ export default class JobPlan extends PureComponent {
     this.setState({rows:selectedRows,record:selectedRows[0]});
   }
 
-
+  closeModal = () =>{
+    this.setState({
+      visible: false
+    });
+  }
 
   onSubmit= (values ) =>{
-    let i = 500
-    console.log("submit:" + JSON.stringify(values))
-/*    tableData.push({
-      "id":++i,
-      "sys_Date":null,
-      "lastModifiedDate":null,
-      "markAsDeleted":false,
-      "gallery_name_id":"2",
-      "gallery_name":values.gallery_name,
-      "work_name":values.work_name,
-      "work_detailed":values.work_detailed,
-      "work_line":values.work_line,
-      "work_line_id":null,
-      "work_status":"启动",
-      "work_user":"王强",
-      "work_time":values.work_time,
-      "work_type":'养护',
-      "startDate":"2018-11-03 12:45:00",
-      "endDate":"2018-11-03 23:30:00",
-    })*/
-    /*
-    const thiz = this;
-    if(thiz.state.record!=null){
-      values['id'] = thiz.state.record.id;
-      PUT('/role/update',values,function(data){
-        console.log(data);
-        if(data.success){
-          message.success('修改成功');
-          thiz.closeModal();
-          thiz.init();
-        }else{
-          Modal.error({
-            title: '错误信息',
-            content: '修改失败',
-          });
-        }
-      },function(error){
-        console.log(error);
-      })
-    }else {
-      POST('/role/add',values,function(data){
-        console.log(data);
-        if(data.success){
-          message.success('新增成功');
-          thiz.closeModal();
-          thiz.init();
-        }else{
-          Modal.error({
-            title: '错误信息',
-            content: '新增失败',
-          });
-        }
-      },function(error){
-        console.log(error);
-      })
 
-    }*/
   }
 
   handlerDoubleClick = (record, index, event) => {
@@ -339,7 +278,7 @@ export default class JobPlan extends PureComponent {
 
 
     render() {
-      let { pageSize,current} = this.state;
+      let { pageSize,current,title,record,visible,isFooter,form} = this.state;
       const dataTableProps ={
         total: list?list.length:null,
         pageSize: pageSize,
@@ -347,6 +286,20 @@ export default class JobPlan extends PureComponent {
         showSizeChanger: true,
         showQuickJumper: true,
         showTotal: total => `共 ${list.length} 条`,
+      }
+
+      const modalFormProps = {
+        title:title,
+        loading: true,
+        record,
+        visible,
+        isFooter,
+        Contents:form,
+        modalOpts: {
+          width: 700,
+        },
+        onCancel: () => this.closeModal(),
+        onSubmit: (values) => this.onSubmit(values)
       }
 
       const {
@@ -377,6 +330,7 @@ export default class JobPlan extends PureComponent {
                   onRowDoubleClick={this.handlerDoubleClick}
           />
         </Content>
+        <ModalForm {...modalFormProps}/>
       </Layout>
     )
 

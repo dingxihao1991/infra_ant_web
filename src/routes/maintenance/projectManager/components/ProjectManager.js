@@ -159,16 +159,36 @@ export default class ProjectManager extends PureComponent {
   };
 
   delete =(record)=> {
-    console.log(record)
-    alert(record.id);
+    confirm({
+      title: '提示信息',
+      content: '确定删除吗?',
+      okText: '确定',
+      okType: 'danger',
+      cancelText: '取消',
+      onOk() {
+        message.success("删除成功");
+      },
+      onCancel() {
 
+      },
+    })
   }
 
   batchDelete=() => {
-    const {rows , record} = this.state
-    console.log(rows)
-    console.log(record)
-    alert(record.id);
+    const {rows } = this.state
+    confirm({
+      title: '提示信息',
+      content: '确定删除【'+rows.length+'】行数据吗?',
+      okText: '确定',
+      okType: 'danger',
+      cancelText: '取消',
+      onOk() {
+        message.success("删除成功");
+      },
+      onCancel() {
+
+      },
+    })
   }
 
   //选中项发生变化时的回调

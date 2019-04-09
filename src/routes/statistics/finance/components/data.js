@@ -9,7 +9,7 @@ export  var option1 = {
     data:['收入','支出']
   },
   grid: {
-    left: '4%',
+    left: '13%',
     right: '14%',
     bottom: '7%',
   },
@@ -56,7 +56,7 @@ export  var option1 = {
 
 export var option2 = {
     grid: {
-      left: '6%',
+      left: '12%',
       right: '14%',
       bottom: '7%',
     },

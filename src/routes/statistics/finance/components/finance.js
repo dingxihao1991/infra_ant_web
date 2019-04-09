@@ -31,14 +31,14 @@ export default class Finance extends PureComponent {
   }
 
   componentDidMount(){
-    var myChart1 = echarts.init(document.getElementById('main1'));
-    myChart1.setOption(option1);
+    /*    var myChart1 = echarts.init(document.getElementById('main1'));
+       myChart1.setOption(option1);
 
-    var myChart2 = echarts.init(document.getElementById('main2'));
-    myChart2.setOption(option2);
+       var myChart2 = echarts.init(document.getElementById('main2'));
+       myChart2.setOption(option2);
 
-/*    var myChart3 = echarts.init(document.getElementById('main3'));
-    myChart3.setOption(option3);*/
+      var myChart3 = echarts.init(document.getElementById('main3'));
+       myChart3.setOption(option3);*/
   }
 
     render() {
@@ -76,10 +76,18 @@ export default class Finance extends PureComponent {
             <div className={styles.t_d_finance}>
               <Row gutter={20}>
                 <Col span={12} className={styles.row_finance}>
-                  <div id="main1" style={{ height:'364px',width:'946px'}}></div>
+                  {/*<div id="main1" style={{ height:'364px',width:'946px'}}></div>*/}
+                  <ReactEcharts option={option1}
+                                notMerge={true}
+                                lazyUpdate={true}
+                                style={{height:'364px',width:'946px'}}/>
                 </Col>
                 <Col span={10} className={styles.ro_finance}>
-                  <div id="main2" style={{ height:'364px'}}></div>
+                  {/*<div id="main2" style={{ height:'364px'}}></div>*/}
+                  <ReactEcharts option={option2}
+                                notMerge={true}
+                                lazyUpdate={true}
+                                style={{height:'364px'}}/>
                 </Col>
               </Row>
             </div>

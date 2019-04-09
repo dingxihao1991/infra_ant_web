@@ -64,15 +64,9 @@ const { Content} = Layout;
         const {location} =this.props;
 
         return(
-<<<<<<< HEAD
-          <div style={{height:'400px'}}></div>
-          //<iframe id='webgl_iframe' src={src} width='100%' style={{'borderWidth':'0px',minHeight:'100%'}}></iframe>
-=======
             //<div style={{height:'400px'}} className={location!=undefined?(location.pathname == '/model/index' ? 'show-active' : 'hide-active'):'hide-active'} ></div>
             <iframe id='webgl_iframe'className={location!=undefined?(location.pathname == '/model/index' ? 'show-active' : 'hide-active'):'hide-active'}   src='http://192.168.200.29/static/webgl_suidao/iframe_page.html' width='100%' style={{'borderWidth':'0px',minHeight:'100%'}}></iframe>
->>>>>>> 591a15e2e205d03a14b6511f14744fa771c8e730
         )
-
     }
 }
 export default model

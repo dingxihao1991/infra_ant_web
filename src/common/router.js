@@ -46,6 +46,7 @@ const dynamicWrapper = (app, models, component) => {
             });
         };
     }
+
     // () => import('module')
     return Loadable({
         loader: () => {
@@ -62,6 +63,14 @@ const dynamicWrapper = (app, models, component) => {
             return <Spin size="large" className="global-spin"/>;
         },
     });
+    // return     component().then(raw => {
+    //     const Component = raw.default || raw;
+    //     return props =>
+    //         createElement(Component, {
+    //             ...props,
+    //             routerData: getRouterDataCache(app),
+    //         });
+    // });
 };
 
 function getFlatMenuData(menus) {
@@ -98,11 +107,12 @@ function findMenuKey(menuData, path) {
 
 export const getRouterData = app => {
 
+
     //!!!! router set data  ....config  add router !!!!
     const routerConfig = {
         '/': {
             component: dynamicWrapper(app, ['models/search'], () => import('../layouts/BasicLayout')),
-},
+    },
     '/index': {
         component: dynamicWrapper(app, [], () => import('../routes/home/HomeIndex')),
     },
@@ -231,7 +241,7 @@ export const getRouterData = app => {
     },
     //结构安全
     '/model/index': {
-        component: dynamicWrapper(app, [], () => import('../routes/model/index')),
+        component: dynamicWrapper(app, [], () => import('../routes/model/Decorate')),
     },
 };
 

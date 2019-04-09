@@ -89,7 +89,6 @@ class Task extends PureComponent {
             taskList: { list },
             loading,
         } = this.props;
-        console.log(loading,"list----------",list)
         const IconText = ({ type, text }) => (
             <span>
         <Icon type={type} style={{ marginRight: 8 }} />

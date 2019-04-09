@@ -227,8 +227,6 @@ export default class BasicLayout extends PureComponent {
             match,
             location,
         } = this.props;
-
-
         const {message ,visible ,modalFormProps} = this.state;
         const baseRedirect = this.getBaseRedirect();
 
@@ -256,7 +254,8 @@ export default class BasicLayout extends PureComponent {
                         />
                     </Header>
                     <Content className="content" style={{overflow: 'auto',height:'93vh',padding: '15px'}}>
-                        {/*<Route path="/index" component={Model}/>*/}
+
+                        <Route path="/" location={location} component={Model}/>
                         <Switch>
                             {redirectData.map(item => (
                                 <Redirect key={item.from} exact from={item.from} to={item.to}/>

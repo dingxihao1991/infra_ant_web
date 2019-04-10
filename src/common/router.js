@@ -31,7 +31,6 @@ const dynamicWrapper = (app, models, component) => {
     models.forEach(model => {
 
         if (modelNotExisted(app, model)) {
-            console.log("-------"+`${model}`)
             app.model(require(`../${model}`).default);
         }
     });

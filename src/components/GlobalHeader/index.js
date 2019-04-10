@@ -199,7 +199,7 @@ export default class GlobalHeader extends PureComponent {
         const newNotices = messageArray.map(notice => {
             const newNotice = { ...notice };
 
-            newNotice.avatar = 'http://localhost:8888/image/Error_48px.png';
+            newNotice.avatar = '/images/Error_48px.png';
             newNotice.datetime = moment(notice.header.sendTime).fromNow();
             newNotice.key = newNotice.header.msgID;
             newNotice.title = newNotice.body.title;
@@ -303,14 +303,12 @@ export default class GlobalHeader extends PureComponent {
     render() {
 
         const {
-            currentUser = {name:this.context.userInfo.userName,avatar:'http://139.196.197.94/file/'+this.context.userInfo.imgUrl},
+            currentUser = {name:this.context.userInfo.userName,avatar:'/images/person.jpg'},//'http://139.196.197.94/file/'+this.context.userInfo.imgUrl,
             collapsed,
             fetchingNotices,
             isMobile,
             logo,
             onNoticeVisibleChange,
-            onMenuClick,
-            onNoticeClear,
 
         } = this.props;
 

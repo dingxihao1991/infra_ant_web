@@ -384,19 +384,25 @@ export default class workEvent extends PureComponent {
 
                 <div>
                   <div id={item.id} style={{textAlign: 'right',marginTop: '-28px'}} className="hide-active">
-                    <div className="btn-group" title="编辑" onClick={()=>this.edit(item)}>
+                    <div className="btn-group" title="处理" onClick={()=>this.edit(item)}>
                       <svg className="icon" aria-hidden="true">
-                        <use href='#icon-preview-line'></use>
+                        <use href='#icon-edit'></use>
+                      </svg>
+                    </div>
+                    <div className="btn-group" title="预案关联" onClick={()=>this.delete(item)}>
+                      <svg className="icon" aria-hidden="true">
+                        <use href='#icon-alert-triangle'></use>
                       </svg>
                     </div>
                     <div className="btn-group" title="删除" onClick={()=>this.delete(item)}>
                       <svg className="icon" aria-hidden="true">
-                        <use href='#icon-shanchu'></use>
+                        <use href='#icon-delete'></use>
                       </svg>
+
                     </div>
                     <div className="btn-group" title="归档">
                       <svg className="icon" aria-hidden="true">
-                        <use href='#icon-ziyuanldpi'></use>
+                        <use href='#icon-inbox'></use>
                       </svg>
                     </div>
                   </div>

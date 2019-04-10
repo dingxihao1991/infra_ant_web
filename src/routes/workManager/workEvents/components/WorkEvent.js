@@ -22,6 +22,7 @@ const { ButtonAuthorize } = Authorized;
 const Modal = ModalForm.Modal;
 const confirm = Modal.confirm;
 const Search = Input.Search;
+const Meta = Card.Meta;
 
 let workEventList = [
   {
@@ -103,7 +104,7 @@ let workEventList = [
     unitName:'西藏南路隧道',
     work_user:'周福',
     reasons:'临时任务',
-    workType:'设备故障',
+    workType:'突发事件',
     startDate:'2018-03-13 08：30：00',
     endDate:'2018-03-13 17：30：00',
     gallery_name:'西藏南路隧道',
@@ -170,21 +171,7 @@ let workEventList = [
     status:'进行中'
   },
 ];
-const Paging = ({dataItems, onChange, ...otherProps}) => {
-  const { total, pageSize, pageNum } = dataItems;
-  const paging = {
-    total: total,
-    pageSize: pageSize,
-    current: pageNum,
-    showSizeChanger: true,
-    showQuickJumper: true,
-    showTotal: total => `共 ${total} 条`,
-    onShowSizeChange: (pageNum, pageSize) => onChange({pageNum, pageSize}),
-    onChange: (pageNum) => onChange({pageNum}),
-    ...otherProps
-  };
-  return <Pagination {...paging} />;
-};
+
 /*@connect(({loading, workEvent}) => ({
   workEvent
 }))*/
@@ -223,6 +210,31 @@ export default class workEvent extends PureComponent {
     thiz.setState({dataSource:workEventList,fileDataSource:workEventList});
   };
 
+    componentWillReceiveProps = (nextProps) => {
+        const {dataSource } = this.state;
+        const thiz =this;
+        if (nextProps.message != null) {
+            var messageType = nextProps.message.header.msgType;
+
+            if (messageType == "TaskMesg" || messageType == "EquipmentMesg" || messageType == "AlertMesg") {
+                if (this.props.message == null) {
+                    let array = dataSource
+                    array.push(nextProps.message.body);
+                    this.setState({dataSource:array});
+                    console.log(this.state.dataSource)
+                } else {
+
+                    if (this.props.message.body.time != nextProps.message.body.time) {
+                        let array = dataSource
+                        array.push(nextProps.message.body);
+                        this.setState({dataSource:array});
+                        console.log(this.state.dataSource)
+                    }
+                }
+            }
+        }
+    }
+
   //新增事件
   onAdd = () => {
     this.setState({record:null});
@@ -259,12 +271,6 @@ export default class workEvent extends PureComponent {
     })
   };
 
-  //选中项发生变化时的回调
-  onSelectChange = (selectedRowKeys,selectedRows) => {
-    console.log('selectedRowKeys changed: ', selectedRowKeys);
-    this.setState({rows:selectedRows,record:selectedRows[0]});
-  };
-
   onSubmit= (values) =>{
     const thiz = this;
     if(thiz.state.record!=null){
@@ -298,22 +304,13 @@ export default class workEvent extends PureComponent {
     }
   };
 
-  closeModal = () =>{
-    this.setState({
-      visible: false
-    });
-  };
-
-  onSelect = (selectedKey) => {
-
-  };
 
   handleSearch = () => {
 
   };
 
   filterCard = (flag) => {
-    debugger
+
     const {fileDataSource} = this.state;
     this.setState({ dataSource: fileDataSource.filter(item => item.workType == flag )});
   }
@@ -335,7 +332,6 @@ export default class workEvent extends PureComponent {
       },
     });*/
 
-
   }
 
   MouseEnter =(id)=>{
@@ -355,6 +351,11 @@ export default class workEvent extends PureComponent {
     this.openModal(item,EditFormEvent);
   };
 
+  getTypeCount = (type) =>{
+      const {fileDataSource} = this.state;
+      return fileDataSource.filter(item => item.workType == type ).length;
+  }
+
   renderItem = (item) =>{
 
         let title = <h5>{item.title} <span style={{marginLeft:'10%' , color:'#1890ff'}} >{item.status}</span></h5>;
@@ -365,19 +366,19 @@ export default class workEvent extends PureComponent {
         }
         return(
             <List.Item>
-
               <Card hoverable className={styles.card}
                     onMouseEnter={this.MouseEnter.bind(this,item.id)}
                     onMouseLeave={this.MouseLeave.bind(this,item.id)}
               >
                 <Content>
-
-                  <Card.Meta title={<a style={{fontSize: '18px',fontWeight: 'bold'}}>{item.title}</a>} description={item.eventContent} />
-                  <Tag color={color} style={{   top: '18px',left: '250px', position: 'absolute'}}>{item.status}</Tag>
-                  <p style={{fontSize:14}}><Icon type="clock-circle" style={{color:'#4194ce'}}/>提醒时间：<span>2018-1-1 09:23:44</span></p>
-                  <p style={{fontSize:14}}><Icon type="clock-circle" style={{color:'#4194ce'}}/>开始时间：<span>2018-1-2 09:23:44</span>
+                  <div>
+                    <Card.Meta  title={<a style={{fontSize: '18px',fontWeight: 'bold'}}>{item.title}</a>} description={item.eventContent} />
+                    <Tag color={color} style={{ top: '10px',left: '210px', position: 'absolute'}}>{item.status}</Tag>
+                  </div>
+                  <p style={{fontSize:12}}><Icon type="clock-circle" style={{color:'#4194ce'}}/>提醒时间：<span>2018-1-1 09:23:44</span></p>
+                  <p style={{fontSize:12}}><Icon type="clock-circle" style={{color:'#4194ce'}}/>开始时间：<span>2018-1-2 09:23:44</span>
                   </p>
-                  <p style={{fontSize:14}}><Icon type="user" style={{color:'#4194ce',marginRight:6}}/>执行人：<span>{item.work_user}</span>
+                  <p style={{fontSize:12}}><Icon type="user" style={{color:'#4194ce',marginRight:6}}/>执行人：<span>{item.work_user}</span>
                   </p>
                 </Content>
 
@@ -427,16 +428,16 @@ export default class workEvent extends PureComponent {
     return(
       <Layout className={styles.workEvent} >
       <div>
-        <Row gutter={16} style={{marginLeft:'5px', marginRight: '0px', marginTop:'10px'}}>
+        <Row gutter={16} style={{margin: '10px'}}>
           <Col className="gutter-row" span={6}>
             <Card onClick={()=>this.filterCard('设备故障')}>
               <h5>设备故障</h5>
               <div>
-                <div style={{marginTop: 44}}>
-                  <span style={{color:'#FFDF03',fontSize:36}}>
-                    <img src={img4} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'#FFDF03'}} />4
-                  </span>
-                </div>
+                <span style={{marginTop: 44,fontSize:36,color:'#FFDF03'}}>
+                    <img src={img4} />
+                    <Icon type="arrow-up" style={{color:'#FFDF03'}} />
+                    {this.getTypeCount('设备故障')}
+                </span>
               </div>
             </Card>
           </Col>
@@ -444,9 +445,11 @@ export default class workEvent extends PureComponent {
             <Card onClick={()=>this.filterCard('突发事件')}>
               <h5>突发事件</h5>
               <div>
-                <div style={{marginTop: 44}}>
-                  <span style={{color:'#FC8505',fontSize:36}}><img src={img5} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'#FC8505'}} />3</span>
-                </div>
+                <span style={{marginTop: 44,fontSize:36,color:'#FC8505'}}>
+                    <img src={img5}/>
+                    <Icon type="arrow-up" style={{color:'#FC8505'}} />
+                    {this.getTypeCount('突发事件')}
+                </span>
               </div>
             </Card>
           </Col>
@@ -454,9 +457,11 @@ export default class workEvent extends PureComponent {
             <Card onClick={()=>this.filterCard('紧急情况')}>
               <h5>紧急情况</h5>
               <div>
-                <div style={{marginTop: 44}}>
-                  <span style={{color:'red',fontSize:36}}><img src={img7} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'red'}} />3</span>
-                </div>
+                <span style={{marginTop: 44,fontSize:36,color:'red'}}>
+                    <img src={img7}/>
+                    <Icon type="arrow-up" style={{}} />
+                    {this.getTypeCount('紧急情况')}
+                </span>
               </div>
             </Card>
           </Col>
@@ -464,32 +469,33 @@ export default class workEvent extends PureComponent {
             <Card onClick={()=>this.filterCard('其它事件')}>
               <h5>其它事件</h5>
               <div>
-                <div style={{marginTop: 44}}>
-                  <span style={{color:'#03a9f3',fontSize:36}}><img src={img6} style={{marginRight: '62%'}}></img><Icon type="arrow-up" style={{color:'#03a9f3'}} />0</span>
-                </div>
+                <span style={{marginTop: 44,fontSize:36,color:'#03a9f3'}}>
+                  <img src={img6} />
+                  <Icon type="arrow-up" style={{color:'#03a9f3'}} />{this.getTypeCount('其它事件')}
+                </span>
               </div>
             </Card>
           </Col>
         </Row>
       </div>
-          <Content >
-          <Header className="header">
-              <div>
-                <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="role:add" style={{margin:'0px'}}/>
-                <div style={{float:'right'}}>
-                    {extraContent}
-                </div>
+      <Content >
+        <Header className="header">
+            <div>
+              <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="role:add" style={{margin:'0px'}}/>
+              <div style={{float:'right'}}>
+                  {extraContent}
               </div>
-          </Header>
-          <div className="list-body">
-            <List
-                rowKey="id"
-                grid={{ gutter: 16,column:4}}
-                dataSource={dataSource}
-                renderItem={this.renderItem}
-            />
-          </div>
-        </Content>
+            </div>
+        </Header>
+        <div className="list-body">
+          <List
+              rowKey="id"
+              grid={{ gutter: 24,column:4}}
+              dataSource={dataSource}
+              renderItem={this.renderItem}
+          />
+        </div>
+      </Content>
       </Layout>
     )
 

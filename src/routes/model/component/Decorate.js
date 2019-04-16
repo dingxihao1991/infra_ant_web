@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Table ,Button ,Layout,List} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
 import SideLayout from 'components/SideLayout';
-import styles from './index.less';
+import styles from '../index.less';
 const { Content} = Layout;
 
 

@@ -1,22 +1,104 @@
 @import '~antd/lib/style/themes/default.less';
 
-.modelList {
+.model{
   :global{
-    .ant-list-item:last-child {
-      border-bottom: 1px solid #e8e8e8;
+    .svg{
+      color: #fff;
+      width:40px;
+      height:40px;
+      text-align: center;
+      line-height: 52px;
+      border-radius: 50%;
+      &:hover{
+        cursor:pointer;
+      }
+    }
+    .pull-right{
+      float: right !important;
+    }
+    .m-t-sm{
+      margin-left: 10px;
+    }
+    li{
+      svg{
+        float: right;
+        cursor:pointer;
+      }
+      input{
+        position: absolute;
+        margin-top: 2px;
+      }
+    }
+
+    h4,h5{
+      color: #ffffff;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .monitor{
+      .i-switch, .sl-item, .tl-content, .tl-date, .tl-wrap:before {
+        position: relative
+      }
+
+      .i-switch {
+        display: inline-block;
+        width: 35px;
+        height: 20px;
+        margin: 0;
+        background-color: #27c24c;
+        border-radius: 30px
+      }
+
+      .i-switch i:after, .i-switch i:before {
+        background-color: #fff;
+        position: absolute;
+        content: ""
+      }
+
+      .i-switch input {
+        position: absolute;
+        opacity: 0;
+        filter: alpha(opacity=0)
+      }
+
+      .i-switch input:checked + i:before {
+        top: 50%;
+        right: 5px;
+        bottom: 50%;
+        left: 50%;
+        border-width: 0;
+        border-radius: 5px
+      }
+
+      .i-switch input:checked + i:after {
+        margin-left: 16px
+      }
+
+      .i-switch i:before {
+        top: -1px;
+        right: -1px;
+        bottom: -1px;
+        left: -1px;
+        border: 1px solid #f0f0f0;
+        border-radius: 30px;
+        -webkit-transition: all .2s;
+        transition: all .2s
+      }
+
+      .i-checks input[type=radio] + i, .i-checks input[type=radio] + i:before, .i-switch i:after {
+        border-radius: 50%
+      }
+
+      .i-switch i:after {
+        top: 1px;
+        bottom: 1px;
+        width: 18px;
+        -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, .25);
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, .25);
+        -webkit-transition: margin-left .3s;
+        transition: margin-left .3s
+      }
     }
   }
-
-  .item {
-    padding-left: 24px;
-    border-bottom: 1px solid #e8e8e8;
-    &:hover {
-      background-color: #F8F9FA;
-        p {
-          color: @primary-color;
-          font-size: 16px;
-        }
-    }
-  }
-
 }

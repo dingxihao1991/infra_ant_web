@@ -1,9 +1,10 @@
 import React, {PureComponent} from 'react';
 import { Layout,Button} from 'antd';
-import Model from  '../model/index';
+import Model from  '../model/component/index';
 import Home from  './Home';
 import {connect} from 'dva';
 import HomeMap from './HomeMap';
+import { push } from 'react-router-redux'
 
 import styles from './home.less';
 
@@ -17,7 +18,7 @@ export default class HomeIndex extends PureComponent{
         tabsPanel:[
             {id:'monitorGIS',component:HomeMap},
             {id: 'BIMPage', component: Model},
-            {id: 'monitorCockpit', component: Home}
+            // {id: 'monitorCockpit', component: Home}
         ],
         monitorButton:[
           {id: 'monitorCockpit', name: '驾驶舱', icon: '#icon-shouye', bottom: '0'},
@@ -28,6 +29,11 @@ export default class HomeIndex extends PureComponent{
     }
 
     switchover =(page)=>{
+        if(page.id=='BIMPage'){
+            const {dispatch} = this.props;
+            dispatch(push('/model/index'));
+            return;
+        }
         this.setState({
             activeTab: page.id
         });

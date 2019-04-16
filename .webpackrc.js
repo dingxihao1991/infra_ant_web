@@ -31,7 +31,7 @@ export default {
   },
   disableDynamicImport: true,
    outputPath:path.join(__dirname, 'web'),
-   publicPath: '/',
+   publicPath: '/web',
 
 };
 

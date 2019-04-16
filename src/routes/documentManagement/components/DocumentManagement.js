@@ -223,7 +223,7 @@ export default class DocumentManagement extends PureComponent {
               >
                 <Layout style={{ textAlign: 'center', height: '200px'}}>
                   <div style={{paddingTop: '10px'}}>
-                    <img alt={item.title} src='/images/files/pdf.png' width={60} height={80}/>
+                    <img alt={item.title} src='/static/public/images/files/pdf.png' width={60} height={80}/>
                   </div>
                   <Content style={{}} >
 

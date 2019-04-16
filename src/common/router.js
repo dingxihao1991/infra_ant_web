@@ -240,7 +240,7 @@ export const getRouterData = app => {
     },
     //结构安全
     '/model/index': {
-        component: dynamicWrapper(app, [], () => import('../routes/model/Decorate')),
+        component: dynamicWrapper(app, ['routes/model/model/interestPoint'], () => import('../routes/model/component/Decorate')),
     },
 };
 

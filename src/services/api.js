@@ -80,6 +80,7 @@ const ajax = function(url,method,params,callBack,errorFuc){
 
     }
 
+
     fetch('http://192.168.200.29:8888'+url,option).then(function(response) {
         try{
             response.json().then(function(result){
@@ -105,7 +106,7 @@ const vif = function(){
         okType: 'danger',
         cancelText: '否',
         onOk() {
-            window.location.href="http://192.168.200.29:8888/#/user/login";
+            window.location.href="http://"+location.host+"/#/user/login";
         },
         onCancel() {
 

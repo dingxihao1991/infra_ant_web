@@ -335,7 +335,7 @@ export default class userManage extends PureComponent {
                     treeData={treeData}
                     onSelect={this.onSelect}
                 />
-                <Layout style={{background: '#fff',border:'1px solid #E5E5E5'}}>
+                <Layout>
                     <div>
                         <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增" authority="user:add"/>
                         <Dropdown overlay={menu} placement="bottomLeft" >

@@ -78,6 +78,7 @@ const data = [
          this.setState({isShowChart: !this.state.isShowChart, showMenu: false});
      }
 
+
      home= () =>{
          CallUnity("DoTweenSystem", "ResetMainCamera", "");
      }

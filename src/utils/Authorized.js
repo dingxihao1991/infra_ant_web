@@ -4,13 +4,13 @@
  * @Description: *
  */
 import RenderAuthorized from '../components/Authorized';
-import { getAuthority } from './authority';
+import { getAuthority,getAccessRole } from './authority';
 
-let Authorized = RenderAuthorized(getAuthority());
+let Authorized = RenderAuthorized(getAccessRole());
 
 // Reload the rights component
 const reloadAuthorized = () => {
-    Authorized = RenderAuthorized(getAuthority());
+    Authorized = RenderAuthorized(getAccessRole());
 };
 
 export { reloadAuthorized };

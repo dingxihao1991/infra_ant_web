@@ -279,6 +279,7 @@ export default class MenuManage extends PureComponent {
 
         let classname = cx(
             {'ant_table_ui_tree':dataSource.length>0?true:false},
+            'ant_table_ui'
         );
 
         const rowSelection = {
@@ -309,7 +310,7 @@ export default class MenuManage extends PureComponent {
                     <Table ref="tab" style={{background: '#fff'}}
                            height='80%'
                            rowKey='id'
-                           //scroll={{  y: 450 }}
+                           scroll={{  y: '73vh' }}
                            columns={columns}
                            dataSource={dataSource}
                            defaultExpandAllRows={true}

@@ -22,7 +22,7 @@ import Authorized from '../utils/Authorized';
 import {getAuthority} from '../utils/authority';
 import exception from '../routes/exception/404';
 import {ModalForm}  from 'components/Modal';
-import Model from  '../routes/model/index'
+import Model from  '../routes/model/component/index'
 
 const {Content, Header} = Layout;
 const {AuthorizedRoute, check} = Authorized;
@@ -260,8 +260,8 @@ export default class BasicLayout extends PureComponent {
                             onCollapse={this.handleMenuCollapse}
                         />
                     </Header>
-                    <Content className="content" style={{overflow: 'auto',height:'93vh',padding: '15px'}}>
 
+                    <Content className="content" id="content" style={{overflow: 'auto',height:'93vh'}}>
                         <Route path="/" location={location} component={Model}/>
                         <Switch>
                             {redirectData.map(item => (

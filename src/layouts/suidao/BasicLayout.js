@@ -23,7 +23,7 @@ import Authorized from '../../utils/Authorized';
 import {getAuthority} from '../../utils/authority';
 import exception from '../../routes/exception/404';
 import {ModalForm}  from 'components/Modal';
-import Model from  '../../routes/model/index'
+import Model from  '../../routes/model/component/index'
 
 const {Content, Header} = Layout;
 const {AuthorizedRoute, check} = Authorized;

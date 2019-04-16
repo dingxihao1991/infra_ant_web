@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { push } from 'react-router-redux'
-import { setAuthority,setToken} from '../../../../utils/authority';
+import { setAuthority,setToken,setAccessRole,getAccessRole} from '../../../../utils/authority';
+import { reloadAuthorized} from '../../../../utils/Authorized';
 
 import {connect} from 'dva';
 import {Link} from 'dva/router';
@@ -35,7 +36,9 @@ export default class LoginPage extends Component {
                 if(data.success){
                     console.log(data);
                     setAuthority(data.result.tokenObjDTO);
+                    setAccessRole(data.result.tokenObjDTO.roleId);
                     setToken(response.headers.get('token'));
+                    reloadAuthorized();
                     dispatch (push("/"));
                     //window.location.href="http://localhost:8000";
                 }else{

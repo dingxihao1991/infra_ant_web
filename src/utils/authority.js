@@ -11,6 +11,14 @@ export function setAuthority(authority) {
     return localStorage.setItem('operation-web-authority', JSON.stringify(authority));
 }
 
+export function getAccessRole() {
+    return localStorage.getItem('access-authority')// || 'admin';
+}
+
+export function setAccessRole(role) {
+    return localStorage.setItem('access-authority', role);
+}
+
 export function setToken(token) {
     return localStorage.setItem('access_token', token);
 }

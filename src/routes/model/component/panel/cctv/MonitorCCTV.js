@@ -2,6 +2,10 @@
  * Created by cheng on 2017/9/1.
  */
 import React, {Component} from 'react';
+import {Icon} from 'antd';
+import CCTVPlay from "./CCTVPlay";
+import PropTypes from 'prop-types';
+
 const  data= [
     {
         key: '1',
@@ -60,6 +64,10 @@ const  data= [
 
 export default class MonitorCCTV extends Component {
 
+      static contextTypes = {
+        openModal: PropTypes.func,
+      };
+
     state = {
         show: false,
         cctv: data,
@@ -79,35 +87,33 @@ export default class MonitorCCTV extends Component {
         const {cctv, show, cctvId} = this.state;
 
         return (
-            <div className="m-t-sm" style={{fontSize: '11pt', display: 'flex', color: '#cecece'}}>
-                <span className="m-l m-r">视频监控 {cctv.length} / {cctv.length} </span>
+            <div className="m-t-sm" style={{fontSize: '11pt', display: 'flex', color: '#cecece',marginTop: 10}}>
+                <span style={{marginRight: 30,marginLeft: 16}}>视频监控 {cctv.length} / {cctv.length} </span>
                 {cctv.map((cctv, index) => (
                     <div key={index} style={{width: '20px', cursor: 'pointer'}}>
-                        <i className="fa fa-video-camera"
-                           style={{color: show == true && cctvId == cctv.key ? '#FA6842' : '#fff'}}
-                           onClick={this.clickCCTV.bind(this, cctv)}></i>
+                      <Icon type="video-camera"  style={{color: show == true && cctvId == cctv.key ? '#FA6842' : '#fff'}} onClick={this.clickCCTV.bind(this, cctv)}/>
                     </div>
                 ))}
                 {cctv.map((cctv =>
                         <div key={cctv.key} style={CCTVStyle}
                              className={show == true && cctvId == cctv.key ? 'show-active' : 'hide-active'}>
-                            <div style={{width: '180px', padding: '10px'}}>
+                            <div style={{width: '186px', padding: '6px'}}>
                                 <div style={{marginLeft: '150px', cursor: 'pointer'}} onClick={this.closeCCTV}>x</div>
                                 <div className="row-row">
                                     <div className="m-t-sm" width="40" style={{float: 'right'}}>
-                                        <img src="../static/images/other/CCTVicon.png" width="40"/>
+                                        <img src="../static/public/images/other/CCTVicon.png" width="40"/>
                                     </div>
-                                    <div style={{float: 'left', marginLeft: '10px', width: '100px'}}>
+                                    <div style={{float: 'left', marginLeft: '-4px', width: '128px'}}>
                                         <div className="col v-middle font-thin" style={{fontSize: '12px'}}>
                                             <div>{cctv.name}</div>
                                             <div>{cctv.area}</div>
                                             <div style={{width: '170px'}}>
                                                 <div className="text-muted m-t m-r pull-left"
-                                                     style={{fontSize: '11px'}}
+                                                     style={{fontSize: '11px',float: 'left',cursor: 'pointer'}}
                                                      onClick={this.playVideo.bind(this, cctv)}>查看影像
                                                 </div>
                                                 <div className="text-muted m-t pull-left"
-                                                     style={{fontSize: '11px'}}
+                                                     style={{fontSize: '11px',marginLeft: 70,cursor: 'pointer'}}
                                                      onClick={this.markCCTV.bind(this, cctv)}>定位
                                                 </div>
                                             </div>
@@ -121,30 +127,35 @@ export default class MonitorCCTV extends Component {
         )
     }
 
-
     markCCTV = (cctv) => {
 
     }
 
-    playVideo = (cctv) => {
-        var video = $('#divVideo video')[0];
-        video.src = cctv.src;
-        video.load();
-        video.play();
-        $('#cctv_window').modal({show: true});
-
+    playVideo = () => {
+      const modalFormProps = {
+        title:'CCTV监控',
+        isFooter:true,
+        isShow:true,
+        Contents:CCTVPlay,
+        modalOpts: {
+          width: 690,
+          height:480
+        },
+        full:true,
+      }
+      this.context.openModal(modalFormProps);
     }
 
 }
 
 const CCTVStyle = {
     position: 'fixed',
-    width: '180px',
+    width: '186px',
     marginLeft: '120px',
     height: '100px',
     background: '#151412',
     bottom: '105px',
     zIndex: '10 !important',
     borderRadius: '10px',
-    backgroundImage: 'url(../static/images/other/CCTVback.png)'
+    backgroundImage: 'url(/static/public/images/other/CCTVback.png)'
 }

@@ -353,7 +353,7 @@ export default class MonitoringList extends PureComponent {
 
     //编辑
     edit = ()=>{
-   // let  form = FormSub
+    // let  form = FormSub
     const modalFormProps = {
       title:'CCTV监控',
       isFooter:true,

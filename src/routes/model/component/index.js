@@ -5,6 +5,7 @@ import { Table ,Button ,Layout,List} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
 import cx from 'classnames';
 import Styles from '../index.less';
+import HomeChartPanel from './HomeChartPanel';
 
 import {BIMCCTVList,BIMPoint,BIMMonitor} from './panel';
 
@@ -58,7 +59,6 @@ const data = [
         super(props,context);
     }
 
-
     onClick = item=>{
         let iframe = document.getElementById("webgl_iframe");
         if(iframe!=undefined){
@@ -87,6 +87,9 @@ const data = [
         const {location} = this.props
         const {src,showMenu,menu} = this.state;
 
+        const proper = {
+          showChart:true
+        }
         const className = cx(Styles.model,location!=undefined?(location.pathname == '/model/index' ? 'show-active' : 'hide-active'):'hide-active');
         return(
              <div style={{width:'100%',height:'100%'}} className={className}>
@@ -102,7 +105,7 @@ const data = [
                  {data.map(item=> (
                      <p key={item.keyId} className="svg"  onClick={this.changeMenu.bind(this, item)}
                         title={item.name}
-                        style={{width: '40px',height: '40px',right: '15px',background: '#2196F3',
+                        style={{width: '40px',height: '40px',right: '15px',backGround: '#2196F3',
                                 position: 'absolute',zIndex:'2',bottom:item.bottom,
                                 background:showMenu == true && menu == item.keyId ? "#FFA726" : '#2196F3'}}
                          >
@@ -123,8 +126,10 @@ const data = [
                      </div>
                  ))}
 
+                 <HomeChartPanel {...proper}/>
+
                  <Content style={{height: '100%', width: '100%', position: 'fixed'}}>
-                     {/*<iframe id='webgl_iframe'  sandbox="allow-scripts allow-forms allow-same-origin"  src={src} width='100%' height='100%' style={{'borderWidth':'0px',minHeight:'100%'}}/>*/}
+                     <iframe id='webgl_iframe'  sandbox="allow-scripts allow-forms allow-same-origin"  src={src} width='100%' height='100%' style={{'borderWidth':'0px',minHeight:'100%'}}/>
                  </Content>
 
              </div>

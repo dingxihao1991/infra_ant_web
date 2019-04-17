@@ -2,19 +2,25 @@
  * Created by cheng on 2017/9/1.
  */
 import React, {Component} from 'react';
-//import MonitorPerson from './Person/MonitorPerson';
+import MonitorPerson from './panel/Person/MonitorPerson';
 import MonitorCCTV from './panel/cctv/MonitorCCTV';
-
+import Weather from "./panel/Weather/Weather";
 import ReactEcharts from 'echarts-for-react';
+import echarts from 'echarts/lib/echarts';// 引入 ECharts 主模块
+import 'echarts/lib/chart/line';//引入折线图
+import 'echarts/lib/chart/pie';//引入饼图
+import 'echarts/lib/chart/bar';
+import 'echarts/lib/chart/radar';
+import 'echarts/lib/component/tooltip';// 鼠标移上去效果
+import 'echarts/lib/component/title';// 引入提示框和标题组件
+import 'echarts/lib/component/legend'; // 标记
+import 'echarts-liquidfill/src/liquidFill';
+//import {MonitorVentilation} from './Ventilation/MonitorVentilation';
+//import {MonitorPassenger} from './Passenger/MonitorPassenger';
+//import {MonitorDashboard} from './Dashboard/MonitorDashboard';
 
-import {MonitorVentilation} from './Ventilation/MonitorVentilation';
-import {MonitorPassenger} from './Passenger/MonitorPassenger';
-import {MonitorDashboard} from './Dashboard/MonitorDashboard';
-import Weather from "./Weather/Weather";
 
 export default class HomeChartPanel extends Component {
-
-
 
     constructor(props) {
         super(props);
@@ -27,79 +33,80 @@ export default class HomeChartPanel extends Component {
         outPersonMessage: null
     }
 
-
-
     render() {
         const {inPerson, outPerson, intoPersonMessage, outPersonMessage} = this.state;
         return (
-            <div style={PanelStyle} className={this.props.showChart == true ? 'show-active' : 'hide-active'}>
+            <div style={PanelStyle} className='show-active'>
                 <div style={{display: 'flex'}}>
                     <div style={MonitorStyle}>
                         <div
                             style={{display: 'flex', height: '30px', flexWrap: 'wrap', float: 'right', width: '900px'}}>
                             <div>
-                                {/*<Weather></Weather>*/}
+                                <Weather></Weather>
                             </div>
                             <div>
-                                {/*<MonitorPerson></MonitorPerson>*/}
+                                <MonitorPerson></MonitorPerson>
                             </div>
                             <div>
-                                {/*<MonitorCCTV></MonitorCCTV>*/}
+                                <MonitorCCTV></MonitorCCTV>
                             </div>
                         </div>
                         <div style={{display: 'flex',float: 'right', width: '900px'}}>
                             <div className="col-md-3 col-xs-6 no-padder">
-                                <div className="col-md-5" style={{fontSize:'14px',color: '#ffc107'}}>
-                                    <div className="m-b-sm  m-t">
+                                <div style={{fontSize:'14px',color: '#ffc107',float: 'left'}}>
+                                    <div style={{paddingTop: 10}}>
                                         湿度
                                     </div>
-                                    <div className="m-b-sm  m-t-xs"><span id="sddata"></span>
+                                    <div style={{marginTop: 4}}>
+                                        <span id="sddata"></span>
                                         <span>%RH</span>
                                     </div>
                                 </div>
-                                <div className="col-md-7 no-padder">
-                                    <div name="SD" style={{height: '70px', width: '100%'}}>
-                                    </div>
+                                <div style={{float:'left'}}>
+                                    <div name="SD" style={{height: '70px', width: '100%'}}></div>
                                 </div>
                             </div>
                             <div className="col-md-3 col-xs-6 no-padder">
-                                <div className="col-md-5" style={{fontSize:'14px',color: '#ffdcc9'}}>
-                                    <div className="m-b-sm  m-t">
+                                <div style={{fontSize:'14px',color: '#ffdcc9',float: 'left'}}>
+                                    <div style={{paddingTop: 10}}>
                                         温度
                                     </div>
-                                    <div className="m-b-sm  m-t-xs"><span id="wddata"></span>
+                                    <div style={{marginTop: 4}}>
+                                        <span id="wddata"></span>
                                         <span>℃</span>
                                     </div>
                                 </div>
-                                <div className="col-md-7 no-padder">
+                                <div style={{float:'left'}}>
                                     <div name="WD" style={{height: '70px', width: '100%'}}>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-md-3 col-xs-6 no-padder">
-                                <div className="col-md-5" style={{fontSize:'14px',color: '#c3eaff'}}>
-                                    <div className="m-b-sm  m-t">
+                                <div style={{fontSize:'14px',color: '#c3eaff',float: 'left'}}>
+                                    <div style={{paddingTop: 10}}>
                                         氧气
                                     </div>
-                                    <div className="m-b-sm  m-t-xs"><span id="outdata"></span>
+                                    <div style={{marginTop: 4}}>
+                                        <span id="outdata"></span>
                                         <span>g/mol</span>
                                     </div>
                                 </div>
-                                <div className="col-md-7 no-padder">
+                                <div style={{float:'left'}}>
                                     <div name="OUT" style={{height: '70px', width: '100%'}}>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-md-3 col-xs-6 no-padder">
-                                <div className="col-md-5" style={{fontSize:'14px',color: '#b7ff98'}}>
-                                    <div className="m-b-sm  m-t">
+                                <div style={{fontSize:'14px',color: '#b7ff98',float: 'left'}}>
+                                    <div style={{paddingTop: 10}}>
                                         甲烷
                                     </div>
-                                    <div className="m-b-sm  m-t-xs"><span id="indata"></span>
+                                    <div style={{marginTop: 4}}>
+                                        <span id="indata"></span>
                                         <span>g/mol</span>
                                     </div>
                                 </div>
-                                <div className="col-md-7 no-padder">
+                                <div style={{float:'left'}}>
                                     <div name="IN" style={{height: '70px', width: '100%'}}>
                                     </div>
                                 </div>
@@ -296,7 +303,7 @@ export default class HomeChartPanel extends Component {
             data0.shift();
             data0.push(Math.round(Math.random() * 10));
 
-            $('#wddata').text(data0.slice(9, 10));
+            document.getElementById("wddata").innerText = data0.slice(9, 10);
             optionwd.series[0].markPoint.data[0].yAxis = data0.slice(9, 10);
 
             optionwd.xAxis[0].data.shift();
@@ -486,15 +493,12 @@ export default class HomeChartPanel extends Component {
             data0.shift();
             data0.push(Math.round(Math.random() * 10));
 
-            $('#sddata').text(data0.slice(9, 10));
+            document.getElementById("sddata").innerText = data0.slice(9, 10);
             optionsd.series[0].markPoint.data[0].yAxis = data0.slice(9, 10);
-
             optionsd.xAxis[0].data.shift();
             optionsd.xAxis[0].data.push(axisData);
-
             optionsd.xAxis[1].data.shift();
             optionsd.xAxis[1].data.push(count++);
-
             myChartsd.setOption(optionsd);
         }, 2100);
 
@@ -676,7 +680,7 @@ export default class HomeChartPanel extends Component {
             data0.shift();
             data0.push(Math.round(Math.random() * 10));
 
-            $('#indata').text(data0.slice(9, 10));
+            document.getElementById("indata").innerText = data0.slice(9, 10);
             optionin.series[0].markPoint.data[0].yAxis = data0.slice(9, 10);
 
             optionin.xAxis[0].data.shift();
@@ -866,7 +870,7 @@ export default class HomeChartPanel extends Component {
             data0.shift();
             data0.push(Math.round(Math.random() * 10));
 
-            $('#outdata').text(data0.slice(9, 10));
+            document.getElementById("outdata").innerText = data0.slice(9, 10);
             optionout.series[0].markPoint.data[0].yAxis = data0.slice(9, 10);
 
             optionout.xAxis[0].data.shift();
@@ -901,8 +905,8 @@ const MonitorStyle = {
     height: '100px',
     marginTop: '161px',
     width: '920px',
-    borderRadius: '10px'
-
+    borderRadius: '10px',
+    marginLeft: '50%'
 }
 
 const intoPerson = {

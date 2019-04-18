@@ -52,7 +52,7 @@ class AdvancedSearchForm extends React.Component {
           <Col span={8} key="pro_date">
             <FormItem label='负责人'>
               {getFieldDecorator(`pro_date`)(
-                <DatePicker style={{ width: 400 }} />
+                <Input placeholder="请输入负责人" style={{width: 400}}/>
               )}
             </FormItem>
           </Col>

@@ -76,89 +76,6 @@ export var option11 = {
 
 
 
-// 开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-//进、出站流量统计
-export var option12 = {
-  tooltip: {
-    trigger: 'axis'
-  },
-  legend: {
-    data:['进隧','出隧'],
-    align:'left',
-    x:'left',
-    itemHeight :20
-  },
-  color:['#FFE083','#4CD0E1'],
-  grid: {
-    left: '-4%',
-    right: '8%',
-    bottom: '3%',
-    height:'80%',
-    containLabel: true
-  },
-  xAxis : [
-    {
-      type : 'category',
-      boundaryGap: true,
-      axisLine: {    // 轴线
-        show: false,
-      },
-      axisTick: {    // 轴标记
-        show: false,
-      },
-      axisLabel: {
-        show: true,
-      },
-      splitLine: {
-        show: false,
-      },
-      splitArea: {
-        show: false,
-      },
-      data : ['周一','周二','周三','周四','周五','周六','周日']
-    }
-  ],
-  yAxis : [
-    {
-      type : 'value',
-      axisLine: {
-        show:false,
-        lineStyle: {
-          color: '#B1B1B1',
-          type: 'solid'
-        }
-      },
-      axisLabel: {
-        show:false,
-        textStyle: {
-          color: '#B1B1B1',
-        }
-      },
-      splitLine:{ //坐标轴在 grid 区域中的分隔线。
-        show:false
-      }
-    }
-  ],
-  series : [
-    {
-      name:'进隧',
-      type: 'line',
-      smooth: true,
-      stack: '总量',
-      areaStyle: {normal: {}},
-      data:[350, 132, 501, 534, 490, 430, 410]
-    },
-    {
-      name:'出隧',
-      type: 'line',
-      smooth: true,
-      stack: '总量',
-      areaStyle: {normal: {}},
-      data:[220, 432, 501, 134, 120, 330, 320]
-    }
-  ]
-};
-// 结束↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
 
 
@@ -201,86 +118,6 @@ export var option13 = {
     }
   ]
 
-};
-// 结束↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
-
-
-
-
-// 开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-var data5 = [96, 90, 98, 90, 95]
-var titlename5 = ['设备', '能耗', '安全', '消防', '车流'];
-var myColor5 = ['#1089E7', '#1089E7', '#1089E7', '#1089E7', '#1089E7'];
-//健康指数
-export var option15 = {
-  grid:{
-    left:'18%',
-    top: '10%',
-    height: '84%',
-    width:'50%',
-  },
-  xAxis: {
-    show: false
-  },
-  yAxis: [{
-    show: true,
-    data: titlename5,
-    inverse: true,
-    axisLine: {
-      show: false
-    },
-    splitLine: {
-      show: false
-    },
-    axisTick: {
-      show: false
-    },
-    axisLabel: {
-      color: 'black',
-      formatter: function(value, index) {
-        return value
-      },
-      fontSize:15
-    },
-  }],
-  series: [{
-    name: '条',
-    type: 'bar',
-    yAxisIndex: 0,
-    data: data5,
-    barWidth: 14,
-    itemStyle: {
-      normal: {
-        barBorderRadius: 40,
-        color: function(params) {
-          var num = myColor5.length;
-          return myColor5[params.dataIndex % num]
-        },
-      }
-    },
-    label: {
-      normal: {
-        show: true,
-        position: 'inside',
-        formatter: '{c}%'
-      }
-    },
-  }]
-};
-// 结束↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
-
-
-
-
-
-// 开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-// 水球图
-export var option16 = {
-  series: [{
-    type: 'liquidFill',
-    data: [0.96],
-    radius: '80%'
-  }]
 };
 // 结束↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
@@ -414,9 +251,225 @@ export var option18 = {
 };
 // 结束↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
+// 开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+export var EquipmentFailureOption = {
+  tooltip: {
+    trigger: 'item',
+    formatter: "{a} <br/>{b}: {c} ({d}%)"
+  },
+  color: ['#FFCC00', '#99CCCC', '#996600', '#0066CC', '#FF9900', '#663300', '#999999', '#5cb85c', '#d9534f'],
+  legend: {
+    x: 'right',
+    orient: 'vertical',
+    data: ['供电', '环境', '通风', '排水', '照明', '门禁', 'CCTV', '健康', '故障'],
+    selected: {}
+  },
+  series: [
+    {
+      name: '设备故障',
+      type: 'pie',
+      selectedMode: 'single',
+      radius: [0, '68%'],
+      center: ['40%', '45%'],
+      label: {
+        normal: {
+          position: 'inner'
+        }
+      },
+      labelLine: {
+        normal: {
+          show: false
+        }
+      },
+      data: [
+        {value: 0, name: '供电'},
+        {value: 0, name: '环境'},
+        {value: 0, name: '通风'},
+        {value: 2, name: '排水'},
+        {value: 1, name: '照明'},
+        {value: 0, name: '门禁'},
+        {value: 0, name: 'CCTV'},
+      ]
+    },
+    {
+      name: '设备故障占比',
+      type: 'pie',
+      radius: ['70%', '80%'],
+      center: ['40%', '45%'],
+      label: {
+        show: false
+      },
+      data: [
+        {value: 62, name: '健康'},
+        {value: 3, name: '故障'}
+      ]
+    }
+  ]
+};
+// 结束↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+// 开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+export  var pipeTypeMonitorOption = {
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+      type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+    },
+    formatter: function (params) {
+      var result = '';
+      params.forEach(function (item) {
+        result += item.name + "<br />" + item.marker + " " + item.value + "条";
+      });
+      return result;
+    }
+  },
+  // title: {
+  //     text: '全市计划完成情况',
+  // },
+  grid: {
+    top: '5%',
+    left: '1%',
+    right: '1%',
+    bottom: '5%',
+    containLabel: true
+  },
+  xAxis: {
+    type: 'category',
+    data: ['电力', '给水', '通讯', '中水', '热力', '燃气']
+  },
+  yAxis: {
+    type: 'value',
+    max: 5
+  },
+  series: [{
+    data: [9,2,5,6,11,3],
+    type: 'bar',
+    barWidth: '70%',
+    itemStyle: {
+      //通常情况下：
+      normal: {
+        //每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+        color: function (params) {
+          var colorList = [
+            '#FFCC00',
+            '#0099FF',
+            '#006666',
+            '#00CCCC',
+            '#993300',
+            '#CC6600'
+          ];
+          return colorList[params.dataIndex];
+        }
+      },
+      //鼠标悬停时：
+      emphasis: {
+        shadowBlur: 10,
+        shadowOffsetX: 0,
+        shadowColor: 'rgba(0, 0, 0, 0.5)'
+      }
+    }
+  }]
+};
+// 结束↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+// 开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+var date = [];
+var oneDay = 24 * 3600 * 1000;
+var today = new Date();
+var baseDate = new Date(today.setDate(today.getDate() - 30));
+var base = +new Date(baseDate.getFullYear(), baseDate.getMonth(), baseDate.getDate());
+for (var i = 1; i < 31; i++) {
+  var now = new Date(base += oneDay);
+  date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
+}
+export var lineDashboard = {
+  tooltip: {
+    trigger: 'axis',
+    position: function (pt) {
+      return [pt[0], '10%'];
+    }
+  },
+  grid: {
+    top: '2%',
+    left: '1%',
+    right: '10%',
+    bottom: '6%',
+    containLabel: true
+  },
+  legend: {
+    x: 'right',
+    orient: 'vertical',
+    data: ['电力', '暴雨', '通讯', '消防', '燃气', "其它"]
+  },
+  color: ['#FFCC00', '#0099FF', '#006666', '#00CCCC', '#993300', '#CC6600'],
+  xAxis: {
+    type: 'category',
+    boundaryGap: false,
+    data: date
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    {
+      name: '电力',
+      type: 'bar',
+      stack: '总量',
+      data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    },
+    {
+      name: '暴雨',
+      type: 'bar',
+      stack: '总量',
+      data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    },
+    {
+      name: '通讯',
+      type: 'bar',
+      stack: '总量',
+      data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    },
+    {
+      name: '消防',
+      type: 'bar',
+      stack: '总量',
+      data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    },
+    {
+      name: '燃气',
+      type: 'bar',
+      stack: '总量',
+      data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0]
+    },
+    {
+      name: '其它',
+      type: 'bar',
+      stack: '总量',
+      data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2]
+    }
+  ]
+};
+// 结束↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
 
 
+// 开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+// 结束↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+// 开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+// 结束↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+// 开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+// 结束↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+// 开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+// 结束↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+// 开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+// 结束↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+// 开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+// 结束↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
 
 

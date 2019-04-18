@@ -33,6 +33,13 @@ export default class HomeChartPanel extends Component {
         outPersonMessage: null
     }
 
+  componentDidMount = () => {
+    this.wd();
+    this.sd();
+    this.in();
+    this.out();
+  }
+
     render() {
         const {inPerson, outPerson, intoPersonMessage, outPersonMessage} = this.state;
         return (
@@ -116,14 +123,6 @@ export default class HomeChartPanel extends Component {
                 </div>
             </div>
         )
-    }
-
-    componentDidMount = () => {
-        this.wd();
-        this.sd();
-        this.in();
-        this.out();
-
     }
 
     wd(){

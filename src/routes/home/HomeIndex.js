@@ -21,7 +21,7 @@ export default class HomeIndex extends PureComponent{
             {id: 'monitorCockpit', component: Home}
         ],
         monitorButton:[
-          {id: 'monitorCockpit', name: '驾驶舱', icon: '#icon-shouye', bottom: '0'},
+            {id: 'monitorCockpit', name: '驾驶舱', icon: '#icon-shouye', bottom: '0'},
             {id: 'monitorGIS', name: '概览', icon: '#icon-map', bottom: '100'},
             {id: 'BIMPage', name: '模型', icon: '#icon-sanweimoxing', bottom: '50'},
 
@@ -29,6 +29,7 @@ export default class HomeIndex extends PureComponent{
     }
 
     switchover =(page)=>{
+        debugger;
         if(page.id=='BIMPage'){
             const {dispatch} = this.props;
             dispatch(push('/model/index'));

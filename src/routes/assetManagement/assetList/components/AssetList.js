@@ -4564,6 +4564,13 @@ export default class assetList extends PureComponent {
             title: '当前状态',
             dataIndex: 'use_state',
             key:'use_state',
+            render: (text, record) => {
+              if (text == '使用') {
+                return <span style={{color:'#40c334'}}>{text}</span>
+              }else{
+                return <span style={{color:'red'}}>{text}</span>
+              }
+            }
         }, {
             width:250,
             title: '项目名称',

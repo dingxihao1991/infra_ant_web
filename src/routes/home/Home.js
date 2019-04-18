@@ -236,7 +236,7 @@ export default class Home extends PureComponent {
               <Col className="gutter-row" span={8}>
                 <div className="gutter-box">
                   <Card title={P1_Html} bordered={false} >
-                    <div style={{ height: '419px','overflow-y': 'scroll'}}>
+                    <div style={{ height: '419px',overflowY: 'scroll'}}>
                       <Tree
                         showIcon
                         defaultExpandAll
@@ -282,13 +282,13 @@ export default class Home extends PureComponent {
                           <i style={{display: 'inline-block',backgroundImage: 'url(/images/home/o2_panel.png)',width: 40,height: 40,marginTop: -4}}></i>
                       </div>
                       <div style={{float: 'left',width:'26%'}}>
-                        <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>氧气</h5>
+                        <h5 style={{color: 'rgb(66, 133, 244)'}}>氧气</h5>
                       </div>
                       <div style={{float: 'left',width:'30%'}}>
-                        <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>31.9g/mol</h5>
+                        <h5 style={{color: 'rgb(66, 133, 244)'}}>31.9g/mol</h5>
                       </div >
                       <div style={{float: 'left'}}>
-                        <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>40.4g/mol</h5>
+                        <h5 style={{color: 'rgb(66, 133, 244)'}}>40.4g/mol</h5>
                       </div>
                       <div style={{borderBottom: '1px dashed #dee5e7',height: 2,margin: '10px 0px',fontSize: 0,float:'left',width:'100%'}}></div>
                     </div>
@@ -298,13 +298,13 @@ export default class Home extends PureComponent {
                         <i style={{display: 'inline-block',backgroundImage: 'url(/images/home/Carbonmonoxide.png)',width: 40,height: 40,marginTop: -4}}></i>
                       </div>
                       <div style={{float: 'left',width:'26%'}}>
-                        <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>一氧化碳</h5>
+                        <h5 style={{color: 'rgb(66, 133, 244)'}}>一氧化碳</h5>
                       </div>
                       <div style={{float: 'left',width:'30%'}}>
-                        <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>12.9g/mol</h5>
+                        <h5 style={{color: 'rgb(66, 133, 244)'}}>12.9g/mol</h5>
                       </div >
                       <div style={{float: 'left'}}>
-                        <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>28g/mol</h5>
+                        <h5 style={{color: 'rgb(66, 133, 244)'}}>28g/mol</h5>
                       </div>
                       <div style={{borderBottom: '1px dashed #dee5e7',height: 2,margin: '10px 0px',fontSize: 0,float:'left',width:'100%'}}></div>
                     </div>
@@ -314,13 +314,13 @@ export default class Home extends PureComponent {
                         <i style={{display: 'inline-block',backgroundImage: 'url(/images/home/h2s_panel.png)',width: 40,height: 40,marginTop: -4}}></i>
                       </div>
                       <div style={{float: 'left',width:'26%'}}>
-                        <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>硫化氢</h5>
+                        <h5 style={{color: 'rgb(66, 133, 244)'}}>硫化氢</h5>
                       </div>
                       <div style={{float: 'left',width:'30%'}}>
-                        <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>16.9g/mol</h5>
+                        <h5 style={{color: 'rgb(66, 133, 244)'}}>16.9g/mol</h5>
                       </div >
                       <div style={{float: 'left'}}>
-                        <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>25.4g/mol</h5>
+                        <h5 style={{color: 'rgb(66, 133, 244)'}}>25.4g/mol</h5>
                       </div>
                       <div style={{borderBottom: '1px dashed #dee5e7',height: 2,margin: '10px 0px',fontSize: 0,float:'left',width:'100%'}}></div>
                     </div>
@@ -330,13 +330,13 @@ export default class Home extends PureComponent {
                         <i style={{display: 'inline-block',backgroundImage: 'url(/images/home/ch4_panel.png)',width: 40,height: 40,marginTop: -4}}></i>
                       </div>
                       <div style={{float: 'left',width:'26%'}}>
-                        <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>甲烷</h5>
+                        <h5 style={{color: 'rgb(66, 133, 244)'}}>甲烷</h5>
                       </div>
                       <div style={{float: 'left',width:'30%'}}>
-                        <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>65%</h5>
+                        <h5 style={{color: 'rgb(66, 133, 244)'}}>65%</h5>
                       </div >
                       <div style={{float: 'left'}}>
-                        <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>88%</h5>
+                        <h5 style={{color: 'rgb(66, 133, 244)'}}>88%</h5>
                       </div>
                       <div style={{borderBottom: '1px dashed #dee5e7',height: 2,margin: '10px 0px',fontSize: 0,float:'left',width:'100%'}}></div>
                     </div>
@@ -346,13 +346,13 @@ export default class Home extends PureComponent {
                         <i style={{display: 'inline-block',backgroundImage: 'url(/images/home/Humidity_40px.png)',width: 40,height: 40,marginTop: -4}}></i>
                       </div>
                       <div style={{float: 'left',width:'26%'}}>
-                        <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>湿度</h5>
+                        <h5 style={{color: 'rgb(66, 133, 244)'}}>湿度</h5>
                       </div>
                       <div style={{float: 'left',width:'30%'}}>
-                        <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>10℃</h5>
+                        <h5 style={{color: 'rgb(66, 133, 244)'}}>10℃</h5>
                       </div >
                       <div style={{float: 'left'}}>
-                        <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>21℃</h5>
+                        <h5 style={{color: 'rgb(66, 133, 244)'}}>21℃</h5>
                       </div>
                       <div style={{borderBottom: '1px dashed #dee5e7',height: 2,margin: '10px 0px',fontSize: 0,float:'left',width:'100%'}}></div>
                     </div>
@@ -362,13 +362,13 @@ export default class Home extends PureComponent {
                         <i style={{display: 'inline-block',backgroundImage: 'url(/images/home/Thermometer_40px.png)',width: 40,height: 40,marginTop: -4}}></i>
                       </div>
                       <div style={{float: 'left',width:'26%'}}>
-                        <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>温度</h5>
+                        <h5 style={{color: 'rgb(66, 133, 244)'}}>温度</h5>
                       </div>
                       <div style={{float: 'left',width:'30%'}}>
-                        <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>31.9g/mol</h5>
+                        <h5 style={{color: 'rgb(66, 133, 244)'}}>31.9g/mol</h5>
                       </div >
                       <div style={{float: 'left'}}>
-                        <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>40.4g/mol</h5>
+                        <h5 style={{color: 'rgb(66, 133, 244)'}}>40.4g/mol</h5>
                       </div>
                       <div style={{borderBottom: '1px dashed #dee5e7',height: 2,margin: '10px 0px',fontSize: 0,float:'left',width:'100%'}}></div>
                     </div>
@@ -377,7 +377,7 @@ export default class Home extends PureComponent {
               </Col>
             </Row>
 
-            <Row style={{'background-color': 'white' ,marginBottom: '10px'}}>
+            <Row style={{backgroundColor: 'white' ,marginBottom: '10px'}}>
               <Col span={4}>
                 <i style={{display:'inline-block',backgroundImage: 'url(/images/home/wind.png)',width: 50,height: 42,marginTop: 5,marginLeft: 26,backgroundRepeat:'no-repeat'}}></i>
                 <span style={{color:'rgb(64, 64, 64)',position: 'absolute',top: 15,left: 95,fontSize: 18}}>通风：<span style={{color: 'rgb(92, 184, 92)'}}>正常</span></span>
@@ -407,40 +407,40 @@ export default class Home extends PureComponent {
             <Row gutter={16} style={{marginBottom: '20px'}}>
 
               <Col className="gutter-row" span={6} style={{height:90}}>
-                <div style={{'background-color': 'white',float: 'left',padding:22 ,height: '100%'}}>
+                <div style={{backgroundColor: 'white',float: 'left',padding:22 ,height: '100%'}}>
                   <img src='/images/home/1.png'></img>
                 </div>
-                <div style={{'background-color': 'white',height: '100%'}}>
+                <div style={{backgroundColor: 'white',height: '100%'}}>
                   <div style={{fontSize:'28px',paddingLeft:328,paddingTop: 9}}>4条</div>
-                  <div style={{paddingLeft:289,'font-size': '16px','padding-bottom':'10px'}}>已入廊管线</div>
+                  <div style={{paddingLeft:289,fontSize: '16px',paddingBottom:'10px'}}>已入廊管线</div>
                 </div>
               </Col>
 
               <Col className="gutter-row" span={6} style={{height:90}}>
-                <div style={{'background-color': 'white',float: 'left',padding:22 ,height: '100%'}}>
+                <div style={{backgroundColor: 'white',float: 'left',padding:22 ,height: '100%'}}>
                   <img src='/images/home/2.png'></img>
                 </div>
-                <div style={{'background-color': 'white',height: '100%'}}>
+                <div style={{backgroundColor: 'white',height: '100%'}}>
                   <div style={{fontSize:'28px',paddingLeft:328,paddingTop: 9}}>4条</div>
-                  <div style={{paddingLeft:242,'font-size': '16px','padding-bottom':'10px'}}>已入廊管线总长度</div>
+                  <div style={{paddingLeft:242,fontSize: '16px',paddingBottom:'10px'}}>已入廊管线总长度</div>
                 </div>
               </Col>
               <Col className="gutter-row" span={6} style={{height:90}}>
-                <div style={{'background-color': 'white',float: 'left',padding:22 ,height: '100%'}}>
+                <div style={{backgroundColor: 'white',float: 'left',padding:22 ,height: '100%'}}>
                   <img src='/images/home/3.png'></img>
                 </div>
-                <div style={{'background-color': 'white',height: '100%'}}>
+                <div style={{backgroundColor: 'white',height: '100%'}}>
                   <div style={{fontSize:'2rem',paddingLeft:328,paddingTop: 9}}>4条</div>
-                  <div style={{paddingLeft:289,'font-size': '16px','padding-bottom':'10px'}}>待入廊管线</div>
+                  <div style={{paddingLeft:289,fontSize: '16px',paddingBottom:'10px'}}>待入廊管线</div>
                 </div>
               </Col>
               <Col className="gutter-row" span={6} style={{height:90}}>
-                <div style={{'background-color': 'white',float: 'left',padding:22 ,height: '100%'}}>
+                <div style={{backgroundColor: 'white',float: 'left',padding:22 ,height: '100%'}}>
                   <img src='/images/home/4.png'></img>
                 </div>
-                <div style={{'background-color': 'white',height: '100%'}}>
+                <div style={{backgroundColor: 'white',height: '100%'}}>
                   <div style={{fontSize:'28px',paddingLeft:328,paddingTop: 9}}>4条</div>
-                  <div style={{paddingLeft:242,'font-size': '16px','padding-bottom':'10px'}}>待入廊管线总长度</div>
+                  <div style={{paddingLeft:242,fontSize: '16px',paddingBottom:'10px'}}>待入廊管线总长度</div>
                 </div>
               </Col>
             </Row>
@@ -473,7 +473,7 @@ export default class Home extends PureComponent {
             <Row gutter={16} style={{marginBottom:24,minHeight:482}}>
               <Col className="gutter-row" span={8}>
                   <Card title={P4_Html} bordered={false}>
-                      <div style={{height:368,'overflow-y': 'scroll'}}>
+                      <div style={{height:368,overflowY: 'scroll'}}>
                         <List
                           itemLayout="horizontal"
                           dataSource={data}
@@ -500,13 +500,13 @@ export default class Home extends PureComponent {
             <Row style={{backgroundColor:'white',padding: '22px 27px'}} gutter={16}>
               <div>
                 <div style={{borderBottom: '1px solid rgb(230, 230, 230)'}}>
-                  <h4 style={{color: '#404040','margin-bottom': '0 !important'}}>能耗监管</h4>
+                  <h4 style={{color: '#404040',marginBottom: '0 !important'}}>能耗监管</h4>
                 </div>
                 <Col span={6}>
                   <div style={{padding: 24}}>
-                    <div style={{'border-bottom': '1px solid rgb(230, 230, 230)'}}>
+                    <div style={{borderBottom: '1px solid rgb(230, 230, 230)'}}>
                       <span style={{color: 'rgb(92, 184, 92)',float:'right'}}>正常</span>
-                      <h4 style={{'margin-bottom': '0 !important',color: 'rgb(64, 64, 64)',fontSize: 15}}>电力舱</h4>
+                      <h4 style={{marginBottom: '0 !important',color: 'rgb(64, 64, 64)',fontSize: 15}}>电力舱</h4>
                     </div>
                     <ReactEcharts option={MonitorDashboard}
                                   notMerge={true}
@@ -515,9 +515,9 @@ export default class Home extends PureComponent {
                 </Col>
                 <Col span={6}>
                   <div style={{padding: 24}}>
-                    <div style={{'border-bottom': '1px solid rgb(230, 230, 230)'}}>
+                    <div style={{borderBottom: '1px solid rgb(230, 230, 230)'}}>
                       <span style={{color: 'rgb(92, 184, 92)',float:'right'}}>正常</span>
-                      <h4 style={{'margin-bottom': '0 !important',color: 'rgb(64, 64, 64)',fontSize: 15}}>电力舱</h4>
+                      <h4 style={{marginBottom: '0 !important',color: 'rgb(64, 64, 64)',fontSize: 15}}>电力舱</h4>
                     </div>
                     <ReactEcharts option={MonitorDashboard}
                                   notMerge={true}
@@ -526,9 +526,9 @@ export default class Home extends PureComponent {
                 </Col>
                 <Col span={6}>
                   <div style={{padding: 24}}>
-                    <div style={{'border-bottom': '1px solid rgb(230, 230, 230)'}}>
+                    <div style={{borderBottom: '1px solid rgb(230, 230, 230)'}}>
                       <span style={{color: 'rgb(92, 184, 92)',float:'right'}}>正常</span>
-                      <h4 style={{'margin-bottom': '0 !important',color: 'rgb(64, 64, 64)',fontSize: 15}}>电力舱</h4>
+                      <h4 style={{marginBottom: '0 !important',color: 'rgb(64, 64, 64)',fontSize: 15}}>电力舱</h4>
                     </div>
                     <ReactEcharts option={MonitorDashboard}
                                   notMerge={true}
@@ -537,9 +537,9 @@ export default class Home extends PureComponent {
                 </Col>
                 <Col span={6}>
                   <div style={{padding: 24}}>
-                    <div style={{'border-bottom': '1px solid rgb(230, 230, 230)'}}>
+                    <div style={{borderBottom: '1px solid rgb(230, 230, 230)'}}>
                       <span style={{color: 'rgb(92, 184, 92)',float:'right'}}>正常</span>
-                      <h4 style={{'margin-bottom': '0 !important',color: 'rgb(64, 64, 64)',fontSize: 15}}>电力舱</h4>
+                      <h4 style={{marginBottom: '0 !important',color: 'rgb(64, 64, 64)',fontSize: 15}}>电力舱</h4>
                     </div>
                     <ReactEcharts option={MonitorDashboard}
                                   notMerge={true}

@@ -30,7 +30,11 @@ export default class HomeChartPanel extends Component {
         inPerson: null,
         outPerson: null,
         intoPersonMessage: null,
-        outPersonMessage: null
+        outPersonMessage: null,
+        wd:null,
+        sd:null,
+        indata:null,
+        out:null
     }
 
   componentDidMount = () => {
@@ -41,7 +45,7 @@ export default class HomeChartPanel extends Component {
   }
 
     render() {
-        const {inPerson, outPerson, intoPersonMessage, outPersonMessage} = this.state;
+        const {inPerson, outPerson, intoPersonMessage, outPersonMessage,wd,sd,indata,out} = this.state;
         return (
             <div style={PanelStyle} className='show-active'>
                 <div style={{display: 'flex'}}>
@@ -65,7 +69,7 @@ export default class HomeChartPanel extends Component {
                                         湿度
                                     </div>
                                     <div style={{marginTop: 4}}>
-                                        <span id="sddata"></span>
+                                        <span id="sddata">{sd}</span>
                                         <span>%RH</span>
                                     </div>
                                 </div>
@@ -79,7 +83,7 @@ export default class HomeChartPanel extends Component {
                                         温度
                                     </div>
                                     <div style={{marginTop: 4}}>
-                                        <span id="wddata"></span>
+                                        <span id="wddata">{wd}</span>
                                         <span>℃</span>
                                     </div>
                                 </div>
@@ -94,7 +98,7 @@ export default class HomeChartPanel extends Component {
                                         氧气
                                     </div>
                                     <div style={{marginTop: 4}}>
-                                        <span id="outdata"></span>
+                                        <span id="outdata">{out}</span>
                                         <span>g/mol</span>
                                     </div>
                                 </div>
@@ -109,7 +113,7 @@ export default class HomeChartPanel extends Component {
                                         甲烷
                                     </div>
                                     <div style={{marginTop: 4}}>
-                                        <span id="indata"></span>
+                                        <span id="indata">{indata}</span>
                                         <span>g/mol</span>
                                     </div>
                                 </div>
@@ -126,6 +130,7 @@ export default class HomeChartPanel extends Component {
     }
 
     wd(){
+        const thiz = this;
         let containwd = document.getElementsByName('WD')[0];
         let myChartwd = echarts.init(containwd);
         let optionwd = {
@@ -301,8 +306,8 @@ export default class HomeChartPanel extends Component {
 
             data0.shift();
             data0.push(Math.round(Math.random() * 10));
-
-            document.getElementById("wddata").innerText = data0.slice(9, 10);
+            thiz.setState({wd:data0.slice(9, 10)});
+            //document.getElementById("wddata").innerHtml = data0.slice(9, 10);
             optionwd.series[0].markPoint.data[0].yAxis = data0.slice(9, 10);
 
             optionwd.xAxis[0].data.shift();
@@ -312,10 +317,11 @@ export default class HomeChartPanel extends Component {
             optionwd.xAxis[1].data.push(count++);
 
             myChartwd.setOption(optionwd);
-        }, 2100);
+        }, 3000);
 
     }
     sd(){
+        const thiz = this;
         let containsd = document.getElementsByName('SD')[0];
         let myChartsd = echarts.init(containsd);
         let optionsd = {
@@ -491,18 +497,19 @@ export default class HomeChartPanel extends Component {
 
             data0.shift();
             data0.push(Math.round(Math.random() * 10));
-
-            document.getElementById("sddata").innerText = data0.slice(9, 10);
+            thiz.setState({sd:data0.slice(9, 10)});
+            //document.getElementById("sddata").innerHtml = data0.slice(9, 10);
             optionsd.series[0].markPoint.data[0].yAxis = data0.slice(9, 10);
             optionsd.xAxis[0].data.shift();
             optionsd.xAxis[0].data.push(axisData);
             optionsd.xAxis[1].data.shift();
             optionsd.xAxis[1].data.push(count++);
             myChartsd.setOption(optionsd);
-        }, 2100);
+        }, 3000);
 
     }
     in(){
+        const thiz = this;
         let containin = document.getElementsByName('IN')[0];
         let myChartin = echarts.init(containin);
         let optionin = {
@@ -678,8 +685,8 @@ export default class HomeChartPanel extends Component {
 
             data0.shift();
             data0.push(Math.round(Math.random() * 10));
-
-            document.getElementById("indata").innerText = data0.slice(9, 10);
+            thiz.setState({indata:data0.slice(9, 10)});
+            //document.getElementById("indata").innerHtml = data0.slice(9, 10);
             optionin.series[0].markPoint.data[0].yAxis = data0.slice(9, 10);
 
             optionin.xAxis[0].data.shift();
@@ -689,10 +696,11 @@ export default class HomeChartPanel extends Component {
             optionin.xAxis[1].data.push(count++);
 
             myChartin.setOption(optionin);
-        }, 2100);
+        }, 3000);
 
     }
     out(){
+        const thiz = this;
         let containout = document.getElementsByName('OUT')[0];
         let myChartout = echarts.init(containout);
         let optionout = {
@@ -868,8 +876,8 @@ export default class HomeChartPanel extends Component {
 
             data0.shift();
             data0.push(Math.round(Math.random() * 10));
-
-            document.getElementById("outdata").innerText = data0.slice(9, 10);
+            thiz.setState({out:data0.slice(9, 10)});
+            //document.getElementById("outdata").innerHtml = data0.slice(9, 10);
             optionout.series[0].markPoint.data[0].yAxis = data0.slice(9, 10);
 
             optionout.xAxis[0].data.shift();
@@ -879,7 +887,7 @@ export default class HomeChartPanel extends Component {
             optionout.xAxis[1].data.push(count++);
 
             myChartout.setOption(optionout);
-        }, 2100);
+        }, 3000);
 
     }
 }

@@ -204,7 +204,7 @@ export default class userManage extends PureComponent {
                 console.log(data);
                 if(data.success){
                     message.success("更新成功");
-                    thiz.closeModal();
+                   // thiz.closeModal();
                     thiz.init();
                 }else{
                     message.success("更新失败，请联系管理员")
@@ -217,7 +217,7 @@ export default class userManage extends PureComponent {
                 console.log(data);
                 if(data.success){
                     message.success("新增成功");
-                    thiz.closeModal();
+                   // thiz.closeModal();
                     thiz.init();
                 }else{
                     message.success("新增失败，请联系管理员")

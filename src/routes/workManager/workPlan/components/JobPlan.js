@@ -3,36 +3,19 @@ import PropTypes from 'prop-types';
 import styles from '../../workManage.less';
 import { Table ,Button ,Layout,Pagination,Form,Input,message,Dropdown,Menu,Icon,Row,Col} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
-import { POST,GET,PUT,DELETE } from '../../../../services/api';
 import Authorized from '../../../../utils/Authorized';
 import FormSub from './Form';
 import WorkPlanDetail from "../../public/WorkDetail";
 import AdvancedSearchForm from './SearchForm';
 import { connect } from 'dva';
 const { ButtonAuthorize } = Authorized;
-const FormItem = Form.Item;
-const { Content, Header, Footer } = Layout;
+const { Content,} = Layout;
+
 const Modal = ModalForm.Modal;
 const confirm = Modal.confirm;
-const Search = Input.Search;
-
-const Paging = ({dataItems, onChange, ...otherProps}) => {
-  const { total, pageSize, pageNum } = dataItems;
-  const paging = {
-    total: total,
-    pageSize: pageSize,
-    current: pageNum,
-    showSizeChanger: true,
-    showQuickJumper: true,
-    showTotal: total => `共 ${total} 条`,
-    onShowSizeChange: (pageNum, pageSize) => onChange({pageNum, pageSize}),
-    onChange: (pageNum) => onChange({pageNum}),
-    ...otherProps
-  };
-  return <Pagination {...paging} />;
-};
 
 @connect(({loading, jobPlan}) => ({
+  loading:loading.effects['jobPlan/fetch'],
   jobPlan
 }))
 export default class JobPlan extends PureComponent {
@@ -278,7 +261,12 @@ export default class JobPlan extends PureComponent {
 
 
     render() {
-      let { pageSize,current,title,record,visible,isFooter,form} = this.state;
+        const {
+            jobPlan :{list},
+            loading,
+        } = this.props;
+        let { columns,rows,pageSize,current} = this.state;
+
       const dataTableProps ={
         total: list?list.length:null,
         pageSize: pageSize,
@@ -288,25 +276,6 @@ export default class JobPlan extends PureComponent {
         showTotal: total => `共 ${list.length} 条`,
       }
 
-      const modalFormProps = {
-        title:title,
-        loading: true,
-        record,
-        visible,
-        isFooter,
-        Contents:form,
-        modalOpts: {
-          width: 700,
-        },
-        onCancel: () => this.closeModal(),
-        onSubmit: (values) => this.onSubmit(values)
-      }
-
-      const {
-        jobPlan :{list},
-        loading,
-      } = this.props;
-      let { columns,rows} = this.state;
 
       const rowSelection = {
         onChange: this.onSelectChange,
@@ -323,14 +292,13 @@ export default class JobPlan extends PureComponent {
           </div>
         </div>
         <Content className='ant_table_ui' >
-          <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={list}  onChange={this.handleChange} rowSelection={rowSelection}
+          <Table size="middle"  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={list}  onChange={this.handleChange} rowSelection={rowSelection}
                   loading={loading}
                   pagination={dataTableProps}
                   scroll={{y: '73vh'  }}
                   onRowDoubleClick={this.handlerDoubleClick}
           />
         </Content>
-        <ModalForm {...modalFormProps}/>
       </Layout>
     )
 

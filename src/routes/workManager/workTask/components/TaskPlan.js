@@ -7,29 +7,15 @@ import { connect } from 'dva';
 import Authorized from '../../../../utils/Authorized';
 import AdvancedSearchForm from './SearchForm';
 import FormSub from './Form';
-import WorkPlanDetail from "../../workPlan/components/WorkPlanDetail";
+import WorkPlanDetail from "../../public/WorkDetail";
 const { ButtonAuthorize } = Authorized;
 const { Content } = Layout;
 const Modal = ModalForm.Modal;
 const confirm = Modal.confirm;
 
-const Paging = ({dataItems, onChange, ...otherProps}) => {
-  const { total, pageSize, pageNum } = dataItems;
-  const paging = {
-    total: total,
-    pageSize: pageSize,
-    current: pageNum,
-    showSizeChanger: true,
-    showQuickJumper: true,
-    showTotal: total => `共 ${total} 条`,
-    onShowSizeChange: (pageNum, pageSize) => onChange({pageNum, pageSize}),
-    onChange: (pageNum) => onChange({pageNum}),
-    ...otherProps
-  };
-  return <Pagination {...paging} />;
-};
 
 @connect(({loading, workTask}) => ({
+  loading:loading.effects['workTask/fetch'],
   workTask
 }))
 export default class TaskPlan extends PureComponent {
@@ -240,10 +226,11 @@ export default class TaskPlan extends PureComponent {
       maskClosable:true,
       isShow:true,
       modalOpts: {
-        style:{ top: 20 ,height:'600px'},
         width: 1200,
+        height:700
       },
       isFooter:true,
+      full:true,
     }
     this.context.openModal(modalFormProps);
   };
@@ -253,7 +240,8 @@ export default class TaskPlan extends PureComponent {
       workTask :{list},
       loading,
     } = this.props;
-    let { columns,visible,record,rows,form,title,isFooter,pageSize,current} = this.state;
+
+    let { columns,rows,pageSize,current} = this.state;
 
     const dataTableProps ={
       total: list?list.length:null,
@@ -268,20 +256,6 @@ export default class TaskPlan extends PureComponent {
       onChange: this.onSelectChange,
     };
 
-    const modalFormProps = {
-      title:title,
-      loading: true,
-      record,
-      visible,
-      isFooter,
-      Contents:form,
-      modalOpts: {
-        width: 700,
-      },
-      onCancel: () => this.closeModal(),
-      onSubmit: (values) => this.onSubmit(values)
-    }
-
     return(
       <Layout className={styles.application}>
         <div style={{ background: 'white'}}>
@@ -291,14 +265,13 @@ export default class TaskPlan extends PureComponent {
           <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.batchDelete} name="批量删除" authority="role:delete"/>
         </div>
         <Content className='ant_table_ui'>
-          <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={list}  onChange={this.handleChange} rowSelection={rowSelection}
+          <Table size="middle"  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={list}  onChange={this.handleChange} rowSelection={rowSelection}
                   loading={loading}
                   pagination={dataTableProps}
                   scroll={{y: '73vh'  }}
                   onRowDoubleClick={this.handlerDoubleClick}
           />
         </Content>
-        <ModalForm {...modalFormProps}/>
       </Layout>
     )
 

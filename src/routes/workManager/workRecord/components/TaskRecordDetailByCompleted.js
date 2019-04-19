@@ -15,7 +15,7 @@ import {
   Timeline,
   Rate
 } from "antd";
-import glimg from '../../../../image/gl.jpg'
+import styles from '../style/taskRecordDetailByCompleted.less';
 
 
 export default class TaskRecordDetailByCompleted extends Component {
@@ -94,7 +94,7 @@ export default class TaskRecordDetailByCompleted extends Component {
         <p><i className="iconfont icon-time"></i><span>实际开始时间：</span><span style={{marginLeft:10 ,"font-weight":'bold'}}>{record.startDate}</span></p>
         <p><i className="iconfont icon-time"></i><span>实际结束时间：</span><span style={{marginLeft:10 ,"font-weight":'bold'}}>{record.endDate}</span></p>
         <p><span>执行人：</span><span style={{marginLeft:10 ,"font-weight":'bold'}}>{record.work_user}</span></p>
-        <img src={glimg}/>
+        <img src='/static/public/images/gl.jpg'/>
       </div>
     </div>
 
@@ -102,14 +102,14 @@ export default class TaskRecordDetailByCompleted extends Component {
       <div style={{padding:'6px'}}>
         <h4>考核结果</h4>
         <p>总评分: <h3 style={{display: 'inline'}}>25</h3></p>
-        <p><span>巡检时间完成率：</span><Rate allowHalf defaultValue={4.0} style={{color:'red'}}/></p>
-        <p><span>巡检点到达率：</span><Rate allowHalf defaultValue={2.5} style={{marginLeft: 16 , color:'red'}}/></p>
+        <p><span>巡检时间完成率：</span><Rate allowHalf disabled defaultValue={4.0} style={{color:'red'}}/></p>
+        <p><span>巡检点到达率：</span><Rate allowHalf disabled defaultValue={2.5} style={{marginLeft: 16 , color:'red'}}/></p>
       </div>
     </div>
 
 
     return (
-      <div style={{height: 750,overflow: 'auto'}}>
+      <div  className={styles.completed}>
         <div >
           <Row style={{padding:10,borderBottom: '1px solid #E8E8E8'}}>
             <Col>

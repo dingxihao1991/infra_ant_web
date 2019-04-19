@@ -32,6 +32,7 @@ const confirm = Modal.confirm;
 };
 
 @connect(({loading, workRecord}) => ({
+  loading:loading.effects['workRecord/fetch'],
   workRecord
 }))
 export default class TaskRecord extends PureComponent {
@@ -304,7 +305,7 @@ export default class TaskRecord extends PureComponent {
           <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.batchComplete} name="完成任务" authority="role:delete"/>
         </div>
         <Content className='ant_table_ui'>
-          <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={list}  onChange={this.handleChange} rowSelection={rowSelection}
+          <Table size="middle"  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={list}  onChange={this.handleChange} rowSelection={rowSelection}
                   loading={loading}
                   pagination={dataTableProps}
                   scroll={{y: '73vh'  }}

@@ -279,7 +279,7 @@ export default class Home extends PureComponent {
                   <Card title={P3_Html} bordered={false}>
                     <div style={{height: 69.8,padding: 0}}>
                       <div style={{float: 'left',width:'22%'}}>
-                          <i style={{display: 'inline-block',backgroundImage: 'url(/images/home/o2_panel.png)',width: 40,height: 40,marginTop: -4}}></i>
+                          <i style={{display: 'inline-block',backgroundImage: 'url(/static/public/images/home/o2_panel.png)',width: 40,height: 40,marginTop: -4}}></i>
                       </div>
                       <div style={{float: 'left',width:'26%'}}>
                         <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>氧气</h5>
@@ -295,7 +295,7 @@ export default class Home extends PureComponent {
 
                     <div style={{ height: 69.8,padding: 0}}>
                       <div style={{float: 'left',width:'22%'}}>
-                        <i style={{display: 'inline-block',backgroundImage: 'url(/images/home/Carbonmonoxide.png)',width: 40,height: 40,marginTop: -4}}></i>
+                        <i style={{display: 'inline-block',backgroundImage: 'url(/static/public/images/home/Carbonmonoxide.png)',width: 40,height: 40,marginTop: -4}}></i>
                       </div>
                       <div style={{float: 'left',width:'26%'}}>
                         <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>一氧化碳</h5>
@@ -311,7 +311,7 @@ export default class Home extends PureComponent {
 
                     <div style={{ color: 'rgb(66, 133, 244)',height: 69.8,padding: 0}}>
                       <div style={{float: 'left',width:'22%'}}>
-                        <i style={{display: 'inline-block',backgroundImage: 'url(/images/home/h2s_panel.png)',width: 40,height: 40,marginTop: -4}}></i>
+                        <i style={{display: 'inline-block',backgroundImage: 'url(/static/public/images/home/h2s_panel.png)',width: 40,height: 40,marginTop: -4}}></i>
                       </div>
                       <div style={{float: 'left',width:'26%'}}>
                         <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>硫化氢</h5>
@@ -327,7 +327,7 @@ export default class Home extends PureComponent {
 
                     <div style={{ color: 'rgb(66, 133, 244)',height: 69.8,padding: 0}}>
                       <div style={{float: 'left',width:'22%'}}>
-                        <i style={{display: 'inline-block',backgroundImage: 'url(/images/home/ch4_panel.png)',width: 40,height: 40,marginTop: -4}}></i>
+                        <i style={{display: 'inline-block',backgroundImage: 'url(/static/public/images/home/ch4_panel.png)',width: 40,height: 40,marginTop: -4}}></i>
                       </div>
                       <div style={{float: 'left',width:'26%'}}>
                         <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>甲烷</h5>
@@ -343,7 +343,7 @@ export default class Home extends PureComponent {
 
                     <div style={{ color: 'rgb(66, 133, 244)',height: 69.8,padding: 0}}>
                       <div style={{float: 'left',width:'22%'}}>
-                        <i style={{display: 'inline-block',backgroundImage: 'url(/images/home/Humidity_40px.png)',width: 40,height: 40,marginTop: -4}}></i>
+                        <i style={{display: 'inline-block',backgroundImage: 'url(/static/public/images/home/Humidity_40px.png)',width: 40,height: 40,marginTop: -4}}></i>
                       </div>
                       <div style={{float: 'left',width:'26%'}}>
                         <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>湿度</h5>
@@ -359,7 +359,7 @@ export default class Home extends PureComponent {
 
                     <div style={{ color: 'rgb(66, 133, 244)',height: 69.8,padding: 0}}>
                       <div style={{float: 'left',width:'22%'}}>
-                        <i style={{display: 'inline-block',backgroundImage: 'url(/images/home/Thermometer_40px.png)',width: 40,height: 40,marginTop: -4}}></i>
+                        <i style={{display: 'inline-block',backgroundImage: 'url(/static/public/images/home/Thermometer_40px.png)',width: 40,height: 40,marginTop: -4}}></i>
                       </div>
                       <div style={{float: 'left',width:'26%'}}>
                         <h5 style={{color: 'rgb(66, 133, 244)',"line-height": 25}}>温度</h5>
@@ -379,27 +379,27 @@ export default class Home extends PureComponent {
 
             <Row style={{'background-color': 'white' ,marginBottom: '10px'}}>
               <Col span={4}>
-                <i style={{display:'inline-block',backgroundImage: 'url(/images/home/wind.png)',width: 50,height: 42,marginTop: 5,marginLeft: 26,backgroundRepeat:'no-repeat'}}></i>
+                <i style={{display:'inline-block',backgroundImage: 'url(/static/public/images/home/wind.png)',width: 50,height: 42,marginTop: 5,marginLeft: 26,backgroundRepeat:'no-repeat'}}></i>
                 <span style={{color:'rgb(64, 64, 64)',position: 'absolute',top: 15,left: 95,fontSize: 18}}>通风：<span style={{color: 'rgb(92, 184, 92)'}}>正常</span></span>
               </Col>
               <Col span={4}>
-                <i style={{display:'inline-block',backgroundImage: 'url(/images/home/water.png)',width: 50,height: 42,marginTop: 5,marginLeft: 26,backgroundRepeat:'no-repeat'}}></i>
+                <i style={{display:'inline-block',backgroundImage: 'url(/static/public/images/home/water.png)',width: 50,height: 42,marginTop: 5,marginLeft: 26,backgroundRepeat:'no-repeat'}}></i>
                 <span style={{color:'rgb(64, 64, 64)',position: 'absolute',top: 15,left: 95,fontSize: 18}}>排水：<span style={{color: 'rgb(92, 184, 92)'}}>正常</span></span>
               </Col>
               <Col span={4}>
-                <i style={{display:'inline-block',backgroundImage: 'url(/images/home/power.png)',width: 50,height: 42,marginTop: 5,marginLeft: 26,backgroundRepeat:'no-repeat'}}></i>
+                <i style={{display:'inline-block',backgroundImage: 'url(/static/public/images/home/power.png)',width: 50,height: 42,marginTop: 5,marginLeft: 26,backgroundRepeat:'no-repeat'}}></i>
                 <span style={{color:'rgb(64, 64, 64)',position: 'absolute',top: 15,left: 95,fontSize: 18}}>电力：<span style={{color: 'rgb(92, 184, 92)'}}>正常</span></span>
               </Col>
               <Col span={4}>
-                <i style={{display:'inline-block',backgroundImage: 'url(/images/home/door.png)',width: 50,height: 42,marginTop: 5,marginLeft: 26,backgroundRepeat:'no-repeat'}}></i>
+                <i style={{display:'inline-block',backgroundImage: 'url(/static/public/images/home/door.png)',width: 50,height: 42,marginTop: 5,marginLeft: 26,backgroundRepeat:'no-repeat'}}></i>
                 <span style={{color:'rgb(64, 64, 64)',position: 'absolute',top: 15,left: 95,fontSize: 18}}>门禁：<span style={{color: 'rgb(92, 184, 92)'}}>正常</span></span>
               </Col>
               <Col span={4}>
-                <i style={{display:'inline-block',backgroundImage: 'url(/images/home/cctv.png)',width: 50,height: 42,marginTop: 5,marginLeft: 26,backgroundRepeat:'no-repeat'}}></i>
+                <i style={{display:'inline-block',backgroundImage: 'url(/static/public/images/home/cctv.png)',width: 50,height: 42,marginTop: 5,marginLeft: 26,backgroundRepeat:'no-repeat'}}></i>
                 <span style={{color:'rgb(64, 64, 64)',position: 'absolute',top: 15,left: 95,fontSize: 18}}>照明：<span style={{color: 'rgb(92, 184, 92)'}}>正常</span></span>
               </Col>
               <Col span={4}>
-                <i style={{display:'inline-block',backgroundImage: 'url(/images/home/wind.png)',width: 50,height: 42,marginTop: 5,marginLeft: 26,backgroundRepeat:'no-repeat'}}></i>
+                <i style={{display:'inline-block',backgroundImage: 'url(/static/public/images/home/wind.png)',width: 50,height: 42,marginTop: 5,marginLeft: 26,backgroundRepeat:'no-repeat'}}></i>
                 <span style={{color:'rgb(64, 64, 64)',position: 'absolute',top: 15,left: 95,fontSize: 18}}>CCTV：<span style={{color: 'rgb(92, 184, 92)'}}>正常</span></span>
               </Col>
             </Row>
@@ -493,7 +493,7 @@ export default class Home extends PureComponent {
                   </Card>
               </Col>
               <Col className="gutter-row" span={16}>
-                 <iframe src='http://localhost/gl/webgis/Arcgis_Line?Planid=40281a816a1ed989016a201dcd110005' style={{width: '100%',minHeight: 481 ,backgroundColor:'white' }}></iframe>
+                 <iframe src='http://localhost/static/webgis/Arcgis_Line.html' style={{width: '100%',minHeight: 481 ,backgroundColor:'white' }}></iframe>
               </Col>
             </Row>
 

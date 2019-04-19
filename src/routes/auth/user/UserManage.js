@@ -103,12 +103,16 @@ export default class userManage extends PureComponent {
         const thiz = this;
         GET('/users',function(data){
             if(data.success){
-                thiz.setState({
-                    fileDataSource:data.result.users,
-                    dataSource:data.result.users,
-                    treeData:data.result.org,
-                    treeDataSote: data.result.org,
-                })
+                console.log(data.result)
+                if(data.result){
+                    thiz.setState({
+                        fileDataSource:data.result.users,
+                        dataSource:data.result.users,
+                        treeData:data.result.org,
+                        treeDataSote: data.result.org,
+                    })
+                }
+
             }
         },function(error){
             console.log(error)
@@ -201,10 +205,9 @@ export default class userManage extends PureComponent {
         if(thiz.state.record!=null){
             values['id'] = thiz.state.record.id;
             PUT('/users/update',values,function(data){
-                console.log(data);
+
                 if(data.success){
                     message.success("更新成功");
-                   // thiz.closeModal();
                     thiz.init();
                 }else{
                     message.success("更新失败，请联系管理员")
@@ -217,7 +220,6 @@ export default class userManage extends PureComponent {
                 console.log(data);
                 if(data.success){
                     message.success("新增成功");
-                   // thiz.closeModal();
                     thiz.init();
                 }else{
                     message.success("新增失败，请联系管理员")

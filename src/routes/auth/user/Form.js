@@ -169,7 +169,7 @@ class FormSub extends Component {
 
                     </Form>
                 </Content>
-                <FormItem {...formItemLayout}>
+                <FormItem >
                     {getFieldDecorator('fileId', {
                         initialValue:record?record['fileId']:null,
                     })(

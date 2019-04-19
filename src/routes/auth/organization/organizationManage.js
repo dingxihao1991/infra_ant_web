@@ -243,7 +243,6 @@ export default class OrganizationManage extends PureComponent {
                 if(data.success){
 
                     const json = values
-                    thiz.closeModal();
                     thiz.init();
                 }
             },function(error){

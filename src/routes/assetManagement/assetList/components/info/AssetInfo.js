@@ -27,7 +27,7 @@ export default class AssetInfo extends PureComponent{
                         handleSearch={this.handleSearch}
                         sideContent={
                             <div style={{border:'1px solid #edf1f2',width:'100%',height:'400px'}}>
-                                <img src='/images/35kv.png' width="100%" height="100%"/>
+                                <img src='/static/public/images/35kv.png' width="100%" height="100%"/>
                             </div>
                         }
                     >
@@ -70,7 +70,7 @@ export default class AssetInfo extends PureComponent{
                                 <p>生产商：/</p>
                             </div>
                             <div className="col-md-12 text-right" style={{paddingRight: '20px'}}>
-                                <img src="/images/APPQR.png" className="img-thumbnail" width="150px" height="150px"/>
+                                <img src="/static/public/images/APPQR.png" className="img-thumbnail" width="150px" height="150px"/>
                             </div>
                         </div>
                     </Content>

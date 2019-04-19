@@ -251,20 +251,10 @@ export default class MonitoringList extends PureComponent {
     }
 
     componentDidMount(){
-        //加载折线图
-        // 基于准备好的dom，初始化echarts实例
         this.initColums();
         this.init();
-        this.timerID = setInterval(
-          () => this.tick(),
-          3000
-        );
     }
 
-    componentWillUnmount() {
-      console.log("销毁")
-      clearInterval(this.timerID);
-    }
 
   tick = () =>{
     console.log("进来")
@@ -337,18 +327,18 @@ export default class MonitoringList extends PureComponent {
     }
 
     openModel = record =>{
-    console.log("---------",record);
-    const modalFormProps = {
-      title:'BIM属性',
-      record:record,
-      isFooter:true,
-      isShow:true,
-      Contents:AssetModelInfo,
-      modalOpts: {
-        width: 1000,
-      },
-    }
-    this.context.openModal(modalFormProps);
+        console.log("---------",record);
+        const modalFormProps = {
+          title:'BIM属性',
+          record:record,
+          isFooter:true,
+          isShow:true,
+          Contents:AssetModelInfo,
+          modalOpts: {
+            width: 1000,
+          },
+        }
+        this.context.openModal(modalFormProps);
   }
 
     //编辑

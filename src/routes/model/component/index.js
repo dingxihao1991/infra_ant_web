@@ -128,9 +128,9 @@ const data = [
 
                  <HomeChartPanel {...proper}/>
 
-               {/*  <Content style={{height: '100%', width: '100%', position: 'fixed'}}>
-                     <iframe id='webgl_iframe'  sandbox="allow-scripts allow-forms allow-same-origin"  src={src} width='100%' height='100%' style={{'borderWidth':'0px',minHeight:'100%'}}/>
-                 </Content>*/}
+                 <Content style={{height: '100%', width: '100%', position: 'fixed'}}>
+                     {/*<iframe id='webgl_iframe'  sandbox="allow-scripts allow-forms allow-same-origin"  src={src} width='100%' height='100%' style={{'borderWidth':'0px',minHeight:'100%'}}/>*/}
+                 </Content>
 
              </div>
        )

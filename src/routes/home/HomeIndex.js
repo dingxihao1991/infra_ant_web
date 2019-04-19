@@ -29,11 +29,11 @@ export default class HomeIndex extends PureComponent{
     }
 
     switchover =(page)=>{
-        debugger;
         if(page.id=='BIMPage'){
             const {dispatch} = this.props;
             dispatch(push('/model/index'));
             return;
+
         }
         this.setState({
             activeTab: page.id

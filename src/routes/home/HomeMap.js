@@ -6,7 +6,7 @@ import styles from './home.less';
 export default class HomeMap extends React.Component{
 
   state={
-    src:'http://localhost/static/webgis/ArcgisMap.html'//http://192.168.200.29/static/homemap/homemap.html'
+    src:'http://localhost/static/webgis3D/index.html'
   }
 
   constructor(){

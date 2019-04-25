@@ -3,57 +3,305 @@ import { Table, Switch, Button, Layout, Tabs, List, Icon ,Spin,message } from "a
 import MonitoringType from './monitoringType';
 const { Content} = Layout;
 import styles from './monitoringType.less';
-import AssetModelInfo from "../../assetManagement/assetList/modal/AssetModelInfo";
 import CCTVPlay from "./CCTVPlay";
 import PropTypes from "prop-types";
 
-//维保数据
+
 const data = [
     {
-      'id':'105',
-    name: 'NV-TB9716',
-    2: '在线监控装置',
-    3: '电力系统',
-    4: '隧道系统',
-    5: '复兴东路隧道',
-    6:'/',
-}, {
-        'id':'1010',
-    name: 'AD-359916',
-    2: '排水设备',
-    3: '排水系统',
-    4: '隧道系统',
-    5: '复兴东路隧道',
-}, {
-        'id':'106',
-    name: 'GD-569ASD',
-    2: '射流风机',
-    3: '通风系统',
-    4: '隧道系统',
-    5: '上中路隧道',
-}, {
-    'id':'199',
-    name: 'CCTV-A-001',
-    2: '枪式摄像头',
-    3: '摄像系统',
-    4: '隧道系统',
-    5: '上中路隧道',
-  }, {
-    'id':'200',
-    name: 'CCTV-A-002',
-    2: '消防栓',
-    3: '消防系统',
-    4: '隧道系统',
-    5: '西藏南路隧道',
-  }, {
-    'id':'201',
-    name: 'CCTV-A-003',
-    2: '摄像头',
-    3: '监控系统',
-    4: '隧道系统',
-    5: '西藏南路隧道',
-  }
+        division:"高新区",
+        storeType:"燃气舱",
+        monitorIndex:"沉降",
+        equipName:"感烟探测器",
+        address:"高新区彩虹路",
+        monitorValue:"20",
+        equipStatus:"正常",
+        monitorTime:"2018-01-01 20:00:32",
+        monitorType:"烟雾浓度_环境监测",
+        history_value: [21,24,20,25],
+
+    },
+    {
+        division:"高新区",
+        storeType:"燃气舱",
+        monitorIndex:"沉降",
+        equipName:"彩虹路温度传感器",
+        address:"高新区彩虹路",
+        monitorValue:"29",
+        equipStatus:"故障",
+        monitorTime:"2018-01-01 20:00:32",
+        monitorType:"温湿度传感器_环境监测",
+        history_value: [29,30,20,25],
+    },
+    {
+        division:"高新区",
+        storeType:"燃气舱",
+        monitorIndex:"沉降",
+        equipName:"超声波液位计",
+        address:"高新区彩虹路",
+        monitorValue:"29",
+        equipStatus:"正常",
+        monitorTime:"2018-01-01 20:00:32",
+        monitorType:"液位高度_环境监测",
+        history_value: [29,30,20,25],
+    },
+    {
+        division:"高新区",
+        storeType:"燃气舱",
+        monitorIndex:"沉降",
+        equipName:"沟内甲烷气体传感器",
+        address:"高新区彩虹路",
+        monitorValue:"29",
+        equipStatus:"正常",
+        monitorTime:"2018-01-01 20:00:32",
+        monitorType:"气体浓度_环境监测",
+        history_value: [21,26,20,25],
+    },
+    {
+        division:"高新区",
+        storeType:"燃气舱",
+        monitorIndex:"沉降",
+        equipName:"可燃气体探测器",
+        address:"高新区彩虹路",
+        monitorValue:"29",
+        equipStatus:"正常",
+        monitorTime:"2018-01-01 20:00:32",
+        monitorType:"气体浓度_环境监测",
+        history_value: [10,25,20,22],
+    },{
+        division:"高新区",
+        storeType:"燃气舱",
+        monitorIndex:"电压",
+        equipName:"区间照明总箱ZQBM1",
+        address:"高新区习友路",
+        monitorValue:"220",
+        equipStatus:"正常",
+        monitorTime:"2018-01-01 20:00:32",
+        monitorType:"电气系统_设备监测",
+        history_value: [220,210,230,220],
+    },{
+        division:"蜀山区",
+        storeType:"燃气舱",
+        monitorIndex:"电压",
+        equipName:"电动组合风阀",
+        address:"高新区彩虹路",
+        monitorValue:"220",
+        equipStatus:"关",
+        monitorTime:"2018-01-01 20:00:32",
+        monitorType:"通风系统_设备监测",
+        history_value: [220,320,210,220],
+    },{
+        division:"蜀山区",
+        storeType:"燃气舱",
+        monitorIndex:"电压",
+        equipName:"火灾报警（联动）控制器",
+        address:"高新区彩虹路",
+        monitorValue:"220",
+        equipStatus:"断电",
+        monitorTime:"2018-01-01 20:00:32",
+        monitorType:"消防系统_设备监测",
+        history_value: [210,230,320,230],
+    },{
+        division:"蜀山区",
+        storeType:"燃气舱",
+        monitorIndex:"电压",
+        equipName:"45kv主变电所",
+        address:"高新区彩虹路",
+        monitorValue:"220",
+        equipStatus:"正常",
+        monitorTime:"2018-01-01 20:00:32",
+        monitorType:"电力系统_设备监测",
+        history_value: [210,240,200,220],
+    }
 ];
+
+const deviceList = [
+    {
+        'id':1,
+        'device_name':'彩虹西路(测试1)',
+        'type':'枪机',
+        'state':'在线',
+        'channel':0,
+        'videoSource':0,
+        'address':'1号区域楼梯转角',
+        'up_date':'2017-05-16 10:51:30',
+        'sys_date':'2017-05-14 09:51:30',
+        'device_paly_url':'http://114.215.175.1:90/live/31000000002000000000/31000000001320000003/0_2/a.m3u8'
+    },
+    {
+        'id':2,
+        'device_name':'彩虹西路(测试2)',
+        'type':'球机',
+        'state':'在线',
+        'channel':0,
+        'videoSource':0,
+        'address':'1号区域楼梯转角',
+        'up_date':'2017-05-16 10:51:30',
+        'sys_date':'2017-05-14 09:51:30',
+        'device_paly_url':'http://114.215.175.1:90/live/31000000002000000000/31000000001320000003/0_2/a.m3u8'
+    },
+    {
+        'id':3,
+        'device_name':'彩虹西路(测试3)',
+        'type':'枪机',
+        'state':'在线',
+        'channel':0,
+        'videoSource':0,
+        'address':'1号区域楼梯转角',
+        'up_date':'2017-05-16 10:51:30',
+        'sys_date':'2017-05-14 09:51:30',
+        'device_paly_url':'http://114.215.175.1:90/live/31000000002000000000/31000000001320000003/0_2/a.m3u8'
+    },
+    {
+        'id':4,
+        'device_name':'彩虹西路(测试5)',
+        'type':'球机',
+        'state':'在线',
+        'channel':0,
+        'videoSource':0,
+        'address':'1号区域楼梯转角',
+        'up_date':'2017-05-16 10:51:30',
+        'sys_date':'2017-05-14 09:51:30',
+        'device_paly_url':'http://114.215.175.1:90/live/31000000002000000000/31000000001320000003/0_2/a.m3u8'
+    },
+    {
+        'id':6,
+        'device_name':'小马路(测试6)',
+        'type':'枪机',
+        'state':'在线',
+        'channel':0,
+        'videoSource':0,
+        'address':'1号区域楼梯转角',
+        'up_date':'2017-05-16 10:51:30',
+        'sys_date':'2017-05-14 09:51:30',
+        'device_paly_url':'http://114.215.175.1:90/live/31000000002000000000/31000000001320000003/0_2/a.m3u8'
+    },
+    {
+        'id':7,
+        'device_name':'明珠大道(测试7)',
+        'type':'枪机',
+        'state':'在线',
+        'channel':0,
+        'videoSource':0,
+        'address':'1号区域楼梯转角',
+        'up_date':'2017-05-16 10:51:30',
+        'sys_date':'2017-05-14 09:51:30',
+        'device_paly_url':'http://114.215.175.1:90/live/31000000002000000000/31000000001320000003/0_2/a.m3u8'
+    },
+    {
+        'id':8,
+        'device_name':'明珠大道(测试8)',
+        'type':'枪机',
+        'state':'在线',
+        'channel':0,
+        'videoSource':0,
+        'address':'1号区域楼梯转角',
+        'up_date':'2017-05-16 10:51:30',
+        'sys_date':'2017-05-14 09:51:30',
+        'device_paly_url':'http://114.215.175.1:90/live/31000000002000000000/31000000001320000003/0_2/a.m3u8'
+    },
+    {
+        'id':9,
+        'device_name':'明珠大道(测试9)',
+        'type':'枪机',
+        'state':'在线',
+        'channel':0,
+        'videoSource':0,
+        'address':'1号区域楼梯转角',
+        'up_date':'2017-05-16 10:51:30',
+        'sys_date':'2017-05-14 09:51:30',
+        'device_paly_url':'http://114.215.175.1:90/live/31000000002000000000/31000000001320000003/0_2/a.m3u8'
+    },
+    {
+        'id':10,
+        'device_name':'明珠大道(测试10)',
+        'type':'枪机',
+        'state':'在线',
+        'channel':0,
+        'videoSource':0,
+        'address':'1号区域楼梯转角',
+        'up_date':'2017-05-16 10:51:30',
+        'sys_date':'2017-05-14 09:51:30',
+        'device_paly_url':'http://114.215.175.1:90/live/31000000002000000000/31000000001320000003/0_2/a.m3u8'
+    },
+    {
+        'id':11,
+        'device_name':'明珠大道(测试11)',
+        'type':'枪机',
+        'state':'在线',
+        'channel':0,
+        'videoSource':0,
+        'address':'1号区域楼梯转角',
+        'up_date':'2017-05-16 10:51:30',
+        'sys_date':'2017-05-14 09:51:30',
+        'device_paly_url':'http://114.215.175.1:90/live/31000000002000000000/31000000001320000003/0_2/a.m3u8'
+    },
+
+    {
+        'id':12,
+        'device_name':'将军岭北路(测试12)',
+        'type':'枪机',
+        'state':'在线',
+        'channel':0,
+        'videoSource':0,
+        'address':'1号区域楼梯转角',
+        'up_date':'2017-05-16 10:51:30',
+        'sys_date':'2017-05-14 09:51:30',
+        'device_paly_url':'http://114.215.175.1:90/live/31000000002000000000/31000000001320000003/0_2/a.m3u8'
+    },
+
+    {
+        'id':13,
+        'device_name':'将军岭北路(测试13)',
+        'type':'枪机',
+        'state':'在线',
+        'channel':0,
+        'videoSource':0,
+        'address':'1号区域楼梯转角',
+        'up_date':'2017-05-16 10:51:30',
+        'sys_date':'2017-05-14 09:51:30',
+        'device_paly_url':'http://114.215.175.1:90/live/31000000002000000000/31000000001320000003/0_2/a.m3u8'
+    },
+    {
+        'id':14,
+        'device_name':'将军岭北路(测试14)',
+        'type':'枪机',
+        'state':'在线',
+        'channel':0,
+        'videoSource':0,
+        'address':'1号区域楼梯转角',
+        'up_date':'2017-05-16 10:51:30',
+        'sys_date':'2017-05-14 09:51:30',
+        'device_paly_url':'http://114.215.175.1:90/live/31000000002000000000/31000000001320000003/0_2/a.m3u8'
+    },
+
+    {
+        'id':15,
+        'device_name':'将军岭北路(测试15)',
+        'type':'枪机',
+        'state':'在线',
+        'channel':0,
+        'videoSource':0,
+        'address':'1号区域楼梯转角',
+        'up_date':'2017-05-16 10:51:30',
+        'sys_date':'2017-05-14 09:51:30',
+        'device_paly_url':'http://114.215.175.1:90/live/31000000002000000000/31000000001320000003/0_2/a.m3u8'
+    },
+    {
+        'id':16,
+        'device_name':'将军岭北路(测试15)',
+        'type':'枪机',
+        'state':'在线',
+        'channel':0,
+        'videoSource':0,
+        'address':'1号区域楼梯转角',
+        'up_date':'2017-05-16 10:51:30',
+        'sys_date':'2017-05-14 09:51:30',
+        'device_paly_url':'http://114.215.175.1:90/live/31000000002000000000/31000000001320000003/0_2/a.m3u8'
+    }
+
+
+]
 
 const randomMarker = (len) => (//随机makers数据
     Array(len).fill(true).map(() => ({
@@ -226,181 +474,145 @@ export default class MonitoringList extends PureComponent {
   };
 
   state = {
-    columns:[],
-    dataSource:[],
-    record: null,
-    visible: false,
-    rows: [],
-   // form: FormSub,
-    title:"资产设备定位",
-    switchLoading: false,
-    useCluster:false,
-    current:1,
-    pageSize:10,
+      columns:[],
+      dataSource:[],
+      current:1,
+      pageSize:10,
+      sideType:'common'
   };
-
-    //props :接收任意的输入值
-    constructor(props,context) {
-        //传递props到基础构造函数中
-        super(props,context);
-        this.markers = randomMarker(1000);
-        this.center = {longitude: 115, latitude: 40};
-        this.setState({
-            useCluster: true,
-        })
-    }
 
     componentDidMount(){
         this.initColums();
-        this.init();
     }
 
 
-  tick = () =>{
-    console.log("进来")
-    this.setState({
-      switchLoading: false
-
-    });
-  }
 
     initColums =() =>{
         const columns = [{
-            title: '设备编号',
-            dataIndex: 'name',
+            title: '设备名称',
+            dataIndex: 'equipName',
             id: 'name',
             align: 'center',
             key:'name'
-        },
-          {//增加操作栏
-            title: '操作',
-            id: 'j',
-            align: 'center',
-            render: (text, record) => {
-              if(record.name=="CCTV-A-001"){
-                return <Icon  type="video-camera" style={{height:'30px',width:'40px'}} onClick={this.edit}/>
-              }else {
-              }
-            }
-          },{
-            title: '设备名称',
-            dataIndex: '2',
+        }, {
+            title: '设备类型',
+            dataIndex: 'storeType',
             id: '2',
             align: 'center',
             key:'2'
         },{
-            title: '设备类型',
-            dataIndex: '3',
+            title: '监测位置',
+            dataIndex: 'address',
             id: '3',
             align: 'center',
             key:'3'
         }, {
-            title: '设备所属系统',
-            dataIndex: '4',
+            title: '监测项',
+            dataIndex: 'monitorIndex',
             id: '4',
             align: 'center',
             key:'4'
+        }, {
+            title: '设备状态',
+            dataIndex: 'equipStatus',
+            id: '5',
+            align: 'center',
         },
-            {
-                title: '设备地点',
-                dataIndex: '5',
-                id: '5',
-                align: 'center',
-            },
-            {//增加操作栏
-                title: '启停',
-                dataIndex: '6',
-                id: '6',
-                align: 'center',
-                render: () => (
-                    <Switch defaultChecked onChange={this.toggle}/>
-                ),
-            }];
+        {//增加操作栏
+            title: '监控值',
+            dataIndex: 'monitorValue',
+            id: '6',
+            align: 'center'
+        }];
 
-        this.setState({columns:columns})
+        this.setState({columns:columns,dataSource:data,sideType:'common'})
     }
 
-    toggle = (value) => {
-      this.setState({
-        switchLoading: true
-      });
-    }
 
     openModel = record =>{
-        console.log("---------",record);
+        const{sideType} =this.state;
+        if(sideType!='CCTV'){
+            return;
+        }
+
         const modalFormProps = {
-          title:'BIM属性',
-          record:record,
-          isFooter:true,
-          isShow:true,
-          Contents:AssetModelInfo,
-          modalOpts: {
-            width: 1000,
-          },
+            title:'CCTV监控',
+            isFooter:true,
+            isShow:true,
+            Contents:CCTVPlay,
+            modalOpts: {
+                width: 690,
+                height:480
+            },
+            full:true,
         }
         this.context.openModal(modalFormProps);
   }
 
-    //编辑
-    edit = ()=>{
-    // let  form = FormSub
-    const modalFormProps = {
-      title:'CCTV监控',
-      isFooter:true,
-      isShow:true,
-      Contents:CCTVPlay,
-      modalOpts: {
-        width: 690,
-        height:480
-      },
-      full:true,
+    cctvColuns= () =>{
+        const columns = [{
+            title: '设备名称',
+            dataIndex: 'device_name',
+            id: 'name',
+            align: 'center',
+            key:'device_name'
+        }, {
+            title: '设备类型',
+            dataIndex: 'type',
+            id: '2',
+            align: 'center',
+            key:'type'
+        },{
+            title: '运行状态',
+            dataIndex: 'state',
+            id: '3',
+            align: 'center',
+            key:'3'
+        }, {
+            title: '更新时间',
+            dataIndex: 'up_date',
+            id: '4',
+            align: 'center',
+            key:'4'
+        }];
+
+        this.setState({columns:columns,dataSource:deviceList,sideType:'CCTV'})
     }
-    this.context.openModal(modalFormProps);
-  }
 
-    init= () =>{
-        const thiz = this;
 
-        thiz.setState({dataSource:data})
-
+    onRow =(record, index)=>{
+        return {
+            onDoubleClick: this.openModel.bind(this,record),
+        };
     }
 
-    onSelect = (selectedKeys, info) => {
-        // let array = []
-        //
-        // array.push(selectedKeys);
-        // let recursive = function(node){
-        //     if(node.key!=undefined){
-        //         array.push(node.key)
-        //     }
-        //     if(node.props['children']){
-        //         for(var i=0;i<node.props['children'].length;i++){
-        //             recursive(node.props['children'][i]);
-        //         }
-        //     }
-        // }
-        // //递归获取子集
-        // recursive(info.node);
-        // const {fileDataSource} = this.state;
-        // this.setState({ dataSource: fileDataSource.filter(item => array.some(jtem =>item.departmentId==jtem))});
+    onSelect =(selectedKeys, info)=>{
+
+        console.log()
+        if(info.node.props.title.props['children'][2]=='CCTV'){
+            this.cctvColuns();
+        }else{
+            this.initColums();
+        }
     }
 
     render() {
+
         //增加form变量
-        let { columns, dataSource,treeData,switchLoading,pageSize,current} = this.state;
+        let { columns, dataSource,pageSize,current} = this.state;
 
-      const dataTableProps ={
-        total: data?data.length:null,
-        pageSize: pageSize,
-        current:current,
-        showSizeChanger: true,
-        showQuickJumper: true,
-        showTotal: total => `共 ${data.length} 条`,
-      }
-
+        const dataTableProps ={
+            total: data?data.length:null,
+            pageSize: pageSize,
+            current:current,
+            showSizeChanger: true,
+            showQuickJumper: true,
+            showTotal: total => `共 ${data.length} 条`,
+        }
         const rowSelection = {
-            onChange: this.onSelectChange,
+            onRowDoubleClick:this.handlerDoubleClick
         };
+
         return(
             <Layout className={styles.application}>
               <MonitoringType
@@ -408,12 +620,11 @@ export default class MonitoringList extends PureComponent {
                   onSelect={this.onSelect}
               />
               <Content style={{borderLeft:'1px solid #E5E5E5'}} className='ant_table_ui'>
-                <Spin spinning={switchLoading} tip="Loading...">
                   <Table rowKey='id' style={{  background: '#ffffff', minHeight: 360}} columns={columns} dataSource={dataSource}
                          pagination={dataTableProps}
-                         scroll={{y: '73vh'  }}
+                         rowSelection={rowSelection}
+                         onRow={this.onRow}
                   />
-                </Spin>
               </Content>
 
             </Layout>

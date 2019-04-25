@@ -1,18 +1,13 @@
 import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
 import styles from '../assetRecord.less';
-import { Table, Button, Layout, Tabs, Upload, Icon, message } from "antd";
+import { Table, Button, Layout, Tabs, Upload, Icon, message,Tooltip } from "antd";
 import {ModalForm,showConfirm}  from 'components/Modal';
 import FormSub from '../assetRecordDetails.js';//资产设备单个定位页面
-// 引入 ECharts 主模块
-import echarts from 'echarts/lib/echarts';
-//引入折线图
-import 'echarts/lib/chart/line';
-// 引入提示框和标题组件
-import 'echarts/lib/component/tooltip';
-import 'echarts/lib/component/title';
-import { Map ,Markers} from 'react-amap';//引入高德地图
-import 'echarts/lib/component/legend';
 import Authorized from "../../../../utils/Authorized";
+import 'echarts/lib/chart/line';
+import moment from 'moment';
+
 import { connect } from 'dva';
 //折线说明
 
@@ -20,122 +15,105 @@ const { Content,} = Layout;
 const TabPane = Tabs.TabPane;
 const { ButtonAuthorize } = Authorized;
 
+const columns = [
+    {
+    title: '预案编号',
+    dataIndex: 'id',
+    width:230,
+}, {
+    title: '预案名称',
+    dataIndex: 'templateName',
+    width:200,
+},{
+    title: '预案描述',
+    dataIndex: 'tdescription',
+    width:350,
+    render: (text, record) => {
+        return (
+            <Tooltip placement="topLeft" title={text}>
+              <div style={{width:'300px'}} className="table-slop">{text}</div>
+            </Tooltip>
+        )
+    }
+},{
+    title: '预案类型',
+    dataIndex: 'mold',
+    width:200,
+}, {
+      title: '是否备案',
+      dataIndex: 'putOnRecords',
+      width:200,
+}, {
+      title: '预案等级',
+      dataIndex: 'grade',
+      width:200,
+}, {
+    title: '演练次数',
+    dataIndex: 'daycount',
+    width:200,
+},{
+    title: '更新日期',
+    dataIndex: 'sysdate',
+      render:(text, record) => {
+          return (
+              <span>{moment(text).format('YYYY-MM-DD HH:mm:ss')}</span>
+          )
+      }
+}];
+
 //维保数据
 @connect(({loading, emergencyPlanRecord}) => ({
   emergencyPlanRecord
 }))
 export default class emergencyPlanRecord extends PureComponent {
 
-  state = {
-    columns:[],
-    dataSource:[],
-    record: null,
-    visible: false,
-    rows: [],
-    form: FormSub,
-    title:"资产设备定位",
-    current:1,
-    pageSize:10,
-  };
+    static contextTypes = {
+        openModal: PropTypes.func,
+    };
 
-  //props :接收任意的输入值
-  constructor(props,context) {
-    //传递props到基础构造函数中
-    super(props,context);
-    this.center = {longitude: 115, latitude: 40};
-    this.state = {
-      useCluster: true,
+    state = {
+      dataSource:[],
+      record: null,
+      rows: [],
+      form: FormSub,
+      current:1,
+      pageSize:10,
+    };
+
+
+    openModal =(record)=>{
+        const modalFormProps = {
+            record:record,
+            isShow:true,
+            Contents:FormSub,
+            modalOpts: {
+                width: 800,
+            },
+            onSubmit: (values) => this.onSubmit(values)
+        }
+        this.context.openModal(modalFormProps);
     }
-  }
 
-  componentDidMount(){
-    const {dispatch } = this.props;
-    dispatch({
-      type: 'emergencyPlanRecord/fetch',
-      payload: {
-      },
-    });
-    this.initColums();
-    this.init();
-  }
+    onSubmit =(values)=>{
 
-  initColums =() =>{
-    const columns = [{
-      title: '预案序号',
-      dataIndex: '1',
-      id: 'q',
-      align: 'center',
-      key:'1'
-    }, {
-      title: '预案名称',
-      dataIndex: '2',
-      id: 'b',
-      align: 'center',
-      key:'2'
-    },{
-      title: '预案属性',
-      dataIndex: '3',
-      id: 'c',
-      align: 'center',
-      key:'3'
-    },{
-      title: '预案类型',
-      dataIndex: '4',
-      id: 'd',
-      align: 'center',
-      key:'4'
-    }, {
-      title: '预案编号',
-      dataIndex: '5',
-      id: 'e',
-      align: 'center',
-      key:'5'
-    },{
-      title: '所属部门',
-      dataIndex: '6',
-      id: 'f',
-      align: 'center',
-    },
-      {
-        title: '是否备案',
-        dataIndex: '7',
-        id: 'g',
-        align: 'center',
-      }, {
-        title: '演练次数',
-        dataIndex: '8',
-        id: 'h',
-        align: 'center',
-      },{
-        title: '最近演练日期',
-        dataIndex: '9',
-        id: 'i',
-        align: 'center',
-      },
-      {//增加操作栏
-        title: '操作',
-        id: 'j',
-        align: 'center',
-        render: () => (
-          <Button style={{ marginRight: 5 }} icon="form" onClick={this.edit}>详情</Button>
-        ),
-      }];
-    this.setState({columns:columns})
-  }
+    }
 
-  init= () =>{
+    componentDidMount(){
+        const {dispatch } = this.props;
+        dispatch({
+          type: 'emergencyPlanRecord/fetch',
+          payload: {
+          },
+        });
+    }
 
-  }
+    //编辑
+    edit =()=>{
 
-  //编辑
-  edit =()=>{
-    console.log(this.state);
-    let  form = FormSub
-    this.setState({
-      visible: true,
-      form:form
-    });
-  }
+        const {record} = this.state;
+        this.openModal(record);
+
+    }
 
   //编辑
   delete =()=>{
@@ -153,8 +131,8 @@ export default class emergencyPlanRecord extends PureComponent {
       loading,
     } = this.props;
 
-    //增加form变量
-    let { columns, visible,record,rows,form,title,pageSize,current} = this.state;
+
+      const {pageSize,current} = this.state;
 
     const dataTableProps ={
       total: list?list.length:null,
@@ -169,28 +147,7 @@ export default class emergencyPlanRecord extends PureComponent {
     const rowSelection = {
       onChange: this.onSelectChange,
     };
-    const modalFormProps = {
-      title:title,
-      loading: true,
-      record,
-      visible,
-      Contents:form,
-      modalOpts: {
-        width: 800,
-      },
-      onCancel: () => {
-        this.setState({
-          record: null,
-          visible: false
-        })
-      },
-      onSubmit: () => {
-        this.setState({
-          record: null,
-          visible: false
-        })
-      },
-    }
+
 
     return(
 
@@ -209,7 +166,6 @@ export default class emergencyPlanRecord extends PureComponent {
                      scroll={{y: '73vh'  }}
               />
             </Content>
-            <ModalForm {...modalFormProps}/>
 
           </Layout>
     )

@@ -187,8 +187,8 @@ export default class PersonalCentre extends  PureComponent {
         ];
 
         return(
-            <Layout>
-                <Row gutter={24} style={{height:'100%'}}>
+            <Layout style={{background: '#F0F2F5',overflow: 'hidden'}}>
+                <Row gutter={24} style={{height:'100%',marginLeft:'0px',marginTop:'20px'}}>
                     <Col lg={7} md={24}>
                         <Card bordered={false} style={{ marginBottom: 24 }} >
                             {currentUser && Object.keys(currentUser).length ? (

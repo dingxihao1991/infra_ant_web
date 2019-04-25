@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import styles from '../assetRecord.less';
+import styles from '../syle/assetRecord.less';
 import { Table, Button, Layout, Tabs, Upload, Icon, message,Tooltip } from "antd";
 import {ModalForm,showConfirm}  from 'components/Modal';
 import FormSub from '../assetRecordDetails.js';//资产设备单个定位页面

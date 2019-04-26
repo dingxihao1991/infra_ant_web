@@ -1,32 +1,16 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import styles from '../../maintenance.less';
-import { Table ,Button ,Layout,Pagination,Form,Input,message,Dropdown,Menu,Icon,Row,Col} from 'antd';
+import { Table ,Button ,Layout,Pagination,Input,message,Dropdown,Menu,Tooltip} from 'antd';
 import {ModalForm,showConfirm}  from 'components/Modal';
 import { connect } from 'dva';
 import Authorized from '../../../../utils/Authorized';
 import AdvancedSearchForm from './SearchForm';
 import FormSub from './Form';
+import styles from "../style/ProjectManager.less"; //引入样式
 const { ButtonAuthorize } = Authorized;
 const { Content } = Layout;
 const Modal = ModalForm.Modal;
 const confirm = Modal.confirm;
-
-const Paging = ({dataItems, onChange, ...otherProps}) => {
-  const { total, pageSize, pageNum } = dataItems;
-  const paging = {
-    total: total,
-    pageSize: pageSize,
-    current: pageNum,
-    showSizeChanger: true,
-    showQuickJumper: true,
-    showTotal: total => `共 ${total} 条`,
-    onShowSizeChange: (pageNum, pageSize) => onChange({pageNum, pageSize}),
-    onChange: (pageNum) => onChange({pageNum}),
-    ...otherProps
-  };
-  return <Pagination {...paging} />;
-};
 
 @connect(({loading, projectManager}) => ({
   projectManager
@@ -39,14 +23,10 @@ export default class ProjectManager extends PureComponent {
 
   state = {
     title:'新增工程',
-    form:FormSub,
     columns:[],
     dataSource:[],
     record: null,
-    visible: false,
     rows: [],
-    loading:true,
-    isFooter:false,
     current:1,
     pageSize:10,
   };
@@ -58,7 +38,6 @@ export default class ProjectManager extends PureComponent {
 
   componentDidMount(){
     this.initColums();
-    this.init();
     const {dispatch } = this.props;
     dispatch({
       type: 'projectManager/fetch',
@@ -69,93 +48,105 @@ export default class ProjectManager extends PureComponent {
 
   initColums = ()=>{
     const columns = [
+        {
+            title: '状态',
+            dataIndex: 'state',
+            width: 200,
+            render:(text,record)=>{
+              return (
+                  <span style={{color: text == "待审批" ? '#3F51B5' : text == "审批未通过" ? '#F44336' : text == "审批通过" ? '#4CAF50' :
+                              text == "已开工" ? '#00BCD4' : text == "已竣工" ? '#BA68C8' : text == "未开工" ? '#FB8C00' : '#ccc'}}>{text}</span>
+              )
+            }
+        },
       {
-        title: '工程名称',
-        dataIndex: 'pro_name',
-        id: 'pro_name',
-        align: 'center',
-        key:'pro_name'
+          title: '工程名称',
+          dataIndex: 'projectName',
+          width: 300,
       },
       {
-        title: '竣工时间',
-        dataIndex: 'pro_date',
-        id: 'pro_date',
-        align: 'center',
-        key:'pro_date'
+          title: '工程类型',
+          dataIndex: 'projectType',
+          width: 200,
       },{
-        title: '合同编码',
-        dataIndex: 'pro_h',
-        id: 'pro_h',
-        align: 'center',
-        key:'pro_h'
+          title: '管线类型',
+          dataIndex: 'pipeType',
+          width: 200,
       },{
-        title: '负责人',
-        dataIndex: 'pro_user',
-        id: 'pro_user',
-        align: 'center',
-        key:'pro_user'
+          title: '所属管廊',
+          dataIndex: 'galley',
+          width: 300,
+          render: (text, record) => {
+              return (
+                  <Tooltip placement="topLeft" title={text}>
+                    <div style={{width:'260px'}} className="table-slop">{text}</div>
+                  </Tooltip>
+              )
+          }
       } ,{
-        title: '过程记录',
-        dataIndex: 'pro_g',
-        id: 'pro_g',
-        align: 'center',
-        key:'pro_g'
+          title: '所在位置',
+          dataIndex: 'road',
+          width: 300,
       },{
-        title: '结果评估',
-        dataIndex: 'pro_result',
-        id: 'pro_result',
-        align: 'center',
-        key:'pro_result'
-      },
-      { //增加操作栏
-        title: '操作',
-        dataIndex: '9',
-        id: '9',
-        align: 'center',
-        width: 150,
-        render: (text, record) => (
-          <Dropdown overlay={
-            <Menu>
-              <Menu.Item key="1"><Button style={{ marginRight: 5 }} icon="form" onClick={() => this.edit(record)}>修改</Button></Menu.Item>
-              <Menu.Item key="2"><Button style={{ marginRight: 5 }} icon="form" onClick={() => this.delete(record)}>删除</Button></Menu.Item>
-            </Menu>
-          }>
-            <Button >
-              操作 <Icon type="down" />
-            </Button>
-          </Dropdown>
-
-        ),
-      }
+          title: '道路范围',
+          dataIndex: 'nearbyRoad',
+          width: 250,
+      }, {
+            title: '申报日期',
+            dataIndex: 'applyDate',
+            width: 250,
+        },{
+            title: '申报单位',
+            dataIndex: 'applyUnit',
+            width: 250,
+        },{
+            title: '项目审核日期',
+            dataIndex: 'projectAuditDate',
+            width: 200,
+        },{
+            title: '项目审核人',
+            dataIndex: 'projectAuditOperator',
+            width: 150,
+        },{
+            title: '项目审批单位',
+            dataIndex: 'projectAuditUnit',
+            width: 150,
+        },{
+            title: '开工日期',
+            dataIndex: 'startDate',
+            width: 200,
+        },{
+            title: '竣工日期',
+            width:200,
+            dataIndex: 'completedDate',
+        }
     ];
     this.setState({columns:columns})
   }
 
-  init= () =>{
-
-  }
+    openModel = record =>{
+        const modalFormProps = {
+            title:'BIM属性',
+            record:record,
+            isFooter:true,
+            isShow:true,
+            Contents:FormSub,
+            modalOpts: {
+                width: 700,
+            },
+            onSubmit: (values) => this.onSubmit(values)
+        }
+        this.context.openModal(modalFormProps);
+    }
 
   //编辑
-  edit =(record)=>{
-    console.log(record)
-    this.setState({
-      title:'修改工程',
-      record:record,
-      visible: true,
-      form:FormSub,
-      isFooter:false
-    });
-  }
+    edit =(record)=>{
+        this.openModel(record)
+    }
 
   //新增事件
   onAdd = () => {
-    this.setState({
-      title:'新增工程',
-      visible: true,
-      form:FormSub,
-      record:null,
-      isFooter:false
-    });
+    this.openModel()
   };
 
   delete =(record)=> {
@@ -191,6 +182,23 @@ export default class ProjectManager extends PureComponent {
     })
   }
 
+  submitExamine =()=> {
+      const {rows } = this.state
+      confirm({
+          title: '提示信息',
+          content: '确定提交【'+rows.length+'】行数据吗?',
+          okText: '确定',
+          okType: 'danger',
+          cancelText: '取消',
+          onOk() {
+              message.success("删除成功");
+          },
+          onCancel() {
+
+          },
+      })
+  }
+
   //选中项发生变化时的回调
   onSelectChange = (selectedRowKeys,selectedRows) => {
     console.log('selectedRowKeys changed: ', selectedRowKeys);
@@ -203,50 +211,27 @@ export default class ProjectManager extends PureComponent {
     });
   }
 
-  onSubmit= (values ) =>{
-    let i = 200
-    console.log("submit:" + JSON.stringify(values))
-  }
-
-  handlerDoubleClick = (record, index, event) => {
-    const modalFormProps = {
-      title:"详细信息",
-      record,
-      Contents:WorkPlanDetail,
-      maskClosable:true,
-      isShow:true,
-      modalOpts: {
-        style:{ top: 20 ,height:'600px'},
-        width: 1200,
-      },
-      isFooter:true,
+    onSubmit= (values ) =>{
+        console.log("submit:" + JSON.stringify(values))
     }
-    this.context.openModal(modalFormProps);
-  };
+
+    handlerDoubleClick = (record, index, event) => {
+        this.openModel(record);
+
+    };
 
   render() {
     const {
       projectManager :{list},
       loading,
     } = this.props;
-    let { columns,visible,record,rows,form,title,isFooter,pageSize,current} = this.state;
-    const rowSelection = {
-      onChange: this.onSelectChange,
-    };
 
-    const modalFormProps = {
-      title:title,
-      loading: true,
-      record,
-      visible,
-      isFooter,
-      Contents:form,
-      modalOpts: {
-        width: 700,
-      },
-      onCancel: () => this.closeModal(),
-      onSubmit: (values) => this.onSubmit(values)
-    }
+    let { columns,rows,pageSize,current} = this.state;
+
+      const rowSelection = {
+          onRowDoubleClick:this.handlerDoubleClick,
+          onChange: this.onSelectChange,
+      };
 
     const dataTableProps ={
       total: list?list.length:null,
@@ -258,23 +243,21 @@ export default class ProjectManager extends PureComponent {
     }
 
     return(
-      <Layout className={styles.application}>
-        <div style={{ background: 'white'}}>
-          <AdvancedSearchForm/>
-          <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增工程" authority="role:add"/>
-          {/* <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="role:update"/>*/}
-          <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.batchDelete} name="批量删除" authority="role:delete"/>
-        </div>
-        <Content className='ant_table_ui'>
-          <Table  rowKey='id' style={{  background: '#fff', minHeight: 360}}  columns={columns} dataSource={list}  onChange={this.handleChange} rowSelection={rowSelection}
-                  loading={loading}
-                  pagination={dataTableProps}
-                  scroll={{y: '73vh'  }}
-                  onRowDoubleClick={this.handlerDoubleClick}
-          />
-        </Content>
-        <ModalForm {...modalFormProps}/>
-      </Layout>
+        <Layout className={styles.application}>
+          <div className={styles.tableOperations}>
+              <ButtonAuthorize icon="plus" type="primary" onClick={this.onAdd} name="新增工程" authority="role:add"/>
+              {/* <ButtonAuthorize icon="edit" disabled={!rows.length} onClick={this.edit} name="修改" authority="role:update"/>*/}
+              <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.batchDelete} name="批量删除" authority="role:delete"/>
+              <ButtonAuthorize icon="delete" disabled={!rows.length} onClick={this.submitExamine} name="提交审批" authority="role:delete"/>
+          </div>
+          <Content   className='ant_table_ui' >
+            <Table size="middle" rowKey='id' style={{  background: '#ffffff', minHeight: 360}} columns={columns} dataSource={list} onChange={this.handleChange} rowSelection={rowSelection}
+                   loading={loading}
+                   pagination={dataTableProps}
+                   scroll={{x: 2900,y: '73vh'}}
+            />
+          </Content>
+        </Layout>
     )
 
   }

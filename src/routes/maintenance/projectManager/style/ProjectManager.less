@@ -1,0 +1,56 @@
+@import '../../../../../node_modules/antd/lib/style/themes/default.less';
+
+.application{
+
+
+  .tableOperations > button {
+    margin: 10px;
+  }
+
+  :global{
+    .table-row-button {
+      button {
+        border: none;
+        background-color: transparent;
+        font-size: 20px;
+        //height: 20px;
+        color: @primary-color;
+        //padding: 0px 5px !important; // button 为 loading 时 新增
+        outline: none;
+        vertical-align: middle;
+        overflow: hidden;
+        > i {
+          vertical-align: top;
+          margin-left: 0 !important; // button 为 loading 时 新增
+          &.anticon-spin + .anticon {
+            // button 为 loading 时 新增
+            display: none;
+          }
+        }
+        &:hover{
+          background-color: transparent;
+          color: tint(@primary-color, 40%);
+        }
+        &:active,
+        &.active {
+          background-color: transparent;
+        }
+
+        &.disabled,
+        &[disabled],
+        fieldset[disabled] & {
+          &,
+          &:hover,
+          &:focus,
+          &:active,
+          &.active {
+            background-color: transparent;
+            color: #ccc;
+          }
+        }
+      }
+    }
+  }
+
+
+}

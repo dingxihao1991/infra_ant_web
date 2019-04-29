@@ -5,6 +5,7 @@ import Home from  './Home';
 import {connect} from 'dva';
 import HomeMap from './HomeMap';
 import { push } from 'react-router-redux'
+import cx from 'classnames';
 
 import styles from './home.less';
 
@@ -14,36 +15,34 @@ import styles from './home.less';
 export default class HomeIndex extends PureComponent{
 
     state= {
-        activeTab: "monitorCockpit",
+        activeTab: "monitorGIS",
         tabsPanel:[
             {id:'monitorGIS',component:HomeMap},
-            //{id: 'BIMPage', component: Model},
+            {id: 'BIMPage', component: Model},
             {id: 'monitorCockpit', component: Home}
         ],
         monitorButton:[
-            {id: 'monitorCockpit', name: '驾驶舱', icon: '#icon-shouye', bottom: '0'},
             {id: 'monitorGIS', name: '概览', icon: '#icon-map', bottom: '100'},
             {id: 'BIMPage', name: '模型', icon: '#icon-sanweimoxing', bottom: '50'},
+            {id: 'monitorCockpit', name: '驾驶舱', icon: '#icon-shouye', bottom: '0'},
 
         ]
     }
 
     switchover =(page)=>{
-        if(page.id=='BIMPage'){
-            const {dispatch} = this.props;
-            dispatch(push('/model/index'));
-            return;
 
-        }
         this.setState({
             activeTab: page.id
         });
     }
     render(){
         const {tabsPanel,activeTab,monitorButton} = this.state
+        const {location} = this.props
+
+        const className = cx(styles.home,location!=undefined?(location.pathname == '/index' ? 'show-active' : 'hide-active'):'hide-active');
 
         return (
-            <div style={{height:'100%'}} className={styles.home}>
+            <div style={{height:'100%'}} className={className}>
                 <div style={PageMenu} >
                     {monitorButton.map(monitor => (
                         <p key={monitor.id} className="svg" onClick={this.switchover.bind(this, monitor)}>
@@ -65,8 +64,9 @@ export default class HomeIndex extends PureComponent{
     }
 }
 
+
 const PageMenu = {
-    zIndex: '22',
+    zIndex: '999',
     bottom: '10px',
     position: 'fixed',
     width:'50px',

@@ -106,11 +106,10 @@ function findMenuKey(menuData, path) {
 
 export const getRouterData = app => {
 
-
     //!!!! router set data  ....config  add router !!!!
     const routerConfig = {
         '/': {
-            component: dynamicWrapper(app, ['models/search'], () => import('../layouts/BasicLayout')),
+            component: dynamicWrapper(app, ['models/search','routes/model/model/interestPoint'], () => import('../layouts/BasicLayout')),
     },
     '/index': {
         component: dynamicWrapper(app, [], () => import('../routes/model/component/Decorate')),

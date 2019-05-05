@@ -34,7 +34,6 @@ class BIMPoint extends Component {
     }
 
     componentDidMount(){
-        alert("====");
         const {dispatch } = this.props;
         dispatch({
             type: 'interestPoint/fetch',

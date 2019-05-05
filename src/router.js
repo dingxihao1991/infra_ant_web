@@ -20,7 +20,6 @@ function RouterConfig({ history, app }) {
     const routerData = getRouterData(app);
     const UserLayout = routerData['/user'].component;
     const BasicLayout = routerData['/'].component;
-
     return (
         <LocaleProvider locale={zhCN}>
             <ConnectedRouter history={history}>
@@ -29,7 +28,7 @@ function RouterConfig({ history, app }) {
                     <AuthorizedRoute
                         path="/"
                         render={props => <BasicLayout {...props} />}
-                        //authority={['bf33446058cb40f5bb3c2793e7a892c8']}
+                        authority={['admin','user']}
                         redirectPath={getQueryPath('/user/login', {
                             redirect: window.location.href,
                         })}

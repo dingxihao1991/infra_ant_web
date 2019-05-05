@@ -23,6 +23,7 @@ import {getAuthority} from '../utils/authority';
 import exception from '../routes/exception/404';
 import {ModalForm}  from 'components/Modal';
 import Model from  '../routes/model/component/index'
+import HomeIndex from  '../routes/home/HomeIndex';
 
 const {Content, Header} = Layout;
 const {AuthorizedRoute, check} = Authorized;
@@ -111,11 +112,11 @@ export default class BasicLayout extends PureComponent {
 
 
     getChildContext() {
-        const {location, routerData} = this.props;
 
+        const {location, routerData,dispatch} = this.props;
         return {
             location,
-            breadcrumbNameMap: getBreadcrumbNameMap(getMenuData1(), routerData),
+          //  breadcrumbNameMap: getBreadcrumbNameMap(getMenuData(), routerData),
             userInfo: getAuthority(),
             openModal:this.openModal
         };
@@ -143,6 +144,7 @@ export default class BasicLayout extends PureComponent {
     }
 
     receiveMessage = (data) =>{
+
         var result = JSON.parse(data.body);
         this.setState({message:result});
 
@@ -155,7 +157,6 @@ export default class BasicLayout extends PureComponent {
 
 
 
-        console.log("================",IP);
 
         let url = 'ws://'+IP+':15674/ws';
         var stompClient = Stomp.over(new WebSocket(url));
@@ -224,6 +225,7 @@ export default class BasicLayout extends PureComponent {
         });
     };
 
+
     render() {
         const {
             currentUser,
@@ -262,7 +264,7 @@ export default class BasicLayout extends PureComponent {
                     </Header>
 
                     <Content className="content" id="content" style={{overflow: 'auto',height:'93vh'}}>
-                        <Route path="/" location={location} component={Model}/>
+                        <Route path="/" location={location} component={HomeIndex}/>
                         <Switch>
                             {redirectData.map(item => (
                                 <Redirect key={item.from} exact from={item.from} to={item.to}/>

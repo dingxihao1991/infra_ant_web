@@ -10,15 +10,8 @@ import Authorized from "../../../../utils/Authorized";
 import PropTypes from 'prop-types';
 import AssetModelInfo from '../modal/AssetModelInfo';
 import cx from 'classnames';
-/**
- * 资产列表页面
- *
- * @param file
- * @returns {boolean}
- */
 
-const { ButtonAuthorize } = Authorized;
-
+import RenderAuthorized from 'components/Authorized';
 //上传方法
 function beforeUpload(file) {
     //无法获取excel的type，故采用name获取file类型    fileName is undefined
@@ -4531,6 +4524,8 @@ const data = [
     }
 ];
 
+const { Secured } = RenderAuthorized('user');
+@Secured('user')
 export default class assetList extends PureComponent {
 
     static contextTypes = {

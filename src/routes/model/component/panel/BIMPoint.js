@@ -24,7 +24,7 @@ const data = [
 
 
 @connect(({interestPoint,loading})=>({
-    points:interestPoint.points
+    interestPoint
 }))
 class BIMPoint extends Component {
 
@@ -34,6 +34,7 @@ class BIMPoint extends Component {
     }
 
     componentDidMount(){
+        alert("====");
         const {dispatch } = this.props;
         dispatch({
             type: 'interestPoint/fetch',
@@ -58,6 +59,7 @@ class BIMPoint extends Component {
 
     GetPointDataUpdate = () => {
 
+
     }
 
     playOrStop = () => {
@@ -81,21 +83,27 @@ class BIMPoint extends Component {
     }
 
     renderSkillSection = () => {
-        const {points} = this.props;
-        if (this.state.points != null) {
-            //const {points} = this.state;
+        const {interestPoint} = this.props;
 
-            return points.map((point, index) => (
-                <SortableItem
-                    key={point.id}
-                    onSortItems={this.onSortItems}
-                    index={index}
-                    items={points}
-                    sortId={index}>
-                    {point}
-                </SortableItem>
-            ))
+        if(interestPoint!=undefined){
+            const {points} = interestPoint;
+
+            if (points != null) {
+                //const {points} = this.state;
+                return points.map((point, index) => (
+                    <SortableItem
+                        key={point.id}
+                        onSortItems={this.onSortItems}
+                        index={index}
+                        items={points}
+                        sortId={index}>
+                        {point}
+                    </SortableItem>
+                ))
+            }
         }
+        return <div></div>
+
     }
 
     render(){

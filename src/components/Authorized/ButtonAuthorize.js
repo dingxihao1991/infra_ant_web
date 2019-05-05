@@ -25,11 +25,11 @@ class ButtonAuthorize extends Component {
 
     }
     render() {
-        const {name } = this.props;
+        const {name,style } = this.props;
 
         return (
             <span>{
-                this.state.mark?<Button {...this.props}  style={{margin:'10px'}}>{name}</Button>:null
+                this.state.mark?<Button {...this.props}  style={{margin:'10px',...style}}>{name}</Button>:null
             }
             </span>
         );

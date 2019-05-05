@@ -1,9 +1,9 @@
 import { routerRedux } from 'dva/router';
 import { stringify } from 'qs';
 import { fakeAccountLogin } from '../../../../services/api';
-import { setAuthority } from '../../../../utils/authority';
-import { reloadAuthorized } from '../../../../utils/Authorized';
-import { getPageQuery } from '../../../../utils/utils';
+import { reloadAuthorized } from 'utils/Authorized';
+import { getPageQuery } from 'utils/utils';
+import { setAuthority,setToken,setAccessRole} from 'utils/authority';
 
 export default {
   namespace: 'login',
@@ -20,23 +20,35 @@ export default {
         payload: response,
       });
       // Login successfully
-      if (response.status === 'ok') {
+      if (response.success) {
         reloadAuthorized();
+
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params;
+
         if (redirect) {
           const redirectUrlParams = new URL(redirect);
+            console.log("redirectUrlParams：",redirectUrlParams)
           if (redirectUrlParams.origin === urlParams.origin) {
             redirect = redirect.substr(urlParams.origin.length);
+            console.log(redirect,'#######:'+redirect.startsWith('/#'))
             if (redirect.startsWith('/#')) {
               redirect = redirect.substr(2);
+                console.log("redirect：",redirect)
+
             }
+          if (redirect.startsWith('/web/#')) {
+              redirect = redirect.substr(6);
+              console.log("redirect：",redirect)
+
+          }
           } else {
             window.location.href = redirect;
             return;
           }
         }
+          console.log("redirect：",redirect)
         yield put(routerRedux.replace(redirect || '/'));
       }
     },
@@ -62,10 +74,14 @@ export default {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(payload.currentAuthority);
+
+        setAccessRole(payload.result.tokenObjDTO.roleId);
+        setAuthority(payload.result.tokenObjDTO);
+        setToken(payload.result.token);
+
       return {
         ...state,
-        status: payload.status,
+        status: true,
         type: payload.type,
       };
     },

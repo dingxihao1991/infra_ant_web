@@ -86,6 +86,10 @@ const menuData = [
 ];
 
 function formatterT(data, parentAuthority) {
+    if(data==null){
+        data = menuData;
+    }
+
     return data.map(item => {
         let { path } = item;
         if (!isUrl(path)) {
@@ -104,7 +108,6 @@ function formatterT(data, parentAuthority) {
 }
 
 function formatter(data, parentPath = '/', parentAuthority) {
-
     return data.map(item => {
         let { path } = item;
         if (!isUrl(path)) {
@@ -122,4 +125,4 @@ function formatter(data, parentPath = '/', parentAuthority) {
     });
 }
 //export const getMenuData = () => formatter();
-export const getMenuData = () => formatterT(getAuthority().menus);
+export const getMenuData = () => formatterT(getAuthority()?getAuthority().menus:null);

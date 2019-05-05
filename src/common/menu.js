@@ -121,5 +121,5 @@ function formatter(data, parentPath = '/', parentAuthority) {
         return result;
     });
 }
-export const getMenuData = () => formatter(menuData);
-//export const getMenuData = () => formatterT(getAuthority().tokenObjDTO.menus);
+//export const getMenuData = () => formatter();
+export const getMenuData = () => formatterT(getAuthority().menus);

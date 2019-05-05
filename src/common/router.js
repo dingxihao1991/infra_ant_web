@@ -113,7 +113,7 @@ export const getRouterData = app => {
             component: dynamicWrapper(app, ['models/search'], () => import('../layouts/BasicLayout')),
     },
     '/index': {
-        component: dynamicWrapper(app, [], () => import('../routes/home/HomeIndex')),
+        component: dynamicWrapper(app, [], () => import('../routes/model/component/Decorate')),
     },
     '/user': {
         component: dynamicWrapper(app, [], () => import('../layouts/UserLayout')),
@@ -232,16 +232,17 @@ export const getRouterData = app => {
     },
     //费用核算
     '/maintenance/costCheck': {
-        component: dynamicWrapper(app, ['routes/maintenance/costCheck/model/costCheck'], () => import('../routes/maintenance/expenseAudit/components/index')),
+        component: dynamicWrapper(app, ['routes/maintenance/expenseAudit/model/costCheck'], () => import('../routes/maintenance/expenseAudit/components/index')),
     },
     //财务统计分析
     '/statistics/finance': {
         component: dynamicWrapper(app, [], () => import('../routes/statistics/finance/components/finance')),
     },
-    //结构安全
-    '/model/index': {
-        component: dynamicWrapper(app, ['routes/model/model/interestPoint'], () => import('../routes/model/component/Decorate')),
-    },
+    // //结构安全
+    // '/model/index': {
+    //     component: dynamicWrapper(app, ['routes/model/model/interestPoint'], () => import('../routes/model/component/Decorate')),
+    // },
+
 
 };
 

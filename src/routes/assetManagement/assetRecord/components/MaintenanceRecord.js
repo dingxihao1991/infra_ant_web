@@ -116,7 +116,7 @@ export default class MaintenanceRecord extends PureComponent {
             title: '设备名称',
             dataIndex: 'name',
             id: 'name',
-            width:350
+            width:300
         },{
             title: '资产类型',
             dataIndex: 'itemType',
@@ -144,6 +144,7 @@ export default class MaintenanceRecord extends PureComponent {
             width:250
         }, {
             title: '维保说明',
+            width:200,
             dataIndex: 'describe',
             id: 'describe',
 

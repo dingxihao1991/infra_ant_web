@@ -74,8 +74,7 @@ export default {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-
-        setAccessRole(payload.result.tokenObjDTO.roleId);
+        setAccessRole('user');
         setAuthority(payload.result.tokenObjDTO);
         setToken(payload.result.token);
 

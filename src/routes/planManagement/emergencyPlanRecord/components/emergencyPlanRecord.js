@@ -19,7 +19,7 @@ const columns = [
     {
     title: '预案编号',
     dataIndex: 'id',
-    width:230,
+    width:150,
 }, {
     title: '预案名称',
     dataIndex: 'templateName',
@@ -27,30 +27,30 @@ const columns = [
 },{
     title: '预案描述',
     dataIndex: 'tdescription',
-    width:350,
+    width:250,
     render: (text, record) => {
         return (
             <Tooltip placement="topLeft" title={text}>
-              <div style={{width:'300px'}} className="table-slop">{text}</div>
+              <div style={{width:'200px'}} className="table-slop">{text}</div>
             </Tooltip>
         )
     }
 },{
     title: '预案类型',
     dataIndex: 'mold',
-    width:200,
+    width:150,
 }, {
       title: '是否备案',
       dataIndex: 'putOnRecords',
-      width:200,
+      width:100,
 }, {
       title: '预案等级',
       dataIndex: 'grade',
-      width:200,
+      width:150,
 }, {
     title: '演练次数',
     dataIndex: 'daycount',
-    width:200,
+    width:100,
 },{
     title: '更新日期',
     dataIndex: 'sysdate',

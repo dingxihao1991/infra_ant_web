@@ -4,14 +4,16 @@ import { Button, Dropdown, Icon,Tooltip, Layout, Menu, message, Table, Upload,Pa
 import { ModalForm, showConfirm } from "components/Modal";
 import FormSub from "../assetsLocation"; //资产设备单个定位页面
 import FormSub2 from "./AssetChange"; //资产设备变更页面
+import AssetMaintenance from "./AssetMaintenance"; //资产设备维保页面
 import FormSub3 from "../assetsAllLocation"; //所有资产设备定位页面
 import AssetDetails from "./info/AssetDetails";//资产设备详情页面
 import Authorized from "../../../../utils/Authorized";
 import PropTypes from 'prop-types';
 import AssetModelInfo from '../modal/AssetModelInfo';
 import cx from 'classnames';
+import { connect } from 'dva';
 
-import RenderAuthorized from 'components/Authorized';
+
 //上传方法
 function beforeUpload(file) {
     //无法获取excel的type，故采用name获取file类型    fileName is undefined
@@ -35,6 +37,7 @@ function beforeUpload(file) {
 
 const { Content,Footer} = Layout;
 const Modal = ModalForm.Modal;
+const { ButtonAuthorize } = Authorized;
 
 const data = [
     {
@@ -4524,8 +4527,9 @@ const data = [
     }
 ];
 
-const { Secured } = RenderAuthorized('user');
-@Secured('user')
+@connect(({loading, assetList}) => ({
+    list:assetList.list,
+}))
 export default class assetList extends PureComponent {
 
     static contextTypes = {
@@ -4548,10 +4552,15 @@ export default class assetList extends PureComponent {
     }
 
     componentDidMount(){
+        const {dispatch } = this.props;
+        dispatch({
+            type: 'assetList/fetch',
+            payload: {
+            },
+        });
         this.initColums();
         this.init();
     }
-
 
     initColums =() =>{
         const columns = [{
@@ -4674,7 +4683,6 @@ export default class assetList extends PureComponent {
         this.setState({columns:columns})
     }
 
-
     openModel = record =>{
         const modalFormProps = {
             title:'BIM属性',
@@ -4709,7 +4717,7 @@ export default class assetList extends PureComponent {
     }
 
     //变更
-    change =()=>{
+    change =(type)=>{
         const {rows} = this.state
         if(rows.length!=1){
             Modal.warning({
@@ -4718,17 +4726,50 @@ export default class assetList extends PureComponent {
             });
             return;
         }
-
-        const modalFormProps = {
-            title:'资产变更',
-            record:rows[0],
-            isFooter:false,
-            isShow:true,
-            Contents:FormSub2,
+        let modalFormProps = {};
+        console.log("type:",type)
+        if(type==1){
+            modalFormProps = {
+                title:'资产变更',
+                record:rows[0],
+                isFooter:false,
+                isShow:true,
+                Contents:FormSub2,
+                onSubmit: (values) => this.submit(values)
+            }
+        }else {
+            console.log("type:-------------")
+            modalFormProps = {
+                title:'维修保养',
+                record:rows[0],
+                isFooter:false,
+                isShow:true,
+                Contents:AssetMaintenance,
+                onSubmit: (values) => this.maintenance(values)
+            }
         }
+
         this.context.openModal(modalFormProps);
     }
 
+    maintenance =()=>{
+
+    }
+    submit =(values)=>{
+
+        console.log("--",values)
+        // const {dispatch } = this.props;
+        // dispatch({
+        //     type: 'personalCentre/add',
+        //     payload: {
+        //         tags:{
+        //             key:i++,
+        //             date:moment(values.date).format('YYYY-MM-DD'),
+        //             label: values.describe,
+        //         }
+        //     },
+        // });
+    }
     //资产详情页
     detail =(record)=>{
 
@@ -4747,25 +4788,6 @@ export default class assetList extends PureComponent {
         this.context.openModal(modalFormProps);
     }
 
-    //获取所有设备位置
-    getAll =()=>{
-        const {rows} = this.state
-        console.log(rows)
-        let  form = FormSub3
-
-        const modalFormProps = {
-            title:'资产设备位置',
-            record:rows[0],
-            isFooter:true,
-            isShow:true,
-            Contents:form,
-            modalOpts: {
-                width: 1000,
-            },
-        }
-        this.context.openModal(modalFormProps);
-    }
-
     handleChange = (pagination, filters, sorter, extra) =>{
         this.setState({current:pagination.current,pageSize:pagination.pageSize});
     }
@@ -4778,25 +4800,30 @@ export default class assetList extends PureComponent {
     handlerDoubleClick = (record, index, event) =>{
         this.detail(record);
     }
+
+    onRow =(record, index)=>{
+        return {
+            onDoubleClick: this.handlerDoubleClick.bind(this,record),
+        };
+    }
     render() {
         //增加form变量
-        let { columns, pageSize,record,dataSource,current} = this.state;
-
-        let classname = cx(
-            "antui-datatable",
-            {'table-row-alternate-color': true},
-        );
+        const { columns, pageSize,current} = this.state;
+        const { list } = this.props;
 
         const rowSelection = {
             onChange: this.onSelectChange,
+
         };
+
+
         const dataTableProps ={
-            total: dataSource?dataSource.length:null,
+            total: list?list.length:null,
             pageSize: pageSize,
             current:current,
             showSizeChanger: true,
             showQuickJumper: true,
-            showTotal: total => `共 ${dataSource.length} 条`,
+            showTotal: total => `共 ${list.length} 条`,
 
         }
 
@@ -4814,16 +4841,20 @@ export default class assetList extends PureComponent {
                             <Icon type="upload" /> 上传
                         </Button>
                     </Upload>
-                    <Button onClick={this.change}>
-                        <Icon type="edit" />变更
-                    </Button>
-                    <Button icon="search"  onClick={this.getAll}>查看所有设备位置</Button>
+
+                    <ButtonAuthorize icon="edit" type="edit" onClick={this.change.bind(this,1)} name="变更" authority="application:add"/>
+                    <ButtonAuthorize icon="edit" type="edit" onClick={this.change.bind(this,2)} name="维保" authority="application:add"/>
+
                 </div>
                 <Content   className='ant_table_ui' >
-                    <Table size="middle" rowKey='id' style={{  background: '#ffffff', minHeight: 360}} columns={columns} dataSource={dataSource} onChange={this.handleChange} rowSelection={rowSelection}
+                    <Table size="middle" rowKey='id' style={{  background: '#ffffff', minHeight: 360}}
+                           columns={columns}
+                           dataSource={list}
+                           onChange={this.handleChange}
+                           rowSelection={rowSelection}
                            pagination={dataTableProps}
                            scroll={{x: 2900,y: '73vh'}}
-                           onRowDoubleClick={this.handlerDoubleClick}
+                           onRow={this.onRow}
                     />
                 </Content>
             </Layout>

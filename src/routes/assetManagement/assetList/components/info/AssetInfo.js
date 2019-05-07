@@ -12,12 +12,14 @@ const { Content} = Layout;
 export default class AssetInfo extends PureComponent{
 
     render(){
+        const { record } = this.props;
+        console.log("---------",record);
         return (
             <Layout className="asset-datail">
                 <header className="panel_header" style={{float:'left'}}>
                     <h2 className="title pull-left">
-                        智能照明设备
-                        <small>({"NV-TB9716"})</small>
+                        {record.asset_description}
+                        <small>({record.project_contract_no})</small>
                     </h2>
                 </header>
                 <Layout className={styles.modelInfo}  style={{float:'left',padding:'10px',width:'100%',height:'492px'}}>

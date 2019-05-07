@@ -148,7 +148,7 @@ export const getRouterData = app => {
     },
     //资产列表
     '/assetManagement/assetList': {
-        component: dynamicWrapper(app, [], () => import('../routes/assetManagement/assetList/components/AssetList')),
+        component: dynamicWrapper(app, ['routes/assetManagement/assetList/model/assetList'], () => import('../routes/assetManagement/assetList/components/AssetList')),
     },
     //资产概览
     '/assetManagement/assetOverview': {

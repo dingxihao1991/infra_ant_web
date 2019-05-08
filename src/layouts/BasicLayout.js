@@ -164,7 +164,7 @@ export default class BasicLayout extends PureComponent {
 
         let thiz = this;
 
-        stompClient.connect("guest", "guest", function (data) {
+        stompClient.connect("admin", "admin", function (data) {
             stompClient.subscribe(destination, message => {
                 thiz.receiveMessage(message);
             });

@@ -198,7 +198,7 @@ export default class GlobalHeader extends PureComponent {
         const newNotices = messageArray.map(notice => {
             const newNotice = { ...notice };
 
-            newNotice.avatar = 'http://localhost/static/public/images/Error_48px.png';
+            newNotice.avatar = '/static/public/images/Error_48px.png';
             newNotice.datetime = moment(notice.header.sendTime).fromNow();
             newNotice.key = newNotice.header.msgID;
             newNotice.title = newNotice.body.title;

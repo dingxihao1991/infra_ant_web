@@ -6,7 +6,7 @@ import styles from './home.less';
 export default class HomeMap extends React.Component{
 
   state={
-    src:'http://localhost/static/webgis3D/index.html'
+    src:'/static/webgis3D/index.html'
   }
 
   constructor(){

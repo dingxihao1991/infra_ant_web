@@ -49,7 +49,7 @@ const data = [
  class model extends Component {
 
     state={
-        src: 'http://localhost/static/webgl/index.html',//'http://192.168.200.29/static/webgl_suidao/iframe_page.html'//'http://139.196.195.214/DEV_sg/webgl/iframe-page' http://192.168.200.29/static/webgl/index.html
+        src: '/static/webgl/index.html',//'http://192.168.200.29/static/webgl_suidao/iframe_page.html'//'http://139.196.195.214/DEV_sg/webgl/iframe-page' http://192.168.200.29/static/webgl/index.html
         showMenu:false,
         menu:'',
         isShowChart: true

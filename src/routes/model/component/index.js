@@ -90,9 +90,9 @@ const data = [
         const proper = {
           showChart:true
         }
-        const className = cx(Styles.model,location!=undefined?(location.pathname == '/model/index' ? 'show-active' : 'hide-active'):'hide-active');
+        const className = cx(location!=undefined?(location.pathname == '/index' ? 'show-active' : 'hide-active'):'hide-active');
         return(
-             <div style={{width:'100%',height:'100%'}} className={className}>
+             <div style={{width:'100%',height:'100%'}} className={Styles.model}>
                  <Button type="primary"
                          shape="circle"
                          icon="home"
@@ -127,9 +127,8 @@ const data = [
                  ))}
 
                  <HomeChartPanel {...proper}/>
-
                  <Content style={{height: '100%', width: '100%', position: 'fixed'}}>
-                     {/*<iframe id='webgl_iframe'  sandbox="allow-scripts allow-forms allow-same-origin"  src={src} width='100%' height='100%' style={{'borderWidth':'0px',minHeight:'100%'}}/>*/}
+                     <iframe id='webgl_iframe'  sandbox="allow-scripts allow-forms allow-same-origin"  src={src} width='100%' height='100%' style={{'borderWidth':'0px',minHeight:'100%'}}/>
                  </Content>
 
              </div>

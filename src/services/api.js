@@ -32,9 +32,17 @@ export async function querySearch (params) {
     });
 }
 
-export async function fakeAccountLogin(params,callBack,errorFuc) {
+export async function fakeAccountLogin1(params) {
+    return request('/api/login/account', {
+        method: 'POST',
+        body: params,
+    });
+}
 
-  return request('/infraops/login', {
+export async function fakeAccountLogin(params,callBack,errorFuc) {
+    delete params['type'];
+    console.log(params);
+  return request('/product/infraops/login', {
     method: 'POST',
     body: params,
   });
@@ -80,8 +88,8 @@ const ajax = function(url,method,params,callBack,errorFuc){
 
     }
 
-
-    fetch('http://192.168.200.29:8888'+url,option).then(function(response) {
+    let IP = location.host;
+    fetch('http://'+IP+':8888/product'+url,option).then(function(response) {
         try{
             response.json().then(function(result){
                 if(result.code==-2){

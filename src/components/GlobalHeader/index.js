@@ -302,7 +302,7 @@ export default class GlobalHeader extends PureComponent {
     render() {
 
         const {
-            currentUser = {name:this.context.userInfo.userName,avatar:'/static/images/person.jpg'},//'http://139.196.197.94/file/'+this.context.userInfo.imgUrl,
+            currentUser = {name:this.context.userInfo.userName,avatar:'/static/public/images/person.jpg'},//'http://139.196.197.94/file/'+this.context.userInfo.imgUrl,
             collapsed,
             fetchingNotices,
             isMobile,

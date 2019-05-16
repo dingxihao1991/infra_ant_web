@@ -1,0 +1,395 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>上海市政隧道运维养护系统隧道分布图</title>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script src="https://webapi.amap.com/maps?v=1.4.11"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <style>
+        html, body, #container {
+            height: 100%;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .content-window-card {
+            position: relative;
+            box-shadow: none;
+            bottom: 0;
+            left: 0;
+            padding: 0;
+        }
+
+        .content-window-card p {
+            height: 2rem;
+        }
+
+        .custom-info {
+            border: solid 1px silver;
+        }
+
+        div.info-top {
+            position: relative;
+            background: none repeat scroll 0 0 #F9F9F9;
+            border-bottom: 1px solid #CCC;
+            border-radius: 5px 5px 0 0;
+        }
+
+        div.info-top div {
+            display: inline-block;
+            color: #333333;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 31px;
+            padding: 0 10px;
+        }
+
+        div.info-top img {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            transition-duration: 0.25s;
+        }
+
+        div.info-top img:hover {
+            box-shadow: 0px 0px 5px #000;
+        }
+
+        div.info-middle {
+            font-size: 12px;
+            padding: 10px 6px;
+            line-height: 20px;
+        }
+
+        div.info-bottom {
+            height: 0px;
+            width: 100%;
+            clear: both;
+            text-align: center;
+        }
+
+        div.info-bottom img {
+            position: relative;
+            z-index: 104;
+        }
+
+        span {
+            margin-left: 5px;
+            font-size: 11px;
+        }
+
+        .info-middle img {
+            float: left;
+            margin-right: 6px;
+            width: 110px;
+            height: 80px;
+        }
+        .card_div{
+            bottom: 88%;
+        }
+        .btn{
+            padding: 2px 6px;
+        }
+        .imgCls{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<div class="input-card card_div" style="width:25rem;">
+    <div class="input-item">
+        <label style="font-size: 20px;">隧道：</label>
+        <button class="btn" id="marker1" style="margin-right:1rem;">复兴东路</button>
+        <button class="btn" id="marker2" style="margin-right:1rem;">西藏南路</button>
+        <button class="btn" id="marker3" style="margin-right:1rem;">上中路</button>
+        <img class="imgCls" src="返回.png" onclick="initView();">
+    </div>
+</div>
+
+<script type="text/javascript">
+  var map = new AMap.Map('container', {
+    resizeEnable: true,
+    zoom:12,
+    features:['bg', 'road'],
+    mapStyle: "amap://styles/graffiti"
+    //center: [121.499465, 31.221035]
+  });
+
+  var marker1 = new AMap.Marker({
+    position: [121.507077,31.223281]
+  });
+
+  var marker2 = new AMap.Marker({
+    position: [121.491827,31.192452]
+  });
+  var marker3 = new AMap.Marker({
+    position: [121.457397,31.14361]
+  });
+
+
+  var path1 = [
+    [121.499486,31.220893],
+    [121.504314,31.222655],
+    [121.506985,31.223049],
+    [121.513262,31.225884]
+  ];
+  var polyline1 = new AMap.Polyline({
+    path: path1,
+    isOutline: true,
+    outlineColor: '#ffeeff',
+    borderWeight: 3,
+    strokeColor: "#3366FF",
+    strokeOpacity: 1,
+    strokeWeight: 6,
+    // 折线样式还支持 'dashed'
+    strokeStyle: "solid",
+    // strokeStyle是dashed时有效
+    strokeDasharray: [10, 5],
+    lineJoin: 'round',
+    lineCap: 'round',
+    zIndex: 50,
+  })
+  polyline1.setMap(map)
+  // 缩放地图到合适的视野级别
+  // map.setFitView([ polyline1 ])
+
+  var path2 = [
+    [121.490819,31.194526],
+    [121.491827,31.192452],
+    [121.493008,31.191222],
+    [121.498072,31.187899]
+  ];
+
+  var polyline2 = new AMap.Polyline({
+    path: path2,
+    isOutline: true,
+    outlineColor: '#ffeeff',
+    borderWeight: 3,
+    strokeColor: "#3366FF",
+    strokeOpacity: 1,
+    strokeWeight: 6,
+    // 折线样式还支持 'dashed'
+    strokeStyle: "solid",
+    // strokeStyle是dashed时有效
+    strokeDasharray: [10, 5],
+    lineJoin: 'round',
+    lineCap: 'round',
+    zIndex: 50,
+  })
+  polyline2.setMap(map)
+  // 缩放地图到合适的视野级别
+  //map.setFitView([ polyline2 ])
+
+  var path3 = [//每个弧线段有两种描述方式
+    [121.450915,31.142784],
+    [121.454971,31.143335],
+    [121.465206,31.144547]
+  ];
+
+  var polyline3 = new AMap.Polyline({
+    path: path3,
+    isOutline: true,
+    outlineColor: '#ffeeff',
+    borderWeight: 3,
+    strokeColor: "#3366FF",
+    strokeOpacity: 1,
+    strokeWeight: 6,
+    // 折线样式还支持 'dashed'
+    strokeStyle: "solid",
+    // strokeStyle是dashed时有效
+    strokeDasharray: [10, 5],
+    lineJoin: 'round',
+    lineCap: 'round',
+    zIndex: 50,
+  })
+  polyline3.setMap(map)
+  // 缩放地图到合适的视野级别
+  // map.setFitView([ polyline3 ])
+
+
+
+
+  //事件绑定
+  document.querySelector("#marker1").onclick = function() {
+    closeInfoWindow();
+    map.remove(marker2);
+    map.remove(marker3);
+    map.add(marker1);
+    // 缩放地图到合适的视野级别
+    map.setFitView([polyline1]);
+    closeInfoWindow();
+    //实例化信息窗体
+    var title = '复兴东路隧道', content = [];
+    content.push("<img src='复兴东路隧道.png'>地址：复兴东路-崂山西路");
+    content.push("总长度：2.78公里");
+    content.push("通车时间：2004年9月29日");
+    content.push("<a href='javascript:void(0);'>模型预览</a>");
+    var infoWindow = new AMap.InfoWindow({
+      isCustom: true,  //使用自定义窗体
+      content: createInfoWindow(title, content.join("<br/>")),
+      offset: new AMap.Pixel(16, -45)
+    });
+    infoWindow.open(map, marker1.getPosition());
+
+  }
+
+  document.querySelector("#marker2").onclick = function() {
+    closeInfoWindow();
+    map.remove(marker1);
+    map.remove(marker3);
+    map.add(marker2);
+    map.setFitView([polyline2]);
+    closeInfoWindow();
+    //实例化信息窗体
+    var title = '西藏南路隧道',
+      content = [];
+    content.push("<img src='西藏南路隧道.png'> 地址：中山南路-高科西路云莲路");
+    content.push("总长度：2.6公里");
+    content.push("通车时间：2011年2月1日");
+    content.push("<a href='javascript:void(0);'>模型预览</a>");
+    var infoWindow = new AMap.InfoWindow({
+      isCustom: true,  //使用自定义窗体
+      content: createInfoWindow(title, content.join("<br/>")),
+      offset: new AMap.Pixel(16, -45)
+    });
+    infoWindow.open(map, marker2.getPosition());
+  }
+
+  document.querySelector("#marker3").onclick = function() {
+    closeInfoWindow();
+    map.remove(marker2);
+    map.remove(marker1);
+    map.add(marker3);
+    map.setFitView([polyline3]);
+    closeInfoWindow();
+    //实例化信息窗体
+    var title = '上中路隧道',
+      content = [];
+    content.push("<img src='上中路隧道.jpg'>地址：上中路-中环线快速路");
+    content.push("总长度：2.8公里");
+    content.push("通车时间：2009年1月22日");
+    content.push("<a href='javascript:void(0);'>模型预览</a>");
+    var infoWindow = new AMap.InfoWindow({
+      isCustom: true,  //使用自定义窗体
+      content: createInfoWindow(title, content.join("<br/>")),
+      offset: new AMap.Pixel(16, -45)
+    });
+    infoWindow.open(map, marker3.getPosition());
+  }
+
+
+
+
+
+
+  //构建自定义信息窗体
+  function createInfoWindow(title, content) {
+    var info = document.createElement("div");
+    info.className = "custom-info input-card content-window-card";
+    //可以通过下面的方式修改自定义窗体的宽高
+    //info.style.width = "400px";
+    // 定义顶部标题
+    var top = document.createElement("div");
+    var titleD = document.createElement("div");
+    var closeX = document.createElement("img");
+    top.className = "info-top";
+    titleD.innerHTML = title;
+    closeX.src = "https://webapi.amap.com/images/close2.gif";
+    closeX.onclick = closeInfoWindow;
+
+    top.appendChild(titleD);
+    top.appendChild(closeX);
+    info.appendChild(top);
+
+    // 定义中部内容
+    var middle = document.createElement("div");
+    middle.className = "info-middle";
+    middle.style.backgroundColor = 'white';
+    middle.innerHTML = content;
+    info.appendChild(middle);
+
+    // 定义底部内容
+    var bottom = document.createElement("div");
+    bottom.className = "info-bottom";
+    bottom.style.position = 'relative';
+    bottom.style.top = '0px';
+    bottom.style.margin = '0 auto';
+    var sharp = document.createElement("img");
+    sharp.src = "https://webapi.amap.com/images/sharp.png";
+    bottom.appendChild(sharp);
+    info.appendChild(bottom);
+    return info;
+  }
+
+  //鼠标点击marker弹出自定义的信息窗体
+  AMap.event.addListener(marker1, 'click', function () {
+    closeInfoWindow();
+    //实例化信息窗体
+    var title = '复兴东路-崂山西路', content = [];
+    content.push("<img src='复兴东路隧道.png'>地址：复兴东路-崂山西路");
+    content.push("总长度：2.78公里");
+    content.push("通车时间：2004年9月29日");
+    content.push("<a href='javascript:void(0);'>模型预览</a>");
+    var infoWindow = new AMap.InfoWindow({
+      isCustom: true,  //使用自定义窗体
+      content: createInfoWindow(title, content.join("<br/>")),
+      offset: new AMap.Pixel(16, -45)
+    });
+    infoWindow.open(map, marker1.getPosition());
+  });
+
+  AMap.event.addListener(marker2, 'click', function () {
+    closeInfoWindow();
+    //实例化信息窗体
+    var title = '西藏南路隧道', content = [];
+    content.push("<img src='西藏南路隧道.png'> 地址：中山南路-高科西路云莲路");
+    content.push("总长度：2.6公里");
+    content.push("通车时间：2011年2月1日");
+    content.push("<a href='javascript:void(0);'>模型预览</a>");
+    var infoWindow = new AMap.InfoWindow({
+      isCustom: true,  //使用自定义窗体
+      content: createInfoWindow(title, content.join("<br/>")),
+      offset: new AMap.Pixel(16, -45)
+    });
+    infoWindow.open(map, marker2.getPosition());
+  });
+
+  AMap.event.addListener(marker3, 'click', function () {
+    closeInfoWindow();
+    //实例化信息窗体
+    var title = '上中路隧道', content = [];
+    content.push("<img src='上中路隧道.jpg'>地址：上中路-中环线快速路");
+    content.push("总长度：2.8公里");
+    content.push("通车时间：2009年1月22日");
+    content.push("<a href='javascript:void(0);'>模型预览</a>");
+    var infoWindow = new AMap.InfoWindow({
+      isCustom: true,  //使用自定义窗体
+      content: createInfoWindow(title, content.join("<br/>")),
+      offset: new AMap.Pixel(16, -45)
+    });
+    infoWindow.open(map, marker3.getPosition());
+  });
+
+  //关闭信息窗体
+  function closeInfoWindow() {
+    map.clearInfoWindow();
+  }
+</script>
+
+<script type="text/javascript">
+  function initView(){
+    map.setZoomAndCenter(12, [121.480776,31.209654]);
+    map.remove(marker2);
+    map.remove(marker3);
+    map.remove(marker1);
+    closeInfoWindow();
+  }
+</script>
+
+</body>
+</html>

@@ -160,7 +160,7 @@ export const getRouterData = app => {
     },
     //资产备品备件
     '/assetManagement/bomManagement': {
-        component: dynamicWrapper(app, [], () => import('../routes/assetManagement/bomManagement/components/ReservePart')),
+        component: dynamicWrapper(app, ['routes/assetManagement/bomManagement/model/takeRecord'], () => import('../routes/assetManagement/bomManagement/components/ReservePart')),
     },
     //个人中心
     '/personal/centre': {

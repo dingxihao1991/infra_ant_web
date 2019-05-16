@@ -28,13 +28,13 @@ class InventoryRegisterFrom extends Component {
             <Form ref='form'>
                 <FormItem {...formItemLayout} label="申领数量">
                     {getFieldDecorator('num', {
-                        initialValue:record?record['num']:null,
+                        initialValue:record?record['num']:1,
                         rules: [{
                             required: true,
                             message: '请输入申领数量',
                         }],
                     })(
-                        <InputNumber placeholder="请输入申领数量" min={1} defaultValue={3} {...formItemLayout}/>
+                        <InputNumber placeholder="请输入申领数量" min={1} {...formItemLayout}/>
                     )}
                 </FormItem>
                 <FormItem

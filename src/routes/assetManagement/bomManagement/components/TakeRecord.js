@@ -3,7 +3,7 @@ import { Button, Dropdown, Icon,Tooltip, Layout, Menu, message, Table, Upload,Pa
 import PropTypes from 'prop-types';
 import styles from '../style/style.less';
 import InventoryRegisterFrom from './InventoryRegisterFrom';
-
+import {connect} from 'dva';
 const {Content,} = Layout;
 
 //备品备件数据
@@ -102,41 +102,38 @@ const columns = [
 {
     title: '备件编号',
     dataIndex: 'code',
-    id: 'code',
     width:200
 }, {
     title: '备件名称',
-    dataIndex: 'name',
-    id: 'name',
+    dataIndex: 'deviceName',
     width:200
 }, {
     title: '备件所属系统',
     dataIndex: 'itemType',
-    id: 'itemType',
     width:250
 }, {
     title: '备件数量',
     dataIndex: 'num',
-    id: 'num',
     width: 150
 }, {
     title: '出库时间',
     dataIndex: 'deliveryTime',
-    id: 'deliveryTime',
     width:200
 }, {
     title: '备注',
     dataIndex: 'describe',
-    id: 'describe',
     width:250
 },{
     title: '申领人',
     dataIndex: 'registerUser',
-    id: 'registerUser',
     width:150
 }];
 
+@connect(({takeRecord,loading})=>({
+    list: takeRecord.list,
+    loading: loading.effects['takeRecord/fetch']
 
+}))
 export default class TakeRecord extends PureComponent {
 
     static contextTypes = {
@@ -152,10 +149,14 @@ export default class TakeRecord extends PureComponent {
         pageSize:10,
     };
 
-    //props :接收任意的输入值
-    constructor(props,context) {
-        //传递props到基础构造函数中
-        super(props,context)
+    componentDidMount(){
+        const {dispatch } = this.props;
+        dispatch({
+            type: 'takeRecord/fetch',
+            payload: {
+            },
+        });
+
     }
 
     openModel = record =>{
@@ -174,6 +175,13 @@ export default class TakeRecord extends PureComponent {
 
     onSubmit = (values) =>{
         console.log(values);
+        const {dispatch } = this.props;
+        dispatch({
+            type: 'takeRecord/add',
+            payload: {
+                params:values
+            },
+        });
     }
 
     register =()=>{
@@ -188,17 +196,18 @@ export default class TakeRecord extends PureComponent {
     render() {
         const {  pageSize,current} = this.state;
 
+        const {loading ,list} = this.props
 
         const rowSelection = {
             onChange: this.onSelectChange,
         };
         const dataTableProps ={
-            total: data?data.length:null,
+            total: list?list.length:null,
             pageSize: pageSize,
             current:current,
             showSizeChanger: true,
             showQuickJumper: true,
-            showTotal: total => `共 ${data.length} 条`,
+            showTotal: total => `共 ${list.length} 条`,
         }
 
         return(
@@ -209,8 +218,8 @@ export default class TakeRecord extends PureComponent {
                     </Button>
                 </div>
                 <Content className='ant_table_ui' >
-                    <Table  size="middle" rowKey='code' columns={columns}
-                           dataSource={data} onChange={this.handleChange} rowSelection={rowSelection}
+                    <Table loading={loading}  size="middle" rowKey='code' columns={columns}
+                           dataSource={list} onChange={this.handleChange} rowSelection={rowSelection}
                            pagination={dataTableProps}
                            scroll={{ y: '68vh'  }}
                     />

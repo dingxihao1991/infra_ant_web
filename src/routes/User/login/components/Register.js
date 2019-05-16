@@ -37,16 +37,16 @@ export default class Register extends Component {
   componentWillReceiveProps(nextProps) {
     const { form, dispatch } = this.props;
     const account = form.getFieldValue('mail');
-    if (nextProps.register.status === 'ok') {
-      dispatch(
-        routerRedux.push({
-          pathname: '/user/register-result',
-          state: {
-            account,
-          },
-        })
-      );
-    }
+    // if (nextProps.register.status === 'ok') {
+    //   dispatch(
+    //     routerRedux.push({
+    //       pathname: '/user/register-result',
+    //       state: {
+    //         account,
+    //       },
+    //     })
+    //   );
+    // }
   }
 
   componentWillUnmount() {

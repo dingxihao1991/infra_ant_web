@@ -48,8 +48,10 @@ const data = [
 // }))
  class model extends Component {
 
+    //保山：/static/webgl_baoshan/index.html
+     //深圳：/static/webgl/index.html
     state={
-        src: '/static/webgl/index.html',//'http://192.168.200.29/static/webgl_suidao/iframe_page.html'//'http://139.196.195.214/DEV_sg/webgl/iframe-page' http://192.168.200.29/static/webgl/index.html
+        src: '/static/webgl_baoshan/index.html',//'http://192.168.200.29/static/webgl_suidao/iframe_page.html'//'http://139.196.195.214/DEV_sg/webgl/iframe-page' http://192.168.200.29/static/webgl/index.html
         showMenu:false,
         menu:'',
         isShowChart: true

@@ -493,7 +493,7 @@ export default class Home extends PureComponent {
                   </Card>
               </Col>
               <Col className="gutter-row" span={16}>
-                 <iframe src='/static/webgis/Arcgis_Line.html' style={{width: '100%',minHeight: 481 ,backgroundColor:'white' }}></iframe>
+                 <iframe src='/static/webgis_line/baoshan/index.html' style={{width: '100%',minHeight: 481 ,backgroundColor:'white' }}></iframe>
               </Col>
             </Row>
 

@@ -5,12 +5,10 @@ import styles from './home.less';
 
 export default class HomeMap extends React.Component{
 
+  //南京：/static/webgis3D/index.html
+  //保山：/static/webgis3D_baoshan/index.html
   state={
-    src:'/static/webgis3D/index.html'
-  }
-
-  constructor(){
-    super();
+    src:'/static/webgis3D_baoshan/index.html'
   }
 
   render(){
